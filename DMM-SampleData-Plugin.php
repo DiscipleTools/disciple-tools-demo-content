@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Plugin Name: Sample Data for DMM CRM Project
- * Plugin URI: https://github.com/ChasmSolutions/DMM-CRM-Plugin-SampleData
+ * Plugin URI: https://github.com/ChasmSolutions/dmm-crm-sample-data
  * Description: Sample Data for DMM CRM Project
  * Version: 0.0.1
  * Author: Chasm.Solutions & Kingdom.Training
