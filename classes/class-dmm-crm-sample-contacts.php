@@ -1,21 +1,21 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-/**
- * Plugin Name: Sample Data for DMM CRM Project
- * Plugin URI: https://github.com/ChasmSolutions/dmm-crm-sample-data
- * Description: Sample Data for DMM CRM Project
- * Version: 0.0.1
- * Author: Chasm.Solutions & Kingdom.Training
- * Author URI: https://github.com/ChasmSolutions
- */
 
-class dmmcrm_sample_data {
+/*
+ * Class for creating sample contacts
+ *
+ * @package dmm-crm-sample-data
+ * */
+
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
+
+class dmm_crm_sample_contacts
+{
 
     /**
      * DmmCrm_Plugin_Admin The single instance of DmmCrm_Plugin_Admin.
-     * @var 	object
+     * @var    object
      * @access  private
-     * @since 	1.0.0
+     * @since    1.0.0
      */
     private static $_instance = NULL;
 
@@ -26,35 +26,39 @@ class dmmcrm_sample_data {
      */
     public static function instance()
     {
-        if ( NULL === self::$_instance )
+        if (NULL === self::$_instance)
             self::$_instance = new self;
 
         return self::$_instance;
     }
 
     // Constructor class
-    public function __construct() {
+    public function __construct()
+    {
 
-        add_action( 'admin_menu', array( $this, 'sample_data_menu') );
+        add_action('admin_menu', array($this, 'sample_data_menu'));
+
     }
 
     // Option pages
-    public function sample_data_menu() {
+    public function sample_data_menu()
+    {
 
-        if ( get_option( 'add_sample_contacts' ) !== '1') {
-            add_options_page( 'Add Sample Contacts', 'Add Sample Contacts', 'manage_options', 'sample-contacts-data', array($this, 'add_contacts_options') );
+        if (get_option('add_sample_contacts') !== '1') {
+            add_options_page('Add Sample Contacts', 'Add Sample Contacts', 'manage_options', 'sample-contacts-data', array($this, 'add_contacts_options'));
         }
 
-        if ( get_option( 'add_sample_groups' ) !== '1') {
-            add_options_page( 'Add Sample Groups', 'Add Sample Groups', 'manage_options', 'sample-groups-data', array($this, 'add_groups_options') );
+        if (get_option('add_sample_groups') !== '1') {
+            add_options_page('Add Sample Groups', 'Add Sample Groups', 'manage_options', 'sample-groups-data', array($this, 'add_groups_options'));
         }
 
-        add_options_page( 'Reset Sample Data', 'Reset Sample Data', 'manage_options', 'sample-reset-data', array($this, 'reset_sample_options' ) );
+        add_options_page('Reset Sample Data', 'Reset Sample Data', 'manage_options', 'sample-reset-data', array($this, 'reset_sample_options'));
     }
 
-    public function add_contacts_options() {
+    public function add_contacts_options()
+    {
 
-        if ( get_option( 'add_sample_contacts' ) !== '1') {
+        if (get_option('add_sample_contacts') !== '1') {
 
             echo '<div class="wrap">';
             echo '<h1>Add Sample Contacts</h1><p>';
@@ -193,18 +197,18 @@ class dmmcrm_sample_data {
 
         } else {
 
-            echo '   
-                <div class="wrap">
-                    <h1>Add Sample Contacts</h1>
-                    <p>Contacts are already loaded.</p>
-                </div>
-            ';
+            echo '<div class="wrap">
+                        <h1>Add Sample Contacts</h1>
+                        <p>Contacts are already loaded.</p>
+                    </div>
+                  ';
         }
     }
 
-    public function add_groups_options() {
+    public function add_groups_options()
+    {
 
-        if ( get_option( 'add_sample_groups' ) !== '1') {
+        if (get_option('add_sample_groups') !== '1') {
 
             echo '<div class="wrap">';
             echo '<h1>Add Sample Groups</h1><p>';
@@ -212,18 +216,18 @@ class dmmcrm_sample_data {
             $contacts = array();
 
             $groups = array(
-                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Wasim's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Buthaynah Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Said Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Carmen's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Elio's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Ashael's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "City District Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Prasila's Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Aquila's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
-                array("title" => "Paul's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"  ),
+                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Wasim's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Buthaynah Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Said Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Carmen's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Elio's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Ashael's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "City District Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Prasila's Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Aquila's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+                array("title" => "Paul's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
             );
 
             foreach ($groups as $group) {
@@ -267,32 +271,28 @@ class dmmcrm_sample_data {
 
         } else {
 
-            echo '   
-                <div class="wrap">
+            echo '<div class="wrap">
                     <h1>Add Sample Groups</h1>
                     <p>Groups are already loaded.</p>
-                </div>
-            ';
+                  </div>
+                ';
         }
     }
 
 
+// Reset the links to the add pages.
+    public function reset_sample_options()
+    {
 
-    // Reset the links to the add pages.
-    public function reset_sample_options() {
-
-        delete_option( 'add_sample_contacts' );
-        delete_option( 'add_sample_groups' );
+        delete_option('add_sample_contacts');
+        delete_option('add_sample_groups');
 
         echo '<div class="wrap">
-                <h1>Reset Sample Data</h1>
-                <p>Contacts Reset <a href="/wp-admin/options-general.php">Refresh</a>
-                <p><a href="/wp-admin/options-general.php?page=sample-contacts-data">Add Contacts</a></p>
-                <p><a href="/wp-admin/options-general.php?page=sample-groups-data">Add Groups</a></p>
-            </div>
-            ';
+                    <h1>Reset Sample Data</h1>
+                    <p>Contacts Reset <a href="/wp-admin/options-general.php">Refresh</a>
+                    <p><a href="/wp-admin/options-general.php?page=sample-contacts-data">Add Contacts</a></p>
+                    <p><a href="/wp-admin/options-general.php?page=sample-groups-data">Add Groups</a></p>
+                </div>
+                ';
     }
 }
-$dmmcrm_sample_data = new dmmcrm_sample_data();
-
-
