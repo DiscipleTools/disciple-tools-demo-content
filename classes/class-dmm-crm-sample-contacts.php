@@ -46,10 +46,10 @@ class dmm_crm_sample_contacts
     {
 
         if (get_option('add_sample_contacts') !== '1') {
-            add_options_page('Add Sample Contacts', 'Add Sample Contacts', 'manage_options', 'sample-contacts-data', array($this, 'add_contacts_options'));
+//            add_options_page('Add Sample Contacts', 'Add Sample Contacts', 'manage_options', 'sample-contacts-data', array($this, 'add_contacts_options'));
         }
 
-        add_options_page('Reset Sample Data', 'Reset Sample Data', 'manage_options', 'sample-reset-data', array($this, 'reset_sample_options'));
+//        add_options_page('Reset Sample Data', 'Reset Sample Data', 'manage_options', 'sample-reset-data', array($this, 'reset_sample_options'));
     }
 
     public function add_contacts_options()

@@ -54,6 +54,12 @@ final class dmm_crm_sample_page {
         add_submenu_page( 'options-general.php', __( 'DMM Sample Data', 'dmmcrmsample' ), __( 'DMM Sample Data', 'dmmcrmsample' ), 'manage_options', 'dmmcrmsample', array( $this, 'dmmcrmsample_data_page' ) );
     }
 
+
+    /*
+     * Sample Data Page and Tab Logic
+     *
+     *
+     */
     public function dmmcrmsample_data_page() {
 
         if ( !current_user_can( 'manage_options' ) )  {
@@ -78,13 +84,14 @@ final class dmm_crm_sample_page {
         if ($tab == 'dash' || !isset($tab)) {$html .= 'nav-tab-active';}
         $html .= '">Dashboard</a>';
 
+        $html .= $tab_link_pre . 'setup' . $tab_link_post;
+        if ($tab == 'setup') {$html .= 'nav-tab-active';}
+        $html .= '">Setup Info</a>';
+
         $html .= $tab_link_pre . 'records' . $tab_link_post;
         if ($tab == 'records') {$html .= 'nav-tab-active';}
         $html .= '">Add Records</a>';
 
-        $html .= $tab_link_pre . 'tools' . $tab_link_post;
-        if ($tab == 'tools') {$html .= 'nav-tab-active';}
-        $html .= '">Tools</a>';
 
 
 
@@ -96,11 +103,12 @@ final class dmm_crm_sample_page {
          * Begin Page Content
          */
         switch ($tab) {
+
+            case "setup":
+                    $html .= $this->dmmcrmsample_run_tools ();
+                break;
             case "records":
 //                    $html .= $this->dmmcrmsample_run_dashboard() ;
-                break;
-            case "tools":
-//                    $html .= dmm_crm_2_column_placeholder ();
                 break;
             default:
                     $html .= $this->dmmcrmsample_run_dashboard() ;
@@ -112,52 +120,224 @@ final class dmm_crm_sample_page {
 
     }
 
+
+    /*
+     * Tab: Dashboard
+     *
+     *
+     */
     public function dmmcrmsample_run_dashboard () {
         global $wpdb;
         $html ='';
 
-        // Build SQL query data
+        /*
+         * Count SQL Statements
+         *
+         */
         $user_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users" );
-        $active_contacts_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'contacts' AND post_status = 'publish'" );
-        $active_groups_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'groups' AND post_status = 'publish'" );
+        $contacts_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'contacts' AND post_status = 'publish'" );
+        $groups_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'groups' AND post_status = 'publish'" );
+        $locations_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'locations' AND post_status = 'publish'" );
 
         $contacts_in_groups = $wpdb->get_var( "SELECT COUNT(*) FROM wp_p2p WHERE p2p_type = 'contacts_to_groups'" );
 
-        // Build Report for Dashboard
-        $html .= '<div class="wrap"><h2>Stats</h2>';
-        $html .= '<table class="widefat "><thead><th>Name</th><th>Count</th><th>Description</th></thead><tbody>';
+        // Opening wrappers.
+        $html .= '<div class="wrap">
+                        <div id="poststuff">
+                            <div id="post-body" class="metabox-holder columns-2">';
 
-        $html .= '<tr><th>Contacts </th><td>'. $active_contacts_count . '</td><td></td></tr>';
-        $html .= '<tr><th>Groups </th><td>'. $active_groups_count . '</td><td></td></tr>';
-        $html .= '<tr><th>Users</th><td>'. $user_count . '</td><td></td></tr>';
-        $html .= '<tr><th>Contacts in Groups</th><td>'. $contacts_in_groups . '</td><td>These are contacts of all kinds attending, planting, or coaching a group.</td></tr>';
-        $html .= '<tr><th>Churches</th><td></td><td></td></tr>';
-        $html .= '<tr><th>DBS groups</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Baptisms</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Baptizers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Church Planters</th><td></td><td></td></tr>';
-        $html .= '<tr><th>1st Generation Believers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>2nd Generation Believers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>3rd Generation Believers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>4th Generation Believers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>5th+ Generation Believers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>1st Generation Church</th><td></td><td></td></tr>';
-        $html .= '<tr><th>2nd Generation Church</th><td></td><td></td></tr>';
-        $html .= '<tr><th>3rd Generation Church</th><td></td><td></td></tr>';
-        $html .= '<tr><th>4th Generation Church</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Prayer Supporters</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Project Supporters</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Multipliers (Coalition)</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Marketers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Dispatchers</th><td></td><td></td></tr>';
-        $html .= '<tr><th>Prayers Network</th><td></td><td></td></tr>';
-        $html .= '<tr><th>City/State Districts</th><td></td><td></td></tr>';
+        /*
+        * Main left column
+        *
+        */
+        $html .= '<div id="post-body-content">';
 
-
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Progress</th><th></th><th></th></thead>
+                    <tbody>';
+            $html .= '<tr><th>Prayers Network</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Social Engagement</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Website Visits</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>New Inquirers</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Contact Attempted</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Contact Established</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>First Meeting Complete</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Baptisms</th><td></td><td></td></tr>';
+            $html .= '<tr><th>Baptizers</th><td></td><td></td></tr>';
+            $html .= '<tr><th>Active Churches</th><td></td><td></td></tr>';
+            $html .= '<tr><th>Church Planters</th><td></td><td></td></tr>';
 
         $html .= '</tbody></table>';
 
-        $html .= '';
+        $html .= '<br>';
+
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
+                    <tbody>';
+            $html .= '<tr><th>Prayer Supporter</th><td>Yes</td><td>prayersupporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>Yes</td><td>projectsupporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>Yes</td><td>dispatcher</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>Yes</td><td>marketer</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>Yes</td><td>multiplier</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>Yes</td><td>multiplierleader</td><td>dmmcrm</td></tr>';
+
+        $html .= '</tbody></table>';
+
+        $html .= '<br>';
+
+        $html .= '<table class="widefat striped">
+                    <thead><th>Believers</th><th></th></thead>
+                    <tbody>';
+            $html .= '<tr><th>1st Generation</th><td>(0)</td></tr>';
+            $html .= '<tr><th>2nd Generation</th><td>(0)</td></tr>';
+            $html .= '<tr><th>3rd Generation</th><td>(0)</td></tr>';
+            $html .= '<tr><th>4th Generation</th><td>(0)</td></tr>';
+            $html .= '<tr><th>5th+ Generation</th><td>(0)</td></tr>';
+
+        $html .= '</tbody></table>';
+
+        $html .= '<br>';
+
+        $html .= '<table class="widefat striped">
+                    <thead><th>Churches</th><th></th><th></th></thead>
+                    <tbody>';
+
+            $html .= '<tr><th>1st Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>2nd Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>3rd Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>4th Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>5th+ Generation</th><td>(0)</td><td></td></tr>';
+
+        $html .= '</tbody></table>';
+
+        $html .= '</div><!-- end post-body-content -->';
+
+        /*
+        * Sidebar
+        *
+        */
+        $html .= '<div id="postbox-container-1" class="postbox-container">';
+
+        // General Info Metabox
+        $html .= '<table class="widefat striped"><thead><th>General Info</th><th></th></thead><tbody>';
+            $html .= '<tr><th>Contacts </th><td>'. $contacts_count . '</td></tr>';
+            $html .= '<tr><th>Groups </th><td>'. $groups_count . '</td></tr>';
+            $html .= '<tr><th>Users</th><td>'. $user_count . '</td></tr>';
+            $html .= '<tr><th>Locations</th><td>'. $locations_count . '</td></tr>';
+        $html .= '</tbody></table>';
+
+        $html .= '<br>';
+
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Users</th><th></th></thead>
+                    <tbody>';
+            $html .= '<tr><th>Prayer Supporters</th><td></td></tr>';
+            $html .= '<tr><th>Project Supporters</th><td></td></tr>';
+            $html .= '<tr><th>Multipliers (Coalition)</th><td></td></tr>';
+            $html .= '<tr><th>Marketers</th><td></td></tr>';
+            $html .= '<tr><th>Dispatchers</th><td></td></tr>';
+        $html .= '</tbody></table>';
+
+        $html .= '<br>';
+
+        // DMM Activity Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Contact Activity</th><th></th></thead>
+                    <tbody>';
+        $html .= '<tr><th>Contacts in Groups</th><td>'.$contacts_in_groups.'</td></tr>';
+        $html .= '<tr><th>Planting</th><td></td></tr>';
+        $html .= '<tr><th>Attending</th><td></td></tr>';
+        $html .= '<tr><th>Coaching</th><td></td></tr>';
+        $html .= '<tr><th>DBS</th><td></td></tr>';
+        $html .= '<tr><th>Churches</th><td></td></tr>';
+        $html .= '</tbody></table>';
+
+        $html .= '<br>';
+
+        // Notes Metabox
+        $html .= '<table class="widefat striped"><thead><th>Notes</th></thead><tbody>';
+            $html .= '<tr><td>Sample content for the table</td></tr>';
+        $html .= '</tbody></table>';
+
+        $html .= '</div><!-- postbox-container 1 -->';
+
+        /*
+        * Lower Metabox left column
+        *
+        */
+        $html .= '<div id="postbox-container-2" class="postbox-container">';
+        $html .= '</div><!-- postbox-container 2 -->';
+
+        // Closing wrappers
+        $html .= '     </div><!-- post-body meta box container -->
+                    </div><!--poststuff end -->
+                </div><!-- wrap end -->';
+
+        return $html;
+    }
+
+    /*
+     * Tab: Tools
+     *
+     *
+     *
+     */
+    public function dmmcrmsample_run_tools() {
+        global $wpdb;
+        $html ='';
+
+        // Opening wrappers.
+        $html .= '<div class="wrap">
+                        <div id="poststuff">
+                            <div id="post-body" class="metabox-holder columns-2">';
+
+        /*
+        * Main left column
+        *
+        */
+        $html .= '<div id="post-body-content">';
+
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
+                    <tbody>';
+            $html .= '<tr><th>Prayer Supporter</th><td>Yes</td><td>prayersupporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>Yes</td><td>projectsupporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>Yes</td><td>dispatcher</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>Yes</td><td>marketer</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>Yes</td><td>multiplier</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>Yes</td><td>multiplierleader</td><td>dmmcrm</td></tr>';
+
+        $html .= '</tbody></table>';
+
+        $html .= '</div><!-- end post-body-content -->';
+
+        /*
+        * Sidebar
+        *
+        */
+        $html .= '<div id="postbox-container-1" class="postbox-container">';
+        // Notes Metabox
+        $html .= '<table class="widefat striped"><thead><th>Notes</th></thead><tbody>';
+        $html .= '<tr><td>Sample content for the table</td></tr>';
+        $html .= '</tbody></table>';
+
+        $html .= '</div><!-- postbox-container 1 -->';
+
+        /*
+        * Lower Metabox left column
+        *
+        */
+        $html .= '<div id="postbox-container-2" class="postbox-container">';
+        $html .= '</div><!-- postbox-container 2 -->';
+
+        // Closing wrappers
+        $html .= '     </div><!-- post-body meta box container -->
+                    </div><!--poststuff end -->
+                </div><!-- wrap end -->';
 
         return $html;
     }

@@ -44,7 +44,7 @@ class dmm_crm_sample_groups
     public function sample_data_menu()
     {
         if (get_option('add_sample_groups') !== '1') {
-            add_options_page('Add Sample Groups', 'Add Sample Groups', 'manage_options', 'sample-groups-data', array($this, 'add_groups_options'));
+//            add_options_page('Add Sample Groups', 'Add Sample Groups', 'manage_options', 'sample-groups-data', array($this, 'add_groups_options'));
         }
     }
 
