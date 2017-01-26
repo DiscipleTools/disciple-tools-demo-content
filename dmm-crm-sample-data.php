@@ -222,17 +222,11 @@ final class dmm_crm_sample_data {
         if ( is_admin() ) {
 
             // General functions.
-            require_once( $this->classes . 'class-dmm-crm-sample-admin.php' );
-            $this->admin = dmm_crm_sample_data_admin::instance();
-
             require_once( $this->classes . 'class-dmm-crm-sample-contacts.php' );
             $this->contacts = dmm_crm_sample_contacts::instance();
 
             require_once( $this->classes . 'class-dmm-crm-sample-groups.php' );
             $this->groups = dmm_crm_sample_groups::instance();
-
-            require_once( $this->classes . 'class-dmm-crm-sample-settings.php' );
-            $this->settings = dmm_crm_sample_data_settings::instance();
 
             require_once( $this->classes . 'class-dmm-crm-sample-page.php' );
             $this->page = dmm_crm_sample_page::instance();
