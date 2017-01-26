@@ -2,20 +2,20 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * DmmCrm_Plugin_Admin Class
+ * dmm_crm_sample_data_admin Class
  *
- * @class DmmCrm_Plugin_Admin
- * @version	1.0.0
- * @since 1.0.0
- * @package	DmmCrm_Plugin
+ * @class dmm_crm_sample_data_admin
+ * @version	0.1
+ * @since 0.1
+ * @package	dmm_crm_sample_data
  * @author Chasm.Solutions & Kingdom.Training
  */
-final class dmmcrm_sample_data_admin {
+final class dmm_crm_sample_data_admin {
     /**
-     * DmmCrm_Plugin_Admin The single instance of DmmCrm_Plugin_Admin.
+     * dmm_crm_sample_data_admin The single instance of dmm_crm_sample_data_admin.
      * @var 	object
      * @access  private
-     * @since 	1.0.0
+     * @since 	0.1
      */
     private static $_instance = null;
 
@@ -23,14 +23,14 @@ final class dmmcrm_sample_data_admin {
      * The string containing the dynamically generated hook token.
      * @var     string
      * @access  private
-     * @since   1.0.0
+     * @since   0.1
      */
     private $_hook;
 
     /**
      * Constructor function.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      */
     public function __construct () {
         // Register the settings with WordPress.
@@ -41,13 +41,13 @@ final class dmmcrm_sample_data_admin {
     } // End __construct()
 
     /**
-     * Main DmmCrm_Plugin_Admin Instance
+     * Main dmm_crm_sample_data_admin Instance
      *
-     * Ensures only one instance of DmmCrm_Plugin_Admin is loaded or can be loaded.
+     * Ensures only one instance of dmm_crm_sample_data_admin is loaded or can be loaded.
      *
-     * @since 1.0.0
+     * @since 0.1
      * @static
-     * @return Main DmmCrm_Plugin_Admin instance
+     * @return dmm_crm_sample_data_admin instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -58,33 +58,33 @@ final class dmmcrm_sample_data_admin {
     /**
      * Register the admin screen.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      * @return  void
      */
     public function register_settings_screen () {
-        $this->_hook = add_submenu_page( 'options-general.php', __( 'DMM CRM Settings', 'dmmcrm' ), __( 'DMM CRM Settings', 'dmmcrm' ), 'manage_options', 'dmmcrm', array( $this, 'settings_screen' ) );
+        $this->_hook = add_submenu_page( 'options-general.php', __( 'DMM Sample Data', 'dmmcrmsample' ), __( 'DMM Sample Data', 'dmmcrmsample' ), 'manage_options', 'dmmcrmsample', array( $this, 'settings_screen' ) );
     } // End register_settings_screen()
 
     /**
      * Output the markup for the settings screen.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      * @return  void
      */
     public function settings_screen () {
         global $title;
-        $sections = DmmCrm_Plugin()->settings->get_settings_sections();
+        $sections = dmm_crm_sample_data_plugin()->settings->get_settings_sections();
         $tab = $this->_get_current_tab( $sections );
         ?>
-        <div class="wrap dmmcrm-wrap">
+        <div class="wrap dmmcrmsample-wrap">
             <?php
             echo $this->get_admin_header_html( $sections, $title );
             ?>
             <form action="options.php" method="post">
                 <?php
-                settings_fields( 'dmmcrm-settings-' . $tab );
-                do_settings_sections( 'dmmcrm-' . $tab );
-                submit_button( __( 'Save Changes', 'dmmcrm' ) );
+                settings_fields( 'dmmcrmsample-settings-' . $tab );
+                do_settings_sections( 'dmmcrmsample-' . $tab );
+                submit_button( __( 'Save Changes', 'dmmcrmsample' ) );
                 ?>
             </form>
         </div><!--/.wrap-->
@@ -94,15 +94,15 @@ final class dmmcrm_sample_data_admin {
     /**
      * Register the settings within the Settings API.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      * @return  void
      */
     public function register_settings () {
-        $sections = DmmCrm_Plugin()->settings->get_settings_sections();
+        $sections = dmm_crm_sample_data_plugin()->settings->get_settings_sections();
         if ( 0 < count( $sections ) ) {
             foreach ( $sections as $k => $v ) {
-                register_setting( 'dmmcrm-settings-' . sanitize_title_with_dashes( $k ), 'dmmcrm-' . $k, array( $this, 'validate_settings' ) );
-                add_settings_section( sanitize_title_with_dashes( $k ), $v, array( $this, 'render_settings' ), 'dmmcrm-' . $k, $k, $k );
+                register_setting( 'dmmcrmsample-settings-' . sanitize_title_with_dashes( $k ), 'dmmcrmsample-' . $k, array( $this, 'validate_settings' ) );
+                add_settings_section( sanitize_title_with_dashes( $k ), $v, array( $this, 'render_settings' ), 'dmmcrmsample-' . $k, $k, $k );
             }
         }
     } // End register_settings()
@@ -111,19 +111,19 @@ final class dmmcrm_sample_data_admin {
      * Render the settings.
      * @access  public
      * @param  array $args arguments.
-     * @since   1.0.0
+     * @since   0.1
      * @return  void
      */
     public function render_settings ( $args ) {
         $token = $args['id'];
-        $fields = DmmCrm_Plugin()->settings->get_settings_fields( $token );
+        $fields = dmm_crm_sample_data_plugin()->settings->get_settings_fields( $token );
 
         if ( 0 < count( $fields ) ) {
             foreach ( $fields as $k => $v ) {
                 $args 		= $v;
                 $args['id'] = $k;
 
-                add_settings_field( $k, $v['name'], array( DmmCrm_Plugin()->settings, 'render_field' ), 'dmmcrm-' . $token , $v['section'], $args );
+                add_settings_field( $k, $v['name'], array( dmm_crm_sample_data_plugin()->settings, 'render_field' ), 'dmmcrmsample-' . $token , $v['section'], $args );
             }
         }
     } // End render_settings()
@@ -131,20 +131,20 @@ final class dmmcrm_sample_data_admin {
     /**
      * Validate the settings.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      * @param   array $input Inputted data.
      * @return  array        Validated data.
      */
     public function validate_settings ( $input ) {
-        $sections = DmmCrm_Plugin()->settings->get_settings_sections();
+        $sections = dmm_crm_sample_data_plugin()->settings->get_settings_sections();
         $tab = $this->_get_current_tab( $sections );
-        return DmmCrm_Plugin()->settings->validate_settings( $input, $tab );
+        return dmm_crm_sample_data_plugin()->settings->validate_settings( $input, $tab );
     } // End validate_settings()
 
     /**
      * Return marked up HTML for the header tag on the settings screen.
      * @access  public
-     * @since   1.0.0
+     * @since   0.1
      * @param   array  $sections Sections to scan through.
      * @param   string $title    Title to use, if only one section is present.
      * @return  string 			 The current tab key.
@@ -152,7 +152,7 @@ final class dmmcrm_sample_data_admin {
     public function get_admin_header_html ( $sections, $title ) {
         $defaults = array(
             'tag' => 'h2',
-            'atts' => array( 'class' => 'dmmcrm-wrapper' ),
+            'atts' => array( 'class' => 'dmmcrmsample-wrapper' ),
             'content' => $title
         );
 
@@ -175,7 +175,7 @@ final class dmmcrm_sample_data_admin {
     /**
      * Return the current tab key.
      * @access  private
-     * @since   1.0.0
+     * @since   0.1
      * @param   array  $sections Sections to scan through for a section key.
      * @return  string 			 The current tab key.
      */
@@ -197,13 +197,13 @@ final class dmmcrm_sample_data_admin {
     /**
      * Return an array of data, used to construct the header tag.
      * @access  private
-     * @since   1.0.0
+     * @since   0.1
      * @param   array  $sections Sections to scan through.
      * @param   string $title    Title to use, if only one section is present.
      * @return  array 			 An array of data with which to mark up the header HTML.
      */
     private function _get_admin_header_data ( $sections, $title ) {
-        $response = array( 'tag' => 'h2', 'atts' => array( 'class' => 'dmmcrm-wrapper' ), 'content' => $title );
+        $response = array( 'tag' => 'h2', 'atts' => array( 'class' => 'dmmcrmsample-wrapper' ), 'content' => $title );
 
         if ( is_array( $sections ) && 1 < count( $sections ) ) {
             $response['content'] = '';
@@ -217,10 +217,10 @@ final class dmmcrm_sample_data_admin {
                     $class .= ' nav-tab-active';
                 }
 
-                $response['content'] .= '<a href="' . admin_url( 'options-general.php?page=dmmcrm&tab=' . sanitize_title_with_dashes( $key ) ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $value ) . '</a>';
+                $response['content'] .= '<a href="' . admin_url( 'options-general.php?page=dmmcrmsample&tab=' . sanitize_title_with_dashes( $key ) ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $value ) . '</a>';
             }
         }
 
-        return (array)apply_filters( 'dmmcrm-get-admin-header-data', $response );
+        return (array)apply_filters( 'dmmcrmsample-get-admin-header-data', $response );
     } // End _get_admin_header_data()
 } // End Class

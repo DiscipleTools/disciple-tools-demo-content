@@ -4,7 +4,7 @@
  * Plugin Name: Sample Data for DMM CRM Project
  * Plugin URI: https://github.com/ChasmSolutions/dmm-crm-sample-data
  * Description: Sample Data for DMM CRM Project
- * Version: 0.0.1
+ * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/ChasmSolutions
  */
@@ -13,15 +13,73 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Singleton class for setting up the plugin.
  *
- * @since  1.0.0
+ * @since  0.1
  * @access public
  */
 final class dmm_crm_sample_data {
 
     /**
+     * The token.
+     * @var     string
+     * @access  public
+     * @since   0.1
+     */
+    public $token;
+
+    /**
+     * The version number.
+     * @var     string
+     * @access  public
+     * @since   0.1
+     */
+    public $version;
+    /**
+     * The admin object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $admin;
+
+    /**
+     * The settings object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $settings;
+    /**
+     * The settings object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $contacts;
+    /**
+     * The settings object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $groups;
+    /**
+     * The settings object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $page;
+    /**
+     * The settings object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $classes;
+    /**
      * Plugin directory path.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @var    string
      */
@@ -30,61 +88,25 @@ final class dmm_crm_sample_data {
     /**
      * Plugin directory URI.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @var    string
      */
     public $dir_uri = '';
 
     /**
-     * Plugin admin directory path.
+     * Plugin image directory URI.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @var    string
      */
-    public $admin_dir = '';
-
-    /**
-     * Plugin includes directory path.
-     *
-     * @since  1.0.0
-     * @access public
-     * @var    string
-     */
-    public $inc_dir = '';
-
-    /**
-     * Plugin templates directory path.
-     *
-     * @since  1.0.0
-     * @access public
-     * @var    string
-     */
-    public $templates_dir = '';
-
-    /**
-     * Plugin CSS directory URI.
-     *
-     * @since  1.0.0
-     * @access public
-     * @var    string
-     */
-    public $css_uri = '';
-
-    /**
-     * Plugin JS directory URI.
-     *
-     * @since  1.0.0
-     * @access public
-     * @var    string
-     */
-    public $js_uri = '';
+    public $img_uri = '';
 
     /**
      * Returns the instance.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return object
      */
@@ -98,7 +120,6 @@ final class dmm_crm_sample_data {
             $instance->includes();
             $instance->setup_actions();
 
-
         }
 
         return $instance;
@@ -107,7 +128,7 @@ final class dmm_crm_sample_data {
     /**
      * Constructor method.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access private
      * @return void
      */
@@ -119,7 +140,7 @@ final class dmm_crm_sample_data {
     /**
      * Magic method to output a string if trying to use the object as a string.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -130,34 +151,34 @@ final class dmm_crm_sample_data {
     /**
      * Magic method to keep the object from being cloned.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '0.1' );
     }
 
     /**
      * Magic method to keep the object from being unserialized.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '1.0.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '0.1' );
     }
 
     /**
      * Magic method to prevent a fatal error when calling a method that doesn't exist.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
-        _doing_it_wrong( "dmm_crm_sample_data::{$method}", esc_html__( 'Method does not exist.', 'dmmcrmsample' ), '1.0.0' );
+        _doing_it_wrong( "dmm_crm_sample_data::{$method}", esc_html__( 'Method does not exist.', 'dmmcrmsample' ), '0.1' );
         unset( $method, $args );
         return null;
     }
@@ -165,7 +186,7 @@ final class dmm_crm_sample_data {
     /**
      * Sets up globals.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -181,6 +202,9 @@ final class dmm_crm_sample_data {
         // Plugin directory URIs.
         $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
+        // Admin and settings variables
+        $this->token 			= 'dmmcrmsample';
+        $this->version 			= '0.1';
 
 
     }
@@ -188,7 +212,7 @@ final class dmm_crm_sample_data {
     /**
      * Loads files needed by the plugin.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -199,26 +223,29 @@ final class dmm_crm_sample_data {
 
             // General functions.
             require_once( $this->classes . 'class-dmm-crm-sample-admin.php' );
-            //$this->adminpage = dmmcrm_sample_data_admin::instance();
-            // TODO: Not finished configuring admin page. Need to integrate it into the new plugin.
+            $this->admin = dmm_crm_sample_data_admin::instance();
 
             require_once( $this->classes . 'class-dmm-crm-sample-contacts.php' );
-            $this->contacts = new dmm_crm_sample_contacts();
+            $this->contacts = dmm_crm_sample_contacts::instance();
 
             require_once( $this->classes . 'class-dmm-crm-sample-groups.php' );
+            $this->groups = dmm_crm_sample_groups::instance();
+
             require_once( $this->classes . 'class-dmm-crm-sample-settings.php' );
+            $this->settings = dmm_crm_sample_data_settings::instance();
 
-
-
-           // $this->settings = Starter_Plugin_Settings::instance();
+            require_once( $this->classes . 'class-dmm-crm-sample-page.php' );
+            $this->page = dmm_crm_sample_page::instance();
 
         }
     }
 
+
+
     /**
      * Sets up main plugin actions and filters.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -234,7 +261,7 @@ final class dmm_crm_sample_data {
     /**
      * Loads the translation files.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -245,7 +272,7 @@ final class dmm_crm_sample_data {
     /**
      * Method that runs only when the plugin is activated.
      *
-     * @since  1.0.0
+     * @since  0.1
      * @access public
      * @return void
      */
@@ -270,7 +297,7 @@ final class dmm_crm_sample_data {
  * Gets the instance of the `dmm_crm_sample_data` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
- * @since  1.0.0
+ * @since  0.1
  * @access public
  * @return object
  */
@@ -279,5 +306,6 @@ function dmm_crm_sample_data_plugin() {
 }
 
 // Let's roll!
-dmm_crm_sample_data_plugin();
+add_action( 'plugins_loaded', 'dmm_crm_sample_data_plugin' );
+
 

@@ -2,17 +2,17 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * DmmCrm_Plugin_Settings Class
+ * dmm_crm_sample_data_settings Class
  *
- * @class DmmCrm_Plugin_Settings
+ * @class dmm_crm_sample_settings
  * @version	1.0.0
  * @since 1.0.0
- * @package	DmmCrm_Plugin
+ * @package	dmm_crm_sample_settings
  * @author Chasm.Solutions & Kingdom.Training
  */
-final class dmmcrm_sample_data_settings {
+final class dmm_crm_sample_data_settings {
     /**
-     * DmmCrm_Plugin_Admin The single instance of DmmCrm_Plugin_Admin.
+     * The single instance of dmm_crm_sample_data_settings.
      * @var 	object
      * @access  private
      * @since 	1.0.0
@@ -28,13 +28,13 @@ final class dmmcrm_sample_data_settings {
     private $_has_select;
 
     /**
-     * Main DmmCrm_Plugin_Settings Instance
+     * Main dmm_crm_sample_settings Instance
      *
-     * Ensures only one instance of DmmCrm_Plugin_Settings is loaded or can be loaded.
+     * Ensures only one instance of dmm_crm_sample_settings is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return Main DmmCrm_Plugin_Settings instance
+     * @return dmm_crm_sample_data_settings instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -71,7 +71,7 @@ final class dmmcrm_sample_data_settings {
                 $method = 'validate_field_' . $fields[$k]['type'];
 
                 if ( ! method_exists( $this, $method ) ) {
-                    if ( true === (bool)apply_filters( 'dmmcrm-validate-field-' . $fields[$k]['type'] . '_use_default', true ) ) {
+                    if ( true === (bool)apply_filters( 'dmmcrmsample-validate-field-' . $fields[$k]['type'] . '_use_default', true ) ) {
                         $method = 'validate_field_text';
                     } else {
                         $method = '';
@@ -80,10 +80,10 @@ final class dmmcrm_sample_data_settings {
 
                 // If we have an internal method for validation, filter and apply it.
                 if ( '' != $method ) {
-                    add_filter( 'dmmcrm-validate-field-' . $fields[$k]['type'], array( $this, $method ) );
+                    add_filter( 'dmmcrmsample-validate-field-' . $fields[$k]['type'], array( $this, $method ) );
                 }
 
-                $method_output = apply_filters( 'dmmcrm-validate-field-' . $fields[$k]['type'], $v, $fields[$k] );
+                $method_output = apply_filters( 'dmmcrmsample-validate-field-' . $fields[$k]['type'], $v, $fields[$k] );
 
                 if ( ! is_wp_error( $method_output ) ) {
                     $input[$k] = $method_output;
@@ -97,7 +97,7 @@ final class dmmcrm_sample_data_settings {
      * Validate the given data, assuming it is from a text input field.
      * @access  public
      * @since   6.0.0
-     * @return  void
+     * @return  string
      */
     public function validate_field_text ( $v ) {
         return (string)wp_kses_post( $v );
@@ -107,7 +107,7 @@ final class dmmcrm_sample_data_settings {
      * Validate the given data, assuming it is from a textarea field.
      * @access  public
      * @since   6.0.0
-     * @return  void
+     * @return  string
      */
     public function validate_field_textarea ( $v ) {
         // Allow iframe, object and embed tags in textarea fields.
@@ -189,7 +189,7 @@ final class dmmcrm_sample_data_settings {
         }
 
         // Construct the key.
-        $key 				= DmmCrm_Plugin()->token . '-' . $args['section'] . '[' . $args['id'] . ']';
+        $key 				= dmm_crm_sample_data_plugin()->token . '-' . $args['section'] . '[' . $args['id'] . ']';
         $method_output 		= $this->$method( $key, $args );
 
         if ( ! is_wp_error( $method_output ) ) {
@@ -197,10 +197,10 @@ final class dmmcrm_sample_data_settings {
         }
 
         // Output the description, if the current field allows it.
-        if ( isset( $args['type'] ) && ! in_array( $args['type'], (array)apply_filters( 'dmmcrm-no-description-fields', array( 'checkbox' ) ) ) ) {
+        if ( isset( $args['type'] ) && ! in_array( $args['type'], (array)apply_filters( 'dmmcrmsample-no-description-fields', array( 'checkbox' ) ) ) ) {
             if ( isset( $args['description'] ) ) {
                 $description = '<p class="description">' . wp_kses_post( $args['description'] ) . '</p>' . "\n";
-                if ( in_array( $args['type'], (array)apply_filters( 'dmmcrm-new-line-description-fields', array( 'textarea', 'select' ) ) ) ) {
+                if ( in_array( $args['type'], (array)apply_filters( 'dmmcrmsample-new-line-description-fields', array( 'textarea', 'select' ) ) ) ) {
                     $description = wpautop( $description );
                 }
                 $html .= $description;
@@ -219,13 +219,17 @@ final class dmmcrm_sample_data_settings {
     public function get_settings_sections () {
         $settings_sections = array();
 
-        $settings_sections['standard-fields'] = __( 'Standard Fields', 'dmmcrm' );
-        $settings_sections['special-fields'] = __( 'Special Fields', 'dmmcrm' );
+        $settings_sections['add-contacts'] = __( 'Add Contacts', 'dmmcrmsample' );
+        $settings_sections['add-groups'] = __( 'Add Groups', 'dmmcrmsample' );
+        $settings_sections['add-users'] = __( 'Add Users', 'dmmcrmsample' );
+
+        $settings_sections['standard-fields'] = __( 'Standard Fields', 'dmmcrmsample' );
+        $settings_sections['special-fields'] = __( 'Special Fields', 'dmmcrmsample' );
         // Add your new sections below here.
         // Admin tabs will be created for each section.
         // Don't forget to add fields for the section in the get_settings_fields() function below
 
-        return (array)apply_filters( 'dmmcrm-settings-sections', $settings_sections );
+        return (array)apply_filters( 'dmmcrmsample-settings-sections', $settings_sections );
     } // End get_settings_sections()
 
     /**
@@ -243,67 +247,99 @@ final class dmmcrm_sample_data_settings {
             case 'standard-fields':
 
                 $settings_fields['text'] = array(
-                    'name' => __( 'Example Text Input', 'dmmcrm' ),
+                    'name' => __( 'Example Text Input', 'dmmcrmsample' ),
                     'type' => 'text',
                     'default' => '',
                     'section' => 'standard-fields',
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
                 $settings_fields['textarea'] = array(
-                    'name' => __( 'Example Textarea', 'dmmcrm' ),
+                    'name' => __( 'Example Textarea', 'dmmcrmsample' ),
                     'type' => 'textarea',
                     'default' => '',
                     'section' => 'standard-fields',
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
                 $settings_fields['checkbox'] = array(
-                    'name' => __( 'Example Checkbox', 'dmmcrm' ),
+                    'name' => __( 'Example Checkbox', 'dmmcrmsample' ),
                     'type' => 'checkbox',
                     'default' => '',
                     'section' => 'standard-fields',
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
                 $settings_fields['radio'] = array(
-                    'name' => __( 'Example Radio Buttons', 'dmmcrm' ),
+                    'name' => __( 'Example Radio Buttons', 'dmmcrmsample' ),
                     'type' => 'radio',
                     'default' => '',
                     'section' => 'standard-fields',
                     'options' => array(
-                        'one' => __( 'One', 'dmmcrm' ),
-                        'two' => __( 'Two', 'dmmcrm' ),
-                        'three' => __( 'Three', 'dmmcrm' )
+                        'one' => __( 'One', 'dmmcrmsample' ),
+                        'two' => __( 'Two', 'dmmcrmsample' ),
+                        'three' => __( 'Three', 'dmmcrmsample' )
                     ),
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
                 $settings_fields['select'] = array(
-                    'name' => __( 'Example Select', 'dmmcrm' ),
+                    'name' => __( 'Example Select', 'dmmcrmsample' ),
                     'type' => 'select',
                     'default' => '',
                     'section' => 'standard-fields',
                     'options' => array(
-                        'one' => __( 'One', 'dmmcrm' ),
-                        'two' => __( 'Two', 'dmmcrm' ),
-                        'three' => __( 'Three', 'dmmcrm' )
+                        'one' => __( 'One', 'dmmcrmsample' ),
+                        'two' => __( 'Two', 'dmmcrmsample' ),
+                        'three' => __( 'Three', 'dmmcrmsample' )
                     ),
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
 
                 break;
             case 'special-fields':
 
                 $settings_fields['select_taxonomy'] = array(
-                    'name' => __( 'Example Taxonomy Selector', 'dmmcrm' ),
+                    'name' => __( 'Example Taxonomy Selector', 'dmmcrmsample' ),
                     'type' => 'select_taxonomy',
                     'default' => '',
                     'section' => 'special-fields',
-                    'description' => __( 'Place the field description text here.', 'dmmcrm' )
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
                 $settings_fields['private_site'] = array(
-                    'name' => __( 'Make site private', 'dmmcrm' ),
+                    'name' => __( 'Make site private', 'dmmcrmsample' ),
                     'type' => 'checkbox',
                     'default' => '',
                     'section' => 'special-fields',
-                    'description' => __( 'Default is private. Warning: please leave site private unless you know what you are doing.', 'dmmcrm' )
+                    'description' => __( 'Default is private. Warning: please leave site private unless you know what you are doing.', 'dmmcrmsample' )
+                );
+
+                break;
+            case 'add-contacts':
+
+                $settings_fields['add_contacts'] = array(
+                    'name' => __( 'Run Script To Add Contacts', 'dmmcrmsample' ),
+                    'type' => 'checkbox',
+                    'default' => '',
+                    'section' => 'add-contacts',
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
+                );
+
+                break;
+            case 'add-groups':
+                $settings_fields['add_groups'] = array(
+                    'name' => __( 'Run Script To Add Contacts', 'dmmcrmsample' ),
+                    'type' => 'checkbox',
+                    'default' => '',
+                    'section' => 'add-groups',
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
+                );
+
+                break;
+            case 'add-users':
+
+                $settings_fields['add_users'] = array(
+                    'name' => __( 'Run Script To Add Users', 'dmmcrmsample' ),
+                    'type' => 'checkbox',
+                    'default' => '',
+                    'section' => 'add-users',
+                    'description' => __( 'Place the field description text here.', 'dmmcrmsample' )
                 );
 
                 break;
@@ -312,7 +348,7 @@ final class dmmcrm_sample_data_settings {
                 break;
         }
 
-        return (array)apply_filters( 'dmmcrm-settings-fields', $settings_fields );
+        return (array)apply_filters( 'dmmcrmsample-settings-fields', $settings_fields );
     } // End get_settings_fields()
 
     /**
@@ -477,7 +513,7 @@ final class dmmcrm_sample_data_settings {
      * @return  array Supported field type keys.
      */
     public function get_supported_fields () {
-        return (array)apply_filters( 'dmmcrm-supported-fields', array( 'text', 'checkbox', 'radio', 'textarea', 'select', 'select_taxonomy' ) );
+        return (array)apply_filters( 'dmmcrmsample-supported-fields', array( 'text', 'checkbox', 'radio', 'textarea', 'select', 'select_taxonomy' ) );
     } // End get_supported_fields()
 
     /**
@@ -490,7 +526,7 @@ final class dmmcrm_sample_data_settings {
      * @return  mixed Returned value.
      */
     public function get_value ( $key, $default, $section ) {
-        $values = get_option( 'dmmcrm-' . $section, array() );
+        $values = get_option( 'dmmcrmsample-' . $section, array() );
 
         if ( is_array( $values ) && isset( $values[$key] ) ) {
             $response = $values[$key];
@@ -520,7 +556,7 @@ final class dmmcrm_sample_data_settings {
         if ( 0 < count( $sections ) ) {
             foreach ( $sections as $k => $v ) {
                 $fields = $this->get_settings_fields( $v );
-                $values = get_option( 'dmmcrm-' . $v, array() );
+                $values = get_option( 'dmmcrmsample-' . $v, array() );
 
                 if ( is_array( $fields ) && 0 < count( $fields ) ) {
                     foreach ( $fields as $i => $j ) {
