@@ -94,6 +94,10 @@ final class dmm_crm_sample_page {
         if ($tab == 'records') {$html .= 'nav-tab-active';}
         $html .= '">Add Records</a>';
 
+        $html .= $tab_link_pre . 'gen' . $tab_link_post;
+        if ($tab == 'gen') {$html .= 'nav-tab-active';}
+        $html .= '">Gen Test</a>';
+
 
 
 
@@ -110,7 +114,10 @@ final class dmm_crm_sample_page {
                     $html .= $this->dmmcrmsample_run_tools ();
                 break;
             case "records":
-//                    $html .= $this->dmmcrmsample_run_dashboard() ;
+//                    $html .= $this->dmmcrmsample_run_calc() ;
+                break;
+            case "gen":
+                $html .= $this->dmmcrmsample_run_gen_test() ;
                 break;
             default:
                     $html .= $this->dmmcrmsample_run_dashboard() ;
@@ -158,23 +165,117 @@ final class dmm_crm_sample_page {
      *
      *
      * */
-    protected function p2p_get_parent_id( $target, $list, $column) {
+    protected function p2p_get_single_parent_id( $target, $list) {
         $parent = '';
 
         foreach ($list as $row) {
             if ($row['p2p_from'] == $target) {
-                $parent .=  $row['p2p_to'];
-                if ($this->p2p_first_generation_check ($parent, $column)) {
-                    $parent .=  ' (' . $row['p2p_to'] . ' is first generation )';
-                } else {
-                    $parent .=  ' Not (' . $row['p2p_to'] . ')';
-                }
+                $parent =  $row['p2p_to'];
             }
         }
 
         return $parent;
     }
 
+    protected function p2p_get_parent_id( $target, $list, $column) {
+        $parent = '';
+
+        foreach ($list as $row) {
+            if ($row['p2p_from'] == $target) {
+                $parent .=  $row['p2p_to'];
+//                if ($this->p2p_first_generation_check ($parent, $column)) {
+//                    $parent .=  ' (' . $row['p2p_to'] . ' is first generation )';
+//                } else {
+//                    $parent .=  ' Not (' . $row['p2p_to'] . ')';
+//                }
+            }
+        }
+
+        return $parent;
+    }
+
+
+    public function dmmcrmsample_run_gen_test () {
+        global $wpdb;
+        $html ='';
+
+        // Opening wrappers.
+        $html .= '<div class="wrap">
+                        <div id="poststuff">
+                            <div id="post-body" class="metabox-holder columns-1">';
+
+
+        /*
+         * p2p array and loop
+         *
+         * */
+        // Query database
+        $p2p_array = $wpdb->get_results( "SELECT p2p_to, p2p_from FROM wp_p2p WHERE p2p_type = 'groups_to_groups'" );
+
+        // Convert array object to array
+        $p2p_array = json_decode(json_encode($p2p_array), True);
+        //        print_r($p2p_array); print "<br><br>";
+
+        // Create variable array with just the "to" column
+        $p2p_array_to = array_column ( $p2p_array , 'p2p_to');
+//                print_r($p2p_array_to); print "<br><br>";
+
+        // Create variable array with just the "to" column
+        $p2p_array_from = array_column ( $p2p_array , 'p2p_from');
+//                print_r($p2p_array_from); print "<br><br>";
+
+
+        foreach ($p2p_array as $v) {
+
+            $target = $v['p2p_to'];
+            $targetChild = $v['p2p_from'];
+
+
+            if($this->p2p_first_generation_check($target, $p2p_array_from)) { // Check if this is first generation
+                // True, this target is first generation
+                $html .= $target . ' is 1st Generation <br>';
+
+                // True statement about the Child of the target.
+                $html .= $targetChild . ' is second generation<br>';
+            }
+            else
+            { // False target is not first generation
+
+                // True statement about the target. It is not first generation.
+                $html .= $target . ' NOT first gen<br>';
+
+                // While loop checks for the first generation and increments the generation above the target until it gets to the first generation.
+                $target_inc = $target; // separates the target from the increment
+                $parent_gen = array(); // prepares the array for the generations
+                $i = 1; // sets the increment value
+
+                while (true) {
+                    if (! $this->p2p_first_generation_check($target_inc, $p2p_array_from)) { // is initial condition true
+                        // get the parent id
+                        // replace target with parent id
+
+                        $parent_id = $this->p2p_get_single_parent_id($target_inc, $p2p_array) ;
+                        $parent_gen[$i] = $parent_id . ' is ' . $i . '  gen above ' . $target . '  ';
+
+                        $target_inc = $parent_id;
+                        $i++;
+                    } else { // condition failed
+                        break; // leave loop
+                    }
+                }
+
+                $html .= implode(' | ', $parent_gen) . '<br>'; // implodes the array and allows it to be printed with the rest of the html as a string, not an array.
+
+            }
+        }
+
+        // Closing wrappers
+        $html .= '     </div><!-- post-body meta box container -->
+                    </div><!--poststuff end -->
+                </div><!-- wrap end -->';
+
+        return $html;
+    }
 
     /*
      * Tab: Dashboard
@@ -201,91 +302,6 @@ final class dmm_crm_sample_page {
 
 
         $contacts_in_groups = $wpdb->get_var( "SELECT COUNT(*) FROM wp_p2p WHERE p2p_type = 'contacts_to_groups'" );
-
-        /*
-         * p2p array and loop
-         *
-         * */
-        // Query database
-        $p2p_array = $wpdb->get_results( "SELECT p2p_to, p2p_from FROM wp_p2p WHERE p2p_type = 'groups_to_groups'" );
-
-        // Convert array object to array
-        $p2p_array = json_decode(json_encode($p2p_array), True);
-        //        print_r($p2p_array); print "<br><br>";
-
-        // Create variable array with just the "to" column
-        $p2p_array_to = array_column ( $p2p_array , 'p2p_to');
-//                print_r($p2p_array_to); print "<br><br>";
-
-        // Create variable array with just the "to" column
-        $p2p_array_from = array_column ( $p2p_array , 'p2p_from');
-//                print_r($p2p_array_from); print "<br><br>";
-
-        // Loop both columns of the table
-        foreach ($p2p_array as $v) {
-            $html .=  ' Parent ' . $v['p2p_to'] . ' || Child ' . $v['p2p_from'] .  '<br>';
-        }
-
-        $html .= '<br><br>';
-
-
-
-        // if experiment
-        /*
-         * 1. Create if function check to see if Parent is in Child column
-         * 2. If not, then first generation
-         *
-         *
-         *
-         * */
-        foreach ($p2p_array as $v) {
-
-            $target = $v['p2p_to'];
-            $targetChild = $v['p2p_from'];
-
-            $html .=  ' Parent ' . $target . ' || Child ' . $targetChild .  ' || -->  ';
-
-            // filter for unique
-
-
-            if($this->p2p_first_generation_check($target, $p2p_array_from)) { // Check if this is first generation
-
-                // True, this target is first generation
-                $html .= $target . ' is 1st Generation';
-                $html .= ' and ' . $targetChild . ' is second generation<br>';
-
-            } else { // False target is not first generation
-
-                // Check how many parents target has
-                $number_of_parents = $this->p2p_number_of_parents_check($target, $p2p_array_from); //print $target . ' has ' . $number_of_parents . ' parents <br>';
-
-                // get parent id
-                $get_parent_id = $this->p2p_get_parent_id($target, $p2p_array, $p2p_array_from); print ' parent id of ' . $target . ' is '; print_r($get_parent_id); print '<br>';
-//                $get_parent_id = explode( ' ', ltrim($get_parent_id) );
-//                $get_parent_id = array_unique($get_parent_id, SORT_REGULAR); print ' parent id of ' . $target . ' is '; print_r($get_parent_id); print '<br>';
-
-                // Get Parent ID
-                // Check for first gen
-                // If true, then calculate generation numbers
-                
-
-
-
-
-
-                $html .= $v['p2p_to'] . ' is NOT <br>';
-
-
-            }
-        }
-
-
-        /*
-         *
-         * End experiment
-         *
-         *
-         * */
 
         // Opening wrappers.
         $html .= '<div class="wrap">
