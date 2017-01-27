@@ -22,6 +22,8 @@ final class dmm_crm_sample_page {
      */
     private static $_instance = null;
 
+    public $p2p_array = array();
+
     /**
      * dmm_crm_sample_page Instance
      *
@@ -92,6 +94,10 @@ final class dmm_crm_sample_page {
         if ($tab == 'records') {$html .= 'nav-tab-active';}
         $html .= '">Add Records</a>';
 
+        $html .= $tab_link_pre . 'gen' . $tab_link_post;
+        if ($tab == 'gen') {$html .= 'nav-tab-active';}
+        $html .= '">Gen Test</a>';
+
 
 
 
@@ -108,7 +114,10 @@ final class dmm_crm_sample_page {
                     $html .= $this->dmmcrmsample_run_tools ();
                 break;
             case "records":
-//                    $html .= $this->dmmcrmsample_run_dashboard() ;
+//                    $html .= $this->dmmcrmsample_run_calc() ;
+                break;
+            case "gen":
+                $html .= $this->dmmcrmsample_run_gen_test() ;
                 break;
             default:
                     $html .= $this->dmmcrmsample_run_dashboard() ;
@@ -119,7 +128,154 @@ final class dmm_crm_sample_page {
         echo $html;
 
     }
+    /*
+     * Checks if record is first generation
+     *
+     * @parent  Single number taken from the wp_p2p.p2p_to column
+     * @column  An array with the entire column of wp_p2p.p2p_from data
+     *
+     * */
+    protected function p2p_first_generation_check ($parent, $column) {
+        foreach ($column as $value) {
+            if ($value == $parent) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
 
+
+    /*
+     * Checks for number of parents for a target id
+     *
+     *
+     * */
+    protected function p2p_number_of_parents_check ($value, $column) {
+        $i = 0;
+        foreach ($column as $row) {
+            if ($row == $value) {
+                $i++;
+            }
+        }
+        return $i;
+    }
+
+    /*
+     * Checks if the parent is first generation
+     *
+     *
+     * */
+    protected function p2p_get_single_parent_id( $target, $list) {
+        $parent = '';
+
+        foreach ($list as $row) {
+            if ($row['p2p_from'] == $target) {
+                $parent =  $row['p2p_to'];
+            }
+        }
+
+        return $parent;
+    }
+
+    protected function p2p_get_parent_id( $target, $list, $column) {
+        $parent = '';
+
+        foreach ($list as $row) {
+            if ($row['p2p_from'] == $target) {
+                $parent .=  $row['p2p_to'];
+//                if ($this->p2p_first_generation_check ($parent, $column)) {
+//                    $parent .=  ' (' . $row['p2p_to'] . ' is first generation )';
+//                } else {
+//                    $parent .=  ' Not (' . $row['p2p_to'] . ')';
+//                }
+            }
+        }
+
+        return $parent;
+    }
+
+
+    public function dmmcrmsample_run_gen_test () {
+        global $wpdb;
+        $html ='';
+
+        // Opening wrappers.
+        $html .= '<div class="wrap">
+                        <div id="poststuff">
+                            <div id="post-body" class="metabox-holder columns-1">';
+
+
+        /*
+         * p2p array and loop
+         *
+         * */
+        // Query database
+        $p2p_array = $wpdb->get_results( "SELECT p2p_to, p2p_from FROM wp_p2p WHERE p2p_type = 'groups_to_groups'" );
+
+        // Convert array object to array
+        $p2p_array = json_decode(json_encode($p2p_array), True);
+        //        print_r($p2p_array); print "<br><br>";
+
+        // Create variable array with just the "to" column
+        $p2p_array_to = array_column ( $p2p_array , 'p2p_to');
+//                print_r($p2p_array_to); print "<br><br>";
+
+        // Create variable array with just the "to" column
+        $p2p_array_from = array_column ( $p2p_array , 'p2p_from');
+//                print_r($p2p_array_from); print "<br><br>";
+
+
+        foreach ($p2p_array as $v) {
+
+            $target = $v['p2p_to'];
+            $targetChild = $v['p2p_from'];
+
+
+            if($this->p2p_first_generation_check($target, $p2p_array_from)) { // Check if this is first generation
+                // True, this target is first generation
+                $html .= $target . ' is 1st Generation <br>';
+
+                // True statement about the Child of the target.
+                $html .= $targetChild . ' is second generation<br>';
+            }
+            else
+            { // False target is not first generation
+
+                // True statement about the target. It is not first generation.
+                $html .= $target . ' NOT first gen<br>';
+
+                // While loop checks for the first generation and increments the generation above the target until it gets to the first generation.
+                $target_inc = $target; // separates the target from the increment
+                $parent_gen = array(); // prepares the array for the generations
+                $i = 1; // sets the increment value
+
+                while (true) {
+                    if (! $this->p2p_first_generation_check($target_inc, $p2p_array_from)) { // is initial condition true
+                        // get the parent id
+                        // replace target with parent id
+
+                        $parent_id = $this->p2p_get_single_parent_id($target_inc, $p2p_array) ;
+                        $parent_gen[$i] = $parent_id . ' is ' . $i . '  gen above ' . $target . '  ';
+
+                        $target_inc = $parent_id;
+                        $i++;
+                    } else { // condition failed
+                        break; // leave loop
+                    }
+                }
+
+                $html .= implode(' | ', $parent_gen) . '<br>'; // implodes the array and allows it to be printed with the rest of the html as a string, not an array.
+
+            }
+        }
+
+        // Closing wrappers
+        $html .= '     </div><!-- post-body meta box container -->
+                    </div><!--poststuff end -->
+                </div><!-- wrap end -->';
+
+        return $html;
+    }
 
     /*
      * Tab: Dashboard
@@ -138,6 +294,12 @@ final class dmm_crm_sample_page {
         $contacts_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'contacts' AND post_status = 'publish'" );
         $groups_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'groups' AND post_status = 'publish'" );
         $locations_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'locations' AND post_status = 'publish'" );
+
+        $groups_planting_groups = $wpdb->get_var( "SELECT COUNT(DISTINCT p2p_to) as Count FROM wp_p2p Where p2p_type = 'groups_to_groups'" );
+        $first_generation_churches = $wpdb->get_var("SELECT count(DISTINCT p2p_to) as count FROM wp_p2p WHERE p2p_type = 'groups_to_groups' AND p2p_to NOT IN (SELECT p2p_from FROM wp_p2p where p2p_from is not null)");
+        $last_generation_churches = $wpdb->get_var("SELECT count(distinct p2p_from) as count FROM wp_p2p WHERE p2p_type = 'groups_to_groups' AND p2p_from NOT IN (SELECT p2p_to FROM wp_p2p where p2p_to is not null)");
+        $church_count = $wpdb->get_var("SELECT count(distinct post_title) FROM wp_posts RIGHT JOIN wp_postmeta ON ID=wp_postmeta.post_id WHERE post_type = 'groups' AND post_status = 'publish' AND wp_postmeta.meta_value = 'Church' AND wp_postmeta.meta_key = 'type'");
+
 
         $contacts_in_groups = $wpdb->get_var( "SELECT COUNT(*) FROM wp_p2p WHERE p2p_type = 'contacts_to_groups'" );
 
@@ -204,13 +366,18 @@ final class dmm_crm_sample_page {
                     <thead><th>Churches</th><th></th><th></th></thead>
                     <tbody>';
 
-            $html .= '<tr><th>1st Generation</th><td>(0)</td><td></td></tr>';
-            $html .= '<tr><th>2nd Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Total Churches</th><td>'.$church_count.'</td><td></td></tr>';
+            $html .= '<tr><th>1st Generation</th><td>'.$first_generation_churches.'</td><td></td></tr>';
+            $html .= '<tr><th>2nd Generation</th><td></td><td></td></tr>';
             $html .= '<tr><th>3rd Generation</th><td>(0)</td><td></td></tr>';
             $html .= '<tr><th>4th Generation</th><td>(0)</td><td></td></tr>';
             $html .= '<tr><th>5th+ Generation</th><td>(0)</td><td></td></tr>';
+            $html .= '<tr><th>Groups Who Have Repoduced</th><td>'.$groups_planting_groups.'</td><td></td></tr>';
+            $html .= '<tr><th>Final Generation (Blocked)</th><td>'.$last_generation_churches.'</td><td></td></tr>';
 
         $html .= '</tbody></table>';
+
+
 
         $html .= '</div><!-- end post-body-content -->';
 
