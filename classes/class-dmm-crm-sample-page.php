@@ -137,9 +137,44 @@ final class dmm_crm_sample_page {
         return TRUE;
     }
 
-    protected function p2p_find_parent () {
-        return;
+
+    /*
+     * Checks for number of parents for a target id
+     *
+     *
+     * */
+    protected function p2p_number_of_parents_check ($value, $column) {
+        $i = 0;
+        foreach ($column as $row) {
+            if ($row == $value) {
+                $i++;
+            }
+        }
+        return $i;
     }
+
+    /*
+     * Checks if the parent is first generation
+     *
+     *
+     * */
+    protected function p2p_get_parent_id( $target, $list, $column) {
+        $parent = '';
+
+        foreach ($list as $row) {
+            if ($row['p2p_from'] == $target) {
+                $parent .=  $row['p2p_to'];
+                if ($this->p2p_first_generation_check ($parent, $column)) {
+                    $parent .=  ' (' . $row['p2p_to'] . ' is first generation )';
+                } else {
+                    $parent .=  ' Not (' . $row['p2p_to'] . ')';
+                }
+            }
+        }
+
+        return $parent;
+    }
+
 
     /*
      * Tab: Dashboard
@@ -193,6 +228,8 @@ final class dmm_crm_sample_page {
 
         $html .= '<br><br>';
 
+
+
         // if experiment
         /*
          * 1. Create if function check to see if Parent is in Child column
@@ -202,23 +239,43 @@ final class dmm_crm_sample_page {
          *
          * */
         foreach ($p2p_array as $v) {
-            $html .=  ' Parent ' . $v['p2p_to'] . ' || Child ' . $v['p2p_from'] .  ' || -->  ';
 
-            if($this->p2p_first_generation_check($v['p2p_to'], $p2p_array_from)) {
-                $html .= $v['p2p_to'] . ' is 1st Generation';
-                $html .= ' and ' . $v['p2p_from'] . ' is second generation<br>';
-            } else {
-                // Take $v['p2p_to'] and find all instances of it in the "from" column
+            $target = $v['p2p_to'];
+            $targetChild = $v['p2p_from'];
 
-                // Get the parent id's $parents
+            $html .=  ' Parent ' . $target . ' || Child ' . $targetChild .  ' || -->  ';
 
-                // Check if the parents are 1st generation
+            // filter for unique
 
-                // If true, then $v['p2p_to'] is second generation
 
-                // If false, then check for $parents in the from column, etc.
+            if($this->p2p_first_generation_check($target, $p2p_array_from)) { // Check if this is first generation
+
+                // True, this target is first generation
+                $html .= $target . ' is 1st Generation';
+                $html .= ' and ' . $targetChild . ' is second generation<br>';
+
+            } else { // False target is not first generation
+
+                // Check how many parents target has
+                $number_of_parents = $this->p2p_number_of_parents_check($target, $p2p_array_from); //print $target . ' has ' . $number_of_parents . ' parents <br>';
+
+                // get parent id
+                $get_parent_id = $this->p2p_get_parent_id($target, $p2p_array, $p2p_array_from); print ' parent id of ' . $target . ' is '; print_r($get_parent_id); print '<br>';
+//                $get_parent_id = explode( ' ', ltrim($get_parent_id) );
+//                $get_parent_id = array_unique($get_parent_id, SORT_REGULAR); print ' parent id of ' . $target . ' is '; print_r($get_parent_id); print '<br>';
+
+                // Get Parent ID
+                // Check for first gen
+                // If true, then calculate generation numbers
+                
+
+
+
+
 
                 $html .= $v['p2p_to'] . ' is NOT <br>';
+
+
             }
         }
 
