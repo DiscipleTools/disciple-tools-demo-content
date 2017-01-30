@@ -49,19 +49,26 @@ final class dmm_crm_sample_data {
      */
     public $settings;
     /**
-     * The settings object.
+     * The contacts object.
      * @var     object
      * @access  public
      * @since   0.1
      */
     public $contacts;
     /**
-     * The settings object.
+     * The groups object.
      * @var     object
      * @access  public
      * @since   0.1
      */
     public $groups;
+    /**
+     * The users object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $users;
     /**
      * The settings object.
      * @var     object
@@ -234,6 +241,9 @@ final class dmm_crm_sample_data {
 
             require_once( $this->classes . 'class-dmm-crm-sample-groups.php' );
             $this->groups = dmm_crm_sample_groups::instance();
+
+            require_once( $this->classes . 'class-dmm-crm-sample-users.php' );
+            $this->users = dmm_crm_sample_users::instance();
 
             require_once( $this->classes . 'class-dmm-crm-sample-page.php' );
             $this->page = dmm_crm_sample_page::instance();

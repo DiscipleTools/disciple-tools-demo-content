@@ -130,22 +130,57 @@ final class dmm_crm_sample_page {
     }
 
     public function dmmcrmsample_add_records () {
-        $html = '<div class="wrap"></div> Add records <br> ';
+        $html = '<div class="wrap"><h2>Add records</h2>';
+        // Opening wrappers.
+        $html .= '<div class="wrap">
+                        <div id="poststuff">
+                            <div id="post-body" class="metabox-holder columns-2">';
 
+        /*
+        * Main left column
+        *
+        */
+        $html .= '<div id="post-body-content">';
 
-        $html .= '<form method="POST">
-                        <button type="submit" value="add_contacts" name="add_contacts" class="button" id="add_contacts">Add Contacts</button>
-                    </form>
-        ';
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th>Sample Data</th><th></th></thead>
+                    <tbody>
+                        <tr><th>Add Contacts</th><td>
+                            <form method="POST"><button type="submit" value="add_contacts" name="add_contacts" class="button" id="add_contacts">Add Contacts</button></form>
+                        </td></tr>
+                        <tr><th>Add Groups</th><td>
+                            <form method="POST"><button type="submit" value="add_groups" name="add_groups" class="button" id="add_groups">Add Groups</button></form>
+                        </td></tr>
+                        <tr><th>Add Users</th><td>
+                            <form method="POST"><button type="submit" value="add_users" name="add_users" class="button" id="add_users">Add Users</button></form>
+                        </td></tr>
+                    </tbody>
+                  </table>';
 
-        $html .= '<form method="POST">
-                        <button type="submit" value="add_users" name="add_users" class="button" id="add_users">Add Users</button>
-                    </form>
-        ';
+        $report_box_top = '<br><table class="widefat striped">
+                    <thead><th>Report Activity</th></thead>
+                    <tbody>
+                        <tr><td>';
+        $report_box_bottom = '</td></tr>
+                    </tbody>
+                  </table>';
 
-        if (isset($_POST['add_contacts'])) { $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('groups'); }
-        if (isset($_POST['add_users'])) { $html .= 'Added users'; }
+        if (isset($_POST['add_contacts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->contacts->add_contacts_once () . $report_box_bottom; }
+        if (isset($_POST['reset_contacts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->contacts->reset_contacts () . $report_box_bottom; }
 
+        if (isset($_POST['add_groups'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->groups->add_groups_once() . $report_box_bottom; }
+        if (isset($_POST['reset_groups'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->groups->reset_groups() . $report_box_bottom; }
+
+        if (isset($_POST['add_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->add_users_once() . $report_box_bottom; }
+        if (isset($_POST['reset_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->reset_users() . $report_box_bottom; }
+
+        $html .= '</div><!-- postbox-container 1 --><div id="postbox-container-2" class="postbox-container"></div><!-- postbox-container 2 -->';
+
+        // Closing wrappers
+        $html .= '     </div><!-- post-body meta box container -->
+                    </div><!--poststuff end -->
+                </div><!-- wrap end -->';
 
         return $html;
     }

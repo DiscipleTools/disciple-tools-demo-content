@@ -185,6 +185,34 @@ final class dmm_crm_p2p_generations {
         return $parent_gen;
     }
 
+    /* Count of the number of groups or contacts in a generation
+     *
+     * TODO: Get the number of groups or contacts at a certain generation level
+     *
+     * @param   Number of the generation to be counted, i.e. 1,2,3,4
+     * @access  public
+     * @return  number
+     *
+     * */
+    public function get_gen_level_count ($gen_number) {
+        // TODO: Get the number of groups or contacts at a certain generation level
+        return 1;
+    }
+
+    /* Count of the number of groups or contacts in a generation
+     *
+     * TODO: Get the number of groups or contacts at a certain generation level
+     *
+     * @param   Post_id of the contact or group that will have descendants calculated against.
+     * @access  public
+     * @return  number
+     *
+     * */
+    public function get_descendants ($gen) {
+
+        $gen_number = 'the number of the generation to be counted';
+        return 1;
+    }
 
     /*
      * Checks if record is first generation

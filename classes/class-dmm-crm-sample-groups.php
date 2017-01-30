@@ -33,78 +33,20 @@ class dmm_crm_sample_groups
     }
 
     // Constructor class
-    public function __construct()
-    {
+    public function __construct() { }
 
-        add_action('admin_menu', array($this, 'sample_data_menu'));
-
-    }
-
-    // Option pages
-    public function sample_data_menu()
-    {
-        if (get_option('add_sample_groups') !== '1') {
-//            add_options_page('Add Sample Groups', 'Add Sample Groups', 'manage_options', 'sample-groups-data', array($this, 'add_groups_options'));
-        }
-    }
-
-
-    public function add_groups_options()
-    {
+    /*
+     * Sets a check so that the groups are added only one time.
+     *
+     *
+     * @return string
+     */
+    public function add_groups_once () {
+        $html = '';
 
         if (get_option('add_sample_groups') !== '1') {
 
-            echo '<div class="wrap">';
-            echo '<h1>Add Sample Groups</h1><p>';
-
-            $contacts = array();
-
-            $groups = array(
-                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Wasim's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Buthaynah Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Said Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Carmen's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Elio's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Ashael's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "City District Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Prasila's Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Aquila's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-                array("title" => "Paul's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
-            );
-
-            foreach ($groups as $group) {
-
-                $post_title = $group["title"];
-                $post_type = 'groups';
-                $post_content = ' ';
-                $post_status = "publish";
-                $post_author = get_current_user_id();
-
-                $post = array(
-                    "post_title" => $post_title,
-                    'post_type' => $post_type,
-                    "post_content" => $post_content,
-                    "post_status" => $post_status,
-                    "post_author" => $post_author,
-                    "meta_input" => array(
-                        "generation" => $group["generation"],
-                        "type" => $group["type"],
-                        "address" => $group["address"],
-                        "city" => $group["city"],
-                        "state" => $group["state"],
-                        "zip" => $group["zip"],
-                    ),
-                );
-
-                wp_insert_post($post);
-
-                echo "<br>Added: " . $post_title;
-            }
-
-            echo "<br><br>" . count($groups) . " groups added";
-            echo '</p></div>';
+            $html .= $this->add_groups();
 
             $option = 'add_sample_groups';
             $value = '1';
@@ -114,12 +56,76 @@ class dmm_crm_sample_groups
             add_option($option, $value, $deprecated, $autoload);
 
         } else {
-
-            echo '<div class="wrap">
-                    <h1>Add Sample Groups</h1>
-                    <p>Groups are already loaded.</p>
-                  </div>
-                ';
+            $html .= '<p>Groups are already loaded. <form method="POST"><button type="submit" value="reset_groups" name="reset_groups" class="button" id="reset_groups">Load the sample groups again?</button></p>';
         }
+        return $html;
+    }
+
+    /*
+     * Loads an array of new groups and returns a report of successful inserts.
+     *
+     */
+    protected function add_groups()
+    {
+        $html = '';
+
+        $groups = array(
+            array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Wasim's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Buthaynah Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Said Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Carmen's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Elio's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Taruh Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Ashael's Group", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "City District Group", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Prasila's Home Group", "address" => "345 Circle Ave.", "city" => "East Paris", "state" => "Paris", "zip" => "80123", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Aquila's Church", "address" => "1501 Mineral Ave.", "city" => "Barcelona", "state" => "Cantalona", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+            array("title" => "Paul's Church", "address" => "34 Canal Cir.", "city" => "Istanbul", "state" => "Istanbul", "zip" => "98765", "generation" => "1st Generation", "type" => "DBS"),
+        );
+
+        foreach ($groups as $group) {
+
+            $post_title = $group["title"];
+            $post_type = 'groups';
+            $post_content = ' ';
+            $post_status = "publish";
+            $post_author = get_current_user_id();
+
+            $post = array(
+                "post_title" => $post_title,
+                'post_type' => $post_type,
+                "post_content" => $post_content,
+                "post_status" => $post_status,
+                "post_author" => $post_author,
+                "meta_input" => array(
+                    "generation" => $group["generation"],
+                    "type" => $group["type"],
+                    "address" => $group["address"],
+                    "city" => $group["city"],
+                    "state" => $group["state"],
+                    "zip" => $group["zip"],
+                ),
+            );
+
+            wp_insert_post($post);
+
+            $html .= '<br>Added: '  . $post_title;
+        }
+
+        $html .= '<br><br>' . count($groups) . ' groups added';
+
+        return $html;
+    }
+    /*
+     * Resets the if option for groups
+     *
+     * @return string
+     *
+     */
+    public function reset_groups () {
+        delete_option('add_sample_groups');
+        $html = $this->add_groups_once();
+        return $html;
     }
 }
