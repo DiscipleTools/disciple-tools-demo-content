@@ -133,8 +133,23 @@ final class dmm_crm_sample_page {
         $html = '<div class="wrap"></div> Add records <br> ';
 
 
+        $html .= '<form method="POST">
+                        <button type="submit" value="add_contacts" name="add_contacts" class="button" id="add_contacts">Add Contacts</button>
+                    </form>
+        ';
+
+        $html .= '<form method="POST">
+                        <button type="submit" value="add_users" name="add_users" class="button" id="add_users">Add Users</button>
+                    </form>
+        ';
+
+        if (isset($_POST['add_contacts'])) { $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('groups'); }
+        if (isset($_POST['add_users'])) { $html .= 'Added users'; }
+
+
         return $html;
     }
+
 
 
 
