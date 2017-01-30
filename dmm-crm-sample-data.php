@@ -77,6 +77,13 @@ final class dmm_crm_sample_data {
      */
     public $classes;
     /**
+     * The generations class object.
+     * @var     object
+     * @access  public
+     * @since   0.1
+     */
+    public $generations;
+    /**
      * Plugin directory path.
      *
      * @since  0.1
@@ -230,6 +237,9 @@ final class dmm_crm_sample_data {
 
             require_once( $this->classes . 'class-dmm-crm-sample-page.php' );
             $this->page = dmm_crm_sample_page::instance();
+
+            require_once( $this->classes . 'class-dmm-crm-p2p-generations.php' );
+            $this->generations = dmm_crm_p2p_generations::instance();
 
         }
     }
