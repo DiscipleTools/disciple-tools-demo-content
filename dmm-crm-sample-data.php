@@ -292,18 +292,18 @@ final class dmm_crm_sample_data {
      */
     public function activation() {
 
-        // Get the administrator role.
-        $role = get_role( 'administrator' );
-
-        // If the administrator role exists, add required capabilities for the plugin.
-        if ( ! empty( $role ) ) {
-
-            $role->add_cap( 'list_roles'       ); // View roles in backend.
-            $role->add_cap( 'create_roles'     ); // Create new roles.
-            $role->add_cap( 'delete_roles'     ); // Delete existing roles.
-            $role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
-            $role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
-        }
+//        // Get the administrator role.
+//        $role = get_role( 'administrator' );
+//
+//        // If the administrator role exists, add required capabilities for the plugin.
+//        if ( ! empty( $role ) ) {
+//
+//            $role->add_cap( 'list_roles'       ); // View roles in backend.
+//            $role->add_cap( 'create_roles'     ); // Create new roles.
+//            $role->add_cap( 'delete_roles'     ); // Delete existing roles.
+//            $role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
+//            $role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
+//        }
     }
 }
 

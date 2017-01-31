@@ -78,7 +78,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer'
                 )
             );
 
@@ -102,7 +103,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Dispatcher'
                 )
             );
 
@@ -126,7 +128,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier'
                 )
             );
 
@@ -138,7 +141,7 @@ class dmm_crm_sample_users
             $html .= '<br>Added: ' . $username ;
         } // end if
 
-        if( null == username_exists( 'Multiplier_Lead' ) ) {
+        if( null == username_exists( 'Multiplier_Leader' ) ) {
 
             // Create user
             $username = 'Multiplier_Leader';
@@ -150,7 +153,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier Leader'
                 )
             );
 
@@ -174,7 +178,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Prayer Supporter'
                 )
             );
 
@@ -198,7 +203,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Project Supporter'
                 )
             );
 
@@ -222,7 +228,8 @@ class dmm_crm_sample_users
             wp_update_user(
                 array(
                     'ID'          =>    $user_id,
-                    'nickname'    =>    $username
+                    'nickname'    =>    $username,
+                    'first_name'  => 'Registered'
                 )
             );
 
