@@ -73,7 +73,7 @@ final class dmm_crm_sample_page {
          * Begin Header & Tab Bar
          */
 
-        if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'dash';}
+        if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
         $tab_link_pre = '<a href="options-general.php?page=dmmcrmsample&tab=';
         $tab_link_post = '" class="nav-tab ';
@@ -82,21 +82,21 @@ final class dmm_crm_sample_page {
             <h2>DMM CRM SAMPLE DATA</h2>
             <h2 class="nav-tab-wrapper">';
 
-        $html .= $tab_link_pre . 'dash' . $tab_link_post;
-        if ($tab == 'dash' || !isset($tab)) {$html .= 'nav-tab-active';}
-        $html .= '">Dashboard</a>';
+        $html .= $tab_link_pre . 'records' . $tab_link_post;
+        if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
+        $html .= '">Add Records</a>';
+
+//        $html .= $tab_link_pre . 'dash' . $tab_link_post;
+//        if ($tab == 'dash') {$html .= 'nav-tab-active';}
+//        $html .= '">Dashboard</a>';
 
         $html .= $tab_link_pre . 'setup' . $tab_link_post;
         if ($tab == 'setup') {$html .= 'nav-tab-active';}
         $html .= '">Setup Info</a>';
 
-        $html .= $tab_link_pre . 'records' . $tab_link_post;
-        if ($tab == 'records') {$html .= 'nav-tab-active';}
-        $html .= '">Add Records</a>';
-
-        $html .= $tab_link_pre . 'gen' . $tab_link_post;
-        if ($tab == 'gen') {$html .= 'nav-tab-active';}
-        $html .= '">Gen Test</a>';
+//        $html .= $tab_link_pre . 'gen' . $tab_link_post;
+//        if ($tab == 'gen') {$html .= 'nav-tab-active';}
+//        $html .= '">Gen Test</a>';
 
 
 
@@ -113,14 +113,14 @@ final class dmm_crm_sample_page {
             case "setup":
                     $html .= $this->dmmcrmsample_run_tools ();
                 break;
-            case "records":
-                    $html .= $this->dmmcrmsample_add_records () ;
+            case "dash":
+                $html .= $this->dmmcrmsample_run_dashboard() ;
                 break;
             case "gen":
                     $html .= $this->dmmcrmsample_run_gen_test() ;
                 break;
             default:
-                    $html .= $this->dmmcrmsample_run_dashboard() ;
+                $html .= $this->dmmcrmsample_add_records () ;
         }
 
         $html .= '</div>'; // end div class wrap
@@ -376,6 +376,19 @@ final class dmm_crm_sample_page {
         global $wpdb;
         $html ='';
 
+        // Establish if users are installed.
+        $username_array = array('Prayer_Supporter', 'Project_Supporter', 'Dispatcher', 'Marketer', 'Multiplier', 'Multiplier_Leader', 'Registered' );
+        $installed = array();
+
+        foreach($username_array as $name) {
+            if ( username_exists( $name ) )
+                $installed[$name] = 'Yes';
+            else
+                $installed[$name] = 'No';
+        }
+
+
+
         // Opening wrappers.
         $html .= '<div class="wrap">
                         <div id="poststuff">
@@ -391,12 +404,13 @@ final class dmm_crm_sample_page {
         $html .= '<table class="widefat striped">
                     <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
                     <tbody>';
-            $html .= '<tr><th>Prayer Supporter</th><td>Yes</td><td>prayersupporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Project Supporter</th><td>Yes</td><td>projectsupporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Dispatcher</th><td>Yes</td><td>dispatcher</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Marketer</th><td>Yes</td><td>marketer</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier</th><td>Yes</td><td>multiplier</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier Leader</th><td>Yes</td><td>multiplierleader</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>dmmcrm</td></tr>';
 
         $html .= '</tbody></table>';
 
