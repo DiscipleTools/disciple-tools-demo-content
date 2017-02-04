@@ -155,6 +155,9 @@ final class dmm_crm_sample_page {
                         <tr><th>Add Users</th><td>
                             <form method="POST"><button type="submit" value="add_users" name="add_users" class="button" id="add_users">Add Users</button></form>
                         </td></tr>
+                        <tr><th>Add Pages</th><td>
+                            <form method="POST"><button type="submit" value="add_core_pages" name="add_core_pages" class="button" id="add_core_pages">Add Core Pages</button></form>
+                        </td></tr>
                     </tbody>
                   </table>';
 
@@ -174,6 +177,9 @@ final class dmm_crm_sample_page {
 
         if (isset($_POST['add_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->add_users_once() . $report_box_bottom; }
         if (isset($_POST['reset_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->reset_users() . $report_box_bottom; }
+
+        if (isset($_POST['add_core_pages'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->add_core_pages_once() . $report_box_bottom; }
+        if (isset($_POST['reset_core_pages'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->reset_core_pages() . $report_box_bottom; }
 
         $html .= '</div><!-- postbox-container 1 --><div id="postbox-container-2" class="postbox-container"></div><!-- postbox-container 2 -->';
 

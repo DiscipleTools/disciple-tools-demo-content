@@ -251,6 +251,9 @@ final class dmm_crm_sample_data {
             require_once( $this->classes . 'class-dmm-crm-p2p-generations.php' );
             $this->generations = dmm_crm_p2p_generations::instance();
 
+            require_once( $this->classes . 'config-theme-content.php' );
+            $this->content = dmm_crm_theme_content::instance();
+
         }
     }
 
