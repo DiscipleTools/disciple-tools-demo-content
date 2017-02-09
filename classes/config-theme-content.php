@@ -404,11 +404,20 @@ class dmm_crm_theme_content
             ),
         );
 
+        foreach ($sample_files as $file) {
+            $newfile = wp_upload_dir() . $file['filename'];
+            $file = dmm_crm_sample_data_plugin()->img_uri . $file['filename'];
+
+            if (copy($file, $newfile)) {
+                $html .= "successful copy of'. $file . '...\n";
+            } else {
+                $html .= "failed to copy " . $file . '....\n';
+            }
+        }
+
 
         foreach ($sample_files as $file) {
             $filename = $file['filename'];
-
-
 
             // Check the type of file. We'll use this as the 'post_mime_type'.
             $filetype = wp_check_filetype( basename( $filename ), null );
@@ -428,8 +437,6 @@ class dmm_crm_theme_content
 
             // Insert the attachment.
             $attach_id[ $file['number'] ] = wp_insert_attachment( $attachment, $filename);
-
-
         }
         return $html;
     }
