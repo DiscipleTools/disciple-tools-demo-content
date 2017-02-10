@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Sample Data for DMM CRM Project
+ * Plugin Name: Sample Data for DRM Project
  * Plugin URI: https://github.com/ChasmSolutions/dmm-crm-sample-data
- * Description: Sample Data for DMM CRM Project
+ * Description: Sample Data for DRM Project
  * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/ChasmSolutions
@@ -159,7 +159,7 @@ final class dmm_crm_sample_data {
      * @return void
      */
     public function __toString() {
-        return 'dmmcrmsample';
+        return 'drmsample';
     }
 
     /**
@@ -170,7 +170,7 @@ final class dmm_crm_sample_data {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'drmsample' ), '0.1' );
     }
 
     /**
@@ -181,7 +181,7 @@ final class dmm_crm_sample_data {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dmmcrmsample' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'drmsample' ), '0.1' );
     }
 
     /**
@@ -192,7 +192,7 @@ final class dmm_crm_sample_data {
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
-        _doing_it_wrong( "dmm_crm_sample_data::{$method}", esc_html__( 'Method does not exist.', 'dmmcrmsample' ), '0.1' );
+        _doing_it_wrong( "dmm_crm_sample_data::{$method}", esc_html__( 'Method does not exist.', 'drmsample' ), '0.1' );
         unset( $method, $args );
         return null;
     }
@@ -217,7 +217,7 @@ final class dmm_crm_sample_data {
         $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
         // Admin and settings variables
-        $this->token 			= 'dmmcrmsample';
+        $this->token 			= 'drmsample';
         $this->version 			= '0.1';
 
 
@@ -283,7 +283,7 @@ final class dmm_crm_sample_data {
      * @return void
      */
     public function i18n() {
-        load_plugin_textdomain( 'dmmcrmsample', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+        load_plugin_textdomain( 'drmsample', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
     }
 
     /**

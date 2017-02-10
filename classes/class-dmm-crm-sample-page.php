@@ -6,7 +6,7 @@
  * @class dmm_crm_sample_page
  * @version	1.0.0
  * @since 1.0.0
- * @package	DmmCrm_Plugin
+ * @package	DRM_Plugin
  * @author Chasm.Solutions & Kingdom.Training
  */
 
@@ -46,14 +46,14 @@ final class dmm_crm_sample_page {
      */
     public function __construct () {
 
-        add_action("admin_menu", array($this, "add_dmmcrmsample_data_menu") );
+        add_action("admin_menu", array($this, "add_drmsample_data_menu") );
 
     } // End __construct()
 
 
 
-    public function add_dmmcrmsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( 'DMM Sample Data', 'dmmcrmsample' ), __( 'DMM Sample Data', 'dmmcrmsample' ), 'manage_options', 'dmmcrmsample', array( $this, 'dmmcrmsample_data_page' ) );
+    public function add_drmsample_data_menu () {
+        add_submenu_page( 'options-general.php', __( 'DMM Sample Data', 'drmsample' ), __( 'DMM Sample Data', 'drmsample' ), 'manage_options', 'drmsample', array( $this, 'drmsample_data_page' ) );
     }
 
 
@@ -62,7 +62,7 @@ final class dmm_crm_sample_page {
      *
      *
      */
-    public function dmmcrmsample_data_page() {
+    public function drmsample_data_page() {
 
         if ( !current_user_can( 'manage_options' ) )  {
             wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -75,11 +75,11 @@ final class dmm_crm_sample_page {
 
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="options-general.php?page=dmmcrmsample&tab=';
+        $tab_link_pre = '<a href="options-general.php?page=drmsample&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
-            <h2>DMM CRM SAMPLE DATA</h2>
+            <h2>DRM SAMPLE DATA</h2>
             <h2 class="nav-tab-wrapper">';
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
@@ -111,16 +111,16 @@ final class dmm_crm_sample_page {
         switch ($tab) {
 
             case "setup":
-                    $html .= $this->dmmcrmsample_run_tools ();
+                    $html .= $this->drmsample_run_tools ();
                 break;
             case "dash":
-                $html .= $this->dmmcrmsample_run_dashboard() ;
+                $html .= $this->drmsample_run_dashboard() ;
                 break;
             case "gen":
-                    $html .= $this->dmmcrmsample_run_gen_test() ;
+                    $html .= $this->drmsample_run_gen_test() ;
                 break;
             default:
-                $html .= $this->dmmcrmsample_add_records () ;
+                $html .= $this->drmsample_add_records () ;
         }
 
         $html .= '</div>'; // end div class wrap
@@ -129,7 +129,7 @@ final class dmm_crm_sample_page {
 
     }
 
-    public function dmmcrmsample_add_records () {
+    public function drmsample_add_records () {
         $html = '<div class="wrap"><h2>Add records</h2>';
         // Opening wrappers.
         $html .= '<div class="wrap">
@@ -207,7 +207,7 @@ final class dmm_crm_sample_page {
 
 
 
-    public function dmmcrmsample_run_gen_test () {
+    public function drmsample_run_gen_test () {
         $html ='';
 
         $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('groups');
@@ -220,7 +220,7 @@ final class dmm_crm_sample_page {
      *
      *
      */
-    public function dmmcrmsample_run_dashboard () {
+    public function drmsample_run_dashboard () {
         global $wpdb;
         $html ='';
 
@@ -276,12 +276,12 @@ final class dmm_crm_sample_page {
         $html .= '<table class="widefat striped">
                     <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
                     <tbody>';
-            $html .= '<tr><th>Prayer Supporter</th><td>Yes</td><td>prayersupporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Project Supporter</th><td>Yes</td><td>projectsupporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Dispatcher</th><td>Yes</td><td>dispatcher</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Marketer</th><td>Yes</td><td>marketer</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier</th><td>Yes</td><td>multiplier</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier Leader</th><td>Yes</td><td>multiplierleader</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Prayer Supporter</th><td>Yes</td><td>prayersupporter</td><td>drm</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>Yes</td><td>projectsupporter</td><td>drm</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>Yes</td><td>dispatcher</td><td>drm</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>Yes</td><td>marketer</td><td>drm</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>Yes</td><td>multiplier</td><td>drm</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>Yes</td><td>multiplierleader</td><td>drm</td></tr>';
 
         $html .= '</tbody></table>';
 
@@ -390,7 +390,7 @@ final class dmm_crm_sample_page {
      *
      *
      */
-    public function dmmcrmsample_run_tools() {
+    public function drmsample_run_tools() {
         global $wpdb;
         $html ='';
 
@@ -422,13 +422,13 @@ final class dmm_crm_sample_page {
         $html .= '<table class="widefat striped">
                     <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
                     <tbody>';
-            $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>dmmcrm</td></tr>';
-            $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>dmmcrm</td></tr>';
+            $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>drm</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>drm</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>drm</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>drm</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>drm</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>drm</td></tr>';
+            $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>drm</td></tr>';
 
         $html .= '</tbody></table>';
 
@@ -461,7 +461,7 @@ final class dmm_crm_sample_page {
         return $html;
     }
 
-    public function dmmcrmsample_add_contacts()
+    public function drmsample_add_contacts()
     {
 
         if (get_option('add_sample_contacts') !== '1') {

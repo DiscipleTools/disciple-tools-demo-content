@@ -70,8 +70,8 @@ class dmm_crm_theme_content
 //
 //            // Create user
 //            $username = 'Marketer';
-//            $password = 'dmmcrm';
-//            $email = 'marketer@dmmcrm.com';
+//            $password = 'drm';
+//            $email = 'marketer@drm.com';
 //            $user_id = wp_create_user( $username, $password, $email );
 //
 //            // Set the nickname

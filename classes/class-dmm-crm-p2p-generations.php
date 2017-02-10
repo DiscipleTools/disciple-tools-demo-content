@@ -21,7 +21,7 @@
  * @class dmm_crm_p2p_generations
  * @version	1.0.0
  * @since 1.0.0
- * @package	DmmCrm_Plugin
+ * @package	DRM_Plugin
  * @author Chasm.Solutions & Kingdom.Training
  */
 

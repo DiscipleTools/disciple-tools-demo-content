@@ -70,8 +70,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Marketer';
-            $password = 'dmmcrm';
-            $email = 'marketer@dmmcrm.com';
+            $password = 'drm';
+            $email = 'marketer@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -95,8 +95,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Dispatcher';
-            $password = 'dmmcrm';
-            $email = 'dispatcher@dmmcrm.com';
+            $password = 'drm';
+            $email = 'dispatcher@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -120,8 +120,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Multiplier';
-            $password = 'dmmcrm';
-            $email = 'multiplier@dmmcrm.com';
+            $password = 'drm';
+            $email = 'multiplier@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -145,8 +145,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Multiplier_Leader';
-            $password = 'dmmcrm';
-            $email = 'multiplier_leader@dmmcrm.com';
+            $password = 'drm';
+            $email = 'multiplier_leader@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -170,8 +170,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Prayer_Supporter';
-            $password = 'dmmcrm';
-            $email = 'prayer_supporter@dmmcrm.com';
+            $password = 'drm';
+            $email = 'prayer_supporter@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -195,8 +195,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Project_Supporter';
-            $password = 'dmmcrm';
-            $email = 'project_supporter@dmmcrm.com';
+            $password = 'drm';
+            $email = 'project_supporter@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -220,8 +220,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Registered';
-            $password = 'dmmcrm';
-            $email = 'registered@dmmcrm.com';
+            $password = 'drm';
+            $email = 'registered@drm.com';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -257,7 +257,7 @@ class dmm_crm_sample_users
     }
 
     public function delete_sample_users () {
-//        $id = get_user_by( 'email', 'project_supporter@dmmcrm.com' );
+//        $id = get_user_by( 'email', 'project_supporter@drm.com' );
 //        wp_delete_user( $id, $reassign );
     }
 
