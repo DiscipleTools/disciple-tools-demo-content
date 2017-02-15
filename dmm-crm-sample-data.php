@@ -236,22 +236,22 @@ final class dmm_crm_sample_data {
         if ( is_admin() ) {
 
             // General functions.
-            require_once( $this->classes . 'class-dmm-crm-sample-contacts.php' );
+            require_once( 'classes/class-drm-sample-contacts.php' );
             $this->contacts = dmm_crm_sample_contacts::instance();
 
-            require_once( $this->classes . 'class-dmm-crm-sample-groups.php' );
+            require_once( 'classes/class-drm-sample-groups.php' );
             $this->groups = dmm_crm_sample_groups::instance();
 
-            require_once( $this->classes . 'class-dmm-crm-sample-users.php' );
+            require_once( 'classes/class-drm-sample-users.php' );
             $this->users = dmm_crm_sample_users::instance();
 
-            require_once( $this->classes . 'class-dmm-crm-sample-page.php' );
+            require_once( 'classes/class-drm-sample-page.php' );
             $this->page = dmm_crm_sample_page::instance();
 
-            require_once( $this->classes . 'class-dmm-crm-p2p-generations.php' );
+            require_once( 'classes/class-drm-p2p-generations.php' );
             $this->generations = dmm_crm_p2p_generations::instance();
 
-            require_once( $this->classes . 'config-theme-content.php' );
+            require_once( 'classes/config-theme-content.php' );
             $this->content = dmm_crm_theme_content::instance();
 
         }
