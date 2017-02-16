@@ -94,9 +94,9 @@ final class dmm_crm_sample_page {
         if ($tab == 'setup') {$html .= 'nav-tab-active';}
         $html .= '">Setup Info</a>';
 
-//        $html .= $tab_link_pre . 'gen' . $tab_link_post;
-//        if ($tab == 'gen') {$html .= 'nav-tab-active';}
-//        $html .= '">Gen Test</a>';
+        $html .= $tab_link_pre . 'gen' . $tab_link_post;
+        if ($tab == 'gen') {$html .= 'nav-tab-active';}
+        $html .= '">Gen Test</a>';
 
 
 
@@ -210,7 +210,7 @@ final class dmm_crm_sample_page {
     public function drmsample_run_gen_test () {
         $html ='';
 
-        $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('groups');
+        $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('contacts');
 
         return $html;
     }
