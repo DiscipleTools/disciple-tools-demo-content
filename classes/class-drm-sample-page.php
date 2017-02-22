@@ -59,8 +59,6 @@ final class dmm_crm_sample_page {
 
     /*
      * Sample Data Page and Tab Logic
-     *
-     *
      */
     public function drmsample_data_page() {
 
@@ -204,9 +202,6 @@ final class dmm_crm_sample_page {
     }
 
 
-
-
-
     public function drmsample_run_gen_test () {
         $html ='';
 
@@ -217,8 +212,6 @@ final class dmm_crm_sample_page {
 
     /*
      * Tab: Dashboard
-     *
-     *
      */
     public function drmsample_run_dashboard () {
         global $wpdb;
@@ -386,9 +379,6 @@ final class dmm_crm_sample_page {
 
     /*
      * Tab: Tools
-     *
-     *
-     *
      */
     public function drmsample_run_tools() {
         global $wpdb;

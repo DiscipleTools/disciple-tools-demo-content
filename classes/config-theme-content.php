@@ -138,7 +138,7 @@ class dmm_crm_theme_content
             array(
                 'post_title'    =>  'Prayer',
                 'post_name'     =>  'prayer',
-                'post_content'  =>  '[prayer_short_code]',
+                'post_content'  =>  '[prayer_shortcode]',
                 'post_status'   =>  'Publish',
                 'comment_status'    =>  'closed',
                 'ping_status'   =>  'closed',
@@ -148,7 +148,7 @@ class dmm_crm_theme_content
             array(
                 'post_title'    =>  'Project Update',
                 'post_name'     =>  'project-update',
-                'post_content'  =>  '[project_update_short_code]',
+                'post_content'  =>  '[dtools_project_update_shortcode]',
                 'post_status'   =>  'Publish',
                 'comment_status'    =>  'closed',
                 'ping_status'   =>  'closed',
@@ -158,7 +158,7 @@ class dmm_crm_theme_content
             array(
                 'post_title'    =>  'Charts',
                 'post_name'     =>  'charts',
-                'post_content'  =>  '[charts_short_code]',
+                'post_content'  =>  '[dtools function="Dtools_Charts::portal_charts_page" name="chart"]',
                 'post_status'   =>  'Publish',
                 'comment_status'    =>  'closed',
                 'ping_status'   =>  'closed',
@@ -168,7 +168,7 @@ class dmm_crm_theme_content
             array(
                 'post_title'    =>  'Maps',
                 'post_name'     =>  'maps',
-                'post_content'  =>  '[maps_short_code]',
+                'post_content'  =>  '[dtools function="Dtools_Maps::portal_maps_page" name="map"]',
                 'post_status'   =>  'Publish',
                 'comment_status'    =>  'closed',
                 'ping_status'   =>  'closed',
@@ -178,7 +178,7 @@ class dmm_crm_theme_content
             array(
                 'post_title'    =>  'Downloads',
                 'post_name'     =>  'downloads',
-                'post_content'  =>  '[downloads_short_code]',
+                'post_content'  =>  '[dtools_downloads_shortcode]',
                 'post_status'   =>  'Publish',
                 'comment_status'    =>  'closed',
                 'ping_status'   =>  'closed',
