@@ -162,6 +162,7 @@ final class dmm_crm_sample_page {
                         <tr><th>Add Photos</th><td>
                             <form method="POST"><button type="submit" value="add_photos" name="add_photos" class="button" id="add_photos">Add Photos</button></form>
                         </td></tr>
+                       
                     </tbody>
                   </table>';
 
@@ -190,6 +191,8 @@ final class dmm_crm_sample_page {
 
         if (isset($_POST['add_photos'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->add_photos() . $report_box_bottom; }
         if (isset($_POST['reset_photos'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->reset_photos() . $report_box_bottom; }
+
+
 
         $html .= '</div><!-- postbox-container 1 --><div id="postbox-container-2" class="postbox-container"></div><!-- postbox-container 2 -->';
 
