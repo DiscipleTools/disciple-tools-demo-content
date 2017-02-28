@@ -1,24 +1,11 @@
 <?php
 
 /**
- * dmm_crm_p2p_generations class
+ * dt_p2p_generations class
  *
  * This class depends on the Post-to-Post library and the wp_p2p
  *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- * @class dmm_crm_p2p_generations
+ * @class dt_p2p_generations
  * @version	1.0.0
  * @since 1.0.0
  * @package	DRM_Plugin
@@ -27,11 +14,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class dmm_crm_p2p_generations {
+final class dt_p2p_generations {
 
 
     /**
-     * dmm_crm_p2p_generations The single instance of dmm_crm_p2p_generations.
+     * dt_p2p_generations The single instance of dt_p2p_generations.
      * @var 	object
      * @access  private
      * @since 	1.0.0
@@ -68,13 +55,13 @@ final class dmm_crm_p2p_generations {
     protected $p2p_array = array();
 
     /**
-     * dmm_crm_p2p_generations Instance
+     * dt_p2p_generations Instance
      *
-     * Ensures only one instance of dmm_crm_p2p_generations is loaded or can be loaded.
+     * Ensures only one instance of dt_p2p_generations is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return dmm_crm_p2p_generations instance
+     * @return dt_p2p_generations instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -84,7 +71,7 @@ final class dmm_crm_p2p_generations {
 
     /**
      * Constructor function.
-     * @access  public
+     * @access  portal
      * @since   1.0.0
      */
     public function __construct () {
@@ -110,7 +97,7 @@ final class dmm_crm_p2p_generations {
      *
      * @param   post_id number from the contact.
      * @returns number
-     * @access public
+     * @access portal
      * @since 0.1
      */
     public function get_current_gen ($gen, $type) {
@@ -190,7 +177,7 @@ final class dmm_crm_p2p_generations {
      * TODO: Get the number of groups or contacts at a certain generation level
      *
      * @param   Number of the generation to be counted, i.e. 1,2,3,4
-     * @access  public
+     * @access  portal
      * @return  number
      *
      * */
@@ -204,7 +191,7 @@ final class dmm_crm_p2p_generations {
      * TODO: Get the number of groups or contacts at a certain generation level
      *
      * @param   Post_id of the contact or group that will have descendants calculated against.
-     * @access  public
+     * @access  portal
      * @return  number
      *
      * */

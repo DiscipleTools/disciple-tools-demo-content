@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dmm_crm_theme_content
+class dt_theme_content
 {
 
     /**
-     * dmm_crm_sample_menu The single instance of dmm_crm_sample_menu.
+     * dt_sample_menu The single instance of dt_sample_menu.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dmm_crm_theme_content
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dmm_crm_theme_content instance
+     * @return dt_theme_content instance
      */
     public static function instance()
     {
@@ -406,12 +406,12 @@ class dmm_crm_theme_content
 
         foreach ($sample_files as $file) {
             $newfile = wp_upload_dir() . $file['filename'];
-            $file = dmm_crm_sample_data_plugin()->img_uri . $file['filename'];
+            $file = dt_sample_data_plugin()->img_uri . $file['filename'];
 
             if (copy($file, $newfile)) {
-                $html .= "successful copy of'. $file . '...\n";
+                $html .= 'successful copy of '. $file . '<br>';
             } else {
-                $html .= "failed to copy " . $file . '....\n';
+                $html .= 'failed to copy ' . $file . '<br>';
             }
         }
 
@@ -427,7 +427,7 @@ class dmm_crm_theme_content
 
             // Prepare an array of post data for the attachment.
             $attachment = array(
-                'guid'           => dmm_crm_sample_data_plugin()->img_uri  . basename( $file['filename'] ),
+                'guid'           => dt_sample_data_plugin()->img_uri  . basename( $file['filename'] ),
                 'post_mime_type' => 'image/png',
                 'post_title'     => $filename,
                 'post_content'   => '',

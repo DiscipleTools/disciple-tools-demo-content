@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dmm_crm_sample_page class for the admin page
+ * dt_sample_page class for the admin page
  *
- * @class dmm_crm_sample_page
+ * @class dt_sample_page
  * @version	1.0.0
  * @since 1.0.0
  * @package	DRM_Plugin
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class dmm_crm_sample_page {
+final class dt_sample_page {
 
     /**
-     * dmm_crm_sample_page The single instance of dmm_crm_sample_page.
+     * dt_sample_page The single instance of dt_sample_page.
      * @var 	object
      * @access  private
      * @since 	1.0.0
@@ -25,13 +25,13 @@ final class dmm_crm_sample_page {
     public $p2p_array = array();
 
     /**
-     * dmm_crm_sample_page Instance
+     * dt_sample_page Instance
      *
-     * Ensures only one instance of dmm_crm_sample_page is loaded or can be loaded.
+     * Ensures only one instance of dt_sample_page is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return dmm_crm_sample_page instance
+     * @return dt_sample_page instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -41,26 +41,26 @@ final class dmm_crm_sample_page {
 
     /**
      * Constructor function.
-     * @access  public
+     * @access  portal
      * @since   1.0.0
      */
     public function __construct () {
 
-        add_action("admin_menu", array($this, "add_drmsample_data_menu") );
+        add_action("admin_menu", array($this, "add_dtsample_data_menu") );
 
     } // End __construct()
 
 
 
-    public function add_drmsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( 'DMM Sample Data', 'drmsample' ), __( 'DMM Sample Data', 'drmsample' ), 'manage_options', 'drmsample', array( $this, 'drmsample_data_page' ) );
+    public function add_dtsample_data_menu () {
+        add_submenu_page( 'options-general.php', __( 'Sample Data', 'dtsample' ), __( 'Sample Data', 'dtsample' ), 'manage_options', 'dtsample', array( $this, 'dtsample_data_page' ) );
     }
 
 
     /*
      * Sample Data Page and Tab Logic
      */
-    public function drmsample_data_page() {
+    public function dtsample_data_page() {
 
         if ( !current_user_can( 'manage_options' ) )  {
             wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -73,11 +73,11 @@ final class dmm_crm_sample_page {
 
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="options-general.php?page=drmsample&tab=';
+        $tab_link_pre = '<a href="options-general.php?page=dtsample&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
-            <h2>DRM SAMPLE DATA</h2>
+            <h2>DISCIPLE TOOLS - SAMPLE DATA</h2>
             <h2 class="nav-tab-wrapper">';
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
@@ -109,16 +109,16 @@ final class dmm_crm_sample_page {
         switch ($tab) {
 
             case "setup":
-                    $html .= $this->drmsample_run_tools ();
+                    $html .= $this->dtsample_run_tools ();
                 break;
             case "dash":
-                $html .= $this->drmsample_run_dashboard() ;
+                $html .= $this->dtsample_run_dashboard() ;
                 break;
             case "gen":
-                    $html .= $this->drmsample_run_gen_test() ;
+                    $html .= $this->dtsample_run_gen_test() ;
                 break;
             default:
-                $html .= $this->drmsample_add_records () ;
+                $html .= $this->dtsample_add_records () ;
         }
 
         $html .= '</div>'; // end div class wrap
@@ -127,7 +127,7 @@ final class dmm_crm_sample_page {
 
     }
 
-    public function drmsample_add_records () {
+    public function dtsample_add_records () {
         $html = '<div class="wrap"><h2>Add records</h2>';
         // Opening wrappers.
         $html .= '<div class="wrap">
@@ -174,23 +174,23 @@ final class dmm_crm_sample_page {
                     </tbody>
                   </table>';
 
-        if (isset($_POST['add_contacts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->contacts->add_contacts_once () . $report_box_bottom; }
-        if (isset($_POST['reset_contacts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->contacts->reset_contacts () . $report_box_bottom; }
+        if (isset($_POST['add_contacts'])) { $html .= $report_box_top . dt_sample_data_plugin()->contacts->add_contacts_once () . $report_box_bottom; }
+        if (isset($_POST['reset_contacts'])) { $html .= $report_box_top . dt_sample_data_plugin()->contacts->reset_contacts () . $report_box_bottom; }
 
-        if (isset($_POST['add_groups'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->groups->add_groups_once() . $report_box_bottom; }
-        if (isset($_POST['reset_groups'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->groups->reset_groups() . $report_box_bottom; }
+        if (isset($_POST['add_groups'])) { $html .= $report_box_top . dt_sample_data_plugin()->groups->add_groups_once() . $report_box_bottom; }
+        if (isset($_POST['reset_groups'])) { $html .= $report_box_top . dt_sample_data_plugin()->groups->reset_groups() . $report_box_bottom; }
 
-        if (isset($_POST['add_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->add_users_once() . $report_box_bottom; }
-        if (isset($_POST['reset_users'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->users->reset_users() . $report_box_bottom; }
+        if (isset($_POST['add_users'])) { $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_once() . $report_box_bottom; }
+        if (isset($_POST['reset_users'])) { $html .= $report_box_top . dt_sample_data_plugin()->users->reset_users() . $report_box_bottom; }
 
-        if (isset($_POST['add_core_pages'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->add_core_pages_once() . $report_box_bottom; }
-        if (isset($_POST['reset_core_pages'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->reset_core_pages() . $report_box_bottom; }
+        if (isset($_POST['add_core_pages'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->add_core_pages_once() . $report_box_bottom; }
+        if (isset($_POST['reset_core_pages'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->reset_core_pages() . $report_box_bottom; }
 
-        if (isset($_POST['add_prayer_posts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->add_prayer_posts_once() . $report_box_bottom; }
-        if (isset($_POST['reset_prayer_posts'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->reset_prayer_posts() . $report_box_bottom; }
+        if (isset($_POST['add_prayer_posts'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->add_prayer_posts_once() . $report_box_bottom; }
+        if (isset($_POST['reset_prayer_posts'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->reset_prayer_posts() . $report_box_bottom; }
 
-        if (isset($_POST['add_photos'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->add_photos() . $report_box_bottom; }
-        if (isset($_POST['reset_photos'])) { $html .= $report_box_top . dmm_crm_sample_data_plugin()->content->reset_photos() . $report_box_bottom; }
+        if (isset($_POST['add_photos'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->add_photos_once() . $report_box_bottom; }
+        if (isset($_POST['reset_photos'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->reset_photos() . $report_box_bottom; }
 
 
 
@@ -205,10 +205,10 @@ final class dmm_crm_sample_page {
     }
 
 
-    public function drmsample_run_gen_test () {
+    public function dtsample_run_gen_test () {
         $html ='';
 
-        $html .= dmm_crm_sample_data_plugin()->generations->run_full_generations_list('contacts');
+        $html .= dt_sample_data_plugin()->generations->run_full_generations_list('contacts');
 
         return $html;
     }
@@ -216,7 +216,7 @@ final class dmm_crm_sample_page {
     /*
      * Tab: Dashboard
      */
-    public function drmsample_run_dashboard () {
+    public function dtsample_run_dashboard () {
         global $wpdb;
         $html ='';
 
@@ -383,7 +383,7 @@ final class dmm_crm_sample_page {
     /*
      * Tab: Tools
      */
-    public function drmsample_run_tools() {
+    public function dtsample_run_tools() {
         global $wpdb;
         $html ='';
 
@@ -393,9 +393,9 @@ final class dmm_crm_sample_page {
 
         foreach($username_array as $name) {
             if ( username_exists( $name ) )
-                $installed[$name] = 'Yes';
+                $installed[$name] = '<span style="color:limegreen; font-weight: 600;">Yes</span>';
             else
-                $installed[$name] = 'No';
+                $installed[$name] = '<span style="color:red; font-weight: 600;">No</span>';
         }
 
 
@@ -415,13 +415,13 @@ final class dmm_crm_sample_page {
         $html .= '<table class="widefat striped">
                     <thead><th>Demo Users Role</th><th>Installed</th><th>Username</th><th>Password</th></thead>
                     <tbody>';
-            $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>drm</td></tr>';
-            $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>drm</td></tr>';
-            $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>drm</td></tr>';
-            $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>drm</td></tr>';
-            $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>drm</td></tr>';
-            $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>drm</td></tr>';
-            $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>drm</td></tr>';
+            $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>disciple</td></tr>';
+            $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>disciple</td></tr>';
 
         $html .= '</tbody></table>';
 
@@ -434,7 +434,7 @@ final class dmm_crm_sample_page {
         $html .= '<div id="postbox-container-1" class="postbox-container">';
         // Notes Metabox
         $html .= '<table class="widefat striped"><thead><th>Notes</th></thead><tbody>';
-        $html .= '<tr><td>Sample content for the table</td></tr>';
+        $html .= '<tr><td>Use the "Add Records" tab to install sample content into the Disciple Tools system.</td></tr>';
         $html .= '</tbody></table>';
 
         $html .= '</div><!-- postbox-container 1 -->';
@@ -454,7 +454,7 @@ final class dmm_crm_sample_page {
         return $html;
     }
 
-    public function drmsample_add_contacts()
+    public function dtsample_add_contacts()
     {
 
         if (get_option('add_sample_contacts') !== '1') {

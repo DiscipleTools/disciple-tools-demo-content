@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dmm_crm_sample_contacts
+class dt_sample_contacts
 {
 
     /**
-     * dmm_crm_sample_contacts The single instance of dmm_crm_sample_contacts.
+     * dt_sample_contacts The single instance of dt_sample_contacts.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dmm_crm_sample_contacts
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dmm_crm_sample_contacts instance
+     * @return dt_sample_contacts instance
      */
     public static function instance()
     {

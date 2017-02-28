@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dmm_crm_sample_users
+class dt_sample_users
 {
 
     /**
-     * dmm_crm_sample_users The single instance of dmm_crm_sample_users.
+     * dt_sample_users The single instance of dt_sample_users.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dmm_crm_sample_users
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dmm_crm_sample_users instance
+     * @return dt_sample_users instance
      */
     public static function instance()
     {
@@ -70,8 +70,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Marketer';
-            $password = 'drm';
-            $email = 'marketer@drm.com';
+            $password = 'disciple';
+            $email = 'marketer@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -95,8 +95,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Dispatcher';
-            $password = 'drm';
-            $email = 'dispatcher@drm.com';
+            $password = 'disciple';
+            $email = 'dispatcher@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -120,8 +120,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Multiplier';
-            $password = 'drm';
-            $email = 'multiplier@drm.com';
+            $password = 'disciple';
+            $email = 'multiplier@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -145,8 +145,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Multiplier_Leader';
-            $password = 'drm';
-            $email = 'multiplier_leader@drm.com';
+            $password = 'disciple';
+            $email = 'multiplier_leader@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -170,8 +170,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Prayer_Supporter';
-            $password = 'drm';
-            $email = 'prayer_supporter@drm.com';
+            $password = 'disciple';
+            $email = 'prayer_supporter@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -195,8 +195,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Project_Supporter';
-            $password = 'drm';
-            $email = 'project_supporter@drm.com';
+            $password = 'disciple';
+            $email = 'project_supporter@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -220,8 +220,8 @@ class dmm_crm_sample_users
 
             // Create user
             $username = 'Registered';
-            $password = 'drm';
-            $email = 'registered@drm.com';
+            $password = 'disciple';
+            $email = 'registered@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
             // Set the nickname
@@ -257,7 +257,7 @@ class dmm_crm_sample_users
     }
 
     public function delete_sample_users () {
-//        $id = get_user_by( 'email', 'project_supporter@drm.com' );
+//        $id = get_user_by( 'email', 'project_supporter@disciple.tools' );
 //        wp_delete_user( $id, $reassign );
     }
 

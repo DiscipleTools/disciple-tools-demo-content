@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dmm_crm_sample_groups
+class dt_sample_groups
 {
 
     /**
-     * dmm_crm_sample_groups The single instance of dmm_crm_sample_groups
+     * dt_sample_groups The single instance of dt_sample_groups
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -23,7 +23,7 @@ class dmm_crm_sample_groups
      * Access plugin instance. You can create further instances by calling
      * the constructor directly.
      * @static
-     * @return dmm_crm_sample_groups instance
+     * @return dt_sample_groups instance
      */
     public static function instance()
     {
