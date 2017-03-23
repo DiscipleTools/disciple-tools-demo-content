@@ -432,21 +432,7 @@ final class dt_sample_page {
             $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>disciple</td></tr>';
 
         $html .= '</tbody></table>';
-
-
-        $html .= '<table class="widefat striped">
-                    <thead><th>Reset Settings</th><th></th></thead>
-                    <tbody>';
-        $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>disciple</td></tr>';
-        $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>disciple</td></tr>';
-
-        $html .= '</tbody></table>';
-
+        
         $html .= '</div><!-- end post-body-content -->';
 
         /*
