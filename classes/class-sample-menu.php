@@ -159,12 +159,18 @@ final class dt_sample_page {
                         <tr><th>Add Posts</th><td>
                             <form method="POST"><button type="submit" value="add_prayer_posts" name="add_prayer_posts" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
                         </td></tr>
-                        <tr><th>Add Photos</th><td>
-                            <form method="POST"><button type="submit" value="add_photos" name="add_photos" class="button" id="add_photos">Add Photos</button></form>
+                        <tr><th>Add/Refresh Roles</th><td>
+                            <form method="POST"><button type="submit" value="reset_roles" name="reset_roles" class="button" id="reset_roles">Add/Refresh Roles</button></form>
                         </td></tr>
+                        
+                        <!--<tr><th>Add Photos</th><td>  // TODO: Removed Photo section not copying correctly.
+                            <form method="POST"><button type="submit" value="add_photos" name="add_photos" class="button" id="add_photos">Add Photos</button></form>
+                        </td></tr>-->
                        
                     </tbody>
                   </table>';
+
+
 
         $report_box_top = '<br><table class="widefat striped">
                     <thead><th>Report Activity</th></thead>
@@ -191,6 +197,8 @@ final class dt_sample_page {
 
         if (isset($_POST['add_photos'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->add_photos_once() . $report_box_bottom; }
         if (isset($_POST['reset_photos'])) { $html .= $report_box_top . dt_sample_data_plugin()->content->reset_photos() . $report_box_bottom; }
+
+        if (isset($_POST['reset_roles'])) { $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom; }
 
 
 
@@ -422,6 +430,20 @@ final class dt_sample_page {
             $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>disciple</td></tr>';
             $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>disciple</td></tr>';
             $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>disciple</td></tr>';
+
+        $html .= '</tbody></table>';
+
+
+        $html .= '<table class="widefat striped">
+                    <thead><th>Reset Settings</th><th></th></thead>
+                    <tbody>';
+        $html .= '<tr><th>Prayer Supporter</th><td>'. $installed['Prayer_Supporter'] . '</td><td>Prayer_Supporter</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Project Supporter</th><td>'. $installed['Project_Supporter'] . '</td><td>Project_Supporter</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Dispatcher</th><td>'. $installed['Dispatcher'] . '</td><td>Dispatcher</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Marketer</th><td>'. $installed['Marketer'] . '</td><td>Marketer</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Multiplier</th><td>'. $installed['Multiplier'] . '</td><td>Multiplier</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Multiplier Leader</th><td>'. $installed['Multiplier_Leader'] . '</td><td>Multiplier_Leader</td><td>disciple</td></tr>';
+        $html .= '<tr><th>Registered</th><td>'. $installed['Registered'] . '</td><td>Registered</td><td>disciple</td></tr>';
 
         $html .= '</tbody></table>';
 

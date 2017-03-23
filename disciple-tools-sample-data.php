@@ -221,6 +221,7 @@ final class dt_sample_data {
         $this->version 			= '0.1';
 
 
+
     }
 
     /**
@@ -253,6 +254,11 @@ final class dt_sample_data {
 
             require_once( 'classes/config-theme-content.php' );
             $this->content = dt_theme_content::instance();
+
+            if ( class_exists('Disciple_Tools')) {
+                require_once( 'classes/class-sample-roles.php' );
+                $this->roles = dt_sample_roles::instance();
+            }
 
         }
     }
