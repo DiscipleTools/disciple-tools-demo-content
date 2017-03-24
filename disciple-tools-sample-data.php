@@ -25,6 +25,7 @@ final class dt_sample_data {
      * @since   0.1
      */
     public $token;
+    public $setup_info;
 
     /**
      * The version number.
@@ -259,6 +260,12 @@ final class dt_sample_data {
                 require_once( 'classes/class-sample-roles.php' );
                 $this->roles = dt_sample_roles::instance();
             }
+
+            require_once ('classes/class-sample-menu-setup-info.php');
+            $this->setup_info = dt_sample_setup_info::instance();
+
+            require_once ('classes/class-sample-menu-add-records.php');
+            $this->add_records = dt_sample_add_records::instance();
 
         }
     }
