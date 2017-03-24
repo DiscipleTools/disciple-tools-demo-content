@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @since  0.1
  * @access portal
  */
-final class dt_sample_data {
+class dt_sample_data {
 
     /**
      * The token.
@@ -26,7 +26,7 @@ final class dt_sample_data {
      */
     public $token;
     public $setup_info;
-
+    public $add_report;
     /**
      * The version number.
      * @var     string
@@ -41,7 +41,6 @@ final class dt_sample_data {
      * @since   0.1
      */
     public $admin;
-
     /**
      * The settings object.
      * @var     object
@@ -134,9 +133,7 @@ final class dt_sample_data {
             $instance->setup();
             $instance->includes();
             $instance->setup_actions();
-
         }
-
         return $instance;
     }
 
@@ -148,7 +145,6 @@ final class dt_sample_data {
      * @return void
      */
     private function __construct() {
-
 
     }
 
@@ -220,9 +216,6 @@ final class dt_sample_data {
         // Admin and settings variables
         $this->token 			= 'dtsample';
         $this->version 			= '0.1';
-
-
-
     }
 
     /**
@@ -267,10 +260,10 @@ final class dt_sample_data {
             require_once ('classes/class-sample-menu-add-records.php');
             $this->add_records = dt_sample_add_records::instance();
 
+            require_once ('classes/class-sample-add-report.php');
+            $this->add_report = dt_sample_add_report::instance();
         }
     }
-
-
 
     /**
      * Sets up main plugin actions and filters.
@@ -308,18 +301,6 @@ final class dt_sample_data {
      */
     public function activation() {
 
-//        // Get the administrator role.
-//        $role = get_role( 'administrator' );
-//
-//        // If the administrator role exists, add required capabilities for the plugin.
-//        if ( ! empty( $role ) ) {
-//
-//            $role->add_cap( 'list_roles'       ); // View roles in backend.
-//            $role->add_cap( 'create_roles'     ); // Create new roles.
-//            $role->add_cap( 'delete_roles'     ); // Delete existing roles.
-//            $role->add_cap( 'edit_roles'       ); // Edit existing roles/caps.
-//            $role->add_cap( 'restrict_content' ); // Edit per-post content permissions.
-//        }
     }
 }
 

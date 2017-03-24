@@ -50,15 +50,17 @@ final class dt_sample_page {
 
     } // End __construct()
 
-
-
+    /**
+     * Loads the subnav page
+     * @since 0.1
+     */
     public function add_dtsample_data_menu () {
         add_submenu_page( 'options-general.php', __( 'Sample Data', 'dtsample' ), __( 'Sample Data', 'dtsample' ), 'manage_options', 'dtsample', array( $this, 'dtsample_data_page' ) );
     }
 
-
-    /*
-     * Sample Data Page and Tab Logic
+    /**
+     * Builds the tab bar
+     * @since 0.1
      */
     public function dtsample_data_page() {
 
@@ -67,7 +69,6 @@ final class dt_sample_page {
         }
 
         /**
-         *
          * Begin Header & Tab Bar
          */
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
@@ -83,10 +84,6 @@ final class dt_sample_page {
         if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
         $html .= '">Add Records</a>';
 
-//        $html .= $tab_link_pre . 'dash' . $tab_link_post;
-//        if ($tab == 'dash') {$html .= 'nav-tab-active';}
-//        $html .= '">Dashboard</a>';
-
         $html .= $tab_link_pre . 'setup' . $tab_link_post;
         if ($tab == 'setup') {$html .= 'nav-tab-active';}
         $html .= '">Setup Info</a>';
@@ -95,11 +92,14 @@ final class dt_sample_page {
         if ($tab == 'gen') {$html .= 'nav-tab-active';}
         $html .= '">Gen Test</a>';
 
+        $html .= $tab_link_pre . 'report' . $tab_link_post;
+        if ($tab == 'report') {$html .= 'nav-tab-active';}
+        $html .= '">Add Report</a>';
+
         $html .= '</h2>';
         // End Tab Bar
 
         /**
-         *
          * Begin Page Content
          */
         switch ($tab) {
@@ -107,9 +107,11 @@ final class dt_sample_page {
             case "setup":
                     $html .= dt_sample_data_plugin()->setup_info->dtsample_setup_info();
                 break;
-
             case "gen":
                     $html .= dt_sample_data_plugin()->generations->run_full_generations_list('contacts');
+                break;
+            case "report":
+                $html .= dt_sample_data_plugin()->add_report->add_report_page_form ();
                 break;
             default:
                 $html .= dt_sample_data_plugin()->add_records->dtsample_add_records_content() ;
@@ -118,9 +120,5 @@ final class dt_sample_page {
         $html .= '</div>'; // end div class wrap
 
         echo $html;
-
     }
-
-
-
 }
