@@ -62,11 +62,12 @@ class dt_sample_add_report {
                     <div id="post-body-content">
                         <form action="" method="post">
                         <input type="hidden" name="dt_report_form_noonce" id="dt_report_form_noonce" value="' . wp_create_nonce( 'dt_report_form' ) . '" />
-                        <input name="action" type="hidden" value="dt_report_form_submit">
                             <table class="widefat striped">
                                 <thead><th>Report Form</th><th></th></thead>
                                 <tbody>
-                                    <tr><td>Title</td><td><input type="text" class="regular-text" name="report_post_title" /> </td></tr>
+                                    <tr><td>Title</td><td><input type="text" class="regular-text" name="post_title" /> </td></tr>
+                                    <tr><td>Date</td><td><input type="text" class="regular-text" name="meta_report_date" /> </td></tr>
+                                    
                                     <tr><td></td><td><input type="submit" class="button" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
@@ -81,7 +82,7 @@ class dt_sample_add_report {
                     </tbody>
                   </table>';
 
-        if (isset($_POST['report_post_title'])) { $html .= $report_box_top . $this->save_report($_POST) . $report_box_bottom; }
+        if (isset($_POST['post_title'])) { $html .= $report_box_top . $this->save_report($_POST) . $report_box_bottom; }
 
         $html .= '</div><!-- end post-body-content -->';
 
@@ -107,6 +108,10 @@ class dt_sample_add_report {
         return $html;
     }
 
+    /**
+     * Get's terms for reports post type
+     * @return mixed/void
+     */
     protected function get_terms_for_reports () {
         $terms = get_terms( array(
                     'taxonomy' => 'report-source',
@@ -131,7 +136,48 @@ class dt_sample_add_report {
      */
     public function save_report ($post) {
 
-        return $post['report_post_title'];
+        // Check noonce
+        if ( isset($post['dt_report_form_noonce']) && ! wp_verify_nonce( $post['dt_report_form_noonce'], 'dt_report_form') ) {
+            return 'Are you cheating? Where did this form come from?';
+        }
+
+        // Parse the $_POST info
+        print_r($post);
+
+
+        // Build the Insert
+        $postarr = array(
+            'post_author' => 1,
+            'post_content' => serialize($_POST),
+            'post_content_filtered' => '',
+            'post_title' => 'Facebook-' . date('Y-m-d'),
+            'post_excerpt' => '',
+            'post_status' => 'publish',
+            'post_type' => 'reports',
+            'post_date' => date('Y-m-d'),
+            'comment_status' => 'closed',
+            'ping_status' => 'closed',
+            'post_password' => '',
+            'to_ping' =>  '',
+            'pinged' => '',
+            'post_parent' => 0,
+            'menu_order' => 0,
+            'guid' => '',
+            'import_id' => 0,
+            'context' => '',
+//            'tax_input' => array( array( 'sources' => 'facebook' ) ),
+            'meta_input' => array(
+                'report_date' => '2017-02-22',
+                'report_source' => 'Facebook',
+            ),
+        );
+
+        // Insert to Reports PT
+
+        $result = wp_insert_post($postarr, true);
+
+        return $result;
+
 
     }
 
