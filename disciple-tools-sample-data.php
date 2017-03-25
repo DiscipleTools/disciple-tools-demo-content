@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Singleton class for setting up the plugin.
  *
  * @since  0.1
- * @access portal
+ * @access public
  */
 class dt_sample_data {
 
     /**
      * The token.
      * @var     string
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $token;
@@ -30,63 +30,63 @@ class dt_sample_data {
     /**
      * The version number.
      * @var     string
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $version;
     /**
      * The admin object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $admin;
     /**
      * The settings object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $settings;
     /**
      * The contacts object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $contacts;
     /**
      * The groups object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $groups;
     /**
      * The users object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $users;
     /**
      * The settings object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $page;
     /**
      * The settings object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $classes;
     /**
      * The generations class object.
      * @var     object
-     * @access  portal
+     * @access  public
      * @since   0.1
      */
     public $generations;
@@ -94,7 +94,7 @@ class dt_sample_data {
      * Plugin directory path.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @var    string
      */
     public $dir_path = '';
@@ -103,7 +103,7 @@ class dt_sample_data {
      * Plugin directory URI.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @var    string
      */
     public $dir_uri = '';
@@ -112,7 +112,7 @@ class dt_sample_data {
      * Plugin image directory URI.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @var    string
      */
     public $img_uri = '';
@@ -121,7 +121,7 @@ class dt_sample_data {
      * Returns the instance.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return object
      */
     public static function get_instance() {
@@ -152,8 +152,8 @@ class dt_sample_data {
      * Magic method to output a string if trying to use the object as a string.
      *
      * @since  0.1
-     * @access portal
-     * @return void
+     * @access public
+     * @return string
      */
     public function __toString() {
         return 'dtsample';
@@ -163,7 +163,7 @@ class dt_sample_data {
      * Magic method to keep the object from being cloned.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     public function __clone() {
@@ -174,7 +174,7 @@ class dt_sample_data {
      * Magic method to keep the object from being unserialized.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     public function __wakeup() {
@@ -185,7 +185,7 @@ class dt_sample_data {
      * Magic method to prevent a fatal error when calling a method that doesn't exist.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
@@ -198,7 +198,7 @@ class dt_sample_data {
      * Sets up globals.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     private function setup() {
@@ -222,7 +222,7 @@ class dt_sample_data {
      * Loads files needed by the plugin.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     private function includes() {
@@ -269,7 +269,7 @@ class dt_sample_data {
      * Sets up main plugin actions and filters.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     private function setup_actions() {
@@ -285,7 +285,7 @@ class dt_sample_data {
      * Loads the translation files.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     public function i18n() {
@@ -296,7 +296,7 @@ class dt_sample_data {
      * Method that runs only when the plugin is activated.
      *
      * @since  0.1
-     * @access portal
+     * @access public
      * @return void
      */
     public function activation() {
@@ -309,7 +309,7 @@ class dt_sample_data {
  * used throughout the plugin.
  *
  * @since  0.1
- * @access portal
+ * @access public
  * @return object
  */
 function dt_sample_data_plugin() {

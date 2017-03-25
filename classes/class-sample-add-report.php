@@ -44,6 +44,10 @@ class dt_sample_add_report {
      */
     public function __construct () {
 
+        if (is_admin()) {
+            add_action('admin_post_custom_form_submit', array($this, 'save_report') );
+        }
+
     } // End __construct()
 
     /**
@@ -51,22 +55,37 @@ class dt_sample_add_report {
      * @return mixed/void
      */
     public function add_report_page_form () {
+
         $html = '<div class="wrap">
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder columns-2">
                     <div id="post-body-content">
                         <form action="" method="post">
+                        <input type="hidden" name="dt_report_form_noonce" id="dt_report_form_noonce" value="' . wp_create_nonce( 'dt_report_form' ) . '" />
+                        <input name="action" type="hidden" value="dt_report_form_submit">
                             <table class="widefat striped">
                                 <thead><th>Report Form</th><th></th></thead>
                                 <tbody>
-                                    <tr><td>Title</td><td><input type="text" class="regular-text" name="post_title" /> </td></tr>
+                                    <tr><td>Title</td><td><input type="text" class="regular-text" name="report_post_title" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
-                         </form>
-                    </div><!-- end post-body-content -->
+                         </form>';
 
-                    <div id="postbox-container-1" class="postbox-container">
+
+        $report_box_top = '<br><table class="widefat striped">
+                    <thead><th>Report Activity</th></thead>
+                    <tbody>
+                        <tr><td>';
+        $report_box_bottom = '</td></tr>
+                    </tbody>
+                  </table>';
+
+        if (isset($_POST['report_post_title'])) { $html .= $report_box_top . $this->save_report($_POST) . $report_box_bottom; }
+
+        $html .= '</div><!-- end post-body-content -->';
+
+        $html .=   '<div id="postbox-container-1" class="postbox-container">
                         <table class="widefat striped">
                             <thead>
                             <th>Notes</th>
@@ -84,6 +103,7 @@ class dt_sample_add_report {
                 </div><!-- post-body meta box container -->
             </div><!--poststuff end -->
         </div><!-- wrap end -->';
+
         return $html;
     }
 
@@ -105,7 +125,14 @@ class dt_sample_add_report {
         return $html;
     }
 
+    /**
+     * Save the Report
+     * @access public
+     */
+    public function save_report ($post) {
 
+        return $post['report_post_title'];
 
+    }
 
 }
