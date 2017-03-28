@@ -277,9 +277,9 @@ class dt_theme_content
                 'post_type'         =>  'post',
             ),
             array(
-                'post_title'        =>  'Maybe Next Time',
-                'post_name'         =>  'maybe-next-time',
-                'post_content'      =>  '',
+                'post_title'        =>  'This is the Beginning',
+                'post_name'         =>  'this-is-the-beginning',
+                'post_content'      =>  'This is the beginning of all times. Let life be short or long, but let it always be for Him! And one day, for all of us, it will truly begin.',
                 'post_status'       =>  'Publish',
                 'post_date'         =>  date("Y-m-d H:i:s", mktime(0, 0, 0, 1, 4, 2017)),
                 'comment_status'    =>  'open',

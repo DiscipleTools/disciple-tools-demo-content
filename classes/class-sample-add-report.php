@@ -60,7 +60,7 @@ class dt_sample_add_report {
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder columns-2">
                     <div id="post-body-content">
-                        <form action="" method="post">
+                        <form id="reportSubmit" action="" method="post">
                         <input type="hidden" name="dt_report_form_noonce" id="dt_report_form_noonce" value="' . wp_create_nonce( 'dt_report_form' ) . '" />
                             <table class="widefat striped">
                                 <thead><th>Report Form</th><th></th></thead>
@@ -72,7 +72,17 @@ class dt_sample_add_report {
                                 </tbody>
                             </table>
                          </form>';
-
+        $html .= '<form id="testActivity" action="" method="post">
+                        <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
+                            <table class="widefat striped">
+                                <thead><th>Add Action</th><th></th></thead>
+                                <tbody>
+                                    
+                                    <input type="hidden" name="activity_form" value="1" />
+                                    <tr><td></td><td><input type="submit" class="button" name="submit" value="submit" /> </td></tr>
+                                </tbody>
+                            </table>
+                         </form>';
 
         $report_box_top = '<br><table class="widefat striped">
                     <thead><th>Report Activity</th></thead>
@@ -83,6 +93,7 @@ class dt_sample_add_report {
                   </table>';
 
         if (isset($_POST['post_title'])) { $html .= $report_box_top . $this->save_report($_POST) . $report_box_bottom; }
+        if (isset($_POST['activity_form'])) { $html .= $report_box_top . $this->activity_form() . $report_box_bottom; }
 
         $html .= '</div><!-- end post-body-content -->';
 
@@ -179,6 +190,20 @@ class dt_sample_add_report {
         return $result;
 
 
+    }
+
+    /* Testing function. Temporary */
+    public function activity_form () {
+        aal_insert_log(
+            array(
+                'action' => 'Updated',
+                'object_type' => 'Post',
+                'object_subtype' => 'Contacts',
+                'object_id' => '78',
+                'object_name' => 'test form',
+            )
+        );
+        return true;
     }
 
 }
