@@ -180,6 +180,9 @@ class dt_sample_add_report {
             'meta_input' => array(
                 'report_date' => '2017-02-22',
                 'report_source' => 'Facebook',
+                'pages_like_count' => '10',
+                'pages_engagement' => '10',
+                'pages_conversations_count' => '10'
             ),
         );
 
@@ -194,16 +197,29 @@ class dt_sample_add_report {
 
     /* Testing function. Temporary */
     public function activity_form () {
-        aal_insert_log(
+        $result = dt_report_insert(
             array(
-                'action' => 'Updated',
-                'object_type' => 'Post',
-                'object_subtype' => 'Contacts',
-                'object_id' => '78',
-                'object_name' => 'test form',
+                'report_date'       => date('Y-m-d h:m:s'),
+                'report_source'     => 'Facebook',
+                'report_subsource'  => 'Pray4Colorado Page',
+                'group'             => 'Prayer',
+                'meta_input'        => array(
+                    'page_likes_count'          => '25',
+                    'page_engagement'           => '10',
+                    'page_conversations_count'  => '30',
+                    'page_messages_in_conversation_count' => '10',
+                    'page_post_count'           => '5',
+                    'page_post_likes_and_reactions' => '120',
+                    'page_comments_count'       => '40',
+                ),
             )
         );
-        return true;
+
+        print $result;
+
+        print '<pre>'; print_r( Disciple_Tools()->report_api->get_report_by_id($result) ); print '</pre>';
+
+
     }
 
 }
