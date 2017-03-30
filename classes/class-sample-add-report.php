@@ -178,8 +178,6 @@ class dt_sample_add_report {
         return $html;
     }
 
-
-
     /**
      * Save the Report for Report Post Type
      * @access public
@@ -382,7 +380,10 @@ class dt_sample_add_report {
 
             $results = Disciple_Tools()->report_api->get_reports_by_source($report_source);
 
-            print '<pre>'; print_r( $results ); print '</pre>';
+            $html = '<pre>';
+            $html .= print_r( $results, true );
+            $html .= '</pre>';
+            return $html;
 
         }
 
@@ -398,7 +399,10 @@ class dt_sample_add_report {
 
             $results = Disciple_Tools()->report_api->get_reports_by_date($date, $source, $subsource);
 
-            print '<pre>'; print_r( $results ); print '</pre>';
+            $html = '<pre>';
+            $html .= print_r( $results, true );
+            $html .= '</pre>';
+            return $html;
 
         }
     }
