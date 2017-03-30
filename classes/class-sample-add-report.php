@@ -151,7 +151,6 @@ class dt_sample_add_report {
                     </tbody>
                   </table>';
 
-        if (isset($_POST['post_title'])) { $html .= $report_box_top . $this->save_report($_POST) . $report_box_bottom; }
         if (isset($_POST['activity_form'])) { $html .= $report_box_top . $this->activity_form($_POST) . $report_box_bottom; }
         if (isset($_POST['where_form'])) { $html .= $report_box_top . $this->where_form($_POST) . $report_box_bottom; }
         if (isset($_POST['search_form'])) { $html .= $report_box_top . $this->where_by_date($_POST) . $report_box_bottom; }
@@ -164,8 +163,7 @@ class dt_sample_add_report {
                             <th>Notes</th>
                             </thead>
                             <tbody>
-                            <tr><td><a href="/wp-admin/edit.php?post_type=reports">Reports List</a> </td></tr>
-                            <tr><td>'.$this->get_terms_for_reports().'</td></tr>
+                            <tr><td></td></tr>
                             </tbody>
                         </table>
                     </div><!-- postbox-container 1 -->
@@ -180,27 +178,7 @@ class dt_sample_add_report {
         return $html;
     }
 
-    /**
-     * Get's terms for reports post type
-     * @return mixed/void
-     */
-    protected function get_terms_for_reports () {
-        $terms = get_terms( array(
-                    'taxonomy' => 'report-source',
-                    'hide_empty' => false,
-            ) );
-        $count = count( $terms );
-        $html = '';
-        if ( $count > 0 ) {
-            $html .= '<p>Total Sources: '. $count . '</p>';
-            $html .= '<ul>';
-            foreach ( $terms as $term ) {
-                $html .= '<li>' . $term->name . '</li>';
-            }
-            $html .= '</ul>';
-        }
-        return $html;
-    }
+
 
     /**
      * Save the Report for Report Post Type
