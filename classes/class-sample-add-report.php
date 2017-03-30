@@ -81,9 +81,9 @@ class dt_sample_add_report {
                                 <thead><th>Add Bulk Report Records</th><th></th></thead>
                                 <tbody>
                                     <input type="hidden" name="activity_form" value="1" />
-                                    <tr><td>Source</td><td>' .$this->get_source_list() .'</td></tr>
-                                    <tr><td>Subsource</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
-                                    <tr><td>Number Days to Add, e.g. "20", "100"</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
+                                    <tr><td>Source (required)</td><td>' .$this->get_source_list() .'</td></tr>
+                                    <tr><td>Subsource (required)</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
+                                    <tr><td>Number Days to Add, e.g. "20", "100" (required)</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
@@ -94,7 +94,7 @@ class dt_sample_add_report {
                                 <thead><th>Search Records By Date</th><th></th></thead>
                                 <tbody>
                                     <input type="hidden" name="search_by_date_form" value="1" />
-                                    <tr><td>Date ("2017-03-22" format)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
+                                    <tr><td>Date ("2017-03-22" format) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
                                     <tr><td>Source</td><td>' .$this->get_source_list(true) .'</td></tr>
                                     <tr><td>Subsource</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
@@ -108,16 +108,10 @@ class dt_sample_add_report {
                                 <thead><th>Search Date Range</th><th></th></thead>
                                 <tbody>
                                     <input type="hidden" name="range_form" value="1" />
-                                    <tr><td>Source</td><td>' .$this->get_source_list() .'</td></tr>
-                                    <tr><td>Range</td><td>
-                                        <select class="regular-text" name="report_range" >
-                                            <option name="report_range" value="day">Day</option>
-                                            <option name="report_range" value="month">Month</option>
-                                            <option name="report_range" value="year">Year</option>
-                                        </select>
-                                     </td></tr>
-                                     <tr><td>Date (Year=2017; Month=2017-03; Day=2017-03-22)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
-                                    <tr><td>Subsource (optional)</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
+                                    <tr><td>Source (required)</td><td>' .$this->get_source_list() .'</td></tr>
+                                    <tr><td>Subsource</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
+                                     <tr><td>Date (Year=2017; Month=2017-03; Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
+                                     <tr><td>Return full records</td><td><input type="checkbox" class="regular-text" name="full"  /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
@@ -128,9 +122,10 @@ class dt_sample_add_report {
                             <table class="widefat striped">
                                 <thead><th>Year/Month Summary</th><th></th></thead>
                                 <tbody>
-                                    <input type="hidden" name="year_form" value="1" />
+                                    <input type="hidden" name="meta_form" value="1" />
                                     <tr><td>Source</td><td>' .$this->get_source_list() .'</td></tr>
-                                    <tr><td>Meta Value</td><td><input type="text" class="regular-text" name="meta_key" /> </td></tr>
+                                    <tr><td>Date (Year=2017; Month=2017-03; Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /></td></tr>
+                                    <tr><td>Meta Value (page_likes_count,unique_website_visitors)</td><td><input type="text" class="regular-text" name="meta_key" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
@@ -147,7 +142,7 @@ class dt_sample_add_report {
         if (isset($_POST['activity_form'])) { $html .= $report_box_top . $this->activity_form($_POST) . $report_box_bottom; }
         if (isset($_POST['search_by_date_form'])) { $html .= $report_box_top . $this->search_by_date_form($_POST) . $report_box_bottom; }
         if (isset($_POST['range_form'])) { $html .= $report_box_top . $this->date_range_form($_POST) . $report_box_bottom; }
-        if (isset($_POST['year_form'])) { $html .= $report_box_top . $this->year_month_summary_form($_POST) . $report_box_bottom; }
+        if (isset($_POST['meta_form'])) { $html .= $report_box_top . $this->meta_summary_form($_POST) . $report_box_bottom; }
 
         $html .= '</div><!-- end post-body-content -->';
 
@@ -160,7 +155,7 @@ class dt_sample_add_report {
                             <tr><td>ADD BULK REPORT RECORDS<br>The add bulk report records can add any number of random report elements, defined by source, subsource, and how many days of reports you want added. There is no upper limit, but more than 1000 might stall the script. <hr></td></tr>
                             <tr><td>SEARCH RECORDS BY DATE<br>The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.<hr></td></tr>
                             <tr><td>SEARCH DATE RANGE<br>The search date range requires a source name and the date specified 2017-03 to get all records for March 2017.<hr></td></tr>
-                            <tr><td>YEAR/MONTH SUMMARY<br>The year/month summary requires a source and a meta value to summarize.<hr></td></tr>
+                            <tr><td>YEAR/MONTH SUMMARY<br>The year/month summary requires a source, date and a meta value to summarize. Returns a number<hr></td></tr>
                             </tbody>
                         </table>
                     </div><!-- postbox-container 1 -->
@@ -196,60 +191,6 @@ class dt_sample_add_report {
                   <option name="report_source" value="Groups">Groups</option>
                 </select>';
         return $html;
-    }
-
-    /**
-     * Save the Report for Report Post Type
-     * @access public
-     */
-    public function save_report ($post) {
-
-        // Check noonce
-        if ( isset($post['dt_report_form_noonce']) && ! wp_verify_nonce( $post['dt_report_form_noonce'], 'dt_report_form') ) {
-            return 'Are you cheating? Where did this form come from?';
-        }
-
-        // Parse the $_POST info
-        print_r($post);
-
-
-        // Build the Insert
-        $postarr = array(
-            'post_author' => 1,
-            'post_content' => serialize($_POST),
-            'post_content_filtered' => '',
-            'post_title' => 'Facebook-' . date('Y-m-d'),
-            'post_excerpt' => '',
-            'post_status' => 'publish',
-            'post_type' => 'reports',
-            'post_date' => date('Y-m-d'),
-            'comment_status' => 'closed',
-            'ping_status' => 'closed',
-            'post_password' => '',
-            'to_ping' =>  '',
-            'pinged' => '',
-            'post_parent' => 0,
-            'menu_order' => 0,
-            'guid' => '',
-            'import_id' => 0,
-            'context' => '',
-//            'tax_input' => array( array( 'sources' => 'facebook' ) ),
-            'meta_input' => array(
-                'report_date' => '2017-02-22',
-                'report_source' => 'Facebook',
-                'pages_like_count' => '10',
-                'pages_engagement' => '10',
-                'pages_conversations_count' => '10'
-            ),
-        );
-
-        // Insert to Reports PT
-
-        $result = wp_insert_post($postarr, true);
-
-        return $result;
-
-
     }
 
     /**
@@ -299,6 +240,7 @@ class dt_sample_add_report {
                 break;
             case 'Mailchimp':
                 $meta_input = array(
+                    'new_subscribers' => rand ( 0 , 100 ),
                     'campaigns_sent' => rand ( 0 , 3 ),
                     'list_opens' => rand ( 0 , 5000 ),
                     'campaign_opens' => rand ( 0 , 100 ),
@@ -394,29 +336,6 @@ class dt_sample_add_report {
     }
 
     /**
-     * The search records by source.
-     * TODO: Currently not used
-     * @return string
-     */
-    public function search_by_source ($post) {
-
-        if(!empty($post)) {
-            $report_source = $post['report_source'];
-
-            $results = Disciple_Tools()->report_api->get_reports_by_source($report_source);
-
-            $html = '<pre>';
-            $html .= print_r( $results, true );
-            $html .= '</pre>';
-
-        } else {
-            $html = 'Post Empty';
-        }
-
-        return $html;
-    }
-
-    /**
      * The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.
      * @return string
      */
@@ -449,14 +368,20 @@ class dt_sample_add_report {
 
         if(isset($post['report_date'])) {$date = $post['report_date']; } else { return 'Date range required'; };
         if(isset($post['report_source'])) {$source = $post['report_source']; } else { return 'Source required'; };
-        if(isset($post['report_range'])) {$range = $post['report_range']; } else { return 'Range required'; };
         if(isset($post['report_subsource'])) {$subsource = $post['report_subsource']; } else { $subsource = ''; };
 
-        $id_only = false;
+        $id_only = true;
 
         // Get source report for month
-        $results = Disciple_Tools()->report_api->get_month_by_source($date, $source, $range, $subsource, $id_only);
+        if(isset($post['full']) && $post['full'] == true) {
+            // Returns the entire records and metadata for each record.
+            $results = Disciple_Tools()->report_api->get_month_by_source_full($date, $source, $subsource) ;
+        } else {
+            // Returns just a list of qualified ids
+            $results = Disciple_Tools()->report_api->get_month_by_source($date, $source, $subsource, $id_only);
+        }
 
+        // Report
         $html = '<pre>';
         $html .= print_r( $results, true );
         $html .= '</pre>';
@@ -468,22 +393,23 @@ class dt_sample_add_report {
      * The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.
      * @return string
      */
-    public function year_month_summary_form ($post) {
+    public function meta_summary_form ($post) {
 
-        if(!empty($post)) {
+        if(empty($post))
+            return 'Post Empty';
 
-            if(isset($post['report_date'])) {$date = $post['report_date']; } else { $date = date('Y-m-d'); };
-            if(isset($post['report_source'])) {$source = $post['report_source']; } else { $source = ''; };
-            if(isset($post['report_subsource'])) {$subsource = $post['report_subsource']; } else { $subsource = ''; };
+        if(isset($post['report_date'])) {$date = $post['report_date']; } else { return 'Date range required'; };
+        if(isset($post['report_source'])) {$source = $post['report_source']; } else { return 'Source required'; };
+        if(isset($post['meta_key'])) {$meta_key = $post['meta_key']; } else { return 'Meta key required'; };
 
-            $results = Disciple_Tools()->report_api->get_reports_by_date($date, $source, $subsource);
+        // Get source report for month
+        $results = Disciple_Tools()->report_api->get_meta_key_total($date, $source, $meta_key) ;
 
-            $html = '<pre>';
-            $html .= print_r( $results, true );
-            $html .= '</pre>';
-        } else {
-            $html = 'Post Empty';
-        }
+        // Report
+        $html = '<pre>';
+        $html .= print_r( $results, true );
+        $html .= '</pre>';
+
         return $html;
     }
 
