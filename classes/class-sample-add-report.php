@@ -131,6 +131,18 @@ class dt_sample_add_report {
                             </table>
                          </form><br>';
 
+        $html .= '<form id="testCron" action="" method="post">
+                        <input type="hidden" name="dt_testCron_noonce" id="dt_testCron_noonce" value="' . wp_create_nonce( 'dt_testCron' ) . '" />
+                            <table class="widefat striped">
+                                <thead><th>Cron Test</th><th></th></thead>
+                                <tbody>
+                                    <input type="hidden" name="cron_form" value="1" />
+                                     <tr><td>Date (Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
+                                    <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
+                                </tbody>
+                            </table>
+                         </form><br>';
+
         $report_box_top = '<br><table class="widefat striped">
                     <thead><th>Report Output</th></thead>
                     <tbody>
@@ -143,6 +155,7 @@ class dt_sample_add_report {
         if (isset($_POST['search_by_date_form'])) { $html .= $report_box_top . $this->search_by_date_form($_POST) . $report_box_bottom; }
         if (isset($_POST['range_form'])) { $html .= $report_box_top . $this->date_range_form($_POST) . $report_box_bottom; }
         if (isset($_POST['meta_form'])) { $html .= $report_box_top . $this->meta_summary_form($_POST) . $report_box_bottom; }
+        if (isset($_POST['cron_form'])) { $html .= $report_box_top . $this->cron_test($_POST) . $report_box_bottom; }
 
         $html .= '</div><!-- end post-body-content -->';
 
@@ -158,6 +171,7 @@ class dt_sample_add_report {
                             <tr><td>YEAR/MONTH SUMMARY<br>The year/month summary requires a source, date and a meta value to summarize. Returns a number<hr></td></tr>
                             </tbody>
                         </table>
+                       
                     </div><!-- postbox-container 1 -->
 
                     <div id="postbox-container-2" class="postbox-container">
@@ -410,6 +424,17 @@ class dt_sample_add_report {
         $html .= print_r( $results, true );
         $html .= '</pre>';
 
+        return $html;
+    }
+
+    public function cron_test ($post) {
+
+        $results = Disciple_Tools()->report_cron->build_all_disciple_tools_contacts_reports($post['report_date']);
+
+        // Report
+        $html = '<pre>';
+        $html .= print_r( $results, true );
+        $html .= '</pre>';
         return $html;
     }
 
