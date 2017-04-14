@@ -262,6 +262,9 @@ class dt_sample_data {
 
             require_once ('classes/class-sample-add-report.php');
             $this->add_report = dt_sample_add_report::instance();
+
+            require_once ('classes/class-sample-portal.php');
+            $this->portal = dt_sample_portal::instance();
         }
     }
 

@@ -96,6 +96,10 @@ final class dt_sample_page {
         if ($tab == 'report') {$html .= 'nav-tab-active';}
         $html .= '">Add Report</a>';
 
+        $html .= $tab_link_pre . 'portal' . $tab_link_post;
+        if ($tab == 'portal') {$html .= 'nav-tab-active';}
+        $html .= '">Portal</a>';
+
         $html .= '</h2>';
         // End Tab Bar
 
@@ -112,6 +116,9 @@ final class dt_sample_page {
                 break;
             case "report":
                 $html .= dt_sample_data_plugin()->add_report->add_report_page_form ();
+                break;
+            case "portal":
+                $html .= dt_sample_data_plugin()->portal->display_page_content();
                 break;
             default:
                 $html .= dt_sample_data_plugin()->add_records->dtsample_add_records_content() ;
