@@ -55,7 +55,7 @@ final class dt_sample_page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( 'Sample Data (DT)', 'dtsample' ), __( 'Sample Data (DT)', 'dtsample' ), 'manage_options', 'dtsample', array( $this, 'dtsample_data_page' ) );
+        add_submenu_page( 'options-general.php', __( '(Sample Data)', 'dtsample' ), __( '(Sample Data)', 'dtsample' ), 'manage_options', 'dtsample', array( $this, 'dtsample_data_page' ) );
     }
 
     /**
