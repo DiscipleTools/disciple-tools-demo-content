@@ -62,6 +62,296 @@ class dt_sample_users
         return $html;
     }
 
+
+
+    public function add_users_by_count ($count = 5)
+    {
+        if (get_option('_sample_last_user_add')) {
+
+            $previous_number = get_option('_sample_last_user_add');
+
+            $i = (int)$previous_number + 1;
+
+            $count = (int)$previous_number + $count + 1;
+
+        } else {
+
+            $i = 1;
+
+            $count = $count + 1;
+
+        }
+        $report = 0;
+
+        while ( $count > $i ) {
+
+            $password = 'disciple';
+
+        // Create Marketer
+            $username = 'marketer' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'marketer' );
+
+
+         // Create Marketer Leader
+            $username = 'marketer_leader' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer Leader ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'marketer_leader' );
+
+
+            // Create Strategy
+            $username = 'strategy' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Strategy ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'strategy' );
+
+
+        // Create Dispatcher
+            $username = 'dispatcher' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Dispatcher ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'dispatcher' );
+
+
+        // Create Multiplier
+            $username = 'multiplier' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'multiplier' );
+
+
+
+       // Create Multiplier Leader
+            $username = 'multiplier_leader' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier Leader ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'multiplier_leader' );
+
+
+         // Create Prayer Supporter
+            $username = 'prayer_supporter' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Prayer Supporter ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'prayer_supporter' );
+
+
+         // Create Project Supporter
+            $username = 'project_supporter' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Project Supporter ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'project_supporter' );
+
+
+         // Create Registered
+            $username = 'registered' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  => 'Registered ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'registered' );
+
+            $i++;
+            $report++;
+
+        }
+
+        update_option('_sample_last_user_add', $i);
+
+        return $report . ' sets of users created.';
+
+    }
+
+    public function add_multipliers_by_count ($count = 5)
+    {
+        if (get_option('_sample_last_user_add')) {
+
+            $previous_number = get_option('_sample_last_user_add');
+
+            $i = (int)$previous_number + 1;
+
+            $count = (int)$previous_number + $count + 1;
+
+        } else {
+
+            $i = 1;
+
+            $count = $count + 1;
+
+        }
+        $report = 0;
+
+        while ( $count > $i ) {
+
+            $password = 'disciple';
+
+            // Create Marketer
+            $username = 'marketer' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'marketer' );
+
+            // Create Multiplier
+            $username = 'multiplier' . $i;
+            $email = $username.'@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier ' . $i,
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'multiplier' );
+
+            $i++;
+            $report++;
+
+        }
+
+        update_option('_sample_last_user_add', $i);
+
+        return $report . ' sets of users created.';
+
+    }
+
+    /*
+     * Resets the if option for groups
+     *
+     * @return string
+     *
+     */
+    public function reset_users () {
+        delete_option('add_sample_users');
+        $html = $this->add_users_once();
+        return $html;
+    }
+
+    /* Depricated */
     protected function add_users ()
     {
         $html = '';
@@ -242,23 +532,6 @@ class dt_sample_users
         } // end if
 
         return $html;
-    }
-
-    /*
-     * Resets the if option for groups
-     *
-     * @return string
-     *
-     */
-    public function reset_users () {
-        delete_option('add_sample_users');
-        $html = $this->add_users_once();
-        return $html;
-    }
-
-    public function delete_sample_users () {
-//        $id = get_user_by( 'email', 'project_supporter@disciple.tools' );
-//        wp_delete_user( $id, $reassign );
     }
 
 }

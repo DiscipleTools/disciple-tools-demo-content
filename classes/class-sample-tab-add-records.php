@@ -69,8 +69,14 @@ class dt_sample_add_records {
         $html .= '<table class="widefat striped">
                     <thead><th>Add Sample Data</th><th></th></thead>
                     <tbody>
-                        <tr><th>Add Users</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
+                        <tr><th>Add Sets of Users with Roles</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 1 User Set</button></form>
+                        </td></tr>
+                        <tr><th></th><td>
+                            <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 5 User Sets</button></form>
+                        </td></tr>
+                        <tr><th></th><td>
+                            <form method="POST"><input type="text" name="count" value="10" max="20" /> <button type="submit" value="add_multipliers" name="submit" class="button" id="add_multipliers">Add Multipliers and Marketers</button> (20 max)</form>
                         </td></tr>
                         <tr><th>Add Contacts</th><td>
                             <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
@@ -125,13 +131,18 @@ class dt_sample_add_records {
             // Identify form request
             switch ($_POST['submit']) {
                 case 'add_users':
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_once($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_by_count($_POST['count']) . $report_box_bottom;
+                    break;
+                case 'add_multipliers':
+                    $max = 20;
+                    if ($_POST['count'] > 20) {$_POST['count'] = 20;}
+                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_multipliers_by_count($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_users':
                     $html .= $report_box_top . dt_sample_data_plugin()->users->reset_users($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_contacts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->add_contacts_once ($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->add_contacts_by_count ($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_contacts':
                     $html .= $report_box_top . dt_sample_data_plugin()->contacts->reset_contacts ($_POST['count']) . $report_box_bottom;

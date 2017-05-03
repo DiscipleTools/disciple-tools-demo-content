@@ -278,6 +278,9 @@ class dt_sample_data {
                 require_once( 'classes/class-sample-roles.php' );
                 $this->roles = dt_sample_roles::instance();
             }
+
+            // Utilities
+            require_once ( 'functions/arrays.php');
         }
     }
 

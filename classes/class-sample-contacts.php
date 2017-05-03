@@ -202,4 +202,40 @@ class dt_sample_contacts
         return $html;
     }
 
+    public function add_contacts_by_count ($count)
+    {
+
+        while ($count > $i ) {
+
+            $contact = dt_sample_plain_contact ();
+
+            $post_title = $contact["title"];
+            $post_type = 'contacts';
+            $post_content = ' ';
+            $post_status = "publish";
+            $post_author = get_current_user_id();
+
+            $post = array(
+                "post_title" => $post_title,
+                'post_type' => $post_type,
+                "post_content" => $post_content,
+                "post_status" => $post_status,
+                "post_author" => $post_author,
+                "meta_input" => array(
+                    "phone" => $contact['phone'],
+                    "overall_status" => $contact['overall_status'],
+                    "email" => $contact["email"],
+                    "preferred_contact_method" => $contact['preferred_contact_method'],
+                ),
+            );
+
+            wp_insert_post($post);
+
+            $i++;
+        }
+
+        return $count . ' records created';
+    }
+
+
 }
