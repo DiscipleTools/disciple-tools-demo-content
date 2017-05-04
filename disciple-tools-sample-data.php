@@ -268,6 +268,9 @@ class dt_sample_data {
             require_once('classes/class-sample-assets.php');
             $this->assets = dt_sample_assets::instance();
 
+            require_once('classes/class-sample-prayer-post.php');
+            $this->prayer = dt_sample_prayer_post::instance();
+
             require_once('classes/class-sample-baptisms.php');
             $this->baptisms = dt_sample_baptisms::instance();
 

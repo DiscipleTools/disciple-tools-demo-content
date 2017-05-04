@@ -84,14 +84,11 @@ class dt_sample_add_records {
                         <tr><th>Add Assets</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_assets" name="submit" class="button" id="add_assets">Add Assets</button></form>
                         </td></tr>
-                        <tr><th>Add Media</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_media" name="submit" class="button" id="add_media">Add Media</button></form>
+                        <tr><th>Add Posts</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
                         </td></tr>
                         <tr><th>Add Pages</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
-                        </td></tr>
-                        <tr><th>Add Posts</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
                         </td></tr>
                         <tr><th></th><td>
                         </td></tr>
@@ -109,7 +106,6 @@ class dt_sample_add_records {
              </table>
              <br>
              ';
-
 
         if (isset($_POST['submit'])) {
 
@@ -155,9 +151,13 @@ class dt_sample_add_records {
 
                 // Media
                 case 'add_media':
-                    $html .= $report_box_top . dt_sample_data_plugin()->media->add_media_by_count($_POST['count']) . $report_box_bottom;
+//                    $html .= $report_box_top . dt_sample_add_media_by_count($_POST['count']) . $report_box_bottom;
                     break;
 
+                // Prayer posts
+                case 'add_prayer_posts':
+                    $html .= $report_box_top . dt_sample_data_plugin()->prayer->add_prayer_posts_by_count ($_POST['count']) . $report_box_bottom;
+                    break;
 
                 // Generations
                 case 'build_baptisms':
@@ -184,12 +184,8 @@ class dt_sample_add_records {
                 case 'reset_core_pages':
                     $html .= $report_box_top . dt_sample_data_plugin()->content->reset_core_pages($_POST['count']) . $report_box_bottom;
                     break;
-                case 'add_prayer_posts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->add_prayer_posts_once($_POST['count']) . $report_box_bottom;
-                    break;
-                case 'reset_prayer_posts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->reset_prayer_posts($_POST['count']) . $report_box_bottom;
-                    break;
+
+
                 case 'reset_roles':
                     $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom;
                     break;
