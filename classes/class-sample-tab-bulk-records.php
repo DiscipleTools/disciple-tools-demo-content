@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Disciple Tools Sample Menu Add Records
+ * dt_sample_bulk_records
  *
- * @class dt_sample_add_records
+ * @class dt_sample_bulk_records
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_add_records {
+class dt_sample_bulk_records {
 
     /**
-     * dt_sample_add_records The single instance of dt_sample_add_records.
+     * dt_sample_bulk_records The single instance of dt_sample_bulk_records.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -25,11 +25,11 @@ class dt_sample_add_records {
     /**
      * Main dt_sample_add_records Instance
      *
-     * Ensures only one instance of dt_sample_add_records is loaded or can be loaded.
+     * Ensures only one instance of dt_sample_bulk_records is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_add_records instance
+     * @return dt_sample_bulk_records instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -52,7 +52,7 @@ class dt_sample_add_records {
      * @access  public
      * @since   0.1
      */
-    public function dtsample_add_records_content () {
+    public function dtsample_add_bulk_records_content () {
         $html = '<div class="wrap"><h2>Add records</h2>';
         // Opening wrappers.
         $html .= '<div class="wrap">
@@ -61,7 +61,6 @@ class dt_sample_add_records {
 
         /*
         * Main left column
-        *
         */
         $html .= '<div id="post-body-content">';
 
@@ -69,13 +68,10 @@ class dt_sample_add_records {
         $html .= '<table class="widefat striped">
                     <thead><th>Add Sample Data</th><th></th></thead>
                     <tbody>
-                        <tr><th>Add Sets of Users with Roles</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 1 User Set</button></form>
-                        </td></tr>
-                        <tr><th></th><td>
+                        <tr><th>Add Sets of Users</th><td>
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 5 User Sets</button></form>
                         </td></tr>
-                        <tr><th></th><td>
+                        <tr><th>Bulk Multipliers</th><td>
                             <form method="POST"><input type="text" name="count" value="10" max="20" /> <button type="submit" value="add_multipliers" name="submit" class="button" id="add_multipliers">Add Multipliers and Marketers</button> (20 max)</form>
                         </td></tr>
                         <tr><th>Add Contacts</th><td>
@@ -187,11 +183,38 @@ class dt_sample_add_records {
                     break;
             }
 
+
         }
 
         $html .= '</div><!-- end post-body-content -->';
 
         $html .=   '<div id="postbox-container-1" class="postbox-container">
+
+                    <table class="widefat striped">
+                        <thead><th>Utilities</th><th></th></thead>
+                            <tbody>
+                                <tr><th>Refresh Roles</th><td>
+                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
+                                </td></tr>
+                                <tr><th>Delete Contacts</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete Contacts</a>
+                                    
+                                </td></tr>
+                                <tr id="delete_contacts_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_contacts" name="submit" class="button" style="background:red; color:white;" id="delete_contacts">Confirm Delete</button></form>
+                                </td></tr>
+                                <tr><th>Delete Groups</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_groups_confirm\').show();">Delete Groups</a>
+                                    
+                                </td></tr>
+                                <tr id="delete_groups_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_groups" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                
+                                    
+                        </tbody>
+                    </table><br>
 
                         <table class="widefat ">
                             <thead>

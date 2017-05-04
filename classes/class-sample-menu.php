@@ -82,11 +82,15 @@ final class dt_sample_page {
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
         if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
-        $html .= '">Add Records</a>';
+        $html .= '">Start</a>';
+
+        $html .= $tab_link_pre . 'bulk_records' . $tab_link_post;
+        if ($tab == 'bulk_records') {$html .= 'nav-tab-active';}
+        $html .= '">Bulk Records</a>';
 
         $html .= $tab_link_pre . 'report' . $tab_link_post;
         if ($tab == 'report') {$html .= 'nav-tab-active';}
-        $html .= '">Add Reports</a>';
+        $html .= '">Bulk Reports</a>';
 
         $html .= $tab_link_pre . 'setup' . $tab_link_post;
         if ($tab == 'setup') {$html .= 'nav-tab-active';}
@@ -114,9 +118,9 @@ final class dt_sample_page {
             case "report":
                 $html .= dt_sample_data_plugin()->add_report->add_report_page_form ();
                 break;
-//            case "gen":
-//                    $html .= dt_sample_data_plugin()->generations->run_full_generations_list('contacts');
-//                break;
+            case "bulk_records":
+                    $html .= dt_sample_data_plugin()->bulk_records->dtsample_add_bulk_records_content();
+                break;
 //            case "portal":
 //                $html .= dt_sample_data_plugin()->portal->display_page_content();
 //                break;

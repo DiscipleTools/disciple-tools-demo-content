@@ -239,6 +239,9 @@ class dt_sample_data {
             require_once('classes/class-sample-tab-add-records.php');
             $this->add_records = dt_sample_add_records::instance();
 
+            require_once('classes/class-sample-tab-bulk-records.php');
+            $this->bulk_records = dt_sample_bulk_records::instance();
+
             require_once('classes/class-sample-tab-setup-info.php');
             $this->setup_info = dt_sample_setup_info::instance();
 
@@ -271,7 +274,7 @@ class dt_sample_data {
             require_once( 'classes/config-theme-content.php' );
             $this->content = dt_theme_content::instance();
 
-            require_once ('classes/class-sample-add-report.php'); // tab page with various forms
+            require_once('classes/class-sample-tab-bulk-report.php'); // tab page with various forms
             $this->add_report = dt_sample_add_report::instance();
 
             if ( class_exists('Disciple_Tools')) { // resets the default roles

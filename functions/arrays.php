@@ -68,19 +68,18 @@ function dt_sample_random_name () {
         'Fatin', 'Moukib', 'Tarique', 'Faris', 'Moukib',
         'Mohammed', 'Parah', 'Usama', 'Gadi', 'Tahu',
         'Tarik', 'Fatima', 'Rahi', 'Atiya', 'Qaseem',
-        'Maysun', 'Musad', 'Tarik', 'Dawud', 'Maysa',
+        'Maysun', 'Musad', 'Assah', 'Dawud', 'Maysa',
         'Moukib', 'Azzam', 'Qaseem', 'Maysun', 'Rahi',
         'Atiya', 'Rashid', 'Manal', 'Usama', 'Gadi'
     );
-    $a = array_rand ( $name_list , 1 );
-    return $name_list[$a[0]];
+    return $name_list[rand(0, 35)];
 }
 
 function dt_sample_plain_contact () {
 
     $name = dt_sample_random_name ();
     $contact = array(
-        "title" => 'Contact' . rand(999, 99999),
+        "title" => dt_sample_random_name () . ' Contact' . rand(100, 999),
         "phone" => dt_sample_random_phone_number(),
         "overall_status" => dt_sample_random_overall_status(),
         "email" => $name.rand(1000, 10000)."@email.com",
