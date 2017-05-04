@@ -265,6 +265,9 @@ class dt_sample_data {
             require_once('classes/class-sample-locations.php');
             $this->locations = dt_sample_locations::instance();
 
+            require_once('classes/class-sample-assets.php');
+            $this->assets = dt_sample_assets::instance();
+
             require_once('classes/class-sample-baptisms.php');
             $this->baptisms = dt_sample_baptisms::instance();
 
@@ -283,7 +286,7 @@ class dt_sample_data {
             }
 
             // Utilities
-            require_once ( 'functions/arrays.php');
+            require_once('functions/randomizer.php');
         }
     }
 

@@ -12,7 +12,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_locations {
+class dt_sample_assets {
 
     /**
      * dt_sample_locations The single instance of dt_sample_locations.
@@ -49,12 +49,12 @@ class dt_sample_locations {
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_locations_by_count ($count)
+    public function add_assets_by_count ($count)
     {
         $i = 0;
         while ($count > $i ) {
 
-            $post = $this->single_random_location ();
+            $post = $this->single_random_asset ();
             wp_insert_post($post);
 
             $i++;
@@ -66,14 +66,21 @@ class dt_sample_locations {
      * Builds a single random location record.
      * @return array|WP_Post
      */
-    public function single_random_location () {
+    public function single_random_asset () {
 
         $post = array(
-            "post_title" => 'Location' . rand(100, 999),
-            'post_type' => 'locations',
+            "post_title" => dt_sample_random_asset_name () . ' Asset' . rand(10, 99),
+            'post_type' => 'assets',
             "post_content" => ' ',
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
+            "meta_input" => array(
+                "type" => dt_sample_random_phone_number(),
+                "address"   =>  dt_sample_random_address(),
+                "city"  => dt_sample_random_city_names(),
+                "state" => dt_sample_random_state(),
+                "zip"   =>  rand(80000, 89999),
+            ),
         );
 
         return $post;

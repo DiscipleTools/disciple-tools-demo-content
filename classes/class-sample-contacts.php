@@ -57,7 +57,7 @@ class dt_sample_contacts
             add_option($option, $value, $deprecated, $autoload);
 
         } else {
-            $html .= '<p>Contacts are already loaded. <form method="POST"><button type="submit" value="reset_contacts" name="reset_contacts" class="button" id="reset_contacts">Load the sample contacts again?</button></p>';
+            $html .= '<p>Contacts are already loaded. <form method="POST"><button type="submit" value="reset_contacts" name="submit" class="button" id="reset_contacts">Load the sample contacts again?</button></p>';
         }
         return $html;
     }
@@ -202,39 +202,51 @@ class dt_sample_contacts
         return $html;
     }
 
+
+
+    /**
+     * Loops contact creation according to supplied $count.
+     * @param $count    int Number of records to create.
+     * @return string
+     */
     public function add_contacts_by_count ($count)
     {
-
+        $i = 0;
         while ($count > $i ) {
 
-            $contact = dt_sample_plain_contact ();
-
-            $post_title = $contact["title"];
-            $post_type = 'contacts';
-            $post_content = ' ';
-            $post_status = "publish";
-            $post_author = get_current_user_id();
-
-            $post = array(
-                "post_title" => $post_title,
-                'post_type' => $post_type,
-                "post_content" => $post_content,
-                "post_status" => $post_status,
-                "post_author" => $post_author,
-                "meta_input" => array(
-                    "phone" => $contact['phone'],
-                    "overall_status" => $contact['overall_status'],
-                    "email" => $contact["email"],
-                    "preferred_contact_method" => $contact['preferred_contact_method'],
-                ),
-            );
-
+            $post = $this->single_plain_contact();
             wp_insert_post($post);
 
             $i++;
         }
-
         return $count . ' records created';
+    }
+
+    /**
+     * Builds a single random contact record.
+     * @return array|WP_Post
+     */
+    public function single_plain_contact () {
+
+        $name = dt_sample_random_name ();
+
+        $post = array(
+            "post_title" => $name . ' Contact' . rand(100, 999),
+            'post_type' => 'contacts',
+            "post_content" => ' ',
+            "post_status" => "publish",
+            "post_author" => get_current_user_id(),
+            "meta_input" => array(
+                "phone" => dt_sample_random_phone_number(),
+                "overall_status" => dt_sample_random_overall_status(),
+                "email" => $name.rand(1000, 10000)."@email.com",
+                "preferred_contact_method" => dt_sample_random_preferred_contact_method (),
+                "source_details"    =>  dt_sample_random_source (),
+            ),
+        );
+
+        return $post;
+
     }
 
 

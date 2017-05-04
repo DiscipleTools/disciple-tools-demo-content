@@ -36,10 +36,11 @@ class dt_sample_users
     // Constructor class
     public function __construct() {}
 
-    /*
-     * Sets a check so that the groups are added only one time.
-     *
-     *
+    /******************************************************************************/
+    /* Section :  Core Addition of Users */
+
+    /**
+     * Sets a check so that the core users are added only one time.
      * @return string
      */
     public function add_users_once () {
@@ -57,12 +58,259 @@ class dt_sample_users
             add_option($option, $value, $deprecated, $autoload);
 
         } else {
-            $html .= '<p>Users are already loaded. <form method="POST"><button type="submit" value="reset_users" name="reset_users" class="button" id="reset_users">Reset full set of sample users</button></p>';
+            $html .= '<p>Users are already loaded. <form method="POST"><button type="submit" value="reset_users" name="submit" class="button" id="reset_users">Reset full set of sample users</button></p>';
         }
         return $html;
     }
 
+    /**
+     * Builds the core user profiles for different roles.
+     * @return string
+     */
+    protected function add_users ()
+    {
+        $html = '';
 
+        if( null == username_exists( 'Marketer' ) ) {
+
+            // Create user
+            $username = 'Marketer';
+            $password = 'disciple';
+            $email = 'marketer@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'marketer' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Marketer Leader' ) ) {
+
+            // Create user
+            $username = 'Marketer Leader';
+            $password = 'disciple';
+            $email = 'marketer_leader@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Marketer Leader'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'marketer_leader' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Dispatcher' ) ) {
+
+            // Create user
+            $username = 'Dispatcher';
+            $password = 'disciple';
+            $email = 'dispatcher@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Dispatcher'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'dispatcher' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Multiplier' ) ) {
+
+            // Create user
+            $username = 'Multiplier';
+            $password = 'disciple';
+            $email = 'multiplier@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'multiplier' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Multiplier_Leader' ) ) {
+
+            // Create user
+            $username = 'Multiplier_Leader';
+            $password = 'disciple';
+            $email = 'multiplier_leader@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Multiplier Leader'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'multiplier_leader' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Prayer_Supporter' ) ) {
+
+            // Create user
+            $username = 'Prayer_Supporter';
+            $password = 'disciple';
+            $email = 'prayer_supporter@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Prayer Supporter'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'prayer_supporter' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Project_Supporter' ) ) {
+
+            // Create user
+            $username = 'Project_Supporter';
+            $password = 'disciple';
+            $email = 'project_supporter@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  =>    'Project Supporter'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'project_supporter' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Registered' ) ) {
+
+            // Create user
+            $username = 'Registered';
+            $password = 'disciple';
+            $email = 'registered@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  => 'Registered'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'registered' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        if( null == username_exists( 'Strategist' ) ) {
+
+            // Create user
+            $username = 'Strategist';
+            $password = 'disciple';
+            $email = 'strategist@disciple.tools';
+            $user_id = wp_create_user( $username, $password, $email );
+
+            // Set the nickname
+            wp_update_user(
+                array(
+                    'ID'          =>    $user_id,
+                    'nickname'    =>    $username,
+                    'first_name'  => 'Strategist'
+                )
+            );
+
+            // Set the role
+            $user = new WP_User( $user_id );
+            $user->set_role( 'strategist' );
+
+            // Report
+            $html .= '<br>Added: ' . $username ;
+        } // end if
+
+        return $html;
+    }
+
+    /**
+     * Resets the core users option and rechecks to see if all the users are added.
+     * @return string
+     */
+    public function reset_users () {
+        delete_option('add_sample_users');
+        $html = $this->add_users_once();
+        return $html;
+    }
+
+    /******************************************************************************/
+    /* Section :  Bulk Addition of Users */
 
     public function add_users_by_count ($count = 5)
     {
@@ -269,6 +517,8 @@ class dt_sample_users
 
     }
 
+
+
     public function add_multipliers_by_count ($count = 5)
     {
         if (get_option('_sample_last_user_add')) {
@@ -339,199 +589,230 @@ class dt_sample_users
 
     }
 
-    /*
-     * Resets the if option for groups
-     *
-     * @return string
-     *
+    /**
+     * Add a single multiplier
+     * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function reset_users () {
-        delete_option('add_sample_users');
-        $html = $this->add_users_once();
-        return $html;
+    public function add_multiplier ($i) {
+        $password = 'disciple';
+
+        // Create Marketer
+        $username = 'marketer' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Marketer ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'marketer' );
     }
 
-    /* Depricated */
-    protected function add_users ()
-    {
-        $html = '';
+    /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_marketer_leader ($i) {
+        $password = 'disciple';
 
-        if( null == username_exists( 'Marketer' ) ) {
+        $username = 'marketer_leader' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
 
-            // Create user
-            $username = 'Marketer';
-            $password = 'disciple';
-            $email = 'marketer@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Marketer Leader ' . $i,
+            )
+        );
 
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'marketer' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Dispatcher' ) ) {
-
-            // Create user
-            $username = 'Dispatcher';
-            $password = 'disciple';
-            $email = 'dispatcher@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Dispatcher'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'dispatcher' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Multiplier' ) ) {
-
-            // Create user
-            $username = 'Multiplier';
-            $password = 'disciple';
-            $email = 'multiplier@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'multiplier' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Multiplier_Leader' ) ) {
-
-            // Create user
-            $username = 'Multiplier_Leader';
-            $password = 'disciple';
-            $email = 'multiplier_leader@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier Leader'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'multiplier_leader' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Prayer_Supporter' ) ) {
-
-            // Create user
-            $username = 'Prayer_Supporter';
-            $password = 'disciple';
-            $email = 'prayer_supporter@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Prayer Supporter'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'prayer_supporter' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Project_Supporter' ) ) {
-
-            // Create user
-            $username = 'Project_Supporter';
-            $password = 'disciple';
-            $email = 'project_supporter@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Project Supporter'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'project_supporter' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        if( null == username_exists( 'Registered' ) ) {
-
-            // Create user
-            $username = 'Registered';
-            $password = 'disciple';
-            $email = 'registered@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  => 'Registered'
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'registered' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } // end if
-
-        return $html;
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'marketer_leader' );
     }
+        /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_marketer ($i) {
+        $password = 'disciple';
+
+        $username = 'marketer' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Marketer ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'marketer' );
+    }
+        /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_multiplier_leader ($i) {
+        $password = 'disciple';
+
+        $username = 'marketer_leader' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Marketer Leader ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'marketer_leader' );
+    }
+        /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_project_supporter ($i) {
+        $password = 'disciple';
+
+        // Create Marketer Leader
+        $username = 'marketer_leader' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Marketer Leader ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'marketer_leader' );
+    }
+        /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_prayer_supporter ($i) {
+        $password = 'disciple';
+
+        $username = 'prayer_supporter' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Prayer Supporter ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'prayer_supporter' );
+    }
+        /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_dispatcher ($i) {
+        $password = 'disciple';
+
+        $username = 'dispatcher' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Dispatcher ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'dispatcher' );
+    }
+    /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_strategist ($i) {
+        $password = 'disciple';
+
+        // Create Marketer Leader
+        $username = 'strategist' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  =>    'Strategist ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'strategist' );
+    }
+
+    /**
+     * Add a single marketer_leader
+     * @param $i    int Unique key that will become part of the name & email of the record
+     */
+    public function add_registered ($i) {
+        $password = 'disciple';
+
+        $username = 'registered' . $i;
+        $email = $username.'@disciple.tools';
+        $user_id = wp_create_user( $username, $password, $email );
+
+        // Set the nickname
+        wp_update_user(
+            array(
+                'ID'          =>    $user_id,
+                'nickname'    =>    $username,
+                'first_name'  => 'Registered ' . $i,
+            )
+        );
+
+        // Set the role
+        $user = new WP_User( $user_id );
+        $user->set_role( 'registered' );
+    }
+
+
+
+
 
 }

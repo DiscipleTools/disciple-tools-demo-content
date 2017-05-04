@@ -69,39 +69,42 @@ class dt_sample_add_records {
         $html .= '<table class="widefat striped">
                     <thead><th>Add Sample Data</th><th></th></thead>
                     <tbody>
-                        <tr><th>Add Sets of Users with Roles</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 1 User Set</button></form>
+                        <tr><th>Add Core Users</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
                         </td></tr>
-                        <tr><th></th><td>
-                            <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add 5 User Sets</button></form>
-                        </td></tr>
-                        <tr><th></th><td>
-                            <form method="POST"><input type="text" name="count" value="10" max="20" /> <button type="submit" value="add_multipliers" name="submit" class="button" id="add_multipliers">Add Multipliers and Marketers</button> (20 max)</form>
-                        </td></tr>
-                        <tr><th>Add Contacts</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
+                        <tr><th>Add Contacts (100)</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
                         </td></tr>
                         <tr><th>Add Groups</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_groups" name="submit" class="button" id="add_groups">Add Groups</button></form>
+                            <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_groups" name="submit" class="button" id="add_groups">Add Groups</button></form>
                         </td></tr>
                         <tr><th>Add Locations</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form>
+                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form>
                         </td></tr>
-                        <tr><th>Build Baptism Generations</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Build Baptisms</button></form>
+                        <tr><th>Add Assets</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_assets" name="submit" class="button" id="add_assets">Add Assets</button></form>
                         </td></tr>
-                        <tr><th>Build Contacts to Groups Connections</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Building Coaching</button></form>
-                        </td></tr>
-                        <tr><th>Build Report History</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button></form>
+                        <tr><th>Add Media</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_media" name="submit" class="button" id="add_media">Add Media</button></form>
                         </td></tr>
                         <tr><th>Add Pages</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
                         </td></tr>
                         <tr><th>Add Posts</th><td>
-                            <form method="POST"><input type="text" name="count" value="100" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
                         </td></tr>
+                        <tr><th></th><td>
+                        </td></tr>
+                        <tr><th>Build Baptism Generations</th><td>
+                            <form method="POST"><input type="hidden"  name="count" value="100" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Build Baptisms</button></form>
+                        </td></tr>
+                        <tr><th>Build Contacts to Groups Connections</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Building Coaching</button></form>
+                        </td></tr>
+                        <tr><th>Build Report History</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button></form>
+                        </td></tr>
+                        
                 </tbody>
              </table>
              <br>
@@ -121,35 +124,42 @@ class dt_sample_add_records {
 
             // Identify form request
             switch ($_POST['submit']) {
+
+                // users
                 case 'add_users':
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_by_count($_POST['count']) . $report_box_bottom;
-                    break;
-                case 'add_multipliers':
-                    $max = 20;
-                    if ($_POST['count'] > 20) {$_POST['count'] = 20;}
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_multipliers_by_count($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_once() . $report_box_bottom;
                     break;
                 case 'reset_users':
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->reset_users($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->users->reset_users() . $report_box_bottom;
                     break;
+
+                // Contacts
                 case 'add_contacts':
                     $html .= $report_box_top . dt_sample_data_plugin()->contacts->add_contacts_by_count ($_POST['count']) . $report_box_bottom;
                     break;
-                case 'reset_contacts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->reset_contacts ($_POST['count']) . $report_box_bottom;
-                    break;
+
+                // Groups
                 case 'add_groups':
-                    $html .= $report_box_top . dt_sample_data_plugin()->groups->add_groups_once($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->groups->add_groups_by_count ($_POST['count']) . $report_box_bottom;
                     break;
-                case 'reset_groups':
-                    $html .= $report_box_top . dt_sample_data_plugin()->groups->reset_groups($_POST['count']) . $report_box_bottom;
-                    break;
+
+                // Locations
                 case 'add_locations':
-                    $html .= $report_box_top . dt_sample_data_plugin()->locations->add_locations($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->locations->add_locations_by_count($_POST['count']) . $report_box_bottom;
                     break;
-                case 'reset_locations':
-                    $html .= $report_box_top . dt_sample_data_plugin()->locations->reset_groups($_POST['count']) . $report_box_bottom;
+
+                // Assets
+                case 'add_assets':
+                    $html .= $report_box_top . dt_sample_data_plugin()->assets->add_assets_by_count($_POST['count']) . $report_box_bottom;
                     break;
+
+                // Media
+                case 'add_media':
+                    $html .= $report_box_top . dt_sample_data_plugin()->media->add_media_by_count($_POST['count']) . $report_box_bottom;
+                    break;
+
+
+                // Generations
                 case 'build_baptisms':
                     $html .= $report_box_top . dt_sample_data_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
@@ -188,6 +198,7 @@ class dt_sample_add_records {
             }
 
         }
+
 
         $html .= '</div><!-- end post-body-content -->';
 
