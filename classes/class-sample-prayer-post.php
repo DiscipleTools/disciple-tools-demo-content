@@ -57,7 +57,7 @@ class dt_sample_prayer_post {
             $post = $this->single_random_prayer_post ();
             $post_id = wp_insert_post($post);
 
-            $file = plugin_dir_path(__DIR__) . 'img/p4t-1.jpg';
+            $file = plugin_dir_path(__DIR__) . 'img/p4t-'.rand(1, 15).'.jpg';
             $this->upload_image_with_post($post_id, $file);
 
             $i++;

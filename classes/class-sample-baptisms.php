@@ -46,4 +46,29 @@ class dt_sample_baptisms {
 
     } // End __construct()
 
+    public function add_baptism_connections () {
+        // Get list of contacts
+
+
+        // Break in 4 generations
+
+
+        // Match two contacts
+
+
+        // Create P2P Post
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+
+        $from = '197';
+        $to = '196';
+        p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
+            'date' => current_time('mysql')
+        ) );
+
+        // Randomize date information
+
+
+
+    }
+
 }
