@@ -179,6 +179,12 @@ class dt_sample_bulk_records {
                 case 'reset_roles':
                     $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom;
                     break;
+                case 'delete_contacts':
+                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->delete_contacts() . $report_box_bottom;
+                    break;
+                case 'delete_groups':
+                    $html .= $report_box_top . dt_sample_data_plugin()->groups->delete_groups() . $report_box_bottom;
+                    break;
                 default:
                     break;
             }

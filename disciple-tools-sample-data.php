@@ -271,11 +271,8 @@ class dt_sample_data {
             require_once('classes/class-sample-prayer-post.php');
             $this->prayer = dt_sample_prayer_post::instance();
 
-            require_once('classes/class-sample-baptisms.php');
-            $this->baptisms = dt_sample_baptisms::instance();
-
-            require_once('classes/class-sample-coaching.php');
-            $this->coaching = dt_sample_coaching::instance();
+            require_once('classes/class-sample-connections.php');
+            $this->connections = dt_sample_connections::instance();
 
             require_once( 'classes/config-theme-content.php' );
             $this->content = dt_theme_content::instance();

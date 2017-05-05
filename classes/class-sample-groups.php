@@ -82,6 +82,26 @@ class dt_sample_groups
         return $post;
     }
 
+    /**
+     * Delete all groups in database
+     * @return string
+     */
+    public function delete_groups () {
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'groups'
+        );
+        $groups = get_posts( $args );
+
+        foreach ($groups as $group) {
+            wp_delete_post( $group->ID, $force_delete = 'true' );
+        }
+
+        return 'Groups deleted';
+
+    }
+
     /******************************************************************************/
     /* Section :  Deprecated */
 

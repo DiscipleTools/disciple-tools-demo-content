@@ -249,5 +249,25 @@ class dt_sample_contacts
 
     }
 
+    /**
+     * Delete all contacts in database
+     * @return string
+     */
+    public function delete_contacts () {
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        foreach ($contacts as $contact) {
+            wp_delete_post( $contact->ID, $force_delete = 'true' );
+        }
+
+        return 'Contacts deleted';
+
+    }
+
 
 }

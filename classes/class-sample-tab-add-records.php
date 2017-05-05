@@ -93,7 +93,10 @@ class dt_sample_add_records {
                         <tr><th></th><td>
                         </td></tr>
                         <tr><th>Build Baptism Generations</th><td>
-                            <form method="POST"><input type="hidden"  name="count" value="100" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Build Baptisms</button></form>
+                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Build Baptisms</button></form>
+                        </td></tr>
+                        <tr><th>Build Church Generations</th><td>
+                            <form method="POST"><input type="hidden"  name="count" value="10" /> <button type="submit" value="build_churches" name="submit" class="button" id="build_churches">Build Churches</button></form>
                         </td></tr>
                         <tr><th>Build Contacts to Groups Connections</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Building Coaching</button></form>
@@ -161,11 +164,13 @@ class dt_sample_add_records {
 
                 // Generations
                 case 'build_baptisms':
-                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->add_baptism_connections ($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_baptism_connections ($_POST['count']) . $report_box_bottom;
                     break;
-                case 'reset_baptisms':
-                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
+                case 'build_churches':
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_church_connections ($_POST['count']) . $report_box_bottom;
                     break;
+
+
                 case 'build_coaching':
                     $html .= $report_box_top . dt_sample_data_plugin()->coaching->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
