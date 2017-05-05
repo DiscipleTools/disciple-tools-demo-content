@@ -161,7 +161,7 @@ class dt_sample_add_records {
 
                 // Generations
                 case 'build_baptisms':
-                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->add_baptism_connections($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->add_baptism_connections ($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_baptisms':
                     $html .= $report_box_top . dt_sample_data_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;

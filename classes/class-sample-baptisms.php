@@ -46,27 +46,58 @@ class dt_sample_baptisms {
 
     } // End __construct()
 
-    public function add_baptism_connections () {
-        // Get list of contacts
-
-
-        // Break in 4 generations
-
-
-        // Match two contacts
-
-
-        // Create P2P Post
+    public function add_baptism_connections ($loops) {
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
 
-        $from = '197';
-        $to = '196';
-        p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
-            'date' => current_time('mysql')
-        ) );
+        // Get list of contacts
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
 
-        // Randomize date information
+        $contact_total = count($contacts);
 
+
+
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            // Break in 4 generations
+            $zero = $contacts[rand(1, $contact_total - 1)];
+            $first = $contacts[rand(1, $contact_total - 1)];
+            $second = $contacts[rand(1, $contact_total - 1)];
+            $third = $contacts[rand(1, $contact_total - 1)];
+            $fourth = $contacts[rand(1, $contact_total - 1)];
+
+            $from = $zero;
+            $to = $first;
+            p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
+                'date' => current_time('mysql')
+            ) );
+
+            $from = $first;
+            $to = $second;
+            p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
+                'date' => current_time('mysql')
+            ) );
+
+            $from = $second;
+            $to = $third;
+            p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
+                'date' => current_time('mysql')
+            ) );
+
+            $from = $third;
+            $to = $fourth;
+            p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
+                'date' => current_time('mysql')
+            ) );
+
+            $i++;
+        }
 
 
     }
