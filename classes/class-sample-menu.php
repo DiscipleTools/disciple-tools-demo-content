@@ -82,23 +82,27 @@ final class dt_sample_page {
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
         if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
-        $html .= '">Add Records</a>';
+        $html .= '">Starter Data</a>';
+
+//        $html .= $tab_link_pre . 'bulk_records' . $tab_link_post;
+//        if ($tab == 'bulk_records') {$html .= 'nav-tab-active';}
+//        $html .= '">Bulk Records</a>';
+
+        $html .= $tab_link_pre . 'report' . $tab_link_post;
+        if ($tab == 'report') {$html .= 'nav-tab-active';}
+        $html .= '">Bulk Reports</a>';
 
         $html .= $tab_link_pre . 'setup' . $tab_link_post;
         if ($tab == 'setup') {$html .= 'nav-tab-active';}
         $html .= '">Setup Info</a>';
 
-        $html .= $tab_link_pre . 'gen' . $tab_link_post;
-        if ($tab == 'gen') {$html .= 'nav-tab-active';}
-        $html .= '">Gen Test</a>';
+//        $html .= $tab_link_pre . 'gen' . $tab_link_post;
+//        if ($tab == 'gen') {$html .= 'nav-tab-active';}
+//        $html .= '">Gen Test</a>';
 
-        $html .= $tab_link_pre . 'report' . $tab_link_post;
-        if ($tab == 'report') {$html .= 'nav-tab-active';}
-        $html .= '">Add Report</a>';
-
-        $html .= $tab_link_pre . 'portal' . $tab_link_post;
-        if ($tab == 'portal') {$html .= 'nav-tab-active';}
-        $html .= '">Portal</a>';
+//        $html .= $tab_link_pre . 'portal' . $tab_link_post;
+//        if ($tab == 'portal') {$html .= 'nav-tab-active';}
+//        $html .= '">Portal</a>';
 
         $html .= '</h2>';
         // End Tab Bar
@@ -111,15 +115,15 @@ final class dt_sample_page {
             case "setup":
                     $html .= dt_sample_data_plugin()->setup_info->dtsample_setup_info();
                 break;
-            case "gen":
-                    $html .= dt_sample_data_plugin()->generations->run_full_generations_list('contacts');
-                break;
             case "report":
                 $html .= dt_sample_data_plugin()->add_report->add_report_page_form ();
                 break;
-            case "portal":
-                $html .= dt_sample_data_plugin()->portal->display_page_content();
+            case "bulk_records":
+                    $html .= dt_sample_data_plugin()->bulk_records->dtsample_add_bulk_records_content();
                 break;
+//            case "portal":
+//                $html .= dt_sample_data_plugin()->portal->display_page_content();
+//                break;
             default:
                 $html .= dt_sample_data_plugin()->add_records->dtsample_add_records_content() ;
         }

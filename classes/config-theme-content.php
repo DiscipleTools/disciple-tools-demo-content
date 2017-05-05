@@ -122,7 +122,7 @@ class dt_theme_content
             add_option($option, $value, $deprecated, $autoload);
 
         } else {
-            $html .= '<p>Pages are already loaded. <form method="POST"><button type="submit" value="reset_core_pages" name="reset_core_pages" class="button" id="reset_core_pages">Reset core pages</button></p>';
+            $html .= '<p>Pages are already loaded. <form method="POST"><button type="submit" value="reset_core_pages" name="submit" class="button" id="reset_core_pages">Reset core pages</button></p>';
         }
         return $html;
     }

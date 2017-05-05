@@ -110,6 +110,10 @@ class dt_sample_portal {
 
         $html .= wp_tag_cloud( $args );
 
+
+
+
+
         return $html;
 
 
