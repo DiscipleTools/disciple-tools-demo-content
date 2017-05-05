@@ -71,7 +71,7 @@ class dt_sample_groups
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "type" => dt_sample_random_phone_number(),
+                "type" => dt_sample_random_group_type(),
                 "address"   =>  dt_sample_random_address(),
                 "city"  => dt_sample_random_city_names(),
                 "state" => dt_sample_random_state(),
@@ -95,7 +95,8 @@ class dt_sample_groups
         $groups = get_posts( $args );
 
         foreach ($groups as $group) {
-            wp_delete_post( $group->ID, $force_delete = 'true' );
+            $id = $group->ID;
+            wp_delete_post( $id, true );
         }
 
         return 'Groups deleted';

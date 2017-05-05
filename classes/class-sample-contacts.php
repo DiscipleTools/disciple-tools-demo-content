@@ -262,7 +262,8 @@ class dt_sample_contacts
         $contacts = get_posts( $args );
 
         foreach ($contacts as $contact) {
-            wp_delete_post( $contact->ID, $force_delete = 'true' );
+            $id = $contact->ID;
+            wp_delete_post( $id, true);
         }
 
         return 'Contacts deleted';

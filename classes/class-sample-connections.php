@@ -42,38 +42,40 @@ class dt_sample_connections {
      * @access  public
      * @since   0.1
      */
-    public function __construct () {
-
-    } // End __construct()
+    public function __construct () {     } // End __construct()
 
     public function add_baptism_connections ($loops) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
-        if ($loops > 25) { $loops = 25;}
-
+        $year = date('Y');
         // Get list of contacts
         $args = array(
             'numberposts'   => -1,
             'post_type'   => 'contacts'
         );
-        $contacts = get_posts( $args );
+        $records = get_posts( $args );
 
-        $contact_total = count($contacts);
+        $total = count($records);
+
+        if ($loops > 25) { $loops = 25;} // checks if requrested more than max number
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+
+        shuffle ( $records );
+
+        $records_chunk = array_chunk($records, 5);
 
         $i = 0;
-
-        $year = date('Y');
 
         while ($loops > $i) {
 
             // Break in 4 generations
-            $zero = $contacts[rand(1, $contact_total - 1)];
-            $first = $contacts[rand(1, $contact_total - 1)];
-            $second = $contacts[rand(1, $contact_total - 1)];
-            $third = $contacts[rand(1, $contact_total - 1)];
-            $fourth = $contacts[rand(1, $contact_total - 1)];
+            $zero = $records_chunk[$i][0];
+            $first = $records_chunk[$i][1];
+            $second = $records_chunk[$i][2];
+            $third = $records_chunk[$i][3];
+            $fourth = $records_chunk[$i][4];
 
             $to = $zero;
             $from = $first;
@@ -122,8 +124,6 @@ class dt_sample_connections {
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
-        if ($loops > 10) { $loops = 10;}
-
         // Get list of records
         $args = array(
             'numberposts'   => -1,
@@ -131,20 +131,25 @@ class dt_sample_connections {
         );
         $records = get_posts( $args );
 
-        $records_total = count($records);
+        $total = count($records);
+
+        if ($loops > 10) { $loops = 10;} // checks if requrested more than max number
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+
+        shuffle ( $records );
+
+        $records_chunk = array_chunk($records, 5);
 
         $i = 0;
-
-        $year = date('Y');
 
         while ($loops > $i) {
 
             // Break in 4 generations
-            $zero = $records[rand(1, $records_total - 1)];
-            $first = $records[rand(1, $records_total - 1)];
-            $second = $records[rand(1, $records_total - 1)];
-            $third = $records[rand(1, $records_total - 1)];
-            $fourth = $records[rand(1, $records_total - 1)];
+            $zero = $records_chunk[$i][0];
+            $first = $records_chunk[$i][1];
+            $second = $records_chunk[$i][2];
+            $third = $records_chunk[$i][3];
+            $fourth = $records_chunk[$i][4];
 
             $to = $zero;
             $from = $first;
@@ -173,6 +178,68 @@ class dt_sample_connections {
             $i++;
         }
         return $i . ' sets of 4th generation churches added.';
+
+    }
+
+    public function add_coaching_connections ($loops) {
+
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
+
+        // Get list of records
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $records = get_posts( $args );
+
+        $total = count($records);
+
+        if ($loops > 25) { $loops = 25;} // checks if requrested more than max number
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+
+        shuffle ( $records );
+
+        $records_chunk = array_chunk($records, 5);
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            // Break in 4 generations
+            $zero = $records_chunk[$i][0];
+            $first = $records_chunk[$i][1];
+            $second = $records_chunk[$i][2];
+            $third = $records_chunk[$i][3];
+            $fourth = $records_chunk[$i][4];
+
+            $to = $zero;
+            $from = $first;
+            p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+            ) );
+
+            $to = $first;
+            $from = $second;
+            p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+            ) );
+
+            $to = $second;
+            $from = $third;
+            p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+            ) );
+
+            $to = $third;
+            $from = $fourth;
+            p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+            ) );
+
+            $i++;
+        }
+        return $i . ' sets of 4th generation coaching contacts added.';
 
     }
 

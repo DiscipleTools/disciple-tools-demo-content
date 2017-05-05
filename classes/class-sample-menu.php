@@ -82,11 +82,11 @@ final class dt_sample_page {
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
         if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
-        $html .= '">Start</a>';
+        $html .= '">Starter Data</a>';
 
-        $html .= $tab_link_pre . 'bulk_records' . $tab_link_post;
-        if ($tab == 'bulk_records') {$html .= 'nav-tab-active';}
-        $html .= '">Bulk Records</a>';
+//        $html .= $tab_link_pre . 'bulk_records' . $tab_link_post;
+//        if ($tab == 'bulk_records') {$html .= 'nav-tab-active';}
+//        $html .= '">Bulk Records</a>';
 
         $html .= $tab_link_pre . 'report' . $tab_link_post;
         if ($tab == 'report') {$html .= 'nav-tab-active';}

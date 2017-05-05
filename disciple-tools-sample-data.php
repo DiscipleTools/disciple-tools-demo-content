@@ -271,6 +271,9 @@ class dt_sample_data {
             require_once('classes/class-sample-prayer-post.php');
             $this->prayer = dt_sample_prayer_post::instance();
 
+            require_once('classes/class-sample-progress-post.php');
+            $this->progress = dt_sample_progress_post::instance();
+
             require_once('classes/class-sample-connections.php');
             $this->connections = dt_sample_connections::instance();
 
