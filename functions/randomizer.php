@@ -226,6 +226,80 @@ function dt_sample_loren_ipsum () {
 
 }
 
+function dt_sample_comment_ipsum () {
+
+    $text = array();
+    $text[] = "Donec turpis eros, facilisis quis dolor id, imperdiet molestie eros. 
+    
+    ";
+
+    $text[] = "In iaculis lobortis sem et elementum. Suspendisse id arcu accumsan, iaculis ex ut, molestie diam. Vestibulum scelerisque lorem a aliquam tempor. Donec gravida ipsum nec suscipit eleifend. 
+    
+    ";
+
+    $text[] = "Duis pulvinar augue eu lectus laoreet, vehicula fringilla lacus efficitur.  
+    
+    ";
+
+    $text[] = "Donec vitae pulvinar ex, at placerat felis.  
+    
+    ";
+
+    $text[] = "In sit amet placerat risus.
+    
+    ";
+
+    $text[] = "Cras consequat ut sem a pulvinar. 
+    
+    ";
+
+    $text[] = "Nunc egestas, neque a dapibus rhoncus, quam dolor maximus mi, ac lobortis mauris magna quis libero. 
+    
+    ";
+
+    shuffle($text);
+
+    return $text[0] .  $text[1] . $text[2] ;
+
+}
+
+function dt_sample_seeker_path () {
+
+    $list = array(
+        'Contact Attempted', 'Contact Established', 'Confirms Interest', 'Meeting Scheduled', 'First Meeting Complete', 'Ongoing Meetings', 'Being Coached'
+    );
+
+    shuffle($list);
+
+    return $list[0];
+}
+
+function dt_sample_group_role() {
+
+    $list = array(
+        'Attending', 'Planting', 'Coaching'
+    );
+
+    shuffle($list);
+
+    return $list[0];
+
+}
+
+function dt_sample_random_requires_upate() {
+
+    $list = array(
+        'No', 'Yes','No', 'Yes', 'No', 'Yes','No', 'Yes',
+    );
+
+    shuffle($list);
+
+    return $list[0];
+
+}
+
+
+
 
 
 

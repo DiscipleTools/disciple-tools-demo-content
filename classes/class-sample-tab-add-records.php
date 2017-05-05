@@ -103,6 +103,10 @@ class dt_sample_add_records {
                     $html .= $report_box_top . dt_sample_data_plugin()->assets->add_assets_by_count($_POST['count']) . $report_box_bottom;
                     break;
 
+                case 'add_comments':
+                    $html .= $report_box_top . dt_sample_data_plugin()->comments->add_comments($_POST['count']) . $report_box_bottom;
+                    break;
+
 
 
                 // Prayer posts
@@ -123,14 +127,31 @@ class dt_sample_add_records {
                 case 'build_coaching':
                     $html .= $report_box_top . dt_sample_data_plugin()->connections->add_coaching_connections($_POST['count']) . $report_box_bottom;
                     break;
-
-
-
-                case 'build_reports':
-                    $html .= $report_box_top . dt_sample_data_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
+                case 'contacts_to_groups':
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_contacts_to_groups($_POST['count']) . $report_box_bottom;
                     break;
-                case 'reset_reports':
-                    $html .= $report_box_top . dt_sample_data_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
+                case 'contacts_to_locations':
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_contacts_to_locations($_POST['count']) . $report_box_bottom;
+                    break;
+
+                case 'shuffle_assignments':
+                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->shuffle_assignments($_POST['count']) . $report_box_bottom;
+                    break;
+
+                case 'shuffle_update_requests':
+                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->shuffle_update_requests($_POST['count']) . $report_box_bottom;
+                    break;
+
+
+                // MISC
+                case 'build_reports':
+                    $html .= $report_box_top . dt_sample_data_plugin()->add_report->activity_form($_POST) . $report_box_bottom;
+                    break;
+
+
+                // Utilities
+                case 'reset_roles':
+                    $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom;
                     break;
                 case 'add_core_pages':
                     $html .= $report_box_top . dt_sample_data_plugin()->content->add_core_pages_once($_POST['count']) . $report_box_bottom;
@@ -138,11 +159,15 @@ class dt_sample_add_records {
                 case 'reset_core_pages':
                     $html .= $report_box_top . dt_sample_data_plugin()->content->reset_core_pages($_POST['count']) . $report_box_bottom;
                     break;
-
-
-                case 'reset_roles':
-                    $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom;
+                case 'delete_contacts':
+                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->delete_contacts() . $report_box_bottom;
                     break;
+                case 'delete_groups':
+                    $html .= $report_box_top . dt_sample_data_plugin()->groups->delete_groups() . $report_box_bottom;
+                    break;
+
+
+
                 default:
                     break;
             }
@@ -167,7 +192,10 @@ class dt_sample_add_records {
         $assets = wp_count_posts( 'assets' );
         $prayer = wp_count_posts( 'prayer' );
         $progress = wp_count_posts( 'progress' );
-        $pages = wp_count_posts( 'page' );
+        $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments");
+
+        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_locations'" );
+        $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
 
         // Number of Baptism connections
         $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
@@ -197,7 +225,7 @@ class dt_sample_add_records {
 
         // Progress Metabox
         $html .= '<table class="widefat striped">
-                    <thead><th>RECORDS</th><th></th><th>Current</th></thead>
+                    <thead><th>DO FIRST</th><th></th><th>Current</th></thead>
                     <tbody>
                         <tr><th>Add Core Users</th><td>
                             <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
@@ -227,20 +255,18 @@ class dt_sample_add_records {
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_progress_posts" name="submit" class="button" id="add_progress_posts">Add Progress Posts</button></form>
                         </td><td>'.$progress->publish.'</td></tr>
                         
-                        <tr><th>Add Pages</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
-                        </td><td>'.$pages->publish.'</td></tr>
                         
-                        <tr><th>Add Comments**</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Comments</button></form>
-                        </td><td>'.$comments = 0 .'</td></tr>
+                        
+                        <tr><th>Add Comments</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
+                        </td><td>'.$comments .'</td></tr>
                         
                         </tbody>
              </table>
              <br>
                         ';
         $html .= '<table class="widefat striped">
-                    <thead><th>CONNECTIONS</th><th></th><th>Current</th></thead>
+                    <thead><th>DO SECOND</th><th></th><th>Current</th></thead>
                     <tbody>
                         <tr><th>Build Baptism Generations</th><td>
                             <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptisms</button></form>
@@ -254,9 +280,21 @@ class dt_sample_add_records {
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Add Coaching Generations</button></form>
                         </td><td>'.$coaching_gen.'</td></tr>
                         
-                        <tr><th>Connect Locations**</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="connect_locations" name="submit" class="button" id="connect_locations">Connect Locations</button></form>
-                        </td><td>'.$connected_locations = 0 .'</td></tr>
+                        <tr><th>Connect Contacts to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Add Contacts to Locations</button></form>
+                        </td><td>'.$contacts_to_locations  .'</td></tr>
+                        
+                        <tr><th>Connect Contacts to Groups</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Add Contacts to Groups</button></form>
+                        </td><td>'.$contacts_to_groups  .'</td></tr>
+                        
+                        <tr><th>Shuffle Assignments**</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
+                        </td><td></td></tr>
+                        
+                        <tr><th>Shuffle Updates Requested**</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates Requested</button></form>
+                        </td><td></td></tr>
                         
                 </tbody>
              </table>
@@ -264,25 +302,47 @@ class dt_sample_add_records {
              ';
 
         $html .= '<table class="widefat striped">
-                    <thead><th>Misc</th><th></th><th>Current</th></thead>
+                    <thead><th>DO THIRD</th><th></th><th>Current</th></thead>
                     <tbody>
                     
                         <tr><th>Build Report History</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button></form>
+                            <form method="POST">
+                                <input type="hidden" name="report_source" value="Facebook"/>
+                                    <input type="hidden" class="regular-text" name="report_subsource" /> 
+                                    <input type="hidden" class="regular-text" name="count" value="30" /> 
+                                    <input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button>
+                             </form>
                         </td><td>'.$reports.'</td></tr>
                         
-                        <tr><th>Add Assignments**</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Add Assignments</button></form>
-                        </td><td></td></tr>
                         
-                        <tr><th>Add Updates Requested**</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Add Updates Requested</button></form>
-                        </td><td></td></tr>
                         
                     </tbody>
              </table>
              <br>
              ';
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        $args = array(
+            'fields'       => 'all',
+            'count_total'  => true,
+        );
+        $users = get_users( $args );
+
+//        $args = array(
+//            'numberposts'   => -1,
+//            'post_type'   => 'contacts'
+//        );
+//        $contacts = get_posts( $args );
+//        print '<pre>'; print_r($contacts[0]); print '</pre>';
+//        print $users[0]->ID;
+//         $user = $users[0]->data;
+//         print_r($user->display_name);
+//
+//        print '<pre>'; print_r($users); print '</pre>';
 
 
         $html .= '</div><!-- end post-body-content -->';
@@ -295,6 +355,11 @@ class dt_sample_add_records {
                                 <tr><th>Refresh Roles</th><td>
                                     <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
                                 </td></tr>
+                                
+                                <tr><th>Add Pages</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
+                        </td></tr>
+                                
                                 <tr><th>Delete Contacts</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete Contacts</a>
                                     

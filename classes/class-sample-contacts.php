@@ -242,6 +242,7 @@ class dt_sample_contacts
                 "email" => $name.rand(1000, 10000)."@email.com",
                 "preferred_contact_method" => dt_sample_random_preferred_contact_method (),
                 "source_details"    =>  dt_sample_random_source (),
+                "seeker_path"   =>  dt_sample_seeker_path(),
             ),
         );
 
@@ -263,11 +264,62 @@ class dt_sample_contacts
 
         foreach ($contacts as $contact) {
             $id = $contact->ID;
-            wp_delete_post( $id, true);
+            wp_delete_post( $id, 'true');
         }
 
         return 'Contacts deleted';
 
+    }
+
+    public function shuffle_assignments () {
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        $args = array(
+            'fields'       => 'all',
+            'role__in'     => array('multiplier', 'multiplier_leader', 'administrator'),
+            'count_total'  => true,
+        );
+        $users = get_users( $args );
+
+        $user_count = count($users);
+
+        foreach ($contacts as $contact) {
+
+            $user = $users[rand(0, $user_count - 1)];
+
+            $post_id = $contact->ID;
+            $meta_key = 'assigned_to';
+            $meta_value = 'user-' . $user->ID;
+
+            update_post_meta( $post_id, $meta_key, $meta_value );
+        }
+
+        return 'Assignments shuffled for all contacts between multipliers, multiplier leaders, and administrators (for testing).';
+    }
+
+
+    public function shuffle_update_requests () {
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+
+        foreach ($contacts as $contact) {
+
+            $post_id = $contact->ID;
+            $meta_key = 'requires_update';
+            $meta_value = dt_sample_random_requires_upate();
+
+            update_post_meta( $post_id, $meta_key, $meta_value );
+        }
+
+        return 'Update requests shuffled for all contacts.';
     }
 
 

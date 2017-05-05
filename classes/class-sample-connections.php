@@ -243,4 +243,107 @@ class dt_sample_connections {
 
     }
 
+    public function add_contacts_to_groups ($loops = 100) {
+
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
+
+
+        // Get list of records
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'groups'
+        );
+        $groups = get_posts( $args );
+
+        if ($loops > 100)
+            $loops = 100; // checks if requested more than max number
+
+        if (count($groups) < $loops )
+            $loops = count($groups);
+
+        if (count($contacts) < $loops)
+            $loops = count($contacts);
+
+
+        shuffle ( $contacts );
+        shuffle ( $groups );
+
+//        array_slice ( $groups , 0 , $loops );
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            $to = $contacts[$i]->ID;
+            $from = $groups[$i]->ID;
+            p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
+                'date' => current_time('mysql'),
+                'role' => dt_sample_group_role(),
+            ) );
+
+            $i++;
+        }
+
+        return $i . ' contacts added to groups.';
+
+    }
+
+    public function add_contacts_to_locations ($loops = 100) {
+
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
+
+
+        // Get list of records
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'locations'
+        );
+        $locations = get_posts( $args );
+
+        if ($loops > 100)
+            $loops = 100;
+
+        if (count($locations) < $loops )
+            $loops = count($locations);
+
+        if (count($contacts) < $loops)
+            $loops = count($contacts);
+
+        shuffle ( $contacts );
+        shuffle ( $locations );
+
+//        array_slice ( $locations , 0 , $loops );
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            $to = $contacts[$i]->ID;
+            $from = $locations[$i]->ID;
+            p2p_type( 'contacts_to_locations' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+                'primary' => 'true',
+            ) );
+
+            $i++;
+        }
+
+        return $i . ' contacts added to locations.';
+
+    }
+
 }
