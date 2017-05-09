@@ -76,6 +76,7 @@ class dt_sample_groups
                 "city"  => dt_sample_random_city_names(),
                 "state" => dt_sample_random_state(),
                 "zip"   =>  rand(80000, 89999),
+                "_sample"   => 'sample',
             ),
         );
 
@@ -90,7 +91,9 @@ class dt_sample_groups
 
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'groups'
+            'post_type'   => 'groups',
+            "meta_key"  => '_sample',
+            "meta_value"    => 'sample',
         );
         $groups = get_posts( $args );
 

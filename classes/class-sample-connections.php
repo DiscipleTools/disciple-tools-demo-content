@@ -346,4 +346,108 @@ class dt_sample_connections {
 
     }
 
+
+    public function add_groups_to_locations ($loops = 100) {
+
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
+
+
+        // Get list of records
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'groups'
+        );
+        $groups = get_posts( $args );
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'locations'
+        );
+        $locations = get_posts( $args );
+
+        if ($loops > 100)
+            $loops = 100;
+
+        if (count($locations) < $loops )
+            $loops = count($locations);
+
+        if (count($groups) < $loops)
+            $loops = count($groups);
+
+        shuffle ( $groups );
+        shuffle ( $locations );
+
+//        array_slice ( $locations , 0 , $loops );
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            $to = $groups[$i]->ID;
+            $from = $locations[$i]->ID;
+            p2p_type( 'groups_to_locations' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+                'primary' => 'true',
+            ) );
+
+            $i++;
+        }
+
+        return $i . ' groups added to locations.';
+
+    }
+
+
+    public function add_assets_to_locations ($loops = 100) {
+
+        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
+        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
+
+
+        // Get list of records
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'assets'
+        );
+        $assets = get_posts( $args );
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'locations'
+        );
+        $locations = get_posts( $args );
+
+        if ($loops > 100)
+            $loops = 100;
+
+        if (count($locations) < $loops )
+            $loops = count($locations);
+
+        if (count($assets) < $loops)
+            $loops = count($assets);
+
+        shuffle ( $assets );
+        shuffle ( $locations );
+
+//        array_slice ( $locations , 0 , $loops );
+
+        $i = 0;
+
+        while ($loops > $i) {
+
+            $to = $assets[$i]->ID;
+            $from = $locations[$i]->ID;
+            p2p_type( 'assets_to_locations' )->connect( $from, $to, array(
+                'date' => current_time('mysql'),
+                'primary' => 'true',
+            ) );
+
+            $i++;
+        }
+
+        return $i . ' assets added to locations.';
+
+    }
+
 }

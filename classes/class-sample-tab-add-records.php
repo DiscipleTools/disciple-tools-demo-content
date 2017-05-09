@@ -64,6 +64,8 @@ class dt_sample_add_records {
 
         if (isset($_POST['submit'])) {
 
+
+
             // Set top and bottom of report window
             $report_box_top = '<br><table class="widefat striped">
                     <tbody>
@@ -133,6 +135,12 @@ class dt_sample_add_records {
                 case 'contacts_to_locations':
                     $html .= $report_box_top . dt_sample_data_plugin()->connections->add_contacts_to_locations($_POST['count']) . $report_box_bottom;
                     break;
+                case 'groups_to_locations':
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_groups_to_locations($_POST['count']) . $report_box_bottom;
+                    break;
+                case 'assets_to_locations':
+                    $html .= $report_box_top . dt_sample_data_plugin()->connections->add_assets_to_locations($_POST['count']) . $report_box_bottom;
+                    break;
 
                 case 'shuffle_assignments':
                     $html .= $report_box_top . dt_sample_data_plugin()->contacts->shuffle_assignments($_POST['count']) . $report_box_bottom;
@@ -195,6 +203,8 @@ class dt_sample_add_records {
         $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments");
 
         $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_locations'" );
+        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_locations'" );
+        $assets_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'assets_to_locations'" );
         $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
 
         // Number of Baptism connections
@@ -282,17 +292,25 @@ class dt_sample_add_records {
                         
                         <tr><th>Connect Contacts to Locations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Add Contacts to Locations</button></form>
-                        </td><td>'.$contacts_to_locations  .'</td></tr>
+                        </td><td>'.$contacts_to_locations  .'</td></tr> 
+                        
+                        <tr><th>Connect Groups to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Add Groups to Locations</button></form>
+                        </td><td>'.$groups_to_locations  .'</td></tr>
+                        
+                        <tr><th>Connect Assets to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="assets_to_locations" name="submit" class="button" id="assets_to_locations">Add Assets to Locations</button></form>
+                        </td><td>'.$assets_to_locations  .'</td></tr>
                         
                         <tr><th>Connect Contacts to Groups</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Add Contacts to Groups</button></form>
                         </td><td>'.$contacts_to_groups  .'</td></tr>
                         
-                        <tr><th>Shuffle Assignments**</th><td>
+                        <tr><th>Shuffle Assignments</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
                         </td><td></td></tr>
                         
-                        <tr><th>Shuffle Updates Requested**</th><td>
+                        <tr><th>Shuffle Updates Requested</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates Requested</button></form>
                         </td><td></td></tr>
                         
@@ -301,47 +319,27 @@ class dt_sample_add_records {
              <br>
              ';
 
-        $html .= '<table class="widefat striped">
-                    <thead><th>DO THIRD</th><th></th><th>Current</th></thead>
-                    <tbody>
-                    
-                        <tr><th>Build Report History</th><td>
-                            <form method="POST">
-                                <input type="hidden" name="report_source" value="Facebook"/>
-                                    <input type="hidden" class="regular-text" name="report_subsource" /> 
-                                    <input type="hidden" class="regular-text" name="count" value="30" /> 
-                                    <input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button>
-                             </form>
-                        </td><td>'.$reports.'</td></tr>
-                        
-                        
-                        
-                    </tbody>
-             </table>
-             <br>
-             ';
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $contacts = get_posts( $args );
-
-        $args = array(
-            'fields'       => 'all',
-            'count_total'  => true,
-        );
-        $users = get_users( $args );
-
-//        $args = array(
-//            'numberposts'   => -1,
-//            'post_type'   => 'contacts'
-//        );
-//        $contacts = get_posts( $args );
-//        print '<pre>'; print_r($contacts[0]); print '</pre>';
-//        print $users[0]->ID;
-//         $user = $users[0]->data;
-//         print_r($user->display_name);
+//        $html .= '<table class="widefat striped">
+//                    <thead><th>DO THIRD</th><th></th><th>Current</th></thead>
+//                    <tbody>
 //
+//                        <tr><th>Build Report History</th><td>
+//                            <form method="POST">
+//                                <input type="hidden" name="report_source" value="Facebook"/>
+//                                    <input type="hidden" class="regular-text" name="report_subsource" />
+//                                    <input type="hidden" class="regular-text" name="count" value="30" />
+//                                    <input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button>
+//                             </form>
+//                        </td><td>'.$reports.'</td></tr>
+//
+//
+//
+//                    </tbody>
+//             </table>
+//             <br>
+//             ';
+
+
 //        print '<pre>'; print_r($users); print '</pre>';
 
 
@@ -398,6 +396,8 @@ class dt_sample_add_records {
                 </div><!-- post-body meta box container -->
             </div><!--poststuff end -->
         </div><!-- wrap end -->';
+
+        $html .= '<style type="text/css">#spinner {display:none;}</style>';
 
         return $html;
     }

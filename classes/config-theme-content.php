@@ -165,6 +165,16 @@ class dt_theme_content
                 'menu_order'    =>  '4',
                 'post_type'     =>  'page',
             ),
+            array(
+                'post_title'    =>  'Media',
+                'post_name'     =>  'media',
+                'post_content'  =>  'The content of the page is controlled by the Disciple Tools plugin, but this page is required by the plugin to display the dashboard.',
+                'post_status'   =>  'Publish',
+                'comment_status'    =>  'closed',
+                'ping_status'   =>  'closed',
+                'menu_order'    =>  '5',
+                'post_type'     =>  'page',
+            ),
 
         );
 

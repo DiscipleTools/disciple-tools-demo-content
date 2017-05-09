@@ -62,6 +62,132 @@ class dt_sample_contacts
         return $html;
     }
 
+
+
+
+    /**
+     * Loops contact creation according to supplied $count.
+     * @param $count    int Number of records to create.
+     * @return string
+     */
+    public function add_contacts_by_count ($count)
+    {
+        $i = 0;
+        while ($count > $i ) {
+
+            $post = $this->single_plain_contact();
+            wp_insert_post($post);
+
+            $i++;
+        }
+        return $count . ' records created';
+    }
+
+    /**
+     * Builds a single random contact record.
+     * @return array|WP_Post
+     */
+    public function single_plain_contact () {
+
+        $name = dt_sample_random_name ();
+
+        $post = array(
+            "post_title" => $name . ' Contact' . rand(100, 999),
+            'post_type' => 'contacts',
+            "post_content" => ' ',
+            "post_status" => "publish",
+            "post_author" => get_current_user_id(),
+            "meta_input" => array(
+                "phone" => dt_sample_random_phone_number(),
+                "overall_status" => dt_sample_random_overall_status(),
+                "email" => $name.rand(1000, 10000)."@email.com",
+                "preferred_contact_method" => dt_sample_random_preferred_contact_method (),
+                "source_details"    =>  dt_sample_random_source (),
+                "seeker_path"   =>  dt_sample_seeker_path(),
+                "_sample"   => 'sample',
+            ),
+        );
+
+        return $post;
+
+    }
+
+    /**
+     * Delete all contacts in database
+     * @return string
+     */
+    public function delete_contacts () {
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts',
+            'meta_key'    => '_sample',
+            'meta_value'    => 'sample'
+        );
+        $contacts = get_posts( $args );
+
+        foreach ($contacts as $contact) {
+            $id = $contact->ID;
+            wp_delete_post( $id, 'true');
+        }
+
+        return 'Contacts deleted';
+
+    }
+
+    public function shuffle_assignments () {
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+        $args = array(
+            'fields'       => 'all',
+            'role__in'     => array('multiplier', 'multiplier_leader', 'administrator'),
+            'count_total'  => true,
+        );
+        $users = get_users( $args );
+
+        $user_count = count($users);
+
+        foreach ($contacts as $contact) {
+
+            $user = $users[rand(0, $user_count - 1)];
+
+            $post_id = $contact->ID;
+            $meta_key = 'assigned_to';
+            $meta_value = 'user-' . $user->ID;
+
+            update_post_meta( $post_id, $meta_key, $meta_value );
+        }
+
+        return 'Assignments shuffled for all contacts between multipliers, multiplier leaders, and administrators (for testing).';
+    }
+
+
+    public function shuffle_update_requests () {
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'contacts'
+        );
+        $contacts = get_posts( $args );
+
+
+        foreach ($contacts as $contact) {
+
+            $post_id = $contact->ID;
+            $meta_key = 'requires_update';
+            $meta_value = dt_sample_random_requires_upate();
+
+            update_post_meta( $post_id, $meta_key, $meta_value );
+        }
+
+        return 'Update requests shuffled for all contacts.';
+    }
+
+    /*  Old contact load functions. TODO: consider deleting. */
+
     protected function add_contacts ()
     {
         $html = '';
@@ -187,7 +313,7 @@ class dt_sample_contacts
         }
 
         $html .= '<br><br>' . count($contacts) . ' contacts added</p></div>' ;
-     return $html;
+        return $html;
     }
 
     /*
@@ -202,125 +328,6 @@ class dt_sample_contacts
         return $html;
     }
 
-
-
-    /**
-     * Loops contact creation according to supplied $count.
-     * @param $count    int Number of records to create.
-     * @return string
-     */
-    public function add_contacts_by_count ($count)
-    {
-        $i = 0;
-        while ($count > $i ) {
-
-            $post = $this->single_plain_contact();
-            wp_insert_post($post);
-
-            $i++;
-        }
-        return $count . ' records created';
-    }
-
-    /**
-     * Builds a single random contact record.
-     * @return array|WP_Post
-     */
-    public function single_plain_contact () {
-
-        $name = dt_sample_random_name ();
-
-        $post = array(
-            "post_title" => $name . ' Contact' . rand(100, 999),
-            'post_type' => 'contacts',
-            "post_content" => ' ',
-            "post_status" => "publish",
-            "post_author" => get_current_user_id(),
-            "meta_input" => array(
-                "phone" => dt_sample_random_phone_number(),
-                "overall_status" => dt_sample_random_overall_status(),
-                "email" => $name.rand(1000, 10000)."@email.com",
-                "preferred_contact_method" => dt_sample_random_preferred_contact_method (),
-                "source_details"    =>  dt_sample_random_source (),
-                "seeker_path"   =>  dt_sample_seeker_path(),
-            ),
-        );
-
-        return $post;
-
-    }
-
-    /**
-     * Delete all contacts in database
-     * @return string
-     */
-    public function delete_contacts () {
-
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $contacts = get_posts( $args );
-
-        foreach ($contacts as $contact) {
-            $id = $contact->ID;
-            wp_delete_post( $id, 'true');
-        }
-
-        return 'Contacts deleted';
-
-    }
-
-    public function shuffle_assignments () {
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $contacts = get_posts( $args );
-
-        $args = array(
-            'fields'       => 'all',
-            'role__in'     => array('multiplier', 'multiplier_leader', 'administrator'),
-            'count_total'  => true,
-        );
-        $users = get_users( $args );
-
-        $user_count = count($users);
-
-        foreach ($contacts as $contact) {
-
-            $user = $users[rand(0, $user_count - 1)];
-
-            $post_id = $contact->ID;
-            $meta_key = 'assigned_to';
-            $meta_value = 'user-' . $user->ID;
-
-            update_post_meta( $post_id, $meta_key, $meta_value );
-        }
-
-        return 'Assignments shuffled for all contacts between multipliers, multiplier leaders, and administrators (for testing).';
-    }
-
-
-    public function shuffle_update_requests () {
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $contacts = get_posts( $args );
-
-
-        foreach ($contacts as $contact) {
-
-            $post_id = $contact->ID;
-            $meta_key = 'requires_update';
-            $meta_value = dt_sample_random_requires_upate();
-
-            update_post_meta( $post_id, $meta_key, $meta_value );
-        }
-
-        return 'Update requests shuffled for all contacts.';
-    }
 
 
 }
