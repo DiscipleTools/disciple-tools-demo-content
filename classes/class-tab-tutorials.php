@@ -51,7 +51,7 @@ class dt_training_tutorials {
      */
     public function dt_tabs_tutorial_content() {
         ?>
-        <div class="wrap"><h2>Training Materials</h2>
+        <div class="wrap"><h2>Tutorials</h2>
 
         <form id="plugin-filter" method="post">
             <div class="wp-list-table widefat plugin-install">
