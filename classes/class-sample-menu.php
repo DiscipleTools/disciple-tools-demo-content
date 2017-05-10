@@ -55,7 +55,7 @@ final class dt_training_page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dtsample_data_page' ) );
+        add_submenu_page( 'tools.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dtsample_data_page' ) );
     }
 
     /**
