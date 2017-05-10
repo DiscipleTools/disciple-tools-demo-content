@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_sample_locations
+ * dt_sample_assets
  *
- * @class dt_sample_locations
+ * @class dt_sample_assets
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class dt_sample_assets {
 
     /**
-     * dt_sample_locations The single instance of dt_sample_locations.
+     * dt_sample_assets The single instance of dt_sample_assets.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_sample_assets {
     private static $_instance = null;
 
     /**
-     * Main dt_sample_locations Instance
+     * Main dt_sample_assets Instance
      *
-     * Ensures only one instance of dt_sample_locations is loaded or can be loaded.
+     * Ensures only one instance of dt_sample_assets is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_locations instance
+     * @return dt_sample_assets instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -59,7 +59,7 @@ class dt_sample_assets {
 
             $i++;
         }
-        return $count . ' records created';
+        return $count . ' asset records created';
     }
 
     /**
@@ -80,10 +80,41 @@ class dt_sample_assets {
                 "city"  => dt_sample_random_city_names(),
                 "state" => dt_sample_random_state(),
                 "zip"   =>  rand(80000, 89999),
+                "_sample"   =>  "sample",
             ),
         );
 
         return $post;
+    }
+
+    /**
+     * Delete all assets in database
+     * @return string
+     */
+    public function delete_assets () {
+
+        global $wpdb;
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'assets',
+            "meta_key"  => '_sample',
+            "meta_value"    => 'sample',
+        );
+        $assets = get_posts( $args );
+
+        foreach ($assets as $asset) {
+            $id = $asset->ID;
+
+            $wpdb->get_results("DELETE FROM wp_p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
+
+            wp_delete_post( $id, true );
+        }
+
+        $wpdb->get_results("DELETE FROM wp_p2pmeta WHERE NOT EXISTS (SELECT NULL FROM wp_p2p WHERE wp_p2p.p2p_id = wp_p2pmeta.p2p_id)");
+
+        return 'Assets deleted';
+
     }
 
 }

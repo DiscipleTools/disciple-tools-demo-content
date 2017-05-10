@@ -74,9 +74,42 @@ class dt_sample_locations {
             "post_content" => ' ',
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
+            "meta_input"    => array(
+                "_sample"   => "sample",
+            )
         );
 
         return $post;
+    }
+
+    /**
+     * Delete all locations in database
+     * @return string
+     */
+    public function delete_locations () {
+
+        global $wpdb;
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'locations',
+            "meta_key"  => '_sample',
+            "meta_value"    => 'sample',
+        );
+        $groups = get_posts( $args );
+
+        foreach ($groups as $group) {
+            $id = $group->ID;
+
+            $wpdb->get_results("DELETE FROM wp_p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
+
+            wp_delete_post( $id, true );
+        }
+
+        $wpdb->get_results("DELETE FROM wp_p2pmeta WHERE NOT EXISTS (SELECT NULL FROM wp_p2p WHERE wp_p2p.p2p_id = wp_p2pmeta.p2p_id)");
+
+        return 'Locations deleted';
+
     }
 
 }

@@ -173,6 +173,12 @@ class dt_sample_add_records {
                 case 'delete_groups':
                     $html .= $report_box_top . dt_sample_data_plugin()->groups->delete_groups() . $report_box_bottom;
                     break;
+                case 'delete_locations':
+                    $html .= $report_box_top . dt_sample_data_plugin()->locations->delete_locations() . $report_box_bottom;
+                    break;
+                case 'delete_assets':
+                    $html .= $report_box_top . dt_sample_data_plugin()->assets->delete_assets() . $report_box_bottom;
+                    break;
 
 
 
@@ -348,15 +354,24 @@ class dt_sample_add_records {
         $html .=   '<div id="postbox-container-1" class="postbox-container">
 
                     <table class="widefat striped">
-                        <thead><th>Utilities</th><th></th></thead>
+                        <thead><th>UTILITIES</th><th></th></thead>
                             <tbody>
                                 <tr><th>Refresh Roles</th><td>
                                     <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
                                 </td></tr>
                                 
                                 <tr><th>Add Pages</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
-                        </td></tr>
+                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
+                                </td></tr>
+                                
+                                <tr><th></th><td>
+                                </td></tr>
+                             </tbody>
+                    </table><br>
+                    
+                    <table class="widefat striped">
+                         <thead><th>REMOVE</th><th></th></thead>
+                            <tbody>
                                 
                                 <tr><th>Delete Contacts</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete Contacts</a>
@@ -373,6 +388,21 @@ class dt_sample_add_records {
                                     <form method="POST"><button type="submit" value="delete_groups" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
                                 </td></tr>
                                 
+                                <tr><th>Delete Locations</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_locations_confirm\').show();">Delete Locations</a>
+                                    
+                                </td></tr>
+                                <tr id="delete_locations_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_locations" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Delete Assets</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_assets_confirm\').show();">Delete Assets</a>
+                                    
+                                </td></tr>
+                                <tr id="delete_assets_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_assets" name="submit" class="button" style="background:red; color:white;" id="delete_assets">Confirm Delete</button></form>
+                                </td></tr>
                                 
                                     
                         </tbody>
