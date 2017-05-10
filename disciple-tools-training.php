@@ -231,63 +231,63 @@ class dt_training {
         if ( is_admin() ) {
 
             // Admin menu
-            require_once('classes/class-sample-menu.php');
+            require_once('classes/class-menu.php');
             $this->page = dt_training_page::instance();
 
 
             // Tabs
-            require_once('classes/class-sample-tab-add-records.php');
+            require_once('classes/class-tab-add-records.php');
             $this->add_records = dt_training_add_records::instance();
 
-            require_once('classes/class-sample-tab-bulk-records.php');
+            require_once('classes/class-tab-bulk-records.php');
             $this->bulk_records = dt_training_bulk_records::instance();
 
-            require_once('classes/class-sample-tab-setup-info.php');
+            require_once('classes/class-tab-setup-info.php');
             $this->setup_info = dt_training_setup_info::instance();
 
-            require_once('classes/class-sample-tab-p2p-generations.php');
+            require_once('classes/class-tab-p2p-generations.php');
             $this->generations = dt_p2p_generations::instance();
 
-            require_once('classes/class-sample-tab-portal.php');
+            require_once('classes/class-tab-portal.php');
             $this->portal = dt_training_portal::instance();
 
 
             // Content addition
-            require_once('classes/class-sample-users.php');
+            require_once('classes/class-users.php');
             $this->users = dt_training_users::instance();
 
-            require_once('classes/class-sample-contacts.php');
+            require_once('classes/class-contacts.php');
             $this->contacts = dt_training_contacts::instance();
 
-            require_once('classes/class-sample-groups.php');
+            require_once('classes/class-groups.php');
             $this->groups = dt_training_groups::instance();
 
-            require_once('classes/class-sample-locations.php');
+            require_once('classes/class-locations.php');
             $this->locations = dt_training_locations::instance();
 
-            require_once('classes/class-sample-assets.php');
+            require_once('classes/class-assets.php');
             $this->assets = dt_training_assets::instance();
 
-            require_once('classes/class-sample-comments.php');
+            require_once('classes/class-comments.php');
             $this->comments = dt_training_comments::instance();
 
-            require_once('classes/class-sample-prayer-post.php');
+            require_once('classes/class-prayer-post.php');
             $this->prayer = dt_training_prayer_post::instance();
 
-            require_once('classes/class-sample-progress-post.php');
+            require_once('classes/class-progress-post.php');
             $this->progress = dt_training_progress_post::instance();
 
-            require_once('classes/class-sample-connections.php');
+            require_once('classes/class-connections.php');
             $this->connections = dt_training_connections::instance();
 
-            require_once( 'classes/config-theme-content.php' );
-            $this->content = dt_theme_content::instance();
+            require_once('classes/class-core-pages.php');
+            $this->content = dt_core_pages::instance();
 
-            require_once('classes/class-sample-tab-bulk-report.php'); // tab page with various forms
+            require_once('classes/class-tab-bulk-report.php'); // tab page with various forms
             $this->add_report = dt_training_add_report::instance();
 
             if ( class_exists('Disciple_Tools')) { // resets the default roles
-                require_once( 'classes/class-sample-roles.php' );
+                require_once('classes/class-roles.php');
                 $this->roles = dt_training_roles::instance();
             }
 
