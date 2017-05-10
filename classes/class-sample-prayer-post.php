@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_sample_prayer_post
+ * dt_training_prayer_post
  *
- * @class dt_sample_prayer_post
+ * @class dt_training_prayer_post
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_prayer_post {
+class dt_training_prayer_post {
 
     /**
-     * dt_sample_prayer_post The single instance of dt_sample_prayer_post.
+     * dt_training_prayer_post The single instance of dt_training_prayer_post.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_sample_prayer_post {
     private static $_instance = null;
 
     /**
-     * Main dt_sample_prayer_post Instance
+     * Main dt_training_prayer_post Instance
      *
-     * Ensures only one instance of dt_sample_prayer_post is loaded or can be loaded.
+     * Ensures only one instance of dt_training_prayer_post is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_prayer_post instance
+     * @return dt_training_prayer_post instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -72,9 +72,9 @@ class dt_sample_prayer_post {
     public function single_random_prayer_post () {
 
         $post = array(
-            "post_title" => dt_sample_random_word () . " " . dt_sample_random_word () . " " . dt_sample_random_word () . " " . dt_sample_random_word (),//dt_sample_random_title (),
+            "post_title" => dt_training_random_word () . " " . dt_training_random_word () . " " . dt_training_random_word () . " " . dt_training_random_word (),//dt_training_random_title (),
             'post_type' => 'prayer',
-            "post_content" => dt_sample_loren_ipsum (),
+            "post_content" => dt_training_loren_ipsum (),
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             'meta_input' => array(

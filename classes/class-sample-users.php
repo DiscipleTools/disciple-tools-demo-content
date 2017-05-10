@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dt_sample_users
+class dt_training_users
 {
 
     /**
-     * dt_sample_users The single instance of dt_sample_users.
+     * dt_training_users The single instance of dt_training_users.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dt_sample_users
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dt_sample_users instance
+     * @return dt_training_users instance
      */
     public static function instance()
     {

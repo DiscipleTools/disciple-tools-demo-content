@@ -12,7 +12,7 @@ class dt_theme_content
 {
 
     /**
-     * dt_sample_menu The single instance of dt_sample_menu.
+     * dt_training_menu The single instance of dt_training_menu.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -396,7 +396,7 @@ class dt_theme_content
 
         foreach ($sample_files as $file) {
             $newfile = wp_upload_dir() . $file['filename'];
-            $file = dt_sample_data_plugin()->img_uri . $file['filename'];
+            $file = dt_training_plugin()->img_uri . $file['filename'];
 
             if (copy($file, $newfile)) {
                 $html .= 'successful copy of '. $file . '<br>';
@@ -417,7 +417,7 @@ class dt_theme_content
 
             // Prepare an array of post data for the attachment.
             $attachment = array(
-                'guid'           => dt_sample_data_plugin()->img_uri  . basename( $file['filename'] ),
+                'guid'           => dt_training_plugin()->img_uri  . basename( $file['filename'] ),
                 'post_mime_type' => 'image/png',
                 'post_title'     => $filename,
                 'post_content'   => '',

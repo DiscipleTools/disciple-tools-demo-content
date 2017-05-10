@@ -3,7 +3,7 @@
 /**
  * Disciple Tools Sample Setup Info Tab
  *
- * @class dt_sample_setup_info
+ * @class dt_training_setup_info
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_setup_info {
+class dt_training_setup_info {
 
     /**
-     * dt_sample_setup_info The single instance of dt_sample_setup_info.
+     * dt_training_setup_info The single instance of dt_training_setup_info.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_sample_setup_info {
     private static $_instance = null;
 
     /**
-     * Main dt_sample_setup_info Instance
+     * Main dt_training_setup_info Instance
      *
-     * Ensures only one instance of dt_sample_setup_info is loaded or can be loaded.
+     * Ensures only one instance of dt_training_setup_info is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_setup_info instance
+     * @return dt_training_setup_info instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )

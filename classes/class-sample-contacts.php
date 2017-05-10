@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dt_sample_contacts
+class dt_training_contacts
 {
 
     /**
-     * dt_sample_contacts The single instance of dt_sample_contacts.
+     * dt_training_contacts The single instance of dt_training_contacts.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dt_sample_contacts
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dt_sample_contacts instance
+     * @return dt_training_contacts instance
      */
     public static function instance()
     {
@@ -89,7 +89,7 @@ class dt_sample_contacts
      */
     public function single_plain_contact () {
 
-        $name = dt_sample_random_name ();
+        $name = dt_training_random_name ();
 
         $post = array(
             "post_title" => $name . ' Contact' . rand(100, 999),
@@ -98,12 +98,12 @@ class dt_sample_contacts
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "phone" => dt_sample_random_phone_number(),
-                "overall_status" => dt_sample_random_overall_status(),
+                "phone" => dt_training_random_phone_number(),
+                "overall_status" => dt_training_random_overall_status(),
                 "email" => $name.rand(1000, 10000)."@email.com",
-                "preferred_contact_method" => dt_sample_random_preferred_contact_method (),
-                "source_details"    =>  dt_sample_random_source (),
-                "seeker_path"   =>  dt_sample_seeker_path(),
+                "preferred_contact_method" => dt_training_random_preferred_contact_method (),
+                "source_details"    =>  dt_training_random_source (),
+                "seeker_path"   =>  dt_training_seeker_path(),
                 "_sample"   => 'sample',
             ),
         );
@@ -189,7 +189,7 @@ class dt_sample_contacts
 
             $post_id = $contact->ID;
             $meta_key = 'requires_update';
-            $meta_value = dt_sample_random_requires_upate();
+            $meta_value = dt_training_random_requires_upate();
 
             update_post_meta( $post_id, $meta_key, $meta_value );
         }

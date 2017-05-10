@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dt_sample_groups
+class dt_training_groups
 {
 
     /**
-     * dt_sample_groups The single instance of dt_sample_groups
+     * dt_training_groups The single instance of dt_training_groups
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -23,7 +23,7 @@ class dt_sample_groups
      * Access plugin instance. You can create further instances by calling
      * the constructor directly.
      * @static
-     * @return dt_sample_groups instance
+     * @return dt_training_groups instance
      */
     public static function instance()
     {
@@ -71,10 +71,10 @@ class dt_sample_groups
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "type" => dt_sample_random_group_type(),
-                "address"   =>  dt_sample_random_address(),
-                "city"  => dt_sample_random_city_names(),
-                "state" => dt_sample_random_state(),
+                "type" => dt_training_random_group_type(),
+                "address"   =>  dt_training_random_address(),
+                "city"  => dt_training_random_city_names(),
+                "state" => dt_training_random_state(),
                 "zip"   =>  rand(80000, 89999),
                 "_sample"   => 'sample',
             ),

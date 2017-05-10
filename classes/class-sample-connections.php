@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_sample_connections
+ * dt_training_connections
  *
- * @class dt_sample_connections
+ * @class dt_training_connections
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_connections {
+class dt_training_connections {
 
     /**
-     * dt_sample_connections The single instance of dt_sample_connections.
+     * dt_training_connections The single instance of dt_training_connections.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_sample_connections {
     private static $_instance = null;
 
     /**
-     * Main dt_sample_connections Instance
+     * Main dt_training_connections Instance
      *
-     * Ensures only one instance of dt_sample_connections is loaded or can be loaded.
+     * Ensures only one instance of dt_training_connections is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_connections instance
+     * @return dt_training_connections instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -285,7 +285,7 @@ class dt_sample_connections {
             $from = $groups[$i]->ID;
             p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
                 'date' => current_time('mysql'),
-                'role' => dt_sample_group_role(),
+                'role' => dt_training_group_role(),
             ) );
 
             $i++;

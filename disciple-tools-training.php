@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Disciple Tools - Sample Data
- * Plugin URI: https://github.com/ChasmSolutions/disciple-tools-sample-data
- * Description: Sample Data for Disciple Tools. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
+ * Plugin Name: Disciple Tools - Training
+ * Plugin URI: https://github.com/ChasmSolutions/disciple-tools-training
+ * Description: Training Plugin for Disciple Tools. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
  * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/ChasmSolutions
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @since  0.1
  * @access public
  */
-class dt_sample_data {
+class dt_training {
 
     /**
      * The token.
@@ -129,7 +129,7 @@ class dt_sample_data {
         static $instance = null;
 
         if ( is_null( $instance ) ) {
-            $instance = new dt_sample_data;
+            $instance = new dt_training;
             $instance->setup();
             $instance->includes();
             $instance->setup_actions();
@@ -156,7 +156,7 @@ class dt_sample_data {
      * @return string
      */
     public function __toString() {
-        return 'dtsample';
+        return 'dt_training';
     }
 
     /**
@@ -167,7 +167,7 @@ class dt_sample_data {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dtsample' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_training' ), '0.1' );
     }
 
     /**
@@ -178,7 +178,7 @@ class dt_sample_data {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dtsample' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_training' ), '0.1' );
     }
 
     /**
@@ -189,7 +189,7 @@ class dt_sample_data {
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
-        _doing_it_wrong( "dt_sample_data::{$method}", esc_html__( 'Method does not exist.', 'dtsample' ), '0.1' );
+        _doing_it_wrong( "dt_training::{$method}", esc_html__( 'Method does not exist.', 'dt_training' ), '0.1' );
         unset( $method, $args );
         return null;
     }
@@ -214,7 +214,7 @@ class dt_sample_data {
         $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
         // Admin and settings variables
-        $this->token 			= 'dtsample';
+        $this->token 			= 'dt_training';
         $this->version 			= '0.1';
     }
 
@@ -232,63 +232,63 @@ class dt_sample_data {
 
             // Admin menu
             require_once('classes/class-sample-menu.php');
-            $this->page = dt_sample_page::instance();
+            $this->page = dt_training_page::instance();
 
 
             // Tabs
             require_once('classes/class-sample-tab-add-records.php');
-            $this->add_records = dt_sample_add_records::instance();
+            $this->add_records = dt_training_add_records::instance();
 
             require_once('classes/class-sample-tab-bulk-records.php');
-            $this->bulk_records = dt_sample_bulk_records::instance();
+            $this->bulk_records = dt_training_bulk_records::instance();
 
             require_once('classes/class-sample-tab-setup-info.php');
-            $this->setup_info = dt_sample_setup_info::instance();
+            $this->setup_info = dt_training_setup_info::instance();
 
             require_once('classes/class-sample-tab-p2p-generations.php');
             $this->generations = dt_p2p_generations::instance();
 
             require_once('classes/class-sample-tab-portal.php');
-            $this->portal = dt_sample_portal::instance();
+            $this->portal = dt_training_portal::instance();
 
 
             // Content addition
             require_once('classes/class-sample-users.php');
-            $this->users = dt_sample_users::instance();
+            $this->users = dt_training_users::instance();
 
             require_once('classes/class-sample-contacts.php');
-            $this->contacts = dt_sample_contacts::instance();
+            $this->contacts = dt_training_contacts::instance();
 
             require_once('classes/class-sample-groups.php');
-            $this->groups = dt_sample_groups::instance();
+            $this->groups = dt_training_groups::instance();
 
             require_once('classes/class-sample-locations.php');
-            $this->locations = dt_sample_locations::instance();
+            $this->locations = dt_training_locations::instance();
 
             require_once('classes/class-sample-assets.php');
-            $this->assets = dt_sample_assets::instance();
+            $this->assets = dt_training_assets::instance();
 
             require_once('classes/class-sample-comments.php');
-            $this->comments = dt_sample_comments::instance();
+            $this->comments = dt_training_comments::instance();
 
             require_once('classes/class-sample-prayer-post.php');
-            $this->prayer = dt_sample_prayer_post::instance();
+            $this->prayer = dt_training_prayer_post::instance();
 
             require_once('classes/class-sample-progress-post.php');
-            $this->progress = dt_sample_progress_post::instance();
+            $this->progress = dt_training_progress_post::instance();
 
             require_once('classes/class-sample-connections.php');
-            $this->connections = dt_sample_connections::instance();
+            $this->connections = dt_training_connections::instance();
 
             require_once( 'classes/config-theme-content.php' );
             $this->content = dt_theme_content::instance();
 
             require_once('classes/class-sample-tab-bulk-report.php'); // tab page with various forms
-            $this->add_report = dt_sample_add_report::instance();
+            $this->add_report = dt_training_add_report::instance();
 
             if ( class_exists('Disciple_Tools')) { // resets the default roles
                 require_once( 'classes/class-sample-roles.php' );
-                $this->roles = dt_sample_roles::instance();
+                $this->roles = dt_training_roles::instance();
             }
 
             // Utilities
@@ -320,7 +320,7 @@ class dt_sample_data {
      * @return void
      */
     public function i18n() {
-        load_plugin_textdomain( 'dtsample', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+        load_plugin_textdomain( 'dt_training', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
     }
 
     /**
@@ -336,18 +336,18 @@ class dt_sample_data {
 }
 
 /**
- * Gets the instance of the `dt_sample_data` class.  This function is useful for quickly grabbing data
+ * Gets the instance of the `dt_training` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
  * @since  0.1
  * @access public
  * @return object
  */
-function dt_sample_data_plugin() {
-    return dt_sample_data::get_instance();
+function dt_training_plugin() {
+    return dt_training::get_instance();
 }
 
 // Let's roll!
-add_action( 'plugins_loaded', 'dt_sample_data_plugin' );
+add_action( 'plugins_loaded', 'dt_training_plugin' );
 
 

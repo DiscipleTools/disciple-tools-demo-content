@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_sample_bulk_records
+ * dt_training_bulk_records
  *
- * @class dt_sample_bulk_records
+ * @class dt_training_bulk_records
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_bulk_records {
+class dt_training_bulk_records {
 
     /**
-     * dt_sample_bulk_records The single instance of dt_sample_bulk_records.
+     * dt_training_bulk_records The single instance of dt_training_bulk_records.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_sample_bulk_records {
     private static $_instance = null;
 
     /**
-     * Main dt_sample_add_records Instance
+     * Main dt_training_add_records Instance
      *
-     * Ensures only one instance of dt_sample_bulk_records is loaded or can be loaded.
+     * Ensures only one instance of dt_training_bulk_records is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_sample_bulk_records instance
+     * @return dt_training_bulk_records instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -118,72 +118,72 @@ class dt_sample_bulk_records {
             // Identify form request
             switch ($_POST['submit']) {
                 case 'add_users':
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_users_by_count($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->users->add_users_by_count($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_multipliers':
                     $max = 20;
                     if ($_POST['count'] > 20) {$_POST['count'] = 20;}
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->add_multipliers_by_count($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->users->add_multipliers_by_count($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_users':
-                    $html .= $report_box_top . dt_sample_data_plugin()->users->reset_users($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->users->reset_users($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_contacts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->add_contacts_by_count ($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->contacts->add_contacts_by_count ($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_contacts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->reset_contacts ($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->contacts->reset_contacts ($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_groups':
-                    $html .= $report_box_top . dt_sample_data_plugin()->groups->add_groups_once($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->groups->add_groups_once($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_groups':
-                    $html .= $report_box_top . dt_sample_data_plugin()->groups->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->groups->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_locations':
-                    $html .= $report_box_top . dt_sample_data_plugin()->locations->add_locations($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->locations->add_locations($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_locations':
-                    $html .= $report_box_top . dt_sample_data_plugin()->locations->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->locations->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'build_baptisms':
-                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_baptisms':
-                    $html .= $report_box_top . dt_sample_data_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->baptisms->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'build_coaching':
-                    $html .= $report_box_top . dt_sample_data_plugin()->coaching->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->coaching->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_coaching':
-                    $html .= $report_box_top . dt_sample_data_plugin()->coaching->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->coaching->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'build_reports':
-                    $html .= $report_box_top . dt_sample_data_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_reports':
-                    $html .= $report_box_top . dt_sample_data_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->reports->reset_groups($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_core_pages':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->add_core_pages_once($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->content->add_core_pages_once($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_core_pages':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->reset_core_pages($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->content->reset_core_pages($_POST['count']) . $report_box_bottom;
                     break;
                 case 'add_prayer_posts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->add_prayer_posts_once($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->content->add_prayer_posts_once($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_prayer_posts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->content->reset_prayer_posts($_POST['count']) . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->content->reset_prayer_posts($_POST['count']) . $report_box_bottom;
                     break;
                 case 'reset_roles':
-                    $html .= $report_box_top . dt_sample_data_plugin()->roles->reset_roles() . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->roles->reset_roles() . $report_box_bottom;
                     break;
                 case 'delete_contacts':
-                    $html .= $report_box_top . dt_sample_data_plugin()->contacts->delete_contacts() . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->contacts->delete_contacts() . $report_box_bottom;
                     break;
                 case 'delete_groups':
-                    $html .= $report_box_top . dt_sample_data_plugin()->groups->delete_groups() . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->groups->delete_groups() . $report_box_bottom;
                     break;
                 default:
                     break;

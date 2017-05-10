@@ -3,7 +3,7 @@
 /**
  * Disciple Tools Sample Portal Page
  *
- * @class dt_sample_portal
+ * @class dt_training_portal
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,7 +12,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_sample_portal {
+class dt_training_portal {
 
     /**
      * Disciple_Tools_Admin_Menus The single instance of Disciple_Tools_Admin_Menus.
@@ -29,7 +29,7 @@ class dt_sample_portal {
      *
      * @since 0.1
      * @static
-     * @return dt_sample_portal instance
+     * @return dt_training_portal instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )

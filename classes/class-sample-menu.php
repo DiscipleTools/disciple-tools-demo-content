@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_sample_page class for the admin page
+ * dt_training_page class for the admin page
  *
- * @class dt_sample_page
+ * @class dt_training_page
  * @version	1.0.0
  * @since 1.0.0
  * @package	DRM_Plugin
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class dt_sample_page {
+final class dt_training_page {
 
     /**
-     * dt_sample_page The single instance of dt_sample_page.
+     * dt_training_page The single instance of dt_training_page.
      * @var 	object
      * @access  private
      * @since 	1.0.0
@@ -25,13 +25,13 @@ final class dt_sample_page {
     public $p2p_array = array();
 
     /**
-     * dt_sample_page Instance
+     * dt_training_page Instance
      *
-     * Ensures only one instance of dt_sample_page is loaded or can be loaded.
+     * Ensures only one instance of dt_training_page is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return dt_sample_page instance
+     * @return dt_training_page instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -55,7 +55,7 @@ final class dt_sample_page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( '(Sample Data)', 'dtsample' ), __( '(Sample Data)', 'dtsample' ), 'manage_options', 'dtsample', array( $this, 'dtsample_data_page' ) );
+        add_submenu_page( 'options-general.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dtsample_data_page' ) );
     }
 
     /**
@@ -78,7 +78,7 @@ final class dt_sample_page {
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
-            <h2>DISCIPLE TOOLS - SAMPLE DATA</h2>
+            <h2>DISCIPLE TOOLS - TRAINING</h2>
             <h2 class="nav-tab-wrapper">';
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
@@ -114,19 +114,19 @@ final class dt_sample_page {
         switch ($tab) {
 
             case "setup":
-                    $html .= dt_sample_data_plugin()->setup_info->dtsample_setup_info();
+                    $html .= dt_training_plugin()->setup_info->dtsample_setup_info();
                 break;
             case "report":
-                $html .= dt_sample_data_plugin()->add_report->add_report_page_form ();
+                $html .= dt_training_plugin()->add_report->add_report_page_form ();
                 break;
             case "bulk_records":
-                    $html .= dt_sample_data_plugin()->bulk_records->dtsample_add_bulk_records_content();
+                    $html .= dt_training_plugin()->bulk_records->dtsample_add_bulk_records_content();
                 break;
 //            case "portal":
-//                $html .= dt_sample_data_plugin()->portal->display_page_content();
+//                $html .= dt_training_plugin()->portal->display_page_content();
 //                break;
             default:
-                $html .= dt_sample_data_plugin()->add_records->dtsample_add_records_content() ;
+                $html .= dt_training_plugin()->add_records->dtsample_add_records_content() ;
         }
 
         $html .= '</div>'; // end div class wrap

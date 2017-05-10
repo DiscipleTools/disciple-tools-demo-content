@@ -7,7 +7,7 @@
  * Generates random US phone number
  * @return string
  */
-function dt_sample_random_phone_number () {
+function dt_training_random_phone_number () {
     $phone = rand ( 100 , 999 ) . '-' . rand ( 100 , 999 ) . '-' . rand ( 1000 , 9999 );
     return $phone;
 }
@@ -16,7 +16,7 @@ function dt_sample_random_phone_number () {
  * Generates random overal status
  * @return mixed
  */
-function dt_sample_random_overall_status () {
+function dt_training_random_overall_status () {
 
     $list = array(
         'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned',
@@ -34,7 +34,7 @@ function dt_sample_random_overall_status () {
  * Generates random preferred contact method
  * @return mixed
  */
-function dt_sample_random_preferred_contact_method () {
+function dt_training_random_preferred_contact_method () {
 
     $list = array(
         'Email', 'Phone', 'SMS'
@@ -49,7 +49,7 @@ function dt_sample_random_preferred_contact_method () {
  * Generates random name
  * @return mixed
  */
-function dt_sample_random_name () {
+function dt_training_random_name () {
 
     $list = array(
         'Alsha', 'Taruh', 'Moukib', 'Buthaynah', 'Wasim',
@@ -70,7 +70,7 @@ function dt_sample_random_name () {
  * Generates random source
  * @return mixed
  */
-function dt_sample_random_source () {
+function dt_training_random_source () {
 
     $list = array(
         'Facebook', 'Twitter', 'Website', 'Partner', 'Phone', 'Email'
@@ -85,7 +85,7 @@ function dt_sample_random_source () {
  * Generates random group type
  * @return mixed
  */
-function dt_sample_random_group_type () {
+function dt_training_random_group_type () {
 
     $list = array(
         'DBS', 'Church'
@@ -101,7 +101,7 @@ function dt_sample_random_group_type () {
  * Generates random address
  * @return mixed
  */
-function dt_sample_random_address () {
+function dt_training_random_address () {
 
     $list = array(
         'Casablanca', 'Fez Fez', 'Tangier', 'Salé', 'Marrakesh',
@@ -120,7 +120,7 @@ function dt_sample_random_address () {
  * Generates random city names
  * @return mixed
  */
-function dt_sample_random_city_names () {
+function dt_training_random_city_names () {
 
     $list = array(
         'Algiers', 'Oran', 'Constantine', 'Annaba', 'Blida',
@@ -140,7 +140,7 @@ function dt_sample_random_city_names () {
  * Generates random state
  * @return mixed
  */
-function dt_sample_random_state () {
+function dt_training_random_state () {
 
     $list = array(
         'BL', 'OC', 'CO', 'AG', 'BK',
@@ -159,7 +159,7 @@ function dt_sample_random_state () {
  * Generates random asset name
  * @return mixed
  */
-function dt_sample_random_asset_name () {
+function dt_training_random_asset_name () {
 
     $list = array(
         'NGO', 'Legacy Church', 'Worker', 'Social Service', 'Ministry',
@@ -170,7 +170,7 @@ function dt_sample_random_asset_name () {
     return $list[rand(0, $top - 1)];
 }
 
-function dt_sample_random_word () {
+function dt_training_random_word () {
     $list = array(
         'Lorem', 'Ipsum', 'Dolor', 'Consectetur', 'Adipiscing',
         'Praesent', 'Pulvinar', 'Vestibulum', 'Mollis', 'Tempus',
@@ -183,21 +183,21 @@ function dt_sample_random_word () {
     return $list[rand(0, $top - 1)];
 }
 
-function dt_sample_random_title () { // depricated?
+function dt_training_random_title () { // depricated?
 
     $string = "";
     $random_length = rand(0, 5);
     $i = 0;
 
     while ($random_length > $i) {
-        $string .= dt_sample_random_word () . ' ';
+        $string .= dt_training_random_word () . ' ';
     }
 
     return $string;
 
 }
 
-function dt_sample_loren_ipsum () {
+function dt_training_loren_ipsum () {
 
     $text = array();
     $text[] = "Donec turpis eros, facilisis quis dolor id, imperdiet molestie eros. Aliquam sollicitudin nisi imperdiet euismod condimentum. Nam vel fermentum risus. Duis magna augue, viverra non convallis vel, volutpat hendrerit tortor. Suspendisse elementum ante lorem, quis mollis erat luctus non. Vestibulum massa purus, luctus ac leo vel, blandit aliquam lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis quis quam nec arcu imperdiet consectetur sit amet sed leo. Pellentesque ex leo, sodales ac ultrices ut, luctus et lorem. Suspendisse potenti. Sed id posuere nisi. Donec sit amet convallis turpis.";
@@ -226,7 +226,7 @@ function dt_sample_loren_ipsum () {
 
 }
 
-function dt_sample_comment_ipsum () {
+function dt_training_comment_ipsum () {
 
     $text = array();
     $text[] = "Donec turpis eros, facilisis quis dolor id, imperdiet molestie eros. 
@@ -263,7 +263,7 @@ function dt_sample_comment_ipsum () {
 
 }
 
-function dt_sample_seeker_path () {
+function dt_training_seeker_path () {
 
     $list = array(
         'Contact Attempted', 'Contact Established', 'Confirms Interest', 'Meeting Scheduled', 'First Meeting Complete', 'Ongoing Meetings', 'Being Coached'
@@ -274,7 +274,7 @@ function dt_sample_seeker_path () {
     return $list[0];
 }
 
-function dt_sample_group_role() {
+function dt_training_group_role() {
 
     $list = array(
         'Attending', 'Planting', 'Coaching'
@@ -286,7 +286,7 @@ function dt_sample_group_role() {
 
 }
 
-function dt_sample_random_requires_upate() {
+function dt_training_random_requires_upate() {
 
     $list = array(
         'No', 'Yes','No', 'Yes', 'No', 'Yes','No', 'Yes',
