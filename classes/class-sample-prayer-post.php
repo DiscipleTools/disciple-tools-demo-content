@@ -77,6 +77,9 @@ class dt_sample_prayer_post {
             "post_content" => dt_sample_loren_ipsum (),
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
+            'meta_input' => array(
+                '_sample' => 'sample'
+            ),
         );
 
         return $post;
@@ -93,7 +96,10 @@ class dt_sample_prayer_post {
                 'post_parent' => $parent_post_id,
                 'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
                 'post_content' => '',
-                'post_status' => 'inherit'
+                'post_status' => 'inherit',
+                'meta_input' => array(
+                    '_sample' => 'sample'
+                ),
             );
             $attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], $parent_post_id );
             if (! is_wp_error($attachment_id)) {
@@ -104,6 +110,31 @@ class dt_sample_prayer_post {
                 set_post_thumbnail( $parent_post_id, $attachment_id );
             }
         }
+    }
+
+    /**
+     * Delete all prayer posts in database
+     * @return string
+     */
+    public function delete_prayer_posts () {
+
+        $args = array(
+            'numberposts'   => -1,
+            'post_type'   => 'prayer',
+            'meta_key'    => '_sample',
+            'meta_value'    => 'sample'
+        );
+        $contacts = get_posts( $args );
+
+        foreach ($contacts as $contact) {
+            $id = $contact->ID;
+
+
+            wp_delete_post( $id, 'true');
+        }
+
+        return 'Contacts deleted';
+
     }
 
 }
