@@ -239,17 +239,12 @@ class dt_training {
             require_once('classes/class-tab-add-records.php');
             $this->add_records = dt_training_add_records::instance();
 
-            require_once('classes/class-tab-bulk-records.php');
-            $this->bulk_records = dt_training_bulk_records::instance();
+            require_once('classes/class-tab-bulk-report.php'); // tab page with various forms
+            $this->add_report = dt_training_add_report::instance();
 
-            require_once('classes/class-tab-setup-info.php');
-            $this->setup_info = dt_training_setup_info::instance();
+            require_once('classes/class-tab-tutorials.php');
+            $this->tutorials = dt_training_tutorials::instance();
 
-            require_once('classes/class-tab-p2p-generations.php');
-            $this->generations = dt_p2p_generations::instance();
-
-            require_once('classes/class-tab-portal.php');
-            $this->portal = dt_training_portal::instance();
 
 
             // Content addition
@@ -282,9 +277,6 @@ class dt_training {
 
             require_once('classes/class-core-pages.php');
             $this->content = dt_core_pages::instance();
-
-            require_once('classes/class-tab-bulk-report.php'); // tab page with various forms
-            $this->add_report = dt_training_add_report::instance();
 
             if ( class_exists('Disciple_Tools')) { // resets the default roles
                 require_once('classes/class-roles.php');

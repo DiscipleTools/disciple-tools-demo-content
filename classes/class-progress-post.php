@@ -116,24 +116,23 @@ class dt_training_progress_post {
      * Delete all progress posts in database
      * @return string
      */
-    public function delete_prayer_posts () {
+    public function delete_progress_posts () {
 
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'prayer',
+            'post_type'   => 'progress',
             'meta_key'    => '_sample',
             'meta_value'    => 'sample'
         );
-        $contacts = get_posts( $args );
+        $records = get_posts( $args );
 
-        foreach ($contacts as $contact) {
-            $id = $contact->ID;
-
+        foreach ($records as $record) {
+            $id = $record->ID;
 
             wp_delete_post( $id, 'true');
         }
 
-        return 'Contacts deleted';
+        return 'Records deleted';
 
     }
 

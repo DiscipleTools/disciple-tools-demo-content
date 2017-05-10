@@ -52,7 +52,7 @@ class dt_training_add_records {
      * @access  public
      * @since   0.1
      */
-    public function dtsample_add_records_content () {
+    public function dt_training_add_records_content () {
         global $wpdb;
         $html = '';
 
@@ -63,8 +63,6 @@ class dt_training_add_records {
         /**********************************************************************/
 
         if (isset($_POST['submit'])) {
-
-
 
             // Set top and bottom of report window
             $report_box_top = '<br><table class="widefat striped">
@@ -79,8 +77,9 @@ class dt_training_add_records {
 
                 // users
                 case 'add_users':
-                    $html .= $report_box_top . dt_training_plugin()->users->add_users_once() . $report_box_bottom;
+                    $html .= $report_box_top . dt_training_plugin()->users->add_users_combined ($_POST['count']) . $report_box_bottom;
                     break;
+
                 case 'reset_users':
                     $html .= $report_box_top . dt_training_plugin()->users->reset_users() . $report_box_bottom;
                     break;
@@ -167,6 +166,8 @@ class dt_training_add_records {
                 case 'reset_core_pages':
                     $html .= $report_box_top . dt_training_plugin()->content->reset_core_pages($_POST['count']) . $report_box_bottom;
                     break;
+
+                // Delete
                 case 'delete_contacts':
                     $html .= $report_box_top . dt_training_plugin()->contacts->delete_contacts() . $report_box_bottom;
                     break;
@@ -179,8 +180,15 @@ class dt_training_add_records {
                 case 'delete_assets':
                     $html .= $report_box_top . dt_training_plugin()->assets->delete_assets() . $report_box_bottom;
                     break;
-
-
+                case 'delete_users':
+                    $html .= $report_box_top . dt_training_plugin()->users->delete_users() . $report_box_bottom;
+                    break;
+                case 'delete_prayers':
+                    $html .= $report_box_top . dt_training_plugin()->prayer->delete_prayer_posts() . $report_box_bottom;
+                    break;
+                case 'delete_progress':
+                    $html .= $report_box_top . dt_training_plugin()->progress->delete_progress_posts() . $report_box_bottom;
+                    break;
 
                 default:
                     break;
@@ -243,37 +251,35 @@ class dt_training_add_records {
         $html .= '<table class="widefat striped">
                     <thead><th>DO FIRST</th><th></th><th>Current</th></thead>
                     <tbody>
-                        <tr><th>Add Core Users</th><td>
+                        <tr><th>Users</th><td>
                             <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
                         </td><td>'.$users.'</td></tr>
                         
-                        <tr><th>Add Contacts</th><td>
+                        <tr><th>Contacts</th><td>
                             <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
                         </td><td>'.$contacts->publish.'</td></tr>
                         
-                        <tr><th>Add Groups</th><td>
+                        <tr><th>Groups</th><td>
                             <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_groups" name="submit" class="button" id="add_groups">Add Groups</button></form>
                         </td><td>'.$groups->publish.'</td></tr>
                         
-                        <tr><th>Add Locations</th><td>
+                        <tr><th>Locations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form>
                         </td><td>'.$locations->publish.'</td></tr>
                         
-                        <tr><th>Add Assets</th><td>
+                        <tr><th>Assets</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_assets" name="submit" class="button" id="add_assets">Add Assets</button></form>
                         </td><td>'.$assets->publish.'</td></tr>
                         
-                        <tr><th>Add Prayer Posts</th><td>
+                        <tr><th>Prayer Posts</th><td>
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
                         </td><td>'.$prayer->publish.'</td></tr>
                         
-                        <tr><th>Add Progress Posts</th><td>
+                        <tr><th>Progress Posts</th><td>
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_progress_posts" name="submit" class="button" id="add_progress_posts">Add Progress Posts</button></form>
                         </td><td>'.$progress->publish.'</td></tr>
                         
-                        
-                        
-                        <tr><th>Add Comments</th><td>
+                        <tr><th>Comments</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
                         </td><td>'.$comments .'</td></tr>
                         
@@ -284,69 +290,48 @@ class dt_training_add_records {
         $html .= '<table class="widefat striped">
                     <thead><th>DO SECOND</th><th></th><th>Current</th></thead>
                     <tbody>
-                        <tr><th>Build Baptism Generations</th><td>
-                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptisms</button></form>
+                        <tr><th>Baptism Generations</th><td>
+                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptism Generations</button></form>
                         </td><td>'.$baptism_gen.'</td></tr>
                         
-                        <tr><th>Build Group Generations</th><td>
+                        <tr><th>Group Generations</th><td>
                             <form method="POST"><input type="hidden"  name="count" value="10" /> <button type="submit" value="build_churches" name="submit" class="button" id="build_churches">Add Group Generations</button></form>
                         </td><td>'.$group_gen.'</td></tr>
                         
-                        <tr><th>Build Coaching Generations</th><td>
+                        <tr><th>Coaching Generations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Add Coaching Generations</button></form>
                         </td><td>'.$coaching_gen.'</td></tr>
                         
-                        <tr><th>Connect Contacts to Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Add Contacts to Locations</button></form>
+                        <tr><th>Contacts to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Connect Contacts to Locations</button></form>
                         </td><td>'.$contacts_to_locations  .'</td></tr> 
                         
-                        <tr><th>Connect Groups to Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Add Groups to Locations</button></form>
+                        <tr><th>Groups to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
                         </td><td>'.$groups_to_locations  .'</td></tr>
                         
-                        <tr><th>Connect Assets to Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="assets_to_locations" name="submit" class="button" id="assets_to_locations">Add Assets to Locations</button></form>
+                        <tr><th>Assets to Locations</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="assets_to_locations" name="submit" class="button" id="assets_to_locations">Connect Assets to Locations</button></form>
                         </td><td>'.$assets_to_locations  .'</td></tr>
                         
-                        <tr><th>Connect Contacts to Groups</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Add Contacts to Groups</button></form>
+                        <tr><th>Contacts to Groups</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Connect Contacts to Groups</button></form>
                         </td><td>'.$contacts_to_groups  .'</td></tr>
                         
-                        <tr><th>Shuffle Assignments</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
-                        </td><td></td></tr>
                         
-                        <tr><th>Shuffle Updates Requested</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates Requested</button></form>
-                        </td><td></td></tr>
                         
                 </tbody>
              </table>
              <br>
              ';
 
-//        $html .= '<table class="widefat striped">
-//                    <thead><th>DO THIRD</th><th></th><th>Current</th></thead>
-//                    <tbody>
+//        $args = array(
+//            'meta_key'     => '_sample',
+//            'meta_value'   => 'sample',
+//        );
+//        $records = get_users( $args );
 //
-//                        <tr><th>Build Report History</th><td>
-//                            <form method="POST">
-//                                <input type="hidden" name="report_source" value="Facebook"/>
-//                                    <input type="hidden" class="regular-text" name="report_subsource" />
-//                                    <input type="hidden" class="regular-text" name="count" value="30" />
-//                                    <input type="hidden" name="count" value="100" /> <button type="submit" value="build_reports" name="submit" class="button" id="build_reports">Build Reports</button>
-//                             </form>
-//                        </td><td>'.$reports.'</td></tr>
-//
-//
-//
-//                    </tbody>
-//             </table>
-//             <br>
-//             ';
-
-
-//        print '<pre>'; print_r($users); print '</pre>';
+//        print '<pre>'; print_r($records); print '</pre>';
 
 
         $html .= '</div><!-- end post-body-content -->';
@@ -356,16 +341,23 @@ class dt_training_add_records {
                     <table class="widefat striped">
                         <thead><th>UTILITIES</th><th></th></thead>
                             <tbody>
-                                <tr><th>Refresh Roles</th><td>
-                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
-                                </td></tr>
                                 
                                 <tr><th>Add Pages</th><td>
                                     <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
                                 </td></tr>
                                 
-                                <tr><th></th><td>
+                                <tr><th>Refresh Roles</th><td>
+                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
                                 </td></tr>
+                                
+                                <tr><th>Shuffle Assignments</th><td>
+                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Shuffle Updates Requested</th><td>
+                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates</button></form>
+                                </td></tr>
+                                
                              </tbody>
                     </table><br>
                     
@@ -398,10 +390,30 @@ class dt_training_add_records {
                                 
                                 <tr><th>Delete Assets</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_assets_confirm\').show();">Delete Assets</a>
-                                    
                                 </td></tr>
                                 <tr id="delete_assets_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_assets" name="submit" class="button" style="background:red; color:white;" id="delete_assets">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Delete Users</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a>
+                                </td></tr>
+                                <tr id="delete_users_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Delete Prayers</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_prayers_confirm\').show();">Delete Prayer</a>
+                                </td></tr>
+                                <tr id="delete_prayers_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_prayers" name="submit" class="button" style="background:red; color:white;" id="delete_prayers">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Delete Progress</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_progress_confirm\').show();">Delete Progress</a>
+                                </td></tr>
+                                <tr id="delete_progress_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_progress" name="submit" class="button" style="background:red; color:white;" id="delete_progress">Confirm Delete</button></form>
                                 </td></tr>
                                 
                                     

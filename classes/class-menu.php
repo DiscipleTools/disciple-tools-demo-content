@@ -55,14 +55,14 @@ final class dt_training_page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_submenu_page( 'tools.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dtsample_data_page' ) );
+        add_submenu_page( 'tools.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dt_training_data_page' ) );
     }
 
     /**
      * Builds the tab bar
      * @since 0.1
      */
-    public function dtsample_data_page() {
+    public function dt_training_data_page() {
 
 
         if ( !current_user_can( 'manage_options' ) )  {
@@ -74,7 +74,7 @@ final class dt_training_page {
          */
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="options-general.php?page=dtsample&tab=';
+        $tab_link_pre = '<a href="tools.php?page=dt_training&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
@@ -85,27 +85,20 @@ final class dt_training_page {
         if ($tab == 'records' || !isset($tab) ) {$html .= 'nav-tab-active';}
         $html .= '">Starter Data</a>';
 
-//        $html .= $tab_link_pre . 'bulk_records' . $tab_link_post;
-//        if ($tab == 'bulk_records') {$html .= 'nav-tab-active';}
-//        $html .= '">Bulk Records</a>';
-
         $html .= $tab_link_pre . 'report' . $tab_link_post;
         if ($tab == 'report') {$html .= 'nav-tab-active';}
-        $html .= '">Bulk Reports</a>';
+        $html .= '">Add Reports</a>';
 
-        $html .= $tab_link_pre . 'setup' . $tab_link_post;
-        if ($tab == 'setup') {$html .= 'nav-tab-active';}
-        $html .= '">Setup Info</a>';
+        $html .= $tab_link_pre . 'tutorials' . $tab_link_post;
+        if ($tab == 'tutorials') {$html .= 'nav-tab-active';}
+        $html .= '">Tutorials</a>';
 
-//        $html .= $tab_link_pre . 'gen' . $tab_link_post;
-//        if ($tab == 'gen') {$html .= 'nav-tab-active';}
-//        $html .= '">Gen Test</a>';
-
-//        $html .= $tab_link_pre . 'portal' . $tab_link_post;
-//        if ($tab == 'portal') {$html .= 'nav-tab-active';}
-//        $html .= '">Portal</a>';
 
         $html .= '</h2>';
+
+        echo $html;
+
+        $html = '';
         // End Tab Bar
 
         /**
@@ -113,20 +106,14 @@ final class dt_training_page {
          */
         switch ($tab) {
 
-            case "setup":
-                    $html .= dt_training_plugin()->setup_info->dtsample_setup_info();
+            case "tutorials":
+                    $html .= dt_training_plugin()->tutorials->dt_tabs_tutorial_content();
                 break;
             case "report":
                 $html .= dt_training_plugin()->add_report->add_report_page_form ();
                 break;
-            case "bulk_records":
-                    $html .= dt_training_plugin()->bulk_records->dtsample_add_bulk_records_content();
-                break;
-//            case "portal":
-//                $html .= dt_training_plugin()->portal->display_page_content();
-//                break;
             default:
-                $html .= dt_training_plugin()->add_records->dtsample_add_records_content() ;
+                $html .= dt_training_plugin()->add_records->dt_training_add_records_content() ;
         }
 
         $html .= '</div>'; // end div class wrap
