@@ -65,12 +65,12 @@ class dt_training_users
             $option = 'add_sample_users';
             $value = '1';
             $deprecated = '';
-            $autoload = TRUE;
+            $autoload = false;
 
             add_option($option, $value, $deprecated, $autoload);
 
         } else {
-            $html .= '<p>Core users are already loaded. <form method="POST"><button type="submit" value="reset_users" name="submit" class="button" id="reset_users">Reload Core Users</button></p>';
+            $html .= '<p>Core users are already loaded. Confirm you want to ... <form method="POST"><button type="submit" value="reset_users" name="submit" class="button" id="reset_users">Reset Core Users</button></p>';
         }
         return $html;
     }
@@ -109,7 +109,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Marketer set' ;}
 
         if( null == username_exists( 'Marketer Leader' ) ) {
 
@@ -135,7 +135,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Marketer Leader set' ;}
 
         if( null == username_exists( 'Dispatcher' ) ) {
 
@@ -161,7 +161,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Dispatcher set' ;}
 
         if( null == username_exists( 'Multiplier' ) ) {
 
@@ -187,7 +187,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Multiplier set' ;}
 
         if( null == username_exists( 'Multiplier_Leader' ) ) {
 
@@ -213,7 +213,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Multiplier Leader set' ;}
 
         if( null == username_exists( 'Prayer_Supporter' ) ) {
 
@@ -239,7 +239,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Prayer Supporter set' ;}
 
         if( null == username_exists( 'Project_Supporter' ) ) {
 
@@ -265,7 +265,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Project Supporter set' ;}
 
         if( null == username_exists( 'Registered' ) ) {
 
@@ -291,7 +291,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Registered set' ;}
 
         if( null == username_exists( 'Strategist' ) ) {
 
@@ -317,7 +317,7 @@ class dt_training_users
 
             // Report
             $html .= '<br>Added: ' . $username ;
-        } // end if
+        } else { $html .= '<br>Strategist set' ;}
 
         return $html;
     }
@@ -554,8 +554,6 @@ class dt_training_users
         return 'Records deleted';
 
     }
-
-
 
 
     /**

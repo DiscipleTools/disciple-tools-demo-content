@@ -110,8 +110,6 @@ class dt_training_comments {
      */
     public function delete_comments () {
 
-        global $wpdb;
-
         $args = array(
             'meta_key' => '_sample',
             'meta_value' => 'sample',
@@ -119,7 +117,7 @@ class dt_training_comments {
         $comments = get_comments( $args );
 
         foreach ($comments as $comment) {
-            $id = $comment->ID;
+            $id = $comment->comment_ID;
 
             wp_delete_comment( $id, true );
         }

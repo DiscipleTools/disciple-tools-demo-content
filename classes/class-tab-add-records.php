@@ -80,9 +80,16 @@ class dt_training_add_records {
                     $html .= $report_box_top . dt_training_plugin()->users->add_users_combined ($_POST['count']) . $report_box_bottom;
                     break;
 
+                case 'refresh_users':
+                    $html .= $report_box_top . dt_training_plugin()->users->add_users_once ($_POST['count']) . $report_box_bottom;
+                    break;
+
+
+
                 case 'reset_users':
                     $html .= $report_box_top . dt_training_plugin()->users->reset_users() . $report_box_bottom;
                     break;
+
 
                 // Contacts
                 case 'add_contacts':
@@ -329,12 +336,12 @@ class dt_training_add_records {
              ';
 
 //        $args = array(
-//            'meta_key'     => '_sample',
-//            'meta_value'   => 'sample',
+//            'meta_key' => '_sample',
+//            'meta_value' => 'sample',
 //        );
-//        $records = get_users( $args );
-//
-//        print '<pre>'; print_r($records); print '</pre>';
+//        $comments = get_comments( $args );
+
+//        print '<pre>'; print_r($comments); print '</pre>';
 
 
         $html .= '</div><!-- end post-body-content -->';
@@ -351,6 +358,10 @@ class dt_training_add_records {
                                 
                                 <tr><th>Refresh Roles</th><td>
                                     <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Reset Core Users</th><td>
+                                    <form method="POST"><button type="submit" value="refresh_users" name="submit" class="button" id="refresh_users">Reset Users</button></form>
                                 </td></tr>
                                 
                                 <tr><th>Shuffle Assignments</th><td>
