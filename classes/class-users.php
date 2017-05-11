@@ -529,32 +529,6 @@ class dt_training_users
 
     }
 
-    /**
-     * Delete all sample users in database
-     * @return string
-     */
-    public function delete_users () {
-        if (get_user_by( 'id', '1' )) {
-            $reassign = '1';
-        } else {
-            $reassign = get_current_user_id();
-        }
-
-        $args = array(
-            'meta_key'     => '_sample',
-            'meta_value'   => 'sample',
-        );
-        $records = get_users( $args );
-
-        foreach ($records as $record) {
-            $id = $record->ID;
-            wp_delete_user( $id, $reassign );
-        }
-
-        return 'Records deleted';
-
-    }
-
 
     /**
      * Add a single multiplier
@@ -796,6 +770,33 @@ class dt_training_users
         delete_option('add_sample_users');
         $html = $this->add_users_once();
         return $html;
+    }
+
+    /**
+     * Delete all sample users in database
+     * @return string
+     */
+    public function delete_users () {
+        if (get_user_by( 'id', '1' )) {
+            $reassign = '1';
+        } else {
+            $reassign = get_current_user_id();
+        }
+
+        $args = array(
+            'meta_key'     => '_sample',
+            'meta_value'   => 'sample',
+        );
+        $records = get_users( $args );
+
+        foreach ($records as $record) {
+            $id = $record->ID;
+            wp_delete_user( $id, $reassign );
+        }
+        delete_option('add_sample_users');
+
+        return 'Records deleted';
+
     }
 
     /**
