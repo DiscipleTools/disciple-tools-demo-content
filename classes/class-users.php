@@ -36,6 +36,13 @@ class dt_training_users
     // Constructor class
     public function __construct() {}
 
+    /**
+     * Primary addition function for users
+     * The first line adds the core users used to sign in and test different views of the system
+     * The second line adds random users to each of the roles for load testing.
+     * @param $count
+     * @return string
+     */
     public function add_users_combined ($count) {
         $this->add_users_once ();
         $this->add_users_by_count ($count);
@@ -43,9 +50,6 @@ class dt_training_users
         return 'Users added';
 
     }
-
-    /******************************************************************************/
-    /* Section :  Core Addition of Users */
 
     /**
      * Sets a check so that the core users are added only one time.
@@ -376,7 +380,7 @@ class dt_training_users
 
 
             // Create Strategy
-            $username = 'strategy' . $i;
+            $username = 'strategist' . $i;
             $email = $username.'@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
@@ -385,14 +389,14 @@ class dt_training_users
                 array(
                     'ID'          =>    $user_id,
                     'nickname'    =>    $username,
-                    'first_name'  =>    'Strategy ' . $i,
+                    'first_name'  =>    'Strategist ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value  );
 
             // Set the role
             $user = new WP_User( $user_id );
-            $user->set_role( 'strategy' );
+            $user->set_role( 'strategist' );
 
 
         // Create Dispatcher

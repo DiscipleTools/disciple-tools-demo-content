@@ -189,6 +189,9 @@ class dt_training_add_records {
                 case 'delete_progress':
                     $html .= $report_box_top . dt_training_plugin()->progress->delete_progress_posts() . $report_box_bottom;
                     break;
+                case 'delete_comments':
+                    $html .= $report_box_top . dt_training_plugin()->comments->delete_comments() . $report_box_bottom;
+                    break;
 
                 default:
                     break;
@@ -414,6 +417,13 @@ class dt_training_add_records {
                                 </td></tr>
                                 <tr id="delete_progress_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_progress" name="submit" class="button" style="background:red; color:white;" id="delete_progress">Confirm Delete</button></form>
+                                </td></tr>
+                                
+                                <tr><th>Delete Comments</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete Comments</a>
+                                </td></tr>
+                                <tr id="delete_comments_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_comments" name="submit" class="button" style="background:red; color:white;" id="delete_comments">Confirm Delete</button></form>
                                 </td></tr>
                                 
                                     

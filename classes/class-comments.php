@@ -95,12 +95,37 @@ class dt_training_comments {
                 'comment_approved' => 1,
             );
 
-            wp_insert_comment($data);
+            $comment_id = wp_insert_comment($data);
+            add_comment_meta( $comment_id, '_sample', 'sample' );
 
             $i++;
         }
 
         return $i . ' comments added randomly.';
+    }
+
+    /**
+     * Delete all comments in database
+     * @return string
+     */
+    public function delete_comments () {
+
+        global $wpdb;
+
+        $args = array(
+            'meta_key' => '_sample',
+            'meta_value' => 'sample',
+        );
+        $comments = get_comments( $args );
+
+        foreach ($comments as $comment) {
+            $id = $comment->ID;
+
+            wp_delete_comment( $id, true );
+        }
+
+        return 'Comments deleted';
+
     }
 
 }
