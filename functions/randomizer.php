@@ -155,6 +155,19 @@ function dt_training_random_state () {
     return $list[rand(0, $top - 1)];
 }
 
+function dt_training_full_address () {
+    $address = dt_training_random_address();
+    $city = dt_training_random_city_names();
+    $state = dt_training_random_state();
+    $zip = dt_training_random_zip();
+
+    return $address . ', ' . $city . ' ' . $state . ', ' . $zip;
+}
+
+function dt_training_random_zip () {
+    return rand(80000, 89999);
+}
+
 /**
  * Generates random asset name
  * @return mixed

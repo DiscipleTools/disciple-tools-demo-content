@@ -36,35 +36,6 @@ class dt_training_contacts
     // Constructor class
     public function __construct() {}
 
-    /*
-     * Sets a check so that the groups are added only one time.
-     *
-     *
-     * @return string
-     */
-    public function add_contacts_once () {
-        $html = '';
-
-        if (get_option('add_sample_contacts') !== '1') {
-
-            $html .= $this->add_contacts();
-
-            $option = 'add_sample_contacts';
-            $value = '1';
-            $deprecated = '';
-            $autoload = TRUE;
-
-            add_option($option, $value, $deprecated, $autoload);
-
-        } else {
-            $html .= '<p>Contacts are already loaded. <form method="POST"><button type="submit" value="reset_contacts" name="submit" class="button" id="reset_contacts">Load the sample contacts again?</button></p>';
-        }
-        return $html;
-    }
-
-
-
-
     /**
      * Loops contact creation according to supplied $count.
      * @param $count    int Number of records to create.
@@ -88,6 +59,10 @@ class dt_training_contacts
      * @return array|WP_Post
      */
     public function single_plain_contact () {
+        $primary_phone_key = "contact_Phone_Primary_111";
+        $mobile_phone_key = "contact_Phone_Mobile_111";
+        $email_key = "contact_Email_Primary_111";
+        $address = "address_Home_111";
 
         $name = dt_training_random_name ();
 
@@ -98,9 +73,11 @@ class dt_training_contacts
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "phone" => dt_training_random_phone_number(),
+                $primary_phone_key => dt_training_random_phone_number(),
+                $mobile_phone_key => dt_training_random_phone_number(),
+                $address => dt_training_full_address (),
+                $email_key => $name.rand(1000, 10000)."@email.com",
                 "overall_status" => dt_training_random_overall_status(),
-                "email" => $name.rand(1000, 10000)."@email.com",
                 "preferred_contact_method" => dt_training_random_preferred_contact_method (),
                 "source_details"    =>  dt_training_random_source (),
                 "seeker_path"   =>  dt_training_seeker_path(),
