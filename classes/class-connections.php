@@ -285,7 +285,7 @@ class dt_training_connections {
             $from = $groups[$i]->ID;
             p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
                 'date' => current_time('mysql'),
-                'role' => dt_training_group_role(),
+                'stage' => dt_training_group_role(),
             ) );
 
             $i++;

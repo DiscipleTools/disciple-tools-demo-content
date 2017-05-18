@@ -290,7 +290,7 @@ function dt_training_seeker_path () {
 function dt_training_group_role() {
 
     $list = array(
-        'Attending', 'Planting', 'Coaching'
+        'Unknown', 'Unbelieving', 'Believing', 'Accountable', 'Multiplying'
     );
 
     shuffle($list);
