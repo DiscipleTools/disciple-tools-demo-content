@@ -311,6 +311,18 @@ function dt_training_random_requires_upate() {
 
 }
 
+function dt_training_random_yes_no() {
+
+    $list = array(
+        'No', 'Yes','No', 'Yes', 'No', 'Yes','No', 'Yes',
+    );
+
+    shuffle($list);
+
+    return $list[0];
+
+}
+
 
 
 

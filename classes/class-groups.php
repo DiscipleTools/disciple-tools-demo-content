@@ -63,6 +63,7 @@ class dt_training_groups
      * @return array|WP_Post
      */
     public function single_plain_group () {
+        $address = "address_Home_111";
 
         $post = array(
             "post_title" => 'Group' . rand(100, 999),
@@ -71,11 +72,8 @@ class dt_training_groups
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "type" => dt_training_random_group_type(),
-                "address"   =>  dt_training_random_address(),
-                "city"  => dt_training_random_city_names(),
-                "state" => dt_training_random_state(),
-                "zip"   =>  rand(80000, 89999),
+                "is_church" => dt_training_random_yes_no(),
+                $address => dt_training_full_address (),
                 "_sample"   => 'sample',
             ),
         );
