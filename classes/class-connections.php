@@ -283,13 +283,18 @@ class dt_training_connections {
 
             $to = $contacts[$i]->ID;
             $from = $groups[$i]->ID;
-            p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
+
+
+            $connection_id = p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
                 'date' => current_time('mysql'),
-                'stage' => dt_training_group_role(),
             ) );
+
+            p2p_update_meta($connection_id, 'stage', dt_training_group_role());
 
             $i++;
         }
+
+
 
         return $i . ' contacts added to groups.';
 
