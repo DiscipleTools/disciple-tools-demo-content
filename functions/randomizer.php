@@ -19,11 +19,11 @@ function dt_training_random_phone_number () {
 function dt_training_random_overall_status () {
 
     $list = array(
-        'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned',
-        'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned',
-        'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned',
-        'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned', 'Unassigned',
-        'Paused', 'Closed', 'Unassignable', 'Paused', 'Closed', 'Unassignable');
+        '0', '0', '0', '0', '0',
+        '0', '0', '0', '0', '0',
+        '0', '0', '0', '0', '0',
+        '0', '0', '0', '0', '0',
+        '2', '3', '4', '2', '3', '4');
 
     $top = count($list);
 
