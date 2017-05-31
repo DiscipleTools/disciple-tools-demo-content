@@ -279,8 +279,7 @@ function dt_training_comment_ipsum () {
 function dt_training_seeker_path () {
 
     $list = array(
-        'Contact Attempted', 'Contact Established', 'Confirms Interest', 'Meeting Scheduled', 'First Meeting Complete', 'Ongoing Meetings', 'Being Coached'
-    );
+        '0', '1', '2', '3', '4', '5', '0', '1', '2', '3', '4', '5', '0', '1', '2', '3', '4', '5', '6', '7' );
 
     shuffle($list);
 
@@ -302,7 +301,7 @@ function dt_training_group_role() {
 function dt_training_random_requires_upate() {
 
     $list = array(
-        'No', 'Yes','No', 'Yes', 'No', 'Yes','No', 'Yes',
+        '0', '1'
     );
 
     shuffle($list);
