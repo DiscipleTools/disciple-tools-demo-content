@@ -59,10 +59,10 @@ class dt_training_contacts
      * @return array|WP_Post
      */
     public function single_plain_contact () {
-        $primary_phone_key = "contact_Phone_Primary_111";
-        $mobile_phone_key = "contact_Phone_Mobile_111";
-        $email_key = "contact_Email_Primary_111";
-        $address = "address_Home_111";
+        $primary_phone_key = "contact_phone_primary_111";
+        $mobile_phone_key = "contact_phone_mobile_111";
+        $email_key = "contact_email_primary_111";
+        $address = "address_home_111";
 
         $name = dt_training_random_name ();
 

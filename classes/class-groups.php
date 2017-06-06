@@ -63,7 +63,7 @@ class dt_training_groups
      * @return array|WP_Post
      */
     public function single_plain_group () {
-        $address = "address_Home_111";
+        $address = "address_main_111";
 
         $post = array(
             "post_title" => 'Group' . rand(100, 999),
