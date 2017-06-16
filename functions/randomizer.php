@@ -322,6 +322,18 @@ function dt_training_random_yes_no() {
 
 }
 
+function dt_training_random_bool() {
+
+    $list = array(
+        '0', '1', '0', '1', '0', '0', '1', '1'
+    );
+
+    shuffle($list);
+
+    return $list[0];
+
+}
+
 
 
 

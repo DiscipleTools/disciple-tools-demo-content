@@ -72,7 +72,7 @@ class dt_training_groups
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "is_church" => dt_training_random_yes_no(),
+                "is_church" => dt_training_random_bool(),
                 $address => dt_training_full_address (),
                 "_sample"   => 'sample',
             ),

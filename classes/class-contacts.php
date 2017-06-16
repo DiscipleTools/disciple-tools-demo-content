@@ -78,7 +78,6 @@ class dt_training_contacts
                 $address => dt_training_full_address (),
                 $email_key => $name.rand(1000, 10000)."@email.com",
                 "overall_status" => dt_training_random_overall_status(),
-                "preferred_contact_method" => dt_training_random_preferred_contact_method (),
                 "source_details"    =>  dt_training_random_source (),
                 "seeker_path"   =>  dt_training_seeker_path(),
                 "_sample"   => 'sample',
@@ -108,12 +107,12 @@ class dt_training_contacts
         foreach ($contacts as $contact) {
             $id = $contact->ID;
 
-            $wpdb->get_results("DELETE FROM wp_p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
+            $wpdb->get_results("DELETE FROM $wpdb->p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
 
             wp_delete_post( $id, 'true');
         }
 
-        $wpdb->get_results("DELETE FROM wp_p2pmeta WHERE NOT EXISTS (SELECT NULL FROM wp_p2p WHERE wp_p2p.p2p_id = wp_p2pmeta.p2p_id)");
+        $wpdb->get_results("DELETE FROM $wpdb->p2pmeta WHERE NOT EXISTS (SELECT NULL FROM $wpdb->p2p WHERE $wpdb->p2p.p2p_id = $wpdb->p2pmeta.p2p_id)");
 
         return 'Contacts deleted';
 
