@@ -74,7 +74,7 @@ final class dt_training_page {
          */
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="tools.php?page=dt_training&tab=';
+        $tab_link_pre = '<a href="options-general.php?page=dt_training&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
