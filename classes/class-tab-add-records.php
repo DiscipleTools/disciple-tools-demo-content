@@ -221,7 +221,7 @@ class dt_training_add_records {
         $contacts = wp_count_posts( 'contacts' );
         $groups = wp_count_posts( 'groups' );
         $locations = wp_count_posts( 'locations' );
-        $assets = wp_count_posts( 'assets' );
+        $assets = wp_count_posts( 'assetmapping' );
         $prayer = wp_count_posts( 'prayer' );
         $progress = wp_count_posts( 'progress' );
         $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments");
@@ -277,7 +277,7 @@ class dt_training_add_records {
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form>
                         </td><td>'.$locations->publish.'</td></tr>
                         
-                        <tr><th>Assets</th><td>
+                        <tr><th>Asset Mapping</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_assets" name="submit" class="button" id="add_assets">Add Assets</button></form>
                         </td><td>'.$assets->publish.'</td></tr>
                         
@@ -320,7 +320,7 @@ class dt_training_add_records {
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
                         </td><td>'.$groups_to_locations  .'</td></tr>
                         
-                        <tr><th>Assets to Locations</th><td>
+                        <tr><th>Asset Mapping to Locations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="assets_to_locations" name="submit" class="button" id="assets_to_locations">Connect Assets to Locations</button></form>
                         </td><td>'.$assets_to_locations  .'</td></tr>
                         
