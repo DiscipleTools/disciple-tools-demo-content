@@ -125,6 +125,8 @@ class dt_core_pages
             $html .= 'Added Page: "'. $item['post_title'] . '"<br>';
         }
 
+        flush_rewrite_rules();
+
         return $html;
     }
 
