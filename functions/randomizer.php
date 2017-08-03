@@ -18,7 +18,7 @@ function dt_training_random_phone_number () {
  */
 function dt_training_random_overall_status(): string {
 
-    $list = array( '0', '0', '0', '1', '2', '3', '4' );
+    $list = array( 'unassigned', 'unassigned', 'unassigned', 'accepted', 'paused', 'closed', 'unassignable' );
     return $list[ array_rand( $list ) ];
 }
 
@@ -277,7 +277,7 @@ function dt_training_comment_ipsum () {
 function dt_training_seeker_path () {
 
     $list = array(
-        '0', '1', '2', '3', '4', '5', '0', '1', '2', '3', '4', '5', '0', '1', '2', '3', '4', '5', '6', '7' );
+        'none', 'attempted', 'established', 'scheduled', 'met', 'none', 'attempted', 'established', 'scheduled', 'none', 'attempted', 'established', 'scheduled', 'met', 'ongoing');
 
     shuffle($list);
 
@@ -339,10 +339,10 @@ function dt_training_random_milestones(): array {
     $rv = array();
 
     for ($i = 0; $i < rand( 0, count( $belief_milestones ) ); $i++) {
-        $rv["milestone_$belief_milestones[$i]"] = "1";
+        $rv["milestone_$belief_milestones[$i]"] = "yes";
     }
     for ($i = 0; $i < rand( 0, count( $sharing_milestones ) ); $i++) {
-        $rv["milestone_$sharing_milestones[$i]"] = "1";
+        $rv["milestone_$sharing_milestones[$i]"] = "yes";
     }
     return $rv;
 }
