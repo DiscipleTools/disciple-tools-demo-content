@@ -16,18 +16,10 @@ function dt_training_random_phone_number () {
  * Generates random overal status
  * @return mixed
  */
-function dt_training_random_overall_status () {
+function dt_training_random_overall_status(): string {
 
-    $list = array(
-        '0', '0', '0', '0', '0',
-        '0', '0', '0', '0', '0',
-        '0', '0', '0', '0', '0',
-        '0', '0', '0', '0', '0',
-        '2', '3', '4', '2', '3', '4');
-
-    $top = count($list);
-
-    return $list[rand(0, $top - 1)];
+    $list = array( '0', '0', '0', '1', '2', '3', '4' );
+    return $list[ array_rand( $list ) ];
 }
 
 /**
@@ -341,7 +333,19 @@ function dt_training_random_bool() {
 }
 
 
+function dt_training_random_milestones(): array {
+    $belief_milestones = array( 'belief', 'baptized', 'baptizing' );
+    $sharing_milestones = array( 'can_share', 'sharing', 'in_group', 'planting' );
+    $rv = array();
 
+    for ($i = 0; $i < rand( 0, count( $belief_milestones ) ); $i++) {
+        $rv["milestone_$belief_milestones[$i]"] = "1";
+    }
+    for ($i = 0; $i < rand( 0, count( $sharing_milestones ) ); $i++) {
+        $rv["milestone_$sharing_milestones[$i]"] = "1";
+    }
+    return $rv;
+}
 
 
 

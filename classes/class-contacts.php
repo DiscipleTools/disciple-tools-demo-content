@@ -83,6 +83,7 @@ class dt_training_contacts
                 "_sample"   => 'sample',
             ),
         );
+        $post["meta_input"] = array_merge( $post["meta_input"], dt_training_random_milestones() );
 
         return $post;
 
