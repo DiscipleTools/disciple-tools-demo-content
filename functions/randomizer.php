@@ -58,7 +58,9 @@ function dt_training_random_name () {
         'Tarik', 'Fatima', 'Rahi', 'Atiya', 'Qaseem',
         'Maysun', 'Musad', 'Assah', 'Dawud', 'Maysa',
         'Moukib', 'Azzam', 'Qaseem', 'Maysun', 'Rahi',
-        'Atiya', 'Rashid', 'Manal', 'Usama', 'Gadi'
+        'Atiya', 'Rashid', 'Manal', 'Usama', 'Gadi',
+        'رشيد', 'منال', 'أسامة',
+        '<script>alert("name");</script>',
     );
 
     $top = count($list);
@@ -108,6 +110,8 @@ function dt_training_random_address () {
         'Rabat', 'Kenitra', 'Tetouan', 'Beni Mellal', 'Safi',
         'Oujda', 'Inezgane Ait Melloul', 'Agadir-Ida Ou Tanan', 'Nador', 'Khouribga',
         'Settat', 'Temara', 'El Jadida', 'Khenifra', 'Taza',
+        'بني ملال', 'مراكش',
+        '<script>alert("address")</script>',
     );
 
     $top = count($list);
@@ -128,6 +132,7 @@ function dt_training_random_city_names () {
         'Tébessa', 'El Oued', 'Skikda', 'Tiaret', 'Béjaïa',
         'Tlemcen', 'Ouargla', 'Béchar', 'Mostaganem', 'Bordj Bou Arréridj',
         'Chlef', 'Souk Ahras', 'Médéa', 'El Eulma', 'Touggourt',
+        'سيدي بالعباس',
     );
 
     $top = count($list);
@@ -189,6 +194,7 @@ function dt_training_random_word () {
         'Praesent', 'Pulvinar', 'Vestibulum', 'Mollis', 'Tempus',
         'Sapien', 'Duis', 'Eros', 'Tincidunt', 'Vestibulum',
         'Praesent', 'Cras', 'Tortor', 'Quam', 'Duis',
+        '<script>alert("word")</script>',
     );
 
     $top = count($list);
@@ -231,8 +237,8 @@ function dt_training_loren_ipsum () {
 
     $text[] = "Quisque rutrum lectus ut tempor pretium. Suspendisse volutpat nulla risus, et finibus eros pulvinar quis. Praesent id felis at mauris feugiat lacinia sed eget ligula. Praesent sit amet tellus accumsan, porttitor urna sed, sodales tellus. Sed elementum cursus eros et consequat. Aliquam lobortis massa eget mi pulvinar condimentum. Ut ultricies, metus vitae blandit pharetra, dolor sem convallis nibh, dapibus fringilla ante purus ut urna. Nullam sit amet libero condimentum, iaculis enim eget, iaculis erat. Nulla sed blandit elit, in viverra augue. Sed dignissim blandit malesuada. Nunc finibus consequat urna, in dictum massa eleifend quis. ";
 
-    $text[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Vivamus ut turpis at ex lacinia venenatis. Nulla vulputate urna blandit consectetur faucibus. Ut ligula mi, viverra et neque vel, interdum elementum ipsum. Integer pellentesque quam eget sapien pulvinar condimentum nec vel arcu. Donec ante augue, pharetra eu lacus id, mollis commodo quam. Curabitur auctor ultrices odio, ac sodales nisl dictum sit amet. Maecenas fermentum et magna eu pretium. Duis sodales pellentesque felis, vel ornare enim consectetur non. Vivamus facilisis elit eu lobortis lobortis. Mauris eget dapibus lectus. Vestibulum vestibulum turpis ligula, eu elementum justo fringilla luctus. Aliquam sed nisl laoreet, feugiat sem at, volutpat mauris. Nullam quam mauris, tempor bibendum lobortis vitae, dignissim vel diam. Pellentesque eu. Praesent lectus nibh, elementum eget lorem a, ullamcorper interdum velit. Quisque convallis augue ac risus fermentum, nec hendrerit purus dapibus.";
-    
+    $text[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Vivamus ut turpis at ex lacinia venenatis. Nulla vulputate urna blandit consectetur faucibus. Ut ligula mi, viverra et neque vel, interdum elementum ipsum. Integer pellentesque quam eget sapien pulvinar condimentum nec vel arcu. Donec ante augue, pharetra eu lacus id, mollis commodo quam. Curabitur auctor ultrices odio, ac sodales nisl dictum sit amet. Maecenas fermentum et magna eu pretium. Duis sodales pellentesque felis, vel ornare enim consectetur non. Vivamus facilisis elit eu lobortis lobortis. Mauris eget dapibus lectus. Vestibulum vestibulum turpis ligula, eu elementum justo fringilla luctus. Aliquam sed nisl laoreet, feugiat sem at, volutpat mauris. Nullam quam mauris, tempor bibendum lobortis vitae, dignissim vel diam. Pellentesque eu. Praesent lectus nibh, elementum eget lorem a, ullamcorper interdum velit. Quisque convallis augue ac risus fermentum, nec hendrerit purus dapibus. <script>alert('lorem')</script>";
+
     shuffle($text);
 
     return "<p>" . $text[0] . "</p><p>" . $text[1] . "</p><p>". $text[2] . "</p>";
@@ -242,32 +248,32 @@ function dt_training_loren_ipsum () {
 function dt_training_comment_ipsum () {
 
     $text = array();
-    $text[] = "Donec turpis eros, facilisis quis dolor id, imperdiet molestie eros. 
-    
+    $text[] = "Donec turpis eros, facilisis quis dolor id, imperdiet molestie eros.
+
     ";
 
-    $text[] = "In iaculis lobortis sem et elementum. Suspendisse id arcu accumsan, iaculis ex ut, molestie diam. Vestibulum scelerisque lorem a aliquam tempor. Donec gravida ipsum nec suscipit eleifend. 
-    
+    $text[] = "In iaculis lobortis sem et elementum. Suspendisse id arcu accumsan, iaculis ex ut, molestie diam. Vestibulum scelerisque lorem a aliquam tempor. Donec gravida ipsum nec suscipit eleifend.
+
     ";
 
-    $text[] = "Duis pulvinar augue eu lectus laoreet, vehicula fringilla lacus efficitur.  
-    
+    $text[] = "Duis pulvinar augue eu lectus laoreet, vehicula fringilla lacus efficitur.
+
     ";
 
-    $text[] = "Donec vitae pulvinar ex, at placerat felis.  
-    
+    $text[] = "Donec vitae pulvinar ex, at placerat felis.
+
     ";
 
     $text[] = "In sit amet placerat risus.
-    
+
     ";
 
-    $text[] = "Cras consequat ut sem a pulvinar. 
-    
+    $text[] = "Cras consequat ut sem a pulvinar.
+
     ";
 
-    $text[] = "Nunc egestas, neque a dapibus rhoncus, quam dolor maximus mi, ac lobortis mauris magna quis libero. 
-    
+    $text[] = "Nunc egestas, neque a dapibus rhoncus, quam dolor maximus mi, ac lobortis mauris magna quis libero. <script>alert('comment');</script>
+
     ";
 
     shuffle($text);
