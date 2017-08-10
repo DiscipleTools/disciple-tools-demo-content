@@ -68,7 +68,9 @@ class dt_training_contacts
         $email_key = "contact_email_111";
         $email_details_key = "contact_email_111_details";
         $email_details = ["type"=>"primary"];
-        $address = "address_home_111";
+        $address_key = "address_111";
+        $address_details_key = "address_111_details";
+        $address_details = ["type"=>"home"];
 
         $name = dt_training_random_name();
 
@@ -83,7 +85,8 @@ class dt_training_contacts
                 $primary_phone_details_key => $primary_phone_details,
                 $mobile_phone_key => dt_training_random_phone_number(),
                 $mobile_phone_details_key => $mobile_phone_details,
-                $address => dt_training_full_address(),
+                $address_key => dt_training_full_address(),
+                $address_details_key => $address_details,
                 $email_key => $name.rand( 1000, 10000 )."@email.com",
                 $email_details_key => $email_details,
                 "overall_status" => dt_training_random_overall_status(),
