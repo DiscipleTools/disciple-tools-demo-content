@@ -274,7 +274,8 @@ class dt_training_add_records {
                         </td><td>'.$groups->publish.'</td></tr>
                         
                         <tr><th>Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form>
+                                 <a href="edit.php?post_type=locations&page=disciple_tools_locations" class="button">Add Locations</a>
+                            <!-- Removed and replaced by import tool <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form> -->
                         </td><td>'.$locations->publish.'</td></tr>
                         
                         <tr><th>Asset Mapping</th><td>
