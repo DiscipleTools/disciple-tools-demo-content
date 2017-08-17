@@ -93,8 +93,6 @@ class dt_training_locations {
         $args = array(
             'numberposts'   => -1,
             'post_type'   => 'locations',
-            "meta_key"  => '_sample',
-            "meta_value"    => 'sample',
         );
         $groups = get_posts( $args );
 
