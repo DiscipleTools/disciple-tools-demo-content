@@ -3,7 +3,7 @@
 /**
  * Disciple Tools Tutorials
  *
- * @class dt_training_tutorials
+ * @class dt_demo_tutorials
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_tutorials {
+class dt_demo_tutorials {
 
     /**
-     * dt_training_tutorials The single instance of dt_training_tutorials.
+     * dt_demo_tutorials The single instance of dt_demo_tutorials.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_tutorials {
     private static $_instance = null;
 
     /**
-     * Main dt_training_tutorials Instance
+     * Main dt_demo_tutorials Instance
      *
-     * Ensures only one instance of dt_training_tutorials is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_tutorials is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_tutorials instance
+     * @return dt_demo_tutorials instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -51,7 +51,7 @@ class dt_training_tutorials {
      */
     public function dt_tabs_tutorial_content() {
         ?>
-        <div class="wrap"><h2>Tutorials</h2>
+        <div class="wrap"><h2>Gallery</h2>
 
         <form id="plugin-filter" method="post">
             <div class="wp-list-table widefat plugin-install">

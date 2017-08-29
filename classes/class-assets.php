@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_training_assets
+ * dt_demo_assets
  *
- * @class dt_training_assets
+ * @class dt_demo_assets
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_assets {
+class dt_demo_assets {
 
     /**
-     * dt_training_assets The single instance of dt_training_assets.
+     * dt_demo_assets The single instance of dt_demo_assets.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_assets {
     private static $_instance = null;
 
     /**
-     * Main dt_training_assets Instance
+     * Main dt_demo_assets Instance
      *
-     * Ensures only one instance of dt_training_assets is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_assets is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_assets instance
+     * @return dt_demo_assets instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -69,16 +69,16 @@ class dt_training_assets {
     public function single_random_asset () {
 
         $post = array(
-            "post_title" => dt_training_random_asset_name () . ' Asset' . rand(10, 99),
+            "post_title" => dt_demo_random_asset_name () . ' Asset' . rand(10, 99),
             'post_type' => 'assetmapping',
             "post_content" => ' ',
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "type" => dt_training_random_phone_number(),
-                "address"   =>  dt_training_random_address(),
-                "city"  => dt_training_random_city_names(),
-                "state" => dt_training_random_state(),
+                "type" => dt_demo_random_phone_number(),
+                "address"   =>  dt_demo_random_address(),
+                "city"  => dt_demo_random_city_names(),
+                "state" => dt_demo_random_state(),
                 "zip"   =>  rand(80000, 89999),
                 "_sample"   =>  "sample",
             ),

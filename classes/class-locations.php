@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_training_locations
+ * dt_demo_locations
  *
- * @class dt_training_locations
+ * @class dt_demo_locations
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_locations {
+class dt_demo_locations {
 
     /**
-     * dt_training_locations The single instance of dt_training_locations.
+     * dt_demo_locations The single instance of dt_demo_locations.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_locations {
     private static $_instance = null;
 
     /**
-     * Main dt_training_locations Instance
+     * Main dt_demo_locations Instance
      *
-     * Ensures only one instance of dt_training_locations is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_locations is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_locations instance
+     * @return dt_demo_locations instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )

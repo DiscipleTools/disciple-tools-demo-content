@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_training_page class for the admin page
+ * dt_demo_page class for the admin page
  *
- * @class dt_training_page
+ * @class dt_demo_page
  * @version	1.0.0
  * @since 1.0.0
  * @package	DRM_Plugin
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class dt_training_page {
+final class dt_demo_page {
 
     /**
-     * dt_training_page The single instance of dt_training_page.
+     * dt_demo_page The single instance of dt_demo_page.
      * @var 	object
      * @access  private
      * @since 	1.0.0
@@ -25,13 +25,13 @@ final class dt_training_page {
     public $p2p_array = array();
 
     /**
-     * dt_training_page Instance
+     * dt_demo_page Instance
      *
-     * Ensures only one instance of dt_training_page is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_page is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @return dt_training_page instance
+     * @return dt_demo_page instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -55,14 +55,14 @@ final class dt_training_page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_submenu_page( 'options-general.php', __( 'Training (DT)', 'dt_training' ), __( 'Training (DT)', 'dt_training' ), 'manage_options', 'dt_training', array( $this, 'dt_training_data_page' ) );
+        add_submenu_page( 'options-general.php', __( 'Demo (DT)', 'dt_demo' ), __( 'Demo (DT)', 'dt_demo' ), 'manage_options', 'dt_demo', array( $this, 'dt_demo_data_page' ) );
     }
 
     /**
      * Builds the tab bar
      * @since 0.1
      */
-    public function dt_training_data_page() {
+    public function dt_demo_data_page() {
 
 
         if ( !current_user_can( 'manage_options' ) )  {
@@ -74,11 +74,11 @@ final class dt_training_page {
          */
         if (isset($_GET["tab"])) {$tab = $_GET["tab"];} else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="options-general.php?page=dt_training&tab=';
+        $tab_link_pre = '<a href="options-general.php?page=dt_demo&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
-            <h2>DISCIPLE TOOLS - TRAINING</h2>
+            <h2>DISCIPLE TOOLS - DEMO CONTENT</h2>
             <h2 class="nav-tab-wrapper">';
 
         $html .= $tab_link_pre . 'records' . $tab_link_post;
@@ -107,13 +107,13 @@ final class dt_training_page {
         switch ($tab) {
 
             case "tutorials":
-                    $html .= dt_training_plugin()->tutorials->dt_tabs_tutorial_content();
+                    $html .= dt_demo_plugin()->tutorials->dt_tabs_tutorial_content();
                 break;
             case "report":
-                $html .= dt_training_plugin()->add_report->add_report_page_form ();
+                $html .= dt_demo_plugin()->add_report->add_report_page_form ();
                 break;
             default:
-                $html .= dt_training_plugin()->add_records->dt_training_add_records_content() ;
+                $html .= dt_demo_plugin()->add_records->dt_demo_add_records_content() ;
         }
 
         $html .= '</div>'; // end div class wrap

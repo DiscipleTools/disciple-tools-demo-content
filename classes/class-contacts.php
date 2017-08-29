@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dt_training_contacts
+class dt_demo_contacts
 {
 
     /**
-     * dt_training_contacts The single instance of dt_training_contacts.
+     * dt_demo_contacts The single instance of dt_demo_contacts.
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -24,7 +24,7 @@ class dt_training_contacts
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dt_training_contacts instance
+     * @return dt_demo_contacts instance
      */
     public static function instance()
     {
@@ -72,7 +72,7 @@ class dt_training_contacts
 //        $address_details_key = "address_111_details";
 //        $address_details = ["type"=>"home"];
 
-        $name = dt_training_random_name();
+        $name = dt_demo_random_name();
 
         $post = array(
             "post_title" => $name . ' Contact' . rand( 100, 999 ),
@@ -81,20 +81,20 @@ class dt_training_contacts
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                $primary_phone_key => dt_training_random_phone_number(),
+                $primary_phone_key => dt_demo_random_phone_number(),
 //                $primary_phone_details_key => $primary_phone_details,
-                $mobile_phone_key => dt_training_random_phone_number(),
+                $mobile_phone_key => dt_demo_random_phone_number(),
 //                $mobile_phone_details_key => $mobile_phone_details,
-                $address_key => dt_training_full_address(),
+                $address_key => dt_demo_full_address(),
 //                $address_details_key => $address_details,
                 $email_key => $name.rand( 1000, 10000 )."@email.com",
 //                $email_details_key => $email_details,
-                "overall_status" => dt_training_random_overall_status(),
-                "source_details"    =>  dt_training_random_source(),
-                "seeker_path"   =>  dt_training_seeker_path(),
+                "overall_status" => dt_demo_random_overall_status(),
+                "source_details"    =>  dt_demo_random_source(),
+                "seeker_path"   =>  dt_demo_seeker_path(),
             ),
         );
-        $post["meta_input"] = array_merge( $post["meta_input"], dt_training_random_milestones() );
+        $post["meta_input"] = array_merge( $post["meta_input"], dt_demo_random_milestones() );
 
         return $post;
 
@@ -177,7 +177,7 @@ class dt_training_contacts
 
             $post_id = $contact->ID;
             $meta_key = 'requires_update';
-            $meta_value = dt_training_random_requires_upate();
+            $meta_value = dt_demo_random_requires_upate();
 
             update_post_meta( $post_id, $meta_key, $meta_value );
         }

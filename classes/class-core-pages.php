@@ -3,7 +3,7 @@
 /*
  * Class for creating core pages
  *
- * @package dt_training
+ * @package dt_demo
  * */
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly

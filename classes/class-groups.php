@@ -8,11 +8,11 @@
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
-class dt_training_groups
+class dt_demo_groups
 {
 
     /**
-     * dt_training_groups The single instance of dt_training_groups
+     * dt_demo_groups The single instance of dt_demo_groups
      * @var    object
      * @access  private
      * @since    1.0.0
@@ -23,7 +23,7 @@ class dt_training_groups
      * Access plugin instance. You can create further instances by calling
      * the constructor directly.
      * @static
-     * @return dt_training_groups instance
+     * @return dt_demo_groups instance
      */
     public static function instance()
     {
@@ -72,8 +72,8 @@ class dt_training_groups
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             "meta_input" => array(
-                "is_church" => dt_training_random_bool(),
-                $address => dt_training_full_address (),
+                "is_church" => dt_demo_random_bool(),
+                $address => dt_demo_full_address (),
                 "_sample"   => 'sample',
             ),
         );

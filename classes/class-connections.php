@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_training_connections
+ * dt_demo_connections
  *
- * @class dt_training_connections
+ * @class dt_demo_connections
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_connections {
+class dt_demo_connections {
 
     /**
-     * dt_training_connections The single instance of dt_training_connections.
+     * dt_demo_connections The single instance of dt_demo_connections.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_connections {
     private static $_instance = null;
 
     /**
-     * Main dt_training_connections Instance
+     * Main dt_demo_connections Instance
      *
-     * Ensures only one instance of dt_training_connections is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_connections is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_connections instance
+     * @return dt_demo_connections instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -289,7 +289,7 @@ class dt_training_connections {
                 'date' => current_time('mysql'),
             ) );
 
-            p2p_update_meta($connection_id, 'stage', dt_training_group_role());
+            p2p_update_meta($connection_id, 'stage', dt_demo_group_role());
 
             $i++;
         }

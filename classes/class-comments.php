@@ -1,9 +1,9 @@
 <?php
 
 /**
- * dt_training_comments
+ * dt_demo_comments
  *
- * @class dt_training_comments
+ * @class dt_demo_comments
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_comments {
+class dt_demo_comments {
 
     /**
-     * dt_training_comments The single instance of dt_training_comments.
+     * dt_demo_comments The single instance of dt_demo_comments.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_comments {
     private static $_instance = null;
 
     /**
-     * Main dt_training_comments Instance
+     * Main dt_demo_comments Instance
      *
-     * Ensures only one instance of dt_training_comments is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_comments is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_comments instance
+     * @return dt_demo_comments instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
@@ -87,7 +87,7 @@ class dt_training_comments {
                 'comment_post_ID' => $contacts[$i]->ID,
                 'comment_author' => $user_data->display_name,
                 'comment_author_email' => $user_data->user_email,
-                'comment_content' => dt_training_comment_ipsum(),
+                'comment_content' => dt_demo_comment_ipsum(),
                 'comment_type' => '',
                 'comment_parent' => 0,
                 'user_id' => $user_data->ID,

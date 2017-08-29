@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @since  0.1
  * @access public
  */
-class dt_training {
+class dt_demo {
 
     /**
      * The token.
@@ -129,7 +129,7 @@ class dt_training {
         static $instance = null;
 
         if ( is_null( $instance ) ) {
-            $instance = new dt_training;
+            $instance = new dt_demo;
             $instance->setup();
             $instance->includes();
             $instance->setup_actions();
@@ -156,7 +156,7 @@ class dt_training {
      * @return string
      */
     public function __toString() {
-        return 'dt_training';
+        return 'dt_demo';
     }
 
     /**
@@ -167,7 +167,7 @@ class dt_training {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_training' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_demo' ), '0.1' );
     }
 
     /**
@@ -178,7 +178,7 @@ class dt_training {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_training' ), '0.1' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Whoah, partner!', 'dt_demo' ), '0.1' );
     }
 
     /**
@@ -189,7 +189,7 @@ class dt_training {
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
-        _doing_it_wrong( "dt_training::{$method}", esc_html__( 'Method does not exist.', 'dt_training' ), '0.1' );
+        _doing_it_wrong( "dt_demo::{$method}", esc_html__( 'Method does not exist.', 'dt_demo' ), '0.1' );
         unset( $method, $args );
         return null;
     }
@@ -214,7 +214,7 @@ class dt_training {
         $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
         // Admin and settings variables
-        $this->token 			= 'dt_training';
+        $this->token 			= 'dt_demo';
         $this->version 			= '0.1';
     }
 
@@ -232,55 +232,55 @@ class dt_training {
 
             // Admin menu
             require_once('classes/class-menu.php');
-            $this->page = dt_training_page::instance();
+            $this->page = dt_demo_page::instance();
 
 
             // Tabs
             require_once('classes/class-tab-add-records.php');
-            $this->add_records = dt_training_add_records::instance();
+            $this->add_records = dt_demo_add_records::instance();
 
             require_once('classes/class-tab-bulk-report.php'); // tab page with various forms
-            $this->add_report = dt_training_add_report::instance();
+            $this->add_report = dt_demo_add_report::instance();
 
             require_once('classes/class-tab-tutorials.php');
-            $this->tutorials = dt_training_tutorials::instance();
+            $this->tutorials = dt_demo_tutorials::instance();
 
 
 
             // Content addition
             require_once('classes/class-users.php');
-            $this->users = dt_training_users::instance();
+            $this->users = dt_demo_users::instance();
 
             require_once('classes/class-contacts.php');
-            $this->contacts = dt_training_contacts::instance();
+            $this->contacts = dt_demo_contacts::instance();
 
             require_once('classes/class-groups.php');
-            $this->groups = dt_training_groups::instance();
+            $this->groups = dt_demo_groups::instance();
 
             require_once('classes/class-locations.php');
-            $this->locations = dt_training_locations::instance();
+            $this->locations = dt_demo_locations::instance();
 
             require_once('classes/class-assets.php');
-            $this->assets = dt_training_assets::instance();
+            $this->assets = dt_demo_assets::instance();
 
             require_once('classes/class-comments.php');
-            $this->comments = dt_training_comments::instance();
+            $this->comments = dt_demo_comments::instance();
 
             require_once('classes/class-prayer-post.php');
-            $this->prayer = dt_training_prayer_post::instance();
+            $this->prayer = dt_demo_prayer_post::instance();
 
             require_once('classes/class-progress-post.php');
-            $this->progress = dt_training_progress_post::instance();
+            $this->progress = dt_demo_progress_post::instance();
 
             require_once('classes/class-connections.php');
-            $this->connections = dt_training_connections::instance();
+            $this->connections = dt_demo_connections::instance();
 
             require_once('classes/class-core-pages.php');
             $this->content = dt_core_pages::instance();
 
             if ( class_exists('Disciple_Tools')) { // resets the default roles
                 require_once('classes/class-roles.php');
-                $this->roles = dt_training_roles::instance();
+                $this->roles = dt_demo_roles::instance();
             }
 
             // Utilities
@@ -312,7 +312,7 @@ class dt_training {
      * @return void
      */
     public function i18n() {
-        load_plugin_textdomain( 'dt_training', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
+        load_plugin_textdomain( 'dt_demo', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
     }
 
     /**
@@ -328,18 +328,18 @@ class dt_training {
 }
 
 /**
- * Gets the instance of the `dt_training` class.  This function is useful for quickly grabbing data
+ * Gets the instance of the `dt_demo` class.  This function is useful for quickly grabbing data
  * used throughout the plugin.
  *
  * @since  0.1
  * @access public
  * @return object
  */
-function dt_training_plugin() {
-    return dt_training::get_instance();
+function dt_demo_plugin() {
+    return dt_demo::get_instance();
 }
 
 // Let's roll!
-add_action( 'plugins_loaded', 'dt_training_plugin' );
+add_action( 'plugins_loaded', 'dt_demo_plugin' );
 
 

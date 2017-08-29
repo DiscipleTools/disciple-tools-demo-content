@@ -3,7 +3,7 @@
 /**
  * Disciple Tools Sample Add Report
  *
- * @class dt_training_add_report
+ * @class dt_demo_add_report
  * @version	0.1
  * @since 0.1
  * @package	Disciple_Tools
@@ -12,10 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class dt_training_add_report {
+class dt_demo_add_report {
 
     /**
-     * dt_training_add_report The single instance of dt_training_add_report.
+     * dt_demo_add_report The single instance of dt_demo_add_report.
      * @var 	object
      * @access  private
      * @since 	0.1
@@ -23,13 +23,13 @@ class dt_training_add_report {
     private static $_instance = null;
 
     /**
-     * Main dt_training_add_report Instance
+     * Main dt_demo_add_report Instance
      *
-     * Ensures only one instance of dt_training_add_report is loaded or can be loaded.
+     * Ensures only one instance of dt_demo_add_report is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_training_add_report instance
+     * @return dt_demo_add_report instance
      */
     public static function instance () {
         if ( is_null( self::$_instance ) )
