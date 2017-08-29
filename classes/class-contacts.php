@@ -60,17 +60,17 @@ class dt_training_contacts
      */
     public function single_plain_contact () {
         $primary_phone_key = "contact_phone_111";
-        $primary_phone_details_key = "contact_phone_111_details";
-        $primary_phone_details = ["type"=>"primary"];
+//        $primary_phone_details_key = "contact_phone_111_details";
+//        $primary_phone_details = ["type"=>"primary"];
         $mobile_phone_key = "contact_phone_112";
-        $mobile_phone_details_key = "contact_phone_112_details";
-        $mobile_phone_details = ["type"=>"mobile"];
+//        $mobile_phone_details_key = "contact_phone_112_details";
+//        $mobile_phone_details = ["type"=>"mobile"];
         $email_key = "contact_email_111";
-        $email_details_key = "contact_email_111_details";
-        $email_details = ["type"=>"primary"];
+//        $email_details_key = "contact_email_111_details";
+//        $email_details = ["type"=>"primary"];
         $address_key = "address_111";
-        $address_details_key = "address_111_details";
-        $address_details = ["type"=>"home"];
+//        $address_details_key = "address_111_details";
+//        $address_details = ["type"=>"home"];
 
         $name = dt_training_random_name();
 
@@ -82,17 +82,16 @@ class dt_training_contacts
             "post_author" => get_current_user_id(),
             "meta_input" => array(
                 $primary_phone_key => dt_training_random_phone_number(),
-                $primary_phone_details_key => $primary_phone_details,
+//                $primary_phone_details_key => $primary_phone_details,
                 $mobile_phone_key => dt_training_random_phone_number(),
-                $mobile_phone_details_key => $mobile_phone_details,
+//                $mobile_phone_details_key => $mobile_phone_details,
                 $address_key => dt_training_full_address(),
-                $address_details_key => $address_details,
+//                $address_details_key => $address_details,
                 $email_key => $name.rand( 1000, 10000 )."@email.com",
-                $email_details_key => $email_details,
+//                $email_details_key => $email_details,
                 "overall_status" => dt_training_random_overall_status(),
                 "source_details"    =>  dt_training_random_source(),
                 "seeker_path"   =>  dt_training_seeker_path(),
-                "_sample"   => 'sample',
             ),
         );
         $post["meta_input"] = array_merge( $post["meta_input"], dt_training_random_milestones() );
