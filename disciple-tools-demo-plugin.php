@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Disciple Tools - Training
+ * Plugin Name: Disciple Tools - Demo
  * Plugin URI: https://github.com/ChasmSolutions/disciple-tools-training
- * Description: Training Plugin for Disciple Tools. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
+ * Description: Disciple Tools Demo Plugin. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
  * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/ChasmSolutions
