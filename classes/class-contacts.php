@@ -6,30 +6,32 @@
  * @package dmm-crm-sample-data
  * */
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+if (!defined( 'ABSPATH' )) { exit; // Exit if accessed directly
+}
 
-class dt_demo_contacts
+class DT_Demo_Contacts
 {
 
     /**
-     * dt_demo_contacts The single instance of dt_demo_contacts.
+     * DT_Demo_Contacts The single instance of DT_Demo_Contacts.
      * @var    object
      * @access  private
      * @since    1.0.0
      */
-    private static $_instance = NULL;
+    private static $_instance = null;
 
     /**
      * Access plugin instance. You can create further instances by calling
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dt_demo_contacts instance
+     * @return DT_Demo_Contacts instance
      */
     public static function instance()
     {
-        if (NULL === self::$_instance)
+        if (null === self::$_instance) {
             self::$_instance = new self;
+        }
         return self::$_instance;
     }
 
@@ -41,13 +43,13 @@ class dt_demo_contacts
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_contacts_by_count ($count)
+    public function add_contacts_by_count ( $count )
     {
         $i = 0;
         while ($count > $i ) {
 
             $post = $this->single_plain_contact();
-            wp_insert_post($post);
+            wp_insert_post( $post );
 
             $i++;
         }
@@ -119,12 +121,12 @@ class dt_demo_contacts
         foreach ($contacts as $contact) {
             $id = $contact->ID;
 
-            $wpdb->get_results("DELETE FROM $wpdb->p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
+            $wpdb->get_results( "DELETE FROM $wpdb->p2p WHERE p2p_from = '$id' OR p2p_to = '$id'" );
 
-            wp_delete_post( $id, 'true');
+            wp_delete_post( $id, 'true' );
         }
 
-        $wpdb->get_results("DELETE FROM $wpdb->p2pmeta WHERE NOT EXISTS (SELECT NULL FROM $wpdb->p2p WHERE $wpdb->p2p.p2p_id = $wpdb->p2pmeta.p2p_id)");
+        $wpdb->get_results( "DELETE FROM $wpdb->p2pmeta WHERE NOT EXISTS (SELECT NULL FROM $wpdb->p2p WHERE $wpdb->p2p.p2p_id = $wpdb->p2pmeta.p2p_id)" );
 
         return 'Contacts deleted';
 
@@ -148,11 +150,11 @@ class dt_demo_contacts
         );
         $users = get_users( $args );
 
-        $user_count = count($users);
+        $user_count = count( $users );
 
         foreach ($contacts as $contact) {
 
-            $user = $users[rand(0, $user_count - 1)];
+            $user = $users[rand( 0, $user_count - 1 )];
 
             $post_id = $contact->ID;
             $meta_key = 'assigned_to';

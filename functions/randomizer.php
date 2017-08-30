@@ -8,7 +8,7 @@
  * @return string
  */
 function dt_demo_random_phone_number () {
-    $phone = rand ( 100 , 999 ) . '-' . rand ( 100 , 999 ) . '-' . rand ( 1000 , 9999 );
+    $phone = rand( 100 , 999 ) . '-' . rand( 100 , 999 ) . '-' . rand( 1000 , 9999 );
     return $phone;
 }
 
@@ -32,9 +32,9 @@ function dt_demo_random_preferred_contact_method () {
         'Email', 'Phone', 'SMS'
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 /**
@@ -55,9 +55,9 @@ function dt_demo_random_name () {
         '<script>alert("name");</script>',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 /**
@@ -70,9 +70,9 @@ function dt_demo_random_source () {
         'Facebook', 'Twitter', 'Website', 'Partner', 'Phone', 'Email'
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 /**
@@ -85,9 +85,9 @@ function dt_demo_random_group_type () {
         'DBS', 'Church'
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 
@@ -106,9 +106,9 @@ function dt_demo_random_address () {
         '<script>alert("address")</script>',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    $address = rand(100, 999) . ' ' . $list[rand(0, $top - 1)];
+    $address = rand( 100, 999 ) . ' ' . $list[rand( 0, $top - 1 )];
     return $address;
 }
 
@@ -127,9 +127,9 @@ function dt_demo_random_city_names () {
         'سيدي بالعباس',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 
@@ -147,9 +147,9 @@ function dt_demo_random_state () {
         'FG', 'SA', 'ME', 'EE', 'TG',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 function dt_demo_full_address () {
@@ -162,7 +162,7 @@ function dt_demo_full_address () {
 }
 
 function dt_demo_random_zip () {
-    return rand(80000, 89999);
+    return rand( 80000, 89999 );
 }
 
 /**
@@ -175,9 +175,9 @@ function dt_demo_random_asset_name () {
         'NGO', 'Legacy Church', 'Worker', 'Social Service', 'Ministry',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 function dt_demo_random_word () {
@@ -189,19 +189,19 @@ function dt_demo_random_word () {
         '<script>alert("word")</script>',
     );
 
-    $top = count($list);
+    $top = count( $list );
 
-    return $list[rand(0, $top - 1)];
+    return $list[rand( 0, $top - 1 )];
 }
 
 function dt_demo_random_title () { // depricated?
 
     $string = "";
-    $random_length = rand(0, 5);
+    $random_length = rand( 0, 5 );
     $i = 0;
 
     while ($random_length > $i) {
-        $string .= dt_demo_random_word () . ' ';
+        $string .= dt_demo_random_word() . ' ';
     }
 
     return $string;
@@ -231,7 +231,7 @@ function dt_demo_loren_ipsum () {
 
     $text[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat. Vivamus ut turpis at ex lacinia venenatis. Nulla vulputate urna blandit consectetur faucibus. Ut ligula mi, viverra et neque vel, interdum elementum ipsum. Integer pellentesque quam eget sapien pulvinar condimentum nec vel arcu. Donec ante augue, pharetra eu lacus id, mollis commodo quam. Curabitur auctor ultrices odio, ac sodales nisl dictum sit amet. Maecenas fermentum et magna eu pretium. Duis sodales pellentesque felis, vel ornare enim consectetur non. Vivamus facilisis elit eu lobortis lobortis. Mauris eget dapibus lectus. Vestibulum vestibulum turpis ligula, eu elementum justo fringilla luctus. Aliquam sed nisl laoreet, feugiat sem at, volutpat mauris. Nullam quam mauris, tempor bibendum lobortis vitae, dignissim vel diam. Pellentesque eu. Praesent lectus nibh, elementum eget lorem a, ullamcorper interdum velit. Quisque convallis augue ac risus fermentum, nec hendrerit purus dapibus. <script>alert('lorem')</script>";
 
-    shuffle($text);
+    shuffle( $text );
 
     return "<p>" . $text[0] . "</p><p>" . $text[1] . "</p><p>". $text[2] . "</p>";
 
@@ -268,7 +268,7 @@ function dt_demo_comment_ipsum () {
 
     ";
 
-    shuffle($text);
+    shuffle( $text );
 
     return $text[0] .  $text[1] . $text[2] ;
 
@@ -279,7 +279,7 @@ function dt_demo_seeker_path () {
     $list = array(
         'none', 'attempted', 'established', 'scheduled', 'met', 'none', 'attempted', 'established', 'scheduled', 'none', 'attempted', 'established', 'scheduled', 'met', 'ongoing');
 
-    shuffle($list);
+    shuffle( $list );
 
     return $list[0];
 }
@@ -290,7 +290,7 @@ function dt_demo_group_role() {
         'Unknown', 'Unbelieving', 'Believing', 'Accountable', 'Multiplying'
     );
 
-    shuffle($list);
+    shuffle( $list );
 
     return $list[0];
 
@@ -302,7 +302,7 @@ function dt_demo_random_requires_upate() {
         '0', '1'
     );
 
-    shuffle($list);
+    shuffle( $list );
 
     return $list[0];
 
@@ -314,7 +314,7 @@ function dt_demo_random_yes_no() {
         'No', 'Yes','No', 'Yes', 'No', 'Yes','No', 'Yes',
     );
 
-    shuffle($list);
+    shuffle( $list );
 
     return $list[0];
 
@@ -326,7 +326,7 @@ function dt_demo_random_bool() {
         '0', '1', '0', '1', '0', '0', '1', '1'
     );
 
-    shuffle($list);
+    shuffle( $list );
 
     return $list[0];
 

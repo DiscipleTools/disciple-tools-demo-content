@@ -1,39 +1,41 @@
 <?php
 
 /**
- * dt_demo_comments
+ * DT_Demo_Comments
  *
- * @class dt_demo_comments
- * @version	0.1
+ * @class DT_Demo_Comments
+ * @version    0.1
  * @since 0.1
- * @package	Disciple_Tools
+ * @package    Disciple_Tools
  * @author Chasm.Solutions & Kingdom.Training
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 
-class dt_demo_comments {
+class DT_Demo_Comments {
 
     /**
-     * dt_demo_comments The single instance of dt_demo_comments.
-     * @var 	object
+     * DT_Demo_Comments The single instance of DT_Demo_Comments.
+     * @var     object
      * @access  private
-     * @since 	0.1
+     * @since     0.1
      */
     private static $_instance = null;
 
     /**
-     * Main dt_demo_comments Instance
+     * Main DT_Demo_Comments Instance
      *
-     * Ensures only one instance of dt_demo_comments is loaded or can be loaded.
+     * Ensures only one instance of DT_Demo_Comments is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_demo_comments instance
+     * @return DT_Demo_Comments instance
      */
     public static function instance () {
-        if ( is_null( self::$_instance ) )
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
+        }
         return self::$_instance;
     } // End instance()
 
@@ -49,7 +51,7 @@ class dt_demo_comments {
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_comments ($loops = 100)
+    public function add_comments ( $loops = 100 )
     {
         // Get list of records
         $args = array(
@@ -65,23 +67,25 @@ class dt_demo_comments {
         $users = get_users( $args );
 
 
-        if ($loops > 100)
+        if ($loops > 100) {
             $loops = 100;
+        }
 
-        if (count($contacts) < $loops)
-            $loops = count($contacts);
+        if (count( $contacts ) < $loops) {
+            $loops = count( $contacts );
+        }
 
-        $user_count = count($users);
+        $user_count = count( $users );
 
-        shuffle ( $contacts );
-        shuffle ( $users );
+        shuffle( $contacts );
+        shuffle( $users );
 
         $i = 0;
-        $time = current_time('mysql');
+        $time = current_time( 'mysql' );
 
         while ($loops > $i) {
 
-            $user_data = $users[rand(0, $user_count - 1)]->data;
+            $user_data = $users[rand( 0, $user_count - 1 )]->data;
 
             $data = array(
                 'comment_post_ID' => $contacts[$i]->ID,
@@ -95,7 +99,7 @@ class dt_demo_comments {
                 'comment_approved' => 1,
             );
 
-            $comment_id = wp_insert_comment($data);
+            $comment_id = wp_insert_comment( $data );
             add_comment_meta( $comment_id, '_sample', 'sample' );
 
             $i++;

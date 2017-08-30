@@ -1,39 +1,41 @@
 <?php
 
 /**
- * dt_demo_prayer_post
+ * DT_Demo_Prayer_Post
  *
- * @class dt_demo_prayer_post
- * @version	0.1
+ * @class DT_Demo_Prayer_Post
+ * @version    0.1
  * @since 0.1
- * @package	Disciple_Tools
+ * @package    Disciple_Tools
  * @author Chasm.Solutions & Kingdom.Training
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 
-class dt_demo_prayer_post {
+class DT_Demo_Prayer_Post {
 
     /**
-     * dt_demo_prayer_post The single instance of dt_demo_prayer_post.
-     * @var 	object
+     * DT_Demo_Prayer_Post The single instance of DT_Demo_Prayer_Post.
+     * @var     object
      * @access  private
-     * @since 	0.1
+     * @since     0.1
      */
     private static $_instance = null;
 
     /**
-     * Main dt_demo_prayer_post Instance
+     * Main DT_Demo_Prayer_Post Instance
      *
-     * Ensures only one instance of dt_demo_prayer_post is loaded or can be loaded.
+     * Ensures only one instance of DT_Demo_Prayer_Post is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_demo_prayer_post instance
+     * @return DT_Demo_Prayer_Post instance
      */
     public static function instance () {
-        if ( is_null( self::$_instance ) )
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
+        }
         return self::$_instance;
     } // End instance()
 
@@ -49,16 +51,16 @@ class dt_demo_prayer_post {
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_prayer_posts_by_count ($count)
+    public function add_prayer_posts_by_count ( $count )
     {
         $i = 0;
         while ($count > $i ) {
 
-            $post = $this->single_random_prayer_post ();
-            $post_id = wp_insert_post($post);
+            $post = $this->single_random_prayer_post();
+            $post_id = wp_insert_post( $post );
 
-            $file = plugin_dir_path(__DIR__) . 'img/prayer/p4t-'.rand(1, 15).'.jpg';
-            $this->upload_image_with_post($post_id, $file);
+            $file = plugin_dir_path( __DIR__ ) . 'img/prayer/p4t-'.rand( 1, 15 ).'.jpg';
+            $this->upload_image_with_post( $post_id, $file );
 
             $i++;
         }
@@ -72,9 +74,9 @@ class dt_demo_prayer_post {
     public function single_random_prayer_post () {
 
         $post = array(
-            "post_title" => dt_demo_random_word () . " " . dt_demo_random_word () . " " . dt_demo_random_word () . " " . dt_demo_random_word (),//dt_demo_random_title (),
+            "post_title" => dt_demo_random_word() . " " . dt_demo_random_word() . " " . dt_demo_random_word() . " " . dt_demo_random_word(),//dt_demo_random_title (),
             'post_type' => 'prayer',
-            "post_content" => dt_demo_loren_ipsum (),
+            "post_content" => dt_demo_loren_ipsum(),
             "post_status" => "publish",
             "post_author" => get_current_user_id(),
             'meta_input' => array(
@@ -85,16 +87,16 @@ class dt_demo_prayer_post {
         return $post;
     }
 
-    public function upload_image_with_post ($parent_post_id, $file) {
+    public function upload_image_with_post ( $parent_post_id, $file ) {
 
-        $filename = basename($file);
-        $upload_file = wp_upload_bits($filename, null, file_get_contents($file));
+        $filename = basename( $file );
+        $upload_file = wp_upload_bits( $filename, null, file_get_contents( $file ) );
         if (!$upload_file['error']) {
-            $wp_filetype = wp_check_filetype($filename, null );
+            $wp_filetype = wp_check_filetype( $filename, null );
             $attachment = array(
                 'post_mime_type' => $wp_filetype['type'],
                 'post_parent' => $parent_post_id,
-                'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
+                'post_title' => preg_replace( '/\.[^.]+$/', '', $filename ),
                 'post_content' => '',
                 'post_status' => 'inherit',
                 'meta_input' => array(
@@ -102,8 +104,8 @@ class dt_demo_prayer_post {
                 ),
             );
             $attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], $parent_post_id );
-            if (! is_wp_error($attachment_id)) {
-                require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+            if (! is_wp_error( $attachment_id )) {
+                require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
                 $attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
                 wp_update_attachment_metadata( $attachment_id,  $attachment_data );
 
@@ -130,7 +132,7 @@ class dt_demo_prayer_post {
             $id = $contact->ID;
 
 
-            wp_delete_post( $id, 'true');
+            wp_delete_post( $id, 'true' );
         }
 
         return 'Contacts deleted';

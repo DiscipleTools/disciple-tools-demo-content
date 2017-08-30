@@ -8,7 +8,8 @@
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/ChasmSolutions
  */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 
 /**
  * Singleton class for setting up the plugin.
@@ -16,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * @since  0.1
  * @access public
  */
-class dt_demo {
+class DT_Demo {
 
     /**
      * The token.
@@ -205,7 +206,7 @@ class dt_demo {
 
         // Main plugin directory path and URI.
         $this->dir_path     = trailingslashit( plugin_dir_path( __FILE__ ) );
-        $this->dir_uri      = trailingslashit( plugin_dir_url(  __FILE__ ) );
+        $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
         // Plugin directory paths.
         $this->classes      = trailingslashit( $this->dir_path . 'classes' );
@@ -214,8 +215,8 @@ class dt_demo {
         $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
 
         // Admin and settings variables
-        $this->token 			= 'dt_demo';
-        $this->version 			= '0.1';
+        $this->token             = 'dt_demo';
+        $this->version             = '0.1';
     }
 
     /**
@@ -231,60 +232,60 @@ class dt_demo {
         if ( is_admin() ) {
 
             // Admin menu
-            require_once('classes/class-menu.php');
-            $this->page = dt_demo_page::instance();
+            require_once( 'classes/class-menu.php' );
+            $this->page = DT_Demo_Page::instance();
 
 
             // Tabs
-            require_once('classes/class-tab-add-records.php');
-            $this->add_records = dt_demo_add_records::instance();
+            require_once( 'classes/class-tab-add-records.php' );
+            $this->add_records = DT_Demo_Add_Records::instance();
 
-            require_once('classes/class-tab-bulk-report.php'); // tab page with various forms
-            $this->add_report = dt_demo_add_report::instance();
+            require_once( 'classes/class-tab-bulk-report.php' ); // tab page with various forms
+            $this->add_report = DT_Demo_Add_Report::instance();
 
-            require_once('classes/class-tab-tutorials.php');
-            $this->tutorials = dt_demo_tutorials::instance();
+            require_once( 'classes/class-tab-tutorials.php' );
+            $this->tutorials = DT_Demo_Tutorials::instance();
 
 
 
             // Content addition
-            require_once('classes/class-users.php');
-            $this->users = dt_demo_users::instance();
+            require_once( 'classes/class-users.php' );
+            $this->users = DT_Demo_Users::instance();
 
-            require_once('classes/class-contacts.php');
-            $this->contacts = dt_demo_contacts::instance();
+            require_once( 'classes/class-contacts.php' );
+            $this->contacts = DT_Demo_Contacts::instance();
 
-            require_once('classes/class-groups.php');
-            $this->groups = dt_demo_groups::instance();
+            require_once( 'classes/class-groups.php' );
+            $this->groups = DT_Demo_Groups::instance();
 
-            require_once('classes/class-locations.php');
-            $this->locations = dt_demo_locations::instance();
+            require_once( 'classes/class-locations.php' );
+            $this->locations = DT_Demo_Locations::instance();
 
-            require_once('classes/class-assets.php');
-            $this->assets = dt_demo_assets::instance();
+            require_once( 'classes/class-assets.php' );
+            $this->assets = DT_Demo_Assets::instance();
 
-            require_once('classes/class-comments.php');
-            $this->comments = dt_demo_comments::instance();
+            require_once( 'classes/class-comments.php' );
+            $this->comments = DT_Demo_Comments::instance();
 
-            require_once('classes/class-prayer-post.php');
-            $this->prayer = dt_demo_prayer_post::instance();
+            require_once( 'classes/class-prayer-post.php' );
+            $this->prayer = DT_Demo_Prayer_Post::instance();
 
-            require_once('classes/class-progress-post.php');
-            $this->progress = dt_demo_progress_post::instance();
+            require_once( 'classes/class-progress-post.php' );
+            $this->progress = DT_Demo_Progress_Post::instance();
 
-            require_once('classes/class-connections.php');
-            $this->connections = dt_demo_connections::instance();
+            require_once( 'classes/class-connections.php' );
+            $this->connections = DT_Demo_Connections::instance();
 
-            require_once('classes/class-core-pages.php');
-            $this->content = dt_core_pages::instance();
+            require_once( 'classes/class-core-pages.php' );
+            $this->content = DT_Core_Pages::instance();
 
-            if ( class_exists('Disciple_Tools')) { // resets the default roles
-                require_once('classes/class-roles.php');
-                $this->roles = dt_demo_roles::instance();
+            if ( class_exists( 'Disciple_Tools' )) { // resets the default roles
+                require_once( 'classes/class-roles.php' );
+                $this->roles = DT_Demo_Roles::instance();
             }
 
             // Utilities
-            require_once('functions/randomizer.php');
+            require_once( 'functions/randomizer.php' );
         }
     }
 
@@ -335,11 +336,11 @@ class dt_demo {
  * @access public
  * @return object
  */
-function dt_demo_plugin() {
-    return dt_demo::get_instance();
+function DT_Demo() {
+    return DT_Demo::get_instance();
 }
 
 // Let's roll!
-add_action( 'plugins_loaded', 'dt_demo_plugin' );
+add_action( 'plugins_loaded', 'DT_Demo' );
 
 

@@ -1,39 +1,41 @@
 <?php
 
 /**
- * dt_demo_connections
+ * DT_Demo_Connections
  *
- * @class dt_demo_connections
- * @version	0.1
+ * @class DT_Demo_Connections
+ * @version    0.1
  * @since 0.1
- * @package	Disciple_Tools
+ * @package    Disciple_Tools
  * @author Chasm.Solutions & Kingdom.Training
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 
-class dt_demo_connections {
+class DT_Demo_Connections {
 
     /**
-     * dt_demo_connections The single instance of dt_demo_connections.
-     * @var 	object
+     * DT_Demo_Connections The single instance of DT_Demo_Connections.
+     * @var     object
      * @access  private
-     * @since 	0.1
+     * @since     0.1
      */
     private static $_instance = null;
 
     /**
-     * Main dt_demo_connections Instance
+     * Main DT_Demo_Connections Instance
      *
-     * Ensures only one instance of dt_demo_connections is loaded or can be loaded.
+     * Ensures only one instance of DT_Demo_Connections is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_demo_connections instance
+     * @return DT_Demo_Connections instance
      */
     public static function instance () {
-        if ( is_null( self::$_instance ) )
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
+        }
         return self::$_instance;
     } // End instance()
 
@@ -44,12 +46,12 @@ class dt_demo_connections {
      */
     public function __construct () {     } // End __construct()
 
-    public function add_baptism_connections ($loops) {
+    public function add_baptism_connections ( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
-        $year = date('Y');
+        $year = date( 'Y' );
         // Get list of contacts
         $args = array(
             'numberposts'   => -1,
@@ -57,14 +59,15 @@ class dt_demo_connections {
         );
         $records = get_posts( $args );
 
-        $total = count($records);
+        $total = count( $records );
 
         if ($loops > 25) { $loops = 25;} // checks if requrested more than max number
-        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5;
+            $loops = round( $total_loops_possible, 0, PHP_ROUND_HALF_DOWN ); } // checks if the loop asks to create more connection than records are available.
 
-        shuffle ( $records );
+        shuffle( $records );
 
-        $records_chunk = array_chunk($records, 5);
+        $records_chunk = array_chunk( $records, 5 );
 
         $i = 0;
 
@@ -80,7 +83,7 @@ class dt_demo_connections {
             $to = $zero;
             $from = $first;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'month'     => '1',
                 'day'   =>  $i,
                 'year'  =>  $year,
@@ -89,7 +92,7 @@ class dt_demo_connections {
             $to = $first;
             $from = $second;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'month'     => '2',
                 'day'   =>  $i,
                 'year'  =>  $year,
@@ -98,7 +101,7 @@ class dt_demo_connections {
             $to = $second;
             $from = $third;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'month'     => '3',
                 'day'   =>  $i,
                 'year'  =>  $year,
@@ -107,7 +110,7 @@ class dt_demo_connections {
             $to = $third;
             $from = $fourth;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'month'     => '4',
                 'day'   =>  $i,
                 'year'  =>  $year,
@@ -119,7 +122,7 @@ class dt_demo_connections {
 
     }
 
-    public function add_church_connections ($loops) {
+    public function add_church_connections ( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -131,14 +134,15 @@ class dt_demo_connections {
         );
         $records = get_posts( $args );
 
-        $total = count($records);
+        $total = count( $records );
 
         if ($loops > 10) { $loops = 10;} // checks if requrested more than max number
-        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5;
+            $loops = round( $total_loops_possible, 0, PHP_ROUND_HALF_DOWN ); } // checks if the loop asks to create more connection than records are available.
 
-        shuffle ( $records );
+        shuffle( $records );
 
-        $records_chunk = array_chunk($records, 5);
+        $records_chunk = array_chunk( $records, 5 );
 
         $i = 0;
 
@@ -154,25 +158,25 @@ class dt_demo_connections {
             $to = $zero;
             $from = $first;
             p2p_type( 'groups_to_groups' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $first;
             $from = $second;
             p2p_type( 'groups_to_groups' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $second;
             $from = $third;
             p2p_type( 'groups_to_groups' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $third;
             $from = $fourth;
             p2p_type( 'groups_to_groups' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $i++;
@@ -181,7 +185,7 @@ class dt_demo_connections {
 
     }
 
-    public function add_coaching_connections ($loops) {
+    public function add_coaching_connections ( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -193,14 +197,15 @@ class dt_demo_connections {
         );
         $records = get_posts( $args );
 
-        $total = count($records);
+        $total = count( $records );
 
         if ($loops > 25) { $loops = 25;} // checks if requrested more than max number
-        if ($loops * 5 > $total) { $total_loops_possible = $total / 5; $loops = round($total_loops_possible, 0, PHP_ROUND_HALF_DOWN); } // checks if the loop asks to create more connection than records are available.
+        if ($loops * 5 > $total) { $total_loops_possible = $total / 5;
+            $loops = round( $total_loops_possible, 0, PHP_ROUND_HALF_DOWN ); } // checks if the loop asks to create more connection than records are available.
 
-        shuffle ( $records );
+        shuffle( $records );
 
-        $records_chunk = array_chunk($records, 5);
+        $records_chunk = array_chunk( $records, 5 );
 
         $i = 0;
 
@@ -216,25 +221,25 @@ class dt_demo_connections {
             $to = $zero;
             $from = $first;
             p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $first;
             $from = $second;
             p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $second;
             $from = $third;
             p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $to = $third;
             $from = $fourth;
             p2p_type( 'contacts_to_contacts' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
             $i++;
@@ -243,7 +248,7 @@ class dt_demo_connections {
 
     }
 
-    public function add_contacts_to_groups ($loops = 100) {
+    public function add_contacts_to_groups ( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -262,18 +267,21 @@ class dt_demo_connections {
         );
         $groups = get_posts( $args );
 
-        if ($loops > 100)
+        if ($loops > 100) {
             $loops = 100; // checks if requested more than max number
+        }
 
-        if (count($groups) < $loops )
-            $loops = count($groups);
+        if (count( $groups ) < $loops ) {
+            $loops = count( $groups );
+        }
 
-        if (count($contacts) < $loops)
-            $loops = count($contacts);
+        if (count( $contacts ) < $loops) {
+            $loops = count( $contacts );
+        }
 
 
-        shuffle ( $contacts );
-        shuffle ( $groups );
+        shuffle( $contacts );
+        shuffle( $groups );
 
 //        array_slice ( $groups , 0 , $loops );
 
@@ -286,10 +294,10 @@ class dt_demo_connections {
 
 
             $connection_id = p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
             ) );
 
-            p2p_update_meta($connection_id, 'stage', dt_demo_group_role());
+            p2p_update_meta( $connection_id, 'stage', dt_demo_group_role() );
 
             $i++;
         }
@@ -300,7 +308,7 @@ class dt_demo_connections {
 
     }
 
-    public function add_contacts_to_locations ($loops = 100) {
+    public function add_contacts_to_locations ( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -319,17 +327,20 @@ class dt_demo_connections {
         );
         $locations = get_posts( $args );
 
-        if ($loops > 100)
+        if ($loops > 100) {
             $loops = 100;
+        }
 
-        if (count($locations) < $loops )
-            $loops = count($locations);
+        if (count( $locations ) < $loops ) {
+            $loops = count( $locations );
+        }
 
-        if (count($contacts) < $loops)
-            $loops = count($contacts);
+        if (count( $contacts ) < $loops) {
+            $loops = count( $contacts );
+        }
 
-        shuffle ( $contacts );
-        shuffle ( $locations );
+        shuffle( $contacts );
+        shuffle( $locations );
 
 //        array_slice ( $locations , 0 , $loops );
 
@@ -340,7 +351,7 @@ class dt_demo_connections {
             $to = $contacts[$i]->ID;
             $from = $locations[$i]->ID;
             p2p_type( 'contacts_to_locations' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'primary' => 'true',
             ) );
 
@@ -352,7 +363,7 @@ class dt_demo_connections {
     }
 
 
-    public function add_groups_to_locations ($loops = 100) {
+    public function add_groups_to_locations ( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -371,17 +382,20 @@ class dt_demo_connections {
         );
         $locations = get_posts( $args );
 
-        if ($loops > 100)
+        if ($loops > 100) {
             $loops = 100;
+        }
 
-        if (count($locations) < $loops )
-            $loops = count($locations);
+        if (count( $locations ) < $loops ) {
+            $loops = count( $locations );
+        }
 
-        if (count($groups) < $loops)
-            $loops = count($groups);
+        if (count( $groups ) < $loops) {
+            $loops = count( $groups );
+        }
 
-        shuffle ( $groups );
-        shuffle ( $locations );
+        shuffle( $groups );
+        shuffle( $locations );
 
 //        array_slice ( $locations , 0 , $loops );
 
@@ -392,7 +406,7 @@ class dt_demo_connections {
             $to = $groups[$i]->ID;
             $from = $locations[$i]->ID;
             p2p_type( 'groups_to_locations' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'primary' => 'true',
             ) );
 
@@ -404,7 +418,7 @@ class dt_demo_connections {
     }
 
 
-    public function add_assets_to_locations ($loops = 100) {
+    public function add_assets_to_locations ( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -423,17 +437,20 @@ class dt_demo_connections {
         );
         $locations = get_posts( $args );
 
-        if ($loops > 100)
+        if ($loops > 100) {
             $loops = 100;
+        }
 
-        if (count($locations) < $loops )
-            $loops = count($locations);
+        if (count( $locations ) < $loops ) {
+            $loops = count( $locations );
+        }
 
-        if (count($assets) < $loops)
-            $loops = count($assets);
+        if (count( $assets ) < $loops) {
+            $loops = count( $assets );
+        }
 
-        shuffle ( $assets );
-        shuffle ( $locations );
+        shuffle( $assets );
+        shuffle( $locations );
 
 //        array_slice ( $locations , 0 , $loops );
 
@@ -444,7 +461,7 @@ class dt_demo_connections {
             $to = $assets[$i]->ID;
             $from = $locations[$i]->ID;
             p2p_type( 'assets_to_locations' )->connect( $from, $to, array(
-                'date' => current_time('mysql'),
+                'date' => current_time( 'mysql' ),
                 'primary' => 'true',
             ) );
 

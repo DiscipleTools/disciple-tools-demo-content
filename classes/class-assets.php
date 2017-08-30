@@ -1,39 +1,41 @@
 <?php
 
 /**
- * dt_demo_assets
+ * DT_Demo_Assets
  *
- * @class dt_demo_assets
- * @version	0.1
+ * @class DT_Demo_Assets
+ * @version    0.1
  * @since 0.1
- * @package	Disciple_Tools
+ * @package    Disciple_Tools
  * @author Chasm.Solutions & Kingdom.Training
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+}
 
-class dt_demo_assets {
+class DT_Demo_Assets {
 
     /**
-     * dt_demo_assets The single instance of dt_demo_assets.
-     * @var 	object
+     * DT_Demo_Assets The single instance of DT_Demo_Assets.
+     * @var     object
      * @access  private
-     * @since 	0.1
+     * @since     0.1
      */
     private static $_instance = null;
 
     /**
-     * Main dt_demo_assets Instance
+     * Main DT_Demo_Assets Instance
      *
-     * Ensures only one instance of dt_demo_assets is loaded or can be loaded.
+     * Ensures only one instance of DT_Demo_Assets is loaded or can be loaded.
      *
      * @since 0.1
      * @static
-     * @return dt_demo_assets instance
+     * @return DT_Demo_Assets instance
      */
     public static function instance () {
-        if ( is_null( self::$_instance ) )
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
+        }
         return self::$_instance;
     } // End instance()
 
@@ -49,13 +51,13 @@ class dt_demo_assets {
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_assets_by_count ($count)
+    public function add_assets_by_count ( $count )
     {
         $i = 0;
         while ($count > $i ) {
 
-            $post = $this->single_random_asset ();
-            wp_insert_post($post);
+            $post = $this->single_random_asset();
+            wp_insert_post( $post );
 
             $i++;
         }
@@ -69,7 +71,7 @@ class dt_demo_assets {
     public function single_random_asset () {
 
         $post = array(
-            "post_title" => dt_demo_random_asset_name () . ' Asset' . rand(10, 99),
+            "post_title" => dt_demo_random_asset_name() . ' Asset' . rand( 10, 99 ),
             'post_type' => 'assetmapping',
             "post_content" => ' ',
             "post_status" => "publish",
@@ -79,7 +81,7 @@ class dt_demo_assets {
                 "address"   =>  dt_demo_random_address(),
                 "city"  => dt_demo_random_city_names(),
                 "state" => dt_demo_random_state(),
-                "zip"   =>  rand(80000, 89999),
+                "zip"   =>  rand( 80000, 89999 ),
                 "_sample"   =>  "sample",
             ),
         );
@@ -106,12 +108,12 @@ class dt_demo_assets {
         foreach ($assets as $asset) {
             $id = $asset->ID;
 
-            $wpdb->get_results("DELETE FROM wp_p2p WHERE p2p_from = '$id' OR p2p_to = '$id'");
+            $wpdb->get_results( "DELETE FROM wp_p2p WHERE p2p_from = '$id' OR p2p_to = '$id'" );
 
             wp_delete_post( $id, true );
         }
 
-        $wpdb->get_results("DELETE FROM wp_p2pmeta WHERE NOT EXISTS (SELECT NULL FROM wp_p2p WHERE wp_p2p.p2p_id = wp_p2pmeta.p2p_id)");
+        $wpdb->get_results( "DELETE FROM wp_p2pmeta WHERE NOT EXISTS (SELECT NULL FROM wp_p2p WHERE wp_p2p.p2p_id = wp_p2pmeta.p2p_id)" );
 
         return 'Assets deleted';
 

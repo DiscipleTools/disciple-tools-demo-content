@@ -6,30 +6,32 @@
  * @package dt_demo
  * */
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+if (!defined( 'ABSPATH' )) { exit; // Exit if accessed directly
+}
 
-class dt_core_pages
+class DT_Core_Pages
 {
 
     /**
-     * dt_core_pages The single instance of dt_core_pages.
+     * DT_Core_Pages The single instance of DT_Core_Pages.
      * @var    object
      * @access  private
      * @since    1.0.0
      */
-    private static $_instance = NULL;
+    private static $_instance = null;
 
     /**
      * Access plugin instance. You can create further instances by calling
      * the constructor directly.
      * @since 0.1
      * @static
-     * @return dt_core_pages instance
+     * @return DT_Core_Pages instance
      */
     public static function instance()
     {
-        if (NULL === self::$_instance)
+        if (null === self::$_instance) {
             self::$_instance = new self;
+        }
         return self::$_instance;
     }
 
@@ -44,16 +46,16 @@ class dt_core_pages
     public function add_core_pages_once () {
         $html = '';
 
-        if (get_option('add_core_pages') !== '1') {
+        if (get_option( 'add_core_pages' ) !== '1') {
 
             $html .= $this->add_core_pages();
 
             $option = 'add_core_pages';
             $value = '1';
             $deprecated = '';
-            $autoload = TRUE;
+            $autoload = true;
 
-            add_option($option, $value, $deprecated, $autoload);
+            add_option( $option, $value, $deprecated, $autoload );
 
         } else {
             $html .= '<p>Pages are already loaded. <form method="POST"><button type="submit" value="reset_core_pages" name="submit" class="button" id="reset_core_pages">Reset core pages</button></p>';
@@ -69,7 +71,7 @@ class dt_core_pages
     {
         $html = '';
 
-        if ( TRUE == get_post_status( 2 ) ) {	wp_delete_post(2);  } // Delete default page
+        if ( true == get_post_status( 2 ) ) {    wp_delete_post( 2 );  } // Delete default page
 
         $postarr = array(
             array(
@@ -115,11 +117,11 @@ class dt_core_pages
         );
 
         foreach ($postarr as $item) {
-            if (! post_exists ($item['post_title']) ) {
+            if (! post_exists( $item['post_title'] ) ) {
                 wp_insert_post( $item, false );
             } else {
-                $page = get_page_by_title($item['post_title']);
-                wp_delete_post($page->ID);
+                $page = get_page_by_title( $item['post_title'] );
+                wp_delete_post( $page->ID );
                 wp_insert_post( $item, false );
             }
             $html .= 'Added Page: "'. $item['post_title'] . '"<br>';
@@ -135,7 +137,7 @@ class dt_core_pages
      * @return string
      */
     public function reset_core_pages () {
-        delete_option('add_core_pages');
+        delete_option( 'add_core_pages' );
         $html = $this->add_core_pages_once();
         return $html;
     }
