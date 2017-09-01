@@ -18,7 +18,7 @@ function dt_demo_random_phone_number () {
  */
 function dt_demo_random_overall_status(): string {
 
-    $list = array( 'unassigned', 'unassigned', 'unassigned', 'accepted', 'paused', 'closed', 'unassignable' );
+    $list = array( 'unassigned', 'unassigned', 'unassigned', 'active', 'paused', 'closed', 'unassignable' );
     return $list[ array_rand( $list ) ];
 }
 
