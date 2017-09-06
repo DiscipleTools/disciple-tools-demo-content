@@ -348,6 +348,18 @@ function dt_demo_random_milestones(): array {
 }
 
 
+/**
+ * Generates random group status
+ * @return string
+ */
+function dt_demo_random_group_status(): string {
+    $list = array(
+        'no_value', 'active_pre_group', 'active_group', 'active_church',
+        'inactive_church', 'inactive_group', 'inactive_pre_group',
+    );
+    return $list[ array_rand( $list ) ];
+}
+
 
 
 

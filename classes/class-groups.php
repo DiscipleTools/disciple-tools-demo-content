@@ -77,6 +77,7 @@ class DT_Demo_Groups
                 "is_church" => dt_demo_random_bool(),
                 $address => dt_demo_full_address(),
                 "_sample"   => 'sample',
+                "group_status" => dt_demo_random_group_status(),
             ),
         );
 
