@@ -427,7 +427,7 @@ class DT_Demo_Connections {
         // Get list of records
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'assets'
+            'post_type'   => 'assetmapping'
         );
         $assets = get_posts( $args );
 
@@ -460,7 +460,7 @@ class DT_Demo_Connections {
 
             $to = $assets[$i]->ID;
             $from = $locations[$i]->ID;
-            p2p_type( 'assets_to_locations' )->connect( $from, $to, array(
+            p2p_type( 'assetmapping_to_locations' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
                 'primary' => 'true',
             ) );

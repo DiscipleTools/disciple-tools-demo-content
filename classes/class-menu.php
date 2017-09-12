@@ -77,7 +77,7 @@ final class DT_Demo_Page {
         if (isset( $_GET["tab"] )) {$tab = $_GET["tab"];
         } else {$tab = 'records';}
 
-        $tab_link_pre = '<a href="options-general.php?page=dt_demo&tab=';
+        $tab_link_pre = '<a href="admin.php?page=dt_demo&tab=';
         $tab_link_post = '" class="nav-tab ';
 
         $html = '<div class="wrap">
@@ -92,9 +92,9 @@ final class DT_Demo_Page {
         if ($tab == 'report') {$html .= 'nav-tab-active';}
         $html .= '">Add Reports</a>';
 
-        $html .= $tab_link_pre . 'tutorials' . $tab_link_post;
-        if ($tab == 'tutorials') {$html .= 'nav-tab-active';}
-        $html .= '">Tutorials</a>';
+//        $html .= $tab_link_pre . 'tutorials' . $tab_link_post;
+//        if ($tab == 'tutorials') {$html .= 'nav-tab-active';}
+//        $html .= '">Tutorials</a>';
 
 
         $html .= '</h2>';
