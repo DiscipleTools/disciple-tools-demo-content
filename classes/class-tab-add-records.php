@@ -355,9 +355,9 @@ class DT_Demo_Add_Records {
                         <thead><th>UTILITIES</th><th></th></thead>
                             <tbody>
                                 
-                                <tr><th>Add Pages</th><td>
+                                <!--<tr><th>Add Pages</th><td>
                                     <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
-                                </td></tr>
+                                </td></tr>-->
                                 
                                 <tr><th>Refresh Roles</th><td>
                                     <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>

@@ -1,0 +1,93 @@
+{
+  "users": [
+    {
+      "display_name": "",
+      "user_email": "",
+      "user_login": "",
+      "user_nicename": "",
+      "user_pass": "",
+      "user_status": "",
+      "user_url": "",
+      "metadata": {
+        "nickname": "",
+        "first_name": "",
+        "last_name": "",
+        "wp_capabilities": {
+          "administrator": true
+        }
+      }
+    },
+    {
+      "display_name": "",
+      "user_email": "",
+      "user_login": "",
+      "user_nicename": "",
+      "user_pass": "",
+      "user_status": "",
+      "user_url": "",
+      "metadata": {
+        "nickname": "",
+        "first_name": "",
+        "last_name": "",
+        "wp_capabilities": {
+          "administrator": true
+        }
+      }
+    }
+  ],
+  "contacts": [
+    {
+      "post_title": "",
+      "post_type": "",
+      "post_status": "",
+      "post_password": "",
+      "post_name": "",
+      "post_modified": "",
+      "post_modified_gmt": "",
+      "post_date": "",
+      "post_date_gmt": "",
+      "post_content": "",
+      "post_author": "",
+      "pinged": "",
+      "guid": "",
+      "comment_status": "",
+      "comment_count": "",
+      "metadata": {
+        "contact_phone_111": "",
+        "address_111": "",
+        "contact_email_111": "",
+        "overall_status": "unassigned",
+        "source_details": "Facebook",
+        "seeker_path": "attempted",
+        "milestone_belief": "yes",
+        "milestone_baptized": "yes",
+        "milestone_baptizing": "yes",
+        "milestone_can_share": "yes"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "post_title": "",
+      "post_type": "",
+      "post_status": "",
+      "post_password": "",
+      "post_name": "",
+      "post_modified": "",
+      "post_modified_gmt": "",
+      "post_date": "",
+      "post_date_gmt": "",
+      "post_content": "",
+      "post_author": "",
+      "pinged": "",
+      "guid": "",
+      "comment_status": "",
+      "comment_count": "",
+      "metadata": {
+        "address_111": "",
+        "group_status": "",
+        "is_church": ""
+      }
+    }
+  ]
+}
