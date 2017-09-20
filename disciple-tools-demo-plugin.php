@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: Disciple Tools - Demo
- * Plugin URI: https://github.com/ChasmSolutions/disciple-tools-training
+ * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-plugin
  * Description: Disciple Tools Demo Plugin. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
  * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
- * Author URI: https://github.com/ChasmSolutions
+ * Author URI: https://github.com/DiscipleTools
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
