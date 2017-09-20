@@ -299,7 +299,7 @@ function dt_demo_group_role() {
 function dt_demo_random_requires_upate() {
 
     $list = array(
-        'No', 'Yes'
+        'no', 'yes'
     );
 
     shuffle( $list );
