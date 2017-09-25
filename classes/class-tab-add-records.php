@@ -238,7 +238,7 @@ class DT_Demo_Add_Records {
         $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
         $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
 
-        $reports = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->reports" );
+        $reports = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->dt_reports" );
 
 
 
