@@ -57,7 +57,7 @@
         "address_111": "",
         "contact_email_111": "",
         "overall_status": "unassigned",
-        "source_details": "Facebook",
+        "sources": "Facebook",
         "seeker_path": "attempted",
         "milestone_belief": "yes",
         "milestone_baptized": "yes",

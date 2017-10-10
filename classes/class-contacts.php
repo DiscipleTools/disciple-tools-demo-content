@@ -92,7 +92,7 @@ class DT_Demo_Contacts
                 $email_key => $name.rand( 1000, 10000 )."@email.com",
 //                $email_details_key => $email_details,
                 "overall_status" => dt_demo_random_overall_status(),
-                "source_details"    =>  dt_demo_random_source(),
+                "sources"    =>  dt_demo_random_source(),
                 "seeker_path"   =>  dt_demo_seeker_path(),
                 "_sample"   => 'sample',
             ),
