@@ -216,7 +216,7 @@ class DT_Demo_Add_Records {
         /**********************************************************************/
 
         // Number of users
-        $user_object = count_users( );
+        $user_object = count_users();
         $users = $user_object['total_users'];
 
         // Number of contacts
