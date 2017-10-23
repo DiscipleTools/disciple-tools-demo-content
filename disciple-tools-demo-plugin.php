@@ -7,6 +7,9 @@
  * Version: 0.1
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/DiscipleTools
+ *
+ * @license GPL-2.0 or later
+ *          https://www.gnu.org/licenses/gpl-2.0.html
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
