@@ -3,143 +3,127 @@
 /**
  * Disciple Tools Sample Add Report
  *
- * @class DT_Demo_Add_Report
+ * @class      DT_Demo_Add_Report
  * @version    0.1
- * @since 0.1
+ * @since      0.1
  * @package    Disciple_Tools
- * @author Chasm.Solutions & Kingdom.Training
+ * @author     Chasm.Solutions & Kingdom.Training
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
+if( !defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
 }
 
-class DT_Demo_Add_Report {
+/**
+ * Class DT_Demo_Add_Report
+ */
+class DT_Demo_Add_Report
+{
 
     /**
      * DT_Demo_Add_Report The single instance of DT_Demo_Add_Report.
+     *
      * @var     object
-     * @access  private
+     * @access    private
      * @since     0.1
      */
     private static $_instance = null;
 
     /**
      * Main DT_Demo_Add_Report Instance
-     *
      * Ensures only one instance of DT_Demo_Add_Report is loaded or can be loaded.
      *
      * @since 0.1
      * @static
      * @return DT_Demo_Add_Report instance
      */
-    public static function instance () {
-        if ( is_null( self::$_instance ) ) {
+    public static function instance()
+    {
+        if( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
+
         return self::$_instance;
     } // End instance()
 
     /**
      * Constructor function.
+     *
      * @access  public
      * @since   0.1
      */
-    public function __construct () {
+    public function __construct()
+    {
 
-        if (is_admin()) {
-            add_action( 'admin_post_custom_form_submit', array($this, 'save_report') );
+        if( is_admin() ) {
+            add_action( 'admin_post_custom_form_submit', [ $this, 'save_report' ] );
         }
-
     } // End __construct()
 
     /**
      * Creates the form content for the add report tab
+     *
      * @return mixed/void
      */
-    public function add_report_page_form () {
+    public function add_report_page_form()
+    {
 
         $html = '<div class="wrap">
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder columns-2">
                     <div id="post-body-content">';
 
-        // removed for testing
-         $html1 = '<form id="reportSubmit" action="" method="post">
-                        <input type="hidden" name="dt_report_form_noonce" id="dt_report_form_noonce" value="' . wp_create_nonce( 'dt_report_form' ) . '" />
-                            <table class="widefat striped">
-                                <thead><th>Report Post Type Form</th><th></th></thead>
-                                <tbody>
-                                    <tr><td>Title</td><td><input type="text" class="regular-text" name="post_title" /> </td></tr>
-                                    <tr><td>Date</td><td><input type="text" class="regular-text" name="meta_report_date" /> </td></tr>
-                                    
-                                    <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
-                                </tbody>
-                            </table>
-                         </form><br>';
-
-        $html .= '<form id="testActivity" action="" method="post">
+        $html .= '<form action="" method="post">
                         <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
                             <table class="widefat striped">
-                                <thead><th>Add Bulk Report Records</th><th></th></thead>
+                                <thead><th>Add Prayer Reports</th><th></th></thead>
                                 <tbody>
-                                    <input type="hidden" name="activity_form" value="1" />
-                                    <tr><td>Source (required)</td><td>' .$this->get_source_list() .'</td></tr>
+                                    <input type="hidden" name="prayer_report" value="1" />
+                                    <tr><td>Source (required)</td><td>' . $this->get_prayer_source_list() . '</td></tr>
                                     <tr><td>Subsource (required)</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
                                     <tr><td>Number Days to Add, e.g. "20", "100" (required)</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
                          </form><br>';
-        $html .= '<form id="testSearch" action="" method="post">
+
+        $html .= '<form  action="" method="post">
                         <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
                             <table class="widefat striped">
-                                <thead><th>Search Records By Date</th><th></th></thead>
+                                <thead><th>Add Outreach Reports</th><th></th></thead>
                                 <tbody>
-                                    <input type="hidden" name="search_by_date_form" value="1" />
-                                    <tr><td>Date ("2017-03-22" format) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
-                                    <tr><td>Source</td><td>' .$this->get_source_list( true ) .'</td></tr>
-                                    <tr><td>Subsource</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
+                                    <input type="hidden" name="outreach_report" value="1" />
+                                    <tr><td>Source (required)</td><td>' . $this->get_outreach_source_list() . '</td></tr>
+                                    <tr><td>Subsource (required)</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
+                                    <tr><td>Number Days to Add, e.g. "20", "100" (required)</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
                          </form><br>';
 
-        $html .= '<form id="testRange" action="" method="post">
-                        <input type="hidden" name="dt_where_form_noonce" id="dt_where_form_noonce" value="' . wp_create_nonce( 'dt_where_form' ) . '" />
+        $html .= '<form action="" method="post">
+                        <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
                             <table class="widefat striped">
-                                <thead><th>Search Date Range</th><th></th></thead>
+                                <thead><th>Add Followup Reports</th><th></th></thead>
                                 <tbody>
-                                    <input type="hidden" name="range_form" value="1" />
-                                    <tr><td>Source (required)</td><td>' .$this->get_source_list() .'</td></tr>
-                                    <tr><td>Subsource</td><td><input type="text" class="regular-text" name="report_subsource" /> </td></tr>
-                                     <tr><td>Date (Year=2017; Month=2017-03; Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
-                                     <tr><td>Return full records</td><td><input type="checkbox" class="regular-text" name="full"  /> </td></tr>
+                                    <input type="hidden" name="fup_report" value="1" />
+                                    <input type="hidden" name="report_source" value="fup_report" />
+                                    <input type="hidden" name="report_subsource" value="fup_report" />
+                                    <tr><td>Number Days to Add, e.g. "20", "100" (required)</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
                          </form><br>';
 
-        $html .= '<form id="testSummary" action="" method="post">
-                        <input type="hidden" name="dt_where_form_noonce" id="dt_where_form_noonce" value="' . wp_create_nonce( 'dt_where_form' ) . '" />
+        $html .= '<form action="" method="post">
+                        <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
                             <table class="widefat striped">
-                                <thead><th>Year/Month Summary</th><th></th></thead>
+                                <thead><th>Add Multiplication Reports</th><th></th></thead>
                                 <tbody>
-                                    <input type="hidden" name="meta_form" value="1" />
-                                    <tr><td>Source</td><td>' .$this->get_source_list() .'</td></tr>
-                                    <tr><td>Date (Year=2017; Month=2017-03; Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /></td></tr>
-                                    <tr><td>Meta Value (page_likes_count,unique_website_visitors)</td><td><input type="text" class="regular-text" name="meta_key" /> </td></tr>
-                                    <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
-                                </tbody>
-                            </table>
-                         </form><br>';
-
-        $html .= '<form id="testCron" action="" method="post">
-                        <input type="hidden" name="dt_testCron_noonce" id="dt_testCron_noonce" value="' . wp_create_nonce( 'dt_testCron' ) . '" />
-                            <table class="widefat striped">
-                                <thead><th>Cron Test</th><th></th></thead>
-                                <tbody>
-                                    <input type="hidden" name="cron_form" value="1" />
-                                     <tr><td>Date (Day=2017-03-22) (required)</td><td><input type="text" class="regular-text" name="report_date" /> </td></tr>
+                                    <input type="hidden" name="multiplication_report" value="1" />
+                                    <input type="hidden" name="report_source" value="multiplication_report" />
+                                    <input type="hidden" name="report_subsource" value="multiplication_report" />
+                                    <tr><td>Number Days to Add, e.g. "20", "100" (required)</td><td><input type="text" class="regular-text" name="count" /> </td></tr>
                                     <tr><td></td><td><input type="submit" class="button right" name="submit" value="submit" /> </td></tr>
                                 </tbody>
                             </table>
@@ -153,20 +137,43 @@ class DT_Demo_Add_Report {
                     </tbody>
                   </table>';
 
-        if (isset( $_POST['activity_form'] )) { $html .= $report_box_top . $this->activity_form( $_POST ) . $report_box_bottom; }
-        if (isset( $_POST['search_by_date_form'] )) { $html .= $report_box_top . $this->search_by_date_form( $_POST ) . $report_box_bottom; }
-        if (isset( $_POST['range_form'] )) { $html .= $report_box_top . $this->date_range_form( $_POST ) . $report_box_bottom; }
-        if (isset( $_POST['meta_form'] )) { $html .= $report_box_top . $this->meta_summary_form( $_POST ) . $report_box_bottom; }
-        if (isset( $_POST['cron_form'] )) { $html .= $report_box_top . $this->cron_test( $_POST ) . $report_box_bottom; }
+        if( isset( $_POST[ 'prayer_report' ] ) ) {
+            $html .= $report_box_top . $this->activity_form( $_POST ) . $report_box_bottom;
+        }
+        if( isset( $_POST[ 'outreach_report' ] ) ) {
+            $html .= $report_box_top . $this->activity_form( $_POST ) . $report_box_bottom;
+        }
+        if( isset( $_POST[ 'fup_report' ] ) ) {
+            $html .= $report_box_top . $this->activity_form( $_POST ) . $report_box_bottom;
+        }
+        if( isset( $_POST[ 'multiplication_report' ] ) ) {
+            $html .= $report_box_top . $this->activity_form( $_POST ) . $report_box_bottom;
+        }
+        if( isset( $_POST[ 'delete_reports' ] ) ) {
+            $html .= $report_box_top . $this->delete_reports() . $report_box_bottom;
+        }
 
         $html .= '</div><!-- end post-body-content -->';
 
-        $html .=   '<div id="postbox-container-1" class="postbox-container">
+        $html .= '<div id="postbox-container-1" class="postbox-container">
                         <table class="widefat ">
                             <thead>
                             <th>Notes</th>
                             </thead>
                             <tbody>
+                            <tr><td>
+                                <p>Delete Sample Reports</p>
+                            
+                                <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_reports_confirm\').show();">Delete Sample Reports</a>
+                                
+                                <div id="delete_reports_confirm" class="warning" style="display:none;"><br><p>Are you sure?</p>
+                                    <form method="POST">
+                                        <input type="hidden" name="dt_activity_form_noonce" id="dt_activity_form_noonce" value="' . wp_create_nonce( 'dt_activity_form' ) . '" />
+                                        <button type="submit" value="delete_reports" name="delete_reports" class="button" style="background:red; color:white;" id="delete_reports">Confirm Delete</button>
+                                    </form>
+                                </div>
+                                
+                                <br><hr></td></tr>
                             <tr><td>ADD BULK REPORT RECORDS<br>The add bulk report records can add any number of random report elements, defined by source, subsource, and how many days of reports you want added. There is no upper limit, but more than 1000 might stall the script. <hr></td></tr>
                             <tr><td>SEARCH RECORDS BY DATE<br>The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.<hr></td></tr>
                             <tr><td>SEARCH DATE RANGE<br>The search date range requires a source name and the date specified 2017-03 to get all records for March 2017.<hr></td></tr>
@@ -189,275 +196,266 @@ class DT_Demo_Add_Report {
     /**
      * Supplies the select statement for the forms.
      */
-    public function get_source_list ( $blank = false ) {
+    public function get_prayer_source_list( $blank = false )
+    {
         $html = '<select class="regular-text" name="report_source" >';
 
-        if ($blank) { $html .= '<option name="report_source" value=""></option>'; }
+        if( $blank ) {
+            $html .= '<option name="report_source" value=""></option>';
+        }
 
-        $html .= '<option name="report_source" value="Facebook">Facebook</option>
-                  <option name="report_source" value="Twitter">Twitter</option>
-                  <option name="report_source" value="Analytics">Analytics</option>
-                  <option name="report_source" value="Adwords">Adwords</option>
-                  <option name="report_source" value="Mailchimp">Mailchimp</option>
-                  <option name="report_source" value="YouTube">YouTube</option>
-                  <option name="report_source" value="Vimeo">Vimeo</option>
-                  <option name="report_source" value="Bitly">Bitly</option>
-                  <option name="report_source" value="Bibles">Bibles</option>
-                  <option name="report_source" value="Contacts">Contacts</option>
-                  <option name="report_source" value="Groups">Groups</option>
+        $html .= '
+                  <option >Select Prayer Source</option>
+                  <option disabled>---</option>
+                  
+                  <option name="report_source" value="Mailchimp-Prayer">Mailchimp </option>
+                  <option name="report_source" value="Facebook-Prayer">Facebook </option>
+                  <option name="report_source" value="Twitter-Prayer">Twitter </option>
+                  <option name="report_source" value="SMS-Prayer">SMS </option>
+                  
                 </select>';
+
+        return $html;
+    }
+
+    /**
+     * Supplies the select statement for the forms.
+     */
+    public function get_outreach_source_list( $blank = false )
+    {
+        $html = '<select class="regular-text" name="report_source" >';
+
+        if( $blank ) {
+            $html .= '<option name="report_source" value=""></option>';
+        }
+
+        $html .= '
+                  <option >Select Outreach Source</option>
+                  <option disabled>---</option>
+                  
+                  <option name="report_source" value="Facebook-Outreach">Facebook </option>
+                  <option name="report_source" value="Twitter-Outreach">Twitter </option>
+                  <option name="report_source" value="SMS-Outreach">SMS/Texting </option>
+                  <option name="report_source" value="Analytics-Outreach">Website Analytics </option>
+                  <option name="report_source" value="YouTube-Outreach">YouTube</option>
+                  
+                </select>';
+
         return $html;
     }
 
     /**
      * Adds randomized bulk report data
      */
-    public function activity_form ( $post )
+    public function activity_form( $post )
     {
+        $category = '';
+        $focus = '';
         // Create Unique Meta Inputs Depending on Source
-        switch ($post['report_source']) {
-            case 'Facebook':
-                $meta_input = array(
-                    'page_likes_count' => rand( 0 , 100 ),
-                    'page_engagement' => rand( 0 , 100 ),
-                    'page_conversations_count' => rand( 0 , 100 ),
-                    'page_messages_in_conversation_count' => rand( 0 , 100 ),
-                    'page_post_count' => rand( 2 , 6 ),
-                    'page_post_likes_and_reactions' => rand( 0 , 100 ),
-                    'page_comments_count' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Twitter':
-                $meta_input = array(
-                    'unique_website_visitors' => rand( 0 , 100 ),
-                    'platforms' => rand( 0 , 100 ),
-                    'browsers' => rand( 0 , 100 ),
-                    'average_time' => rand( 0 , 100 ),
-                    'page_visits' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Analytics':
-                $meta_input = array(
-                    'unique_website_visitors' => rand( 0 , 100 ),
-                    'platforms' => rand( 0 , 100 ),
-                    'browsers' => rand( 0 , 100 ),
-                    'average_time' => rand( 0 , 100 ),
-                    'page_visits' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Adwords':
-                $meta_input = array(
-                    'money_spent' => rand( 0 , 100 ),
-                    'conversions' => rand( 0 , 100 ),
-                    'total_clicks' => rand( 0 , 100 ),
-                    'ads_served' => rand( 0 , 100 ),
-                    'average_position' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Mailchimp':
-                $meta_input = array(
-                    'new_subscribers' => rand( 0 , 100 ),
-                    'campaigns_sent' => rand( 0 , 3 ),
-                    'list_opens' => rand( 0 , 5000 ),
-                    'campaign_opens' => rand( 0 , 100 ),
-                    'subscriber_count' => rand( 5000 , 6000 ),
-                    'opt_ins' => rand( 0 , 50 ),
-                    'opt_outs' => rand( 0 , 10 ),
-                );
-                break;
-            case 'YouTube':
-                $meta_input = array(
-                    'total_views' => rand( 100 , 500 ),
-                    'total_likes' => rand( 0 , 100 ),
-                    'total_shares' => rand( 0 , 50 ),
-                    'number_of_videos_posted' => rand( 0 , 3 ),
-                );
-                break;
-            case 'Vimeo':
-                $meta_input = array(
-                    'total_views' => rand( 100 , 500 ),
-                    'total_likes' => rand( 0 , 100 ),
-                    'total_shares' => rand( 0 , 50 ),
-                    'number_of_videos_posted' => rand( 0 , 3 ),
-                );
-                break;
-            case 'Bitly':
-                $meta_input = array(
-                    'clicks' => rand( 0 , 100 ),
-                    'clicks_per_tag' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Bibles':
-                $meta_input = array(
-                    'given_by_hand' => rand( 0 , 100 ),
-                    'given_online' => rand( 0 , 100 ),
-                    'downloaded_from_website' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Contacts':
-                $meta_input = array(
-                    'contacts_added' => rand( 0 , 100 ),
-                    'assignable_contacts' => rand( 0 , 100 ),
-                    'contact_attempted' => rand( 0 , 100 ),
-                    'contact_established' => rand( 0 , 100 ),
-                    'first_meeting_complete' => rand( 0 , 100 ),
-                    'baptisms_count' => rand( 0 , 100 ),
-                    '1_gen_baptisms' => rand( 0 , 100 ),
-                    '2_gen_baptisms' => rand( 0 , 100 ),
-                    '3_gen_baptisms' => rand( 0 , 100 ),
-                    '4_gen_baptisms' => rand( 0 , 100 ),
-                    'baptizers' => rand( 0 , 100 ),
-                );
-                break;
-            case 'Groups':
-                $meta_input = array(
-                    'total_groups' => rand( 0 , 100 ),
-                    '2x2' => rand( 0 , 100 ),
-                    '3x3' => rand( 0 , 100 ),
-                    'total_active_churches' => rand( 0 , 100 ),
-                    '1_gen_churches' => rand( 0 , 100 ),
-                    '2_gen_churches' => rand( 0 , 100 ),
-                    '3_gen_churches' => rand( 0 , 100 ),
-                    '4_gen_churches' => rand( 0 , 100 ),
-                    'church_planters' => rand( 0 , 100 ),
-                );
-                break;
-            default:
-                $meta_input = array();
+        switch( $post[ 'report_source' ] ) {
+            case 'Mailchimp-Prayer':
+                $category = 'media';
+                $focus = 'prayer';
+                $meta_input = [
+                    'critical_path_total' => rand( 10000, 20000 ),
+                    'new_subscribers'     => rand( 0, 100 ),
+                    'campaigns_sent'      => rand( 0, 3 ),
+                    'list_opens'          => rand( 0, 5000 ),
+                    'campaign_opens'      => rand( 0, 100 ),
+                    'subscriber_count'    => rand( 5000, 6000 ),
+                    'opt_ins'             => rand( 0, 50 ),
+                    'opt_outs'            => rand( 0, 10 ),
+                    'source'              => '_sample',
+                ];
                 break;
 
+            case 'Facebook-Prayer':
+                $category = 'media';
+                $focus = 'prayer';
+                $meta_input = [
+                    'critical_path_total'                 => rand( 10000, 20000 ),
+                    'page_likes_count'                    => rand( 0, 100 ),
+                    'page_engagement'                     => rand( 0, 100 ),
+                    'page_conversations_count'            => rand( 0, 100 ),
+                    'page_messages_in_conversation_count' => rand( 0, 100 ),
+                    'page_post_count'                     => rand( 2, 6 ),
+                    'page_post_likes_and_reactions'       => rand( 0, 100 ),
+                    'page_comments_count'                 => rand( 0, 100 ),
+                    'source'                              => '_sample',
+                ];
+                break;
+
+            case 'Twitter-Prayer':
+                $category = 'media';
+                $focus = 'prayer';
+                $meta_input = [
+                    'critical_path_total' => rand( 10000, 20000 ),
+                    'source'              => '_sample',
+                ];
+                break;
+
+            case 'SMS-Prayer':
+                $category = 'media';
+                $focus = 'prayer';
+                $meta_input = [
+                    'critical_path_total' => rand( 500, 600 ),
+                    'source'              => '_sample',
+                ];
+                break;
+
+            case 'Facebook-Outreach':
+                $category = 'social';
+                $focus = 'outreach';
+                $meta_input = [
+                    'critical_path_total'                 => rand( 500, 600 ), // we could count likes. we could count unique users who have shared, commented, and liked something. This would be similar to the unique website visitors.
+                    'source'                              => '_sample',
+                    'page_likes_count'                    => rand( 0, 100 ),
+                    'page_engagement'                     => rand( 0, 100 ),
+                    'page_conversations_count'            => rand( 0, 100 ),
+                    'page_messages_in_conversation_count' => rand( 0, 100 ),
+                    'page_post_count'                     => rand( 2, 6 ),
+                    'page_post_likes_and_reactions'       => rand( 0, 100 ),
+                    'page_comments_count'                 => rand( 0, 100 ),
+                ];
+                break;
+
+            case 'Twitter-Outreach':
+                $category = 'social';
+                $focus = 'outreach';
+                $meta_input = [
+                    'critical_path_total' => rand( 500, 600 ), // I have no idea what to count here.
+                    'source'              => '_sample',
+                ];
+                break;
+
+            case 'SMS-Outreach':
+                $category = 'sms';
+                $focus = 'outreach';
+                $meta_input = [
+                    'critical_path_total' => rand( 500, 600 ), // this would have to unique phone numbers
+                    'source'              => '_sample',
+                    'new_subscribers'     => rand( 0, 100 ),
+                    'campaigns_sent'      => rand( 0, 3 ),
+                    'list_opens'          => rand( 0, 5000 ),
+                    'campaign_opens'      => rand( 0, 100 ),
+                    'subscriber_count'    => rand( 5000, 6000 ),
+                    'opt_ins'             => rand( 0, 50 ),
+                    'opt_outs'            => rand( 0, 10 ),
+                ];
+                break;
+
+            case 'Analytics-Outreach':
+                $category = 'website';
+                $focus = 'outreach';
+                $meta_input = [
+                    'critical_path_total'     => rand( 500, 600 ), // only count people. so this would have to be unique website visitors.
+                    'source'                  => '_sample',
+                    'unique_website_visitors' => rand( 0, 100 ),
+                    'average_time'            => rand( 0, 100 ),
+                    'page_visits'             => rand( 0, 100 ),
+                ];
+                break;
+
+            case 'YouTube-Outreach':
+                $category = 'social';
+                $focus = 'outreach';
+                $meta_input = [
+                    'critical_path_total'     => rand( 5000, 6000 ),
+                    'source'                  => '_sample',
+                    'total_views'             => rand( 100, 500 ),
+                    'total_likes'             => rand( 0, 100 ),
+                    'total_shares'            => rand( 0, 50 ),
+                    'number_of_videos_posted' => rand( 0, 3 ),
+                ];
+                break;
+
+            case 'fup_report':
+                $focus = 'fup';
+                $meta_input = [
+                    'source'                 => '_sample',
+                    'contacts_added'         => rand( 1800, 2000 ),
+                    'assignable_contacts'    => rand( 1700, 1800 ),
+                    'contact_attempted'      => rand( 1650, 1700 ),
+                    'contact_established'    => rand( 1600, 1650 ),
+                    'first_meeting_complete' => rand( 1550, 1600 ),
+                    'baptisms_count'         => rand( 60, 100 ),
+                    '1_gen_baptisms'         => rand( 50, 60 ),
+                    '2_gen_baptisms'         => rand( 100, 200 ),
+                    '3_gen_baptisms'         => rand( 300, 400 ),
+                    '4_gen_baptisms'         => rand( 500, 1000 ),
+                    'baptizers'              => rand( 500, 600 ),
+                ];
+                break;
+
+            case 'multiplication_report':
+                $focus = 'multiplication';
+                $meta_input = [
+                    'source'                => '_sample',
+                    'total_groups'          => rand( 0, 100 ),
+                    '2x2'                   => rand( 0, 100 ),
+                    '3x3'                   => rand( 0, 100 ),
+                    'total_active_churches' => rand( 0, 100 ),
+                    '1_gen_churches'        => rand( 0, 100 ),
+                    '2_gen_churches'        => rand( 0, 100 ),
+                    '3_gen_churches'        => rand( 0, 100 ),
+                    '4_gen_churches'        => rand( 0, 100 ),
+                    'church_planters'       => rand( 0, 100 ),
+
+                ];
+                break;
+            default:
+                $meta_input = [];
+                break;
         }
 
         // Insert records loop
         $i = 0;
-        $count = $post['count'];
+        $count = $post[ 'count' ];
 
-        while ($i <= $count ) {
+        while( $i <= $count ) {
             $today = date( 'Y-m-d h:m:s' );
             $days_ago = '-' . $i . ' day';
             $log_date = date( 'Y-m-d h:m:s', strtotime( $days_ago, strtotime( $today ) ) );
 
             dt_report_insert(
-                array(
-                    'report_date' => $log_date,
-                    'report_source' => $post['report_source'],
-                    'report_subsource' => $post['report_subsource'],
-                    'meta_input' => $meta_input,
-                )
+                [
+                    'report_date'      => $log_date,
+                    'report_source'    => $post[ 'report_source' ],
+                    'report_subsource' => $post[ 'report_subsource' ],
+                    'focus' => $focus,
+                    'category' => $category,
+                    'meta_input'       => $meta_input,
+                ]
             );
             $i++;
         }
+
         return $i . ' added';
-
     }
 
     /**
-     * The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.
+     * Delete all sample reports in database
+     *
      * @return string
      */
-    public function search_by_date_form ( $post ) {
-        $html = '';
+    public function delete_reports()
+    {
+        global $wpdb;
 
-        if(!empty( $post )) {
+        $results = $wpdb->get_results( "SELECT report_id FROM $wpdb->dt_reportmeta WHERE meta_key = 'source' AND meta_value = '_sample'" );
 
-            if(isset( $post['report_date'] )) {$date = $post['report_date'];
-            } else { $date = date( 'Y-m-d' );
-            };
-            if(isset( $post['report_source'] )) {$source = $post['report_source'];
-            } else { $source = '';
-            };
-            if(isset( $post['report_subsource'] )) {$subsource = $post['report_subsource'];
-            } else { $subsource = '';
-            };
-
-            $results = Disciple_Tools()->report_api->get_reports_by_date( $date, $source, $subsource );
-
-            $html = '<pre>';
-            $html .= print_r( $results, true );
-            $html .= '</pre>';
+        $ids = '';
+        foreach( $results as $result ) {
+            $ids .= $result->report_id . ',';
         }
-        return $html;
-    }
+        $ids = substr( $ids, 0, -1 );
 
-    /**
-     * The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.
-     * @return string
-     */
-    public function date_range_form ( $post ) {
+        $wpdb->get_results( "DELETE FROM $wpdb->dt_reports WHERE id IN ($ids)" );
+        $record_count = $wpdb->rows_affected;
 
-        if(empty( $post )) {
-            return 'Post Empty';
-        }
+        $wpdb->get_results( "DELETE FROM $wpdb->dt_reportmeta WHERE report_id IN ($ids)" );
 
-        if(isset( $post['report_date'] )) {$date = $post['report_date'];
-        } else { return 'Date range required';
-        };
-        if(isset( $post['report_source'] )) {$source = $post['report_source'];
-        } else { return 'Source required';
-        };
-        if(isset( $post['report_subsource'] )) {$subsource = $post['report_subsource'];
-        } else { $subsource = '';
-        };
-
-        $id_only = true;
-
-        // Get source report for month
-        if(isset( $post['full'] ) && $post['full'] == true) {
-            // Returns the entire records and metadata for each record.
-            $results = Disciple_Tools()->report_api->get_month_by_source_full( $date, $source, $subsource );
-        } else {
-            // Returns just a list of qualified ids
-            $results = Disciple_Tools()->report_api->get_month_by_source( $date, $source, $subsource, $id_only );
-        }
-
-        // Report
-        $html = '<pre>';
-        $html .= print_r( $results, true );
-        $html .= '</pre>';
-
-        return $html;
-    }
-
-    /**
-     * The search records by date form requires a date in the format 2017-03-22, and has optional filters for source and subsource.
-     * @return string
-     */
-    public function meta_summary_form ( $post ) {
-
-        if(empty( $post )) {
-            return 'Post Empty';
-        }
-
-        if(isset( $post['report_date'] )) {$date = $post['report_date'];
-        } else { return 'Date range required';
-        };
-        if(isset( $post['report_source'] )) {$source = $post['report_source'];
-        } else { return 'Source required';
-        };
-        if(isset( $post['meta_key'] )) {$meta_key = $post['meta_key'];
-        } else { return 'Meta key required';
-        };
-
-        // Get source report for month
-        $results = Disciple_Tools()->report_api->get_meta_key_total( $date, $source, $meta_key );
-
-        // Report
-        $html = '<pre>';
-        $html .= print_r( $results, true );
-        $html .= '</pre>';
-
-        return $html;
-    }
-
-    public function cron_test ( $post ) {
-
-        $results = Disciple_Tools()->report_cron->build_all_disciple_tools_contacts_reports( $post['report_date'] );
-
-        // Report
-        $html = '<pre>';
-        $html .= print_r( $results, true );
-        $html .= '</pre>';
-        return $html;
+        return 'Deleted '.$record_count.' reports';
     }
 
 }

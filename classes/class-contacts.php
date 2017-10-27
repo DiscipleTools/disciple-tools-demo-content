@@ -167,7 +167,9 @@ class DT_Demo_Contacts
         return 'Assignments shuffled for all contacts between multipliers, multiplier leaders, and administrators (for testing).';
     }
 
-
+    /**
+     * @return string
+     */
     public function shuffle_update_requests () {
         $args = array(
             'numberposts'   => -1,
