@@ -67,7 +67,7 @@ final class DT_Demo_Page {
     public function dt_demo_data_page() {
 
 
-        if ( !current_user_can( 'manage_options' ) )  {
+        if ( !current_user_can( 'manage_dt' ) )  {
             wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
         }
 
