@@ -57,7 +57,7 @@ final class DT_Demo_Page {
      * @since 0.1
      */
     public function add_dtsample_data_menu () {
-        add_menu_page( __( 'Demo (DT)', 'dt_demo' ), __( 'Demo (DT)', 'dt_demo' ), 'manage_dt', 'dt_demo', [ $this, 'dt_demo_data_page' ], 'dashicons-admin-generic', 75 );
+        add_menu_page( __( 'Demo (DT)', 'dt_demo' ), __( 'Demo (DT)', 'dt_demo' ), 'manage_options', 'dt_demo', [ $this, 'dt_demo_data_page' ], 'dashicons-admin-generic', 75 );
     }
 
     /**

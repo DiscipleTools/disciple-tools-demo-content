@@ -268,7 +268,7 @@ class DT_Demo_Add_Records {
                         </td><td>'.$users.'</td></tr>
                         
                         <tr><th>Contacts</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
                         </td><td>'.$contacts->publish.'</td></tr>
                         
                         <tr><th>Groups</th><td>
