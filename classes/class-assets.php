@@ -13,6 +13,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
 
+/**
+ * Class DT_Demo_Assets
+ */
 class DT_Demo_Assets {
 
     /**

@@ -13,6 +13,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
 
+/**
+ * Class DT_Demo_Add_Records
+ */
 class DT_Demo_Add_Records {
 
     /**
@@ -95,36 +98,46 @@ class DT_Demo_Add_Records {
 
                 // Contacts
                 case 'add_contacts':
-                    $html .= $report_box_top . DT_Demo()->contacts->add_contacts_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'contacts' ) ) {
+                        $html .= $report_box_top . DT_Demo()->contacts->add_contacts_by_count( $_POST['count'] ) . $report_box_bottom;
+                    }
                     break;
 
                 // Groups
                 case 'add_groups':
-                    $html .= $report_box_top . DT_Demo()->groups->add_groups_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'groups' ) ) {
+                        $html .= $report_box_top . DT_Demo()->groups->add_groups_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
 
                 // Locations
                 case 'add_locations':
-                    $html .= $report_box_top . DT_Demo()->locations->add_locations_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'locations' ) ) {
+                        $html .= $report_box_top . DT_Demo()->locations->add_locations_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
 
                 // Assets
                 case 'add_assets':
-                    $html .= $report_box_top . DT_Demo()->assets->add_assets_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'assetmapping' ) ) {
+                        $html .= $report_box_top . DT_Demo()->assets->add_assets_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
 
                 case 'add_comments':
-                    $html .= $report_box_top . DT_Demo()->comments->add_comments( $_POST['count'] ) . $report_box_bottom;
+                        $html .= $report_box_top . DT_Demo()->comments->add_comments( $_POST[ 'count' ] ) . $report_box_bottom;
                     break;
-
-
 
                 // Prayer posts
                 case 'add_prayer_posts':
-                    $html .= $report_box_top . DT_Demo()->prayer->add_prayer_posts_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'prayer' ) ) {
+                        $html .= $report_box_top . DT_Demo()->prayer->add_prayer_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
                 case 'add_progress_posts':
-                    $html .= $report_box_top . DT_Demo()->progress->add_progress_posts_by_count( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'progress' ) ) {
+                        $html .= $report_box_top . DT_Demo()->progress->add_progress_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
 
                 // Generations
@@ -141,12 +154,16 @@ class DT_Demo_Add_Records {
                     $html .= $report_box_top . DT_Demo()->connections->add_contacts_to_groups( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'contacts_to_locations':
-                    $html .= $report_box_top . DT_Demo()->connections->add_contacts_to_locations( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'contacts' ) && post_type_exists( 'locations' ) ) {
+                        $html .= $report_box_top . DT_Demo()->connections->add_contacts_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
                 case 'groups_to_locations':
-                    $html .= $report_box_top . DT_Demo()->connections->add_groups_to_locations( $_POST['count'] ) . $report_box_bottom;
+                    if ( post_type_exists( 'groups' ) && post_type_exists( 'locations' ) ) {
+                        $html .= $report_box_top . DT_Demo()->connections->add_groups_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
+                    }
                     break;
-                case 'assets_to_locations':
+                case 'assetmapping_to_locations':
                     $html .= $report_box_top . DT_Demo()->connections->add_assets_to_locations( $_POST['count'] ) . $report_box_bottom;
                     break;
 
@@ -184,19 +201,27 @@ class DT_Demo_Add_Records {
                     $html .= $report_box_top . DT_Demo()->groups->delete_groups() . $report_box_bottom;
                     break;
                 case 'delete_locations':
+                    if ( post_type_exists( 'locations' ) ) {
                     $html .= $report_box_top . DT_Demo()->locations->delete_locations() . $report_box_bottom;
+                    }
                     break;
                 case 'delete_assets':
-                    $html .= $report_box_top . DT_Demo()->assets->delete_assets() . $report_box_bottom;
+                    if ( post_type_exists( 'assetmapping' ) ) {
+                        $html .= $report_box_top . DT_Demo()->assets->delete_assets() . $report_box_bottom;
+                    }
                     break;
                 case 'delete_users':
                     $html .= $report_box_top . DT_Demo()->users->delete_users() . $report_box_bottom;
                     break;
                 case 'delete_prayers':
-                    $html .= $report_box_top . DT_Demo()->prayer->delete_prayer_posts() . $report_box_bottom;
+                    if ( post_type_exists( 'prayer' ) ) {
+                        $html .= $report_box_top . DT_Demo()->prayer->delete_prayer_posts() . $report_box_bottom;
+                    }
                     break;
                 case 'delete_progress':
-                    $html .= $report_box_top . DT_Demo()->progress->delete_progress_posts() . $report_box_bottom;
+                    if ( post_type_exists( 'progress' ) ) {
+                        $html .= $report_box_top . DT_Demo()->progress->delete_progress_posts() . $report_box_bottom;
+                    }
                     break;
                 case 'delete_comments':
                     $html .= $report_box_top . DT_Demo()->comments->delete_comments() . $report_box_bottom;
@@ -241,8 +266,6 @@ class DT_Demo_Add_Records {
         $reports = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->dt_reports" );
 
 
-
-
         /**********************************************************************/
         /* Panel Content */
         /**********************************************************************/
@@ -275,23 +298,40 @@ class DT_Demo_Add_Records {
                             <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_groups" name="submit" class="button" id="add_groups">Add Groups</button></form>
                         </td><td>'.$groups->publish.'</td></tr>
                         
+                        ';
+
+        if ( post_type_exists( 'locations' ) ) {
+            $html .= '
                         <tr><th>Locations</th><td>
                                  <a href="edit.php?post_type=locations&page=disciple_tools_locations" class="button">Add Locations</a>
                             <!-- Removed and replaced by import tool <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_locations" name="submit" class="button" id="add_locations">Add Locations</button></form> -->
-                        </td><td>'.$locations->publish.'</td></tr>
-                        
+                        </td><td>' . $locations->publish . '</td></tr>
+                        ';
+        }
+        if ( post_type_exists( 'assetmapping' ) ) {
+            $html .= '
                         <tr><th>Asset Mapping</th><td>
                             <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="add_assets" name="submit" class="button" id="add_assets">Add Assets</button></form>
-                        </td><td>'.$assets->publish.'</td></tr>
+                        </td><td>' . $assets->publish . '</td></tr>
                         
+                        ';
+        }
+        if ( post_type_exists( 'prayer' ) ) {
+            $html .= '
                         <tr><th>Prayer Posts</th><td>
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_prayer_posts" name="submit" class="button" id="add_prayer_posts">Add Prayer Posts</button></form>
-                        </td><td>'.$prayer->publish.'</td></tr>
-                        
+                        </td><td>' . $prayer->publish . '</td></tr>
+                        ';
+        }
+        if ( post_type_exists( 'progress' ) ) {
+            $html .= '
                         <tr><th>Progress Posts</th><td>
                             <form method="POST"><input type="hidden" name="count" value="5" /> <button type="submit" value="add_progress_posts" name="submit" class="button" id="add_progress_posts">Add Progress Posts</button></form>
-                        </td><td>'.$progress->publish.'</td></tr>
-                        
+                        </td><td>' . $progress->publish . '</td></tr>
+                        ';
+        }
+
+        $html .= '
                         <tr><th>Comments</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
                         </td><td>'.$comments .'</td></tr>
@@ -382,6 +422,12 @@ class DT_Demo_Add_Records {
                          <thead><th>REMOVE</th><th></th></thead>
                             <tbody>
                                 
+                                <tr><th>Delete Users</th><td>
+                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a>
+                                </td></tr>
+                                <tr id="delete_users_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
+                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
+                                </td></tr>
                                 <tr><th>Delete Contacts</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete Contacts</a>
                                     
@@ -396,7 +442,10 @@ class DT_Demo_Add_Records {
                                 <tr id="delete_groups_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_groups" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
                                 </td></tr>
-                                
+                                ';
+
+        if ( post_type_exists( 'locations' ) ) {
+            $html .= '
                                 <tr><th>Delete Locations</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_locations_confirm\').show();">Delete Locations</a>
                                     
@@ -404,20 +453,20 @@ class DT_Demo_Add_Records {
                                 <tr id="delete_locations_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_locations" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
                                 </td></tr>
-                                
+             ';
+        }
+        if ( post_type_exists( 'assetmapping' ) ) {
+            $html .= '                   
                                 <tr><th>Delete Assets</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_assets_confirm\').show();">Delete Assets</a>
                                 </td></tr>
                                 <tr id="delete_assets_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_assets" name="submit" class="button" style="background:red; color:white;" id="delete_assets">Confirm Delete</button></form>
                                 </td></tr>
-                                
-                                <tr><th>Delete Users</th><td>
-                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a>
-                                </td></tr>
-                                <tr id="delete_users_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
-                                </td></tr>
+                                ';
+        }
+        if ( post_type_exists( 'prayer' ) ) {
+            $html .= '
                                 
                                 <tr><th>Delete Prayers</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_prayers_confirm\').show();">Delete Prayer</a>
@@ -425,14 +474,20 @@ class DT_Demo_Add_Records {
                                 <tr id="delete_prayers_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_prayers" name="submit" class="button" style="background:red; color:white;" id="delete_prayers">Confirm Delete</button></form>
                                 </td></tr>
-                                
+                                ';
+        }
+        if ( post_type_exists( 'progress' ) ) {
+            $html .= '
                                 <tr><th>Delete Progress</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_progress_confirm\').show();">Delete Progress</a>
                                 </td></tr>
                                 <tr id="delete_progress_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
                                     <form method="POST"><button type="submit" value="delete_progress" name="submit" class="button" style="background:red; color:white;" id="delete_progress">Confirm Delete</button></form>
                                 </td></tr>
-                                
+                                ';
+        }
+
+            $html .= '
                                 <tr><th>Delete Comments</th><td>
                                     <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete Comments</a>
                                 </td></tr>
