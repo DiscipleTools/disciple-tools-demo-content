@@ -362,11 +362,15 @@ class DT_Demo_Add_Records {
                         <tr><th>Groups to Locations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
                         </td><td>'.$groups_to_locations  .'</td></tr>
-                        
+                        ';
+        if ( post_type_exists( 'assetmapping' ) ) {
+            $html .= '
                         <tr><th>Asset Mapping to Locations</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="assets_to_locations" name="submit" class="button" id="assets_to_locations">Connect Assets to Locations</button></form>
-                        </td><td>'.$assets_to_locations  .'</td></tr>
-                        
+                        </td><td>' . $assets_to_locations . '</td></tr>
+                        ';
+        }
+        $html .= '
                         <tr><th>Contacts to Groups</th><td>
                             <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Connect Contacts to Groups</button></form>
                         </td><td>'.$contacts_to_groups  .'</td></tr>
@@ -378,15 +382,6 @@ class DT_Demo_Add_Records {
              <br>
              ';
 
-//        $args = array(
-//            'meta_key' => '_sample',
-//            'meta_value' => 'sample',
-//        );
-//        $comments = get_comments( $args );
-
-//        print '<pre>'; print_r($comments); print '</pre>';
-
-
         $html .= '</div><!-- end post-body-content -->';
 
         $html .=   '<div id="postbox-container-1" class="postbox-container">
@@ -394,14 +389,6 @@ class DT_Demo_Add_Records {
                     <table class="widefat striped">
                         <thead><th>UTILITIES</th><th></th></thead>
                             <tbody>
-                                
-                                <!--<tr><th>Add Pages</th><td>
-                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_core_pages" name="submit" class="button" id="add_core_pages">Add Core Pages</button></form>
-                                </td></tr>-->
-                                
-                                <tr><th>Refresh Roles</th><td>
-                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
-                                </td></tr>
                                 
                                 <tr><th>Reset Core Users</th><td>
                                     <form method="POST"><button type="submit" value="refresh_users" name="submit" class="button" id="refresh_users">Reset Users</button></form>
@@ -413,6 +400,9 @@ class DT_Demo_Add_Records {
                                 
                                 <tr><th>Shuffle Updates Requested</th><td>
                                     <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates</button></form>
+                                </td></tr>
+                                <tr><th>Refresh Roles</th><td>
+                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
                                 </td></tr>
                                 
                              </tbody>
