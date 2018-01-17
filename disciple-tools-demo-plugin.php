@@ -282,7 +282,8 @@ class DT_Demo {
             require_once( 'classes/class-core-pages.php' );
             $this->content = DT_Core_Pages::instance();
 
-            if ( class_exists( 'Disciple_Tools' )) { // resets the default roles
+            $theme = wp_get_theme();
+            if ( $theme->name = "Disciple_Tools" ) {
                 require_once( 'classes/class-roles.php' );
                 $this->roles = DT_Demo_Roles::instance();
             }

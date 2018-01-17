@@ -49,13 +49,13 @@ class DT_Demo_Roles {
     public function reset_roles() {
         if (class_exists( 'Disciple_Tools' )) {
 
-            if (file_exists( get_home_path() . 'wp-content/plugins/disciple-tools/dt-core/admin/class-roles.php' )) {
-                require_once( get_home_path() . 'wp-content/plugins/disciple-tools/dt-core/admin/class-roles.php' );
+            if (file_exists( get_home_path() . 'wp-content/themes/disciple-tools-theme/dt-core/admin/class-roles.php' )) {
+                require_once( get_home_path() . 'wp-content/themes/disciple-tools-theme/dt-core/admin/class-roles.php' );
                 $roles = Disciple_Tools_Roles::instance();
                 $roles->set_roles();
                 return 'Success';
             } else {
-                return "failed to connect to " . get_home_path() . 'wp-content/plugins/disciple-tools/dt-core/admin/class-roles.php';
+                return "failed to connect to " . get_home_path() . 'wp-content/themes/disciple-tools-theme/dt-core/admin/class-roles.php';
             }
         }
         else {
