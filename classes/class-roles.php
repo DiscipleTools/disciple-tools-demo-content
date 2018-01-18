@@ -52,6 +52,7 @@ class DT_Demo_Roles {
             if (file_exists( get_home_path() . 'wp-content/themes/disciple-tools-theme/dt-core/admin/class-roles.php' )) {
                 require_once( get_home_path() . 'wp-content/themes/disciple-tools-theme/dt-core/admin/class-roles.php' );
                 $roles = Disciple_Tools_Roles::instance();
+                $roles->reset_roles();
                 $roles->set_roles();
                 return 'Success';
             } else {

@@ -361,24 +361,24 @@ class DT_Demo_Users
             $user->set_role( 'marketer' );
 
 
-         // Create Marketer Leader
-            $username = 'marketer_leader' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer Leader ' . $i,
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'marketer_leader' );
+//         // Create Marketer Leader
+//            $username = 'marketer_leader' . $i;
+//            $email = $username.'@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Marketer Leader ' . $i,
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'marketer_leader' );
 
 
             // Create Strategy
@@ -441,65 +441,65 @@ class DT_Demo_Users
             $user->set_role( 'multiplier' );
 
 
-
-       // Create Multiplier Leader
-            $username = 'multiplier_leader' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier Leader ' . $i,
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'multiplier_leader' );
-
-
-         // Create Prayer Supporter
-            $username = 'prayer_supporter' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Prayer Supporter ' . $i,
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'prayer_supporter' );
+//
+//       // Create Multiplier Leader
+//            $username = 'multiplier_leader' . $i;
+//            $email = $username.'@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Multiplier Leader ' . $i,
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'multiplier_leader' );
 
 
-         // Create Project Supporter
-            $username = 'project_supporter' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+//         // Create Prayer Supporter
+//            $username = 'prayer_supporter' . $i;
+//            $email = $username.'@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Prayer Supporter ' . $i,
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'prayer_supporter' );
+//
 
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Project Supporter ' . $i,
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'project_supporter' );
+//         // Create Project Supporter
+//            $username = 'project_supporter' . $i;
+//            $email = $username.'@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Project Supporter ' . $i,
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'project_supporter' );
 
 
          // Create Registered
@@ -609,82 +609,82 @@ class DT_Demo_Users
         $user = new WP_User( $user_id );
         $user->set_role( 'marketer' );
     }
-        /**
-     * Add a single marketer_leader
-     * @param $i    int Unique key that will become part of the name & email of the record
-     */
-    public function add_multiplier_leader ( $i ) {
-        $password = 'disciple';
-
-        $username = 'marketer_leader' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
-
-        // Set the nickname
-        wp_update_user(
-            array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Marketer Leader ' . $i,
-            )
-        );
-        update_user_meta( $user_id, '_sample', 'sample' );
-
-        // Set the role
-        $user = new WP_User( $user_id );
-        $user->set_role( 'marketer_leader' );
-    }
-        /**
-     * Add a single marketer_leader
-     * @param $i    int Unique key that will become part of the name & email of the record
-     */
-    public function add_project_supporter ( $i ) {
-        $password = 'disciple';
-
-        // Create Marketer Leader
-        $username = 'marketer_leader' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
-
-        // Set the nickname
-        wp_update_user(
-            array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Marketer Leader ' . $i,
-            )
-        );
-        update_user_meta( $user_id, '_sample', 'sample' );
-
-        // Set the role
-        $user = new WP_User( $user_id );
-        $user->set_role( 'marketer_leader' );
-    }
-        /**
-     * Add a single marketer_leader
-     * @param $i    int Unique key that will become part of the name & email of the record
-     */
-    public function add_prayer_supporter ( $i ) {
-        $password = 'disciple';
-
-        $username = 'prayer_supporter' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
-
-        // Set the nickname
-        wp_update_user(
-            array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Prayer Supporter ' . $i,
-            )
-        );
-        update_user_meta( $user_id, '_sample', 'sample' );
-
-        // Set the role
-        $user = new WP_User( $user_id );
-        $user->set_role( 'prayer_supporter' );
-    }
+//        /**
+//     * Add a single marketer_leader
+//     * @param $i    int Unique key that will become part of the name & email of the record
+//     */
+//    public function add_multiplier_leader ( $i ) {
+//        $password = 'disciple';
+//
+//        $username = 'marketer_leader' . $i;
+//        $email = $username.'@disciple.tools';
+//        $user_id = wp_create_user( $username, $password, $email );
+//
+//        // Set the nickname
+//        wp_update_user(
+//            array(
+//                'ID'          =>    $user_id,
+//                'nickname'    =>    $username,
+//                'first_name'  =>    'Marketer Leader ' . $i,
+//            )
+//        );
+//        update_user_meta( $user_id, '_sample', 'sample' );
+//
+//        // Set the role
+//        $user = new WP_User( $user_id );
+//        $user->set_role( 'marketer_leader' );
+//    }
+//        /**
+//     * Add a single marketer_leader
+//     * @param $i    int Unique key that will become part of the name & email of the record
+//     */
+//    public function add_project_supporter ( $i ) {
+//        $password = 'disciple';
+//
+//        // Create Marketer Leader
+//        $username = 'marketer_leader' . $i;
+//        $email = $username.'@disciple.tools';
+//        $user_id = wp_create_user( $username, $password, $email );
+//
+//        // Set the nickname
+//        wp_update_user(
+//            array(
+//                'ID'          =>    $user_id,
+//                'nickname'    =>    $username,
+//                'first_name'  =>    'Marketer Leader ' . $i,
+//            )
+//        );
+//        update_user_meta( $user_id, '_sample', 'sample' );
+//
+//        // Set the role
+//        $user = new WP_User( $user_id );
+//        $user->set_role( 'marketer_leader' );
+//    }
+//        /**
+//     * Add a single marketer_leader
+//     * @param $i    int Unique key that will become part of the name & email of the record
+//     */
+//    public function add_prayer_supporter ( $i ) {
+//        $password = 'disciple';
+//
+//        $username = 'prayer_supporter' . $i;
+//        $email = $username.'@disciple.tools';
+//        $user_id = wp_create_user( $username, $password, $email );
+//
+//        // Set the nickname
+//        wp_update_user(
+//            array(
+//                'ID'          =>    $user_id,
+//                'nickname'    =>    $username,
+//                'first_name'  =>    'Prayer Supporter ' . $i,
+//            )
+//        );
+//        update_user_meta( $user_id, '_sample', 'sample' );
+//
+//        // Set the role
+//        $user = new WP_User( $user_id );
+//        $user->set_role( 'prayer_supporter' );
+//    }
         /**
      * Add a single marketer_leader
      * @param $i    int Unique key that will become part of the name & email of the record
