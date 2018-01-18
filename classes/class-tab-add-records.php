@@ -202,7 +202,7 @@ class DT_Demo_Add_Records {
                     break;
                 case 'delete_locations':
                     if ( post_type_exists( 'locations' ) ) {
-                    $html .= $report_box_top . DT_Demo()->locations->delete_locations() . $report_box_bottom;
+                        $html .= $report_box_top . DT_Demo()->locations->delete_locations() . $report_box_bottom;
                     }
                     break;
                 case 'delete_assets':
