@@ -8,7 +8,7 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Panel', false ) && class_exists( 'Debug_B
 
         private $responseBox = '<div class="puc-ajax-response" style="display: none;"></div>';
 
-        public function __construct( $updateChecker) {
+        public function __construct( $updateChecker ) {
             $this->updateChecker = $updateChecker;
             $title = sprintf(
                 '<span class="puc-debug-menu-link-%s">PUC (%s)</span>',
@@ -132,7 +132,7 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Panel', false ) && class_exists( 'Debug_B
             return array( 'version', 'download_url', 'slug', );
         }
 
-        private function formatTimeWithDelta( $unixTime) {
+        private function formatTimeWithDelta( $unixTime ) {
             if ( empty( $unixTime ) ) {
                 return 'Never';
             }
@@ -148,11 +148,11 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Panel', false ) && class_exists( 'Debug_B
             return $result;
         }
 
-        private function formatTimestamp( $unixTime) {
+        private function formatTimestamp( $unixTime ) {
             return gmdate( 'Y-m-d H:i:s', $unixTime + (get_option( 'gmt_offset' ) * 3600) );
         }
 
-        public function row( $name, $value) {
+        public function row( $name, $value ) {
             if ( is_object( $value ) || is_array( $value ) ) {
                 $value = '<pre>' . htmlentities( print_r( $value, true ) ) . '</pre>';
             } else if ($value === null) {

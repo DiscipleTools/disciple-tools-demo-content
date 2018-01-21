@@ -28,7 +28,7 @@ if ( !class_exists( 'Puc_v4p4_StateStore', false ) ):
          */
         private $isLoaded = false;
 
-        public function __construct( $optionName) {
+        public function __construct( $optionName ) {
             $this->optionName = $optionName;
         }
 
@@ -76,7 +76,7 @@ if ( !class_exists( 'Puc_v4p4_StateStore', false ) ):
          * @param Puc_v4p4_Update|null $update
          * @return $this
          */
-        public function setUpdate( Puc_v4p4_Update $update = null) {
+        public function setUpdate( Puc_v4p4_Update $update = null ) {
             $this->lazyLoad();
             $this->update = $update;
             return $this;
@@ -94,7 +94,7 @@ if ( !class_exists( 'Puc_v4p4_StateStore', false ) ):
          * @param string $version
          * @return $this
          */
-        public function setCheckedVersion( $version) {
+        public function setCheckedVersion( $version ) {
             $this->lazyLoad();
             $this->checkedVersion = strval( $version );
             return $this;
@@ -118,7 +118,7 @@ if ( !class_exists( 'Puc_v4p4_StateStore', false ) ):
          *
          * @param array $translationUpdates
          */
-        public function setTranslations( $translationUpdates) {
+        public function setTranslations( $translationUpdates ) {
             $this->lazyLoad();
             if ( isset( $this->update ) ) {
                 $this->update->translations = $translationUpdates;

@@ -22,7 +22,7 @@
   <file>.</file>
 
   <exclude-pattern>*/vendor/*</exclude-pattern>
-  <exclude-pattern>dt-core/libraries/*</exclude-pattern>
+  <exclude-pattern>functions/plugin-update-checker/*</exclude-pattern>
 
   <arg name="extensions" value="php,inc,lib"/>
   <arg value="n"/>

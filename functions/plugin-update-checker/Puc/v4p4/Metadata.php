@@ -17,7 +17,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param string $json
          * @return self
          */
-        public static function fromJson( /** @noinspection PhpUnusedParameterInspection */ $json) {
+        public static function fromJson( /** @noinspection PhpUnusedParameterInspection */ $json ) {
             throw new LogicException( 'The ' . __METHOD__ . ' method must be implemented by subclasses' );
         }
 
@@ -26,7 +26,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param self $target
          * @return bool
          */
-        protected static function createFromJson( $json, $target) {
+        protected static function createFromJson( $json, $target ) {
             /** @var StdClass $apiResponse */
             $apiResponse = json_decode( $json );
             if ( empty( $apiResponse ) || !is_object( $apiResponse ) ){
@@ -56,7 +56,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param StdClass $apiResponse
          * @return bool|WP_Error
          */
-        protected function validateMetadata( /** @noinspection PhpUnusedParameterInspection */ $apiResponse) {
+        protected function validateMetadata( /** @noinspection PhpUnusedParameterInspection */ $apiResponse ) {
             return true;
         }
 
@@ -67,7 +67,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param StdClass|self $object The source object.
          * @return self The new copy.
          */
-        public static function fromObject( /** @noinspection PhpUnusedParameterInspection */ $object) {
+        public static function fromObject( /** @noinspection PhpUnusedParameterInspection */ $object ) {
             throw new LogicException( 'The ' . __METHOD__ . ' method must be implemented by subclasses' );
         }
 
@@ -98,7 +98,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param StdClass|self $from
          * @param StdClass|self $to
          */
-        protected function copyFields( $from, $to) {
+        protected function copyFields( $from, $to ) {
             $fields = $this->getFieldNames();
 
             if ( property_exists( $from, 'slug' ) && !empty( $from->slug ) ) {
@@ -124,7 +124,7 @@ if ( !class_exists( 'Puc_v4p4_Metadata', false ) ):
          * @param string $tag
          * @return string
          */
-        protected function getPrefixedFilter( $tag) {
+        protected function getPrefixedFilter( $tag ) {
             return 'puc_' . $tag;
         }
     }

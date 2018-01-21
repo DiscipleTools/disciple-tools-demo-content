@@ -22,7 +22,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
          * @param string $optionName
          * @param string $muPluginFile
          */
-        public function __construct( $api, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = '') {
+        public function __construct( $api, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = '' ) {
             $this->api = $api;
             $this->api->setHttpFilterName( $this->getUniqueName( 'request_info_options' ) );
 
@@ -31,7 +31,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
             $this->api->setSlug( $this->slug );
         }
 
-        public function requestInfo( $unusedParameter = null) {
+        public function requestInfo( $unusedParameter = null ) {
             //We have to make several remote API requests to gather all the necessary info
             //which can take a while on slow networks.
             if ( function_exists( 'set_time_limit' ) ) {
@@ -130,7 +130,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
          * @param array $fileHeader
          * @param Puc_v4p4_Plugin_Info $pluginInfo
          */
-        protected function setInfoFromHeader( $fileHeader, $pluginInfo) {
+        protected function setInfoFromHeader( $fileHeader, $pluginInfo ) {
             $headerToPropertyMap = array(
                 'Version' => 'version',
                 'Name' => 'name',
@@ -161,7 +161,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
          * @param string $ref GitHub tag or branch where to look for the readme.
          * @param Puc_v4p4_Plugin_Info $pluginInfo
          */
-        protected function setInfoFromRemoteReadme( $ref, $pluginInfo) {
+        protected function setInfoFromRemoteReadme( $ref, $pluginInfo ) {
             $readme = $this->api->getRemoteReadme( $ref );
             if ( empty( $readme ) ) {
                 return;
@@ -182,12 +182,12 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
             }
         }
 
-        public function setBranch( $branch) {
+        public function setBranch( $branch ) {
             $this->branch = $branch;
             return $this;
         }
 
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             $this->api->setAuthentication( $credentials );
             return $this;
         }
@@ -206,7 +206,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_PluginUpdateChecker' ) ):
             return $update;
         }
 
-        public function onDisplayConfiguration( $panel) {
+        public function onDisplayConfiguration( $panel ) {
             parent::onDisplayConfiguration( $panel );
             $panel->row( 'Branch', $this->branch );
             $panel->row( 'Authentication enabled', $this->api->isAuthenticationEnabled() ? 'Yes' : 'No' );

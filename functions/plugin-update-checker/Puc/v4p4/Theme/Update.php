@@ -33,7 +33,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_Update', false ) ):
          * @param string $json Valid JSON string representing a theme information object.
          * @return self New instance of ThemeUpdate, or NULL on error.
          */
-        public static function fromJson( $json) {
+        public static function fromJson( $json ) {
             $instance = new self();
             if ( !parent::createFromJson( $json, $instance ) ) {
                 return null;
@@ -47,7 +47,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_Update', false ) ):
          * @param StdClass|Puc_v4p4_Theme_Update $object The source object.
          * @return Puc_v4p4_Theme_Update The new copy.
          */
-        public static function fromObject( $object) {
+        public static function fromObject( $object ) {
             $update = new self();
             $update->copyFields( $object, $update );
             return $update;
@@ -59,7 +59,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_Update', false ) ):
          * @param StdClass $apiResponse
          * @return bool|WP_Error
          */
-        protected function validateMetadata( $apiResponse) {
+        protected function validateMetadata( $apiResponse ) {
             $required = array( 'version', 'details_url' );
             foreach ($required as $key) {
                 if ( !isset( $apiResponse->$key ) || empty( $apiResponse->$key ) ) {
@@ -76,7 +76,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_Update', false ) ):
             return array_merge( parent::getFieldNames(), self::$extraFields );
         }
 
-        protected function getPrefixedFilter( $tag) {
+        protected function getPrefixedFilter( $tag ) {
             return parent::getPrefixedFilter( $tag ) . '_theme';
         }
     }

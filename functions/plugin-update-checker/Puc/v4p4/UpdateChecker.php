@@ -55,7 +55,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          */
         protected $lastRequestApiErrors = array();
 
-        public function __construct( $metadataUrl, $directoryName, $slug = null, $checkPeriod = 12, $optionName = '') {
+        public function __construct( $metadataUrl, $directoryName, $slug = null, $checkPeriod = 12, $optionName = '' ) {
             $this->debugMode = (bool) (constant( 'WP_DEBUG' ));
             $this->metadataUrl = $metadataUrl;
             $this->directoryName = $directoryName;
@@ -180,7 +180,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string $host
          * @return bool
          */
-        public function allowMetadataHost( $allow, $host) {
+        public function allowMetadataHost( $allow, $host ) {
             static $metadataHost = 0; //Using 0 instead of NULL because parse_url can return NULL.
             if ( $metadataHost === 0 ) {
                 $metadataHost = @parse_url( $this->metadataUrl, PHP_URL_HOST );
@@ -201,7 +201,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param int $checkPeriod
          * @return Puc_v4p4_Scheduler
          */
-        abstract protected function createScheduler( $checkPeriod);
+        abstract protected function createScheduler( $checkPeriod );
 
         /**
          * Check for updates. The results are stored in the DB option specified in $optionName.
@@ -297,7 +297,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param array|WP_Error|null $httpResult The value returned by wp_remote_get(), if any.
          * @return Puc_v4p4_Update
          */
-        protected function filterUpdateResult( $update, $httpResult = null) {
+        protected function filterUpdateResult( $update, $httpResult = null ) {
             //Let plugins/themes modify the update.
             $update = apply_filters( $this->getUniqueName( 'request_update_result' ), $update, $httpResult );
 
@@ -329,7 +329,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string $message
          * @param int $errorType
          */
-        protected function triggerError( $message, $errorType) {
+        protected function triggerError( $message, $errorType ) {
             if ($this->debugMode) {
                 trigger_error( $message, $errorType );
             }
@@ -344,7 +344,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string $baseTag
          * @return string
          */
-        public function getUniqueName( $baseTag) {
+        public function getUniqueName( $baseTag ) {
             $name = 'puc_' . $baseTag;
             if ($this->filterSuffix !== '') {
                 $name .= '_' . $this->filterSuffix;
@@ -361,7 +361,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string|null $url
          * @param string|null $slug
          */
-        public function collectApiErrors( $error, $httpResponse = null, $url = null, $slug = null) {
+        public function collectApiErrors( $error, $httpResponse = null, $url = null, $slug = null ) {
             if ( isset( $slug ) && ($slug !== $this->slug) ) {
                 return;
             }
@@ -381,9 +381,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         }
 
         /* -------------------------------------------------------------------
-		 * PUC filters and filter utilities
-		 * -------------------------------------------------------------------
-		 */
+         * PUC filters and filter utilities
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Register a callback for one of the update checker filters.
@@ -397,14 +397,14 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param int $priority
          * @param int $acceptedArgs
          */
-        public function addFilter( $tag, $callback, $priority = 10, $acceptedArgs = 1) {
+        public function addFilter( $tag, $callback, $priority = 10, $acceptedArgs = 1 ) {
             add_filter( $this->getUniqueName( $tag ), $callback, $priority, $acceptedArgs );
         }
 
         /* -------------------------------------------------------------------
-		 * Inject updates
-		 * -------------------------------------------------------------------
-		 */
+         * Inject updates
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Insert the latest update (if any) into the update list maintained by WP.
@@ -412,7 +412,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param stdClass $updates Update list.
          * @return stdClass Modified update list.
          */
-        public function injectUpdate( $updates) {
+        public function injectUpdate( $updates ) {
             //Is there an update to insert?
             $update = $this->getUpdate();
 
@@ -437,7 +437,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param stdClass|array $updateToAdd
          * @return stdClass
          */
-        protected function addUpdateToList( $updates, $updateToAdd) {
+        protected function addUpdateToList( $updates, $updateToAdd ) {
             if ( !is_object( $updates ) ) {
                 $updates = new stdClass();
                 $updates->response = array();
@@ -451,7 +451,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param stdClass|null $updates
          * @return stdClass|null
          */
-        protected function removeUpdateFromList( $updates) {
+        protected function removeUpdateFromList( $updates ) {
             if ( isset( $updates, $updates->response ) ) {
                 unset( $updates->response[$this->getUpdateListKey()] );
             }
@@ -484,9 +484,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         }
 
         /* -------------------------------------------------------------------
-		 * JSON-based update API
-		 * -------------------------------------------------------------------
-		 */
+         * JSON-based update API
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Retrieve plugin or theme metadata from the JSON document at $this->metadataUrl.
@@ -496,7 +496,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param array $queryArgs Additional query arguments.
          * @return array [Puc_v4p4_Metadata|null, array|WP_Error] A metadata instance and the value returned by wp_remote_get().
          */
-        protected function requestMetadata( $metaClass, $filterRoot, $queryArgs = array()) {
+        protected function requestMetadata( $metaClass, $filterRoot, $queryArgs = array() ) {
             //Query args to append to the URL. Plugins can add their own by using a filter callback (see addQueryArgFilter()).
             $queryArgs = array_merge(
                 array(
@@ -550,7 +550,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param array|WP_Error $result
          * @return true|WP_Error
          */
-        protected function validateApiResponse( $result) {
+        protected function validateApiResponse( $result ) {
             if ( is_wp_error( $result ) ) { /** @var WP_Error $result */
                 return new WP_Error( $result->get_error_code(), 'WP HTTP Error: ' . $result->get_error_message() );
             }
@@ -577,9 +577,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         }
 
         /* -------------------------------------------------------------------
-		 * Language packs / Translation updates
-		 * -------------------------------------------------------------------
-		 */
+         * Language packs / Translation updates
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Filter a list of translation updates and return a new list that contains only updates
@@ -588,7 +588,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param array $translations
          * @return array
          */
-        protected function filterApplicableTranslations( $translations) {
+        protected function filterApplicableTranslations( $translations ) {
             $languages = array_flip( array_values( get_available_languages() ) );
             $installedTranslations = $this->getInstalledTranslations();
 
@@ -635,7 +635,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param stdClass $updates
          * @return stdClass
          */
-        public function injectTranslationUpdates( $updates) {
+        public function injectTranslationUpdates( $updates ) {
             $translationUpdates = $this->getTranslationUpdates();
             if ( empty( $translationUpdates ) ) {
                 return $updates;
@@ -703,7 +703,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param array $translation
          * @return bool
          */
-        protected function isNotMyTranslation( $translation) {
+        protected function isNotMyTranslation( $translation ) {
             $isMatch = isset( $translation['type'], $translation['slug'] )
                 && ($translation['type'] === $this->translationType)
                 && ($translation['slug'] === $this->directoryName);
@@ -712,9 +712,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         }
 
         /* -------------------------------------------------------------------
-		 * Fix directory name when installing updates
-		 * -------------------------------------------------------------------
-		 */
+         * Fix directory name when installing updates
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Rename the update directory to match the existing plugin/theme directory.
@@ -735,7 +735,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param WP_Upgrader $upgrader
          * @return string|WP_Error
          */
-        public function fixDirectoryName( $source, $remoteSource, $upgrader) {
+        public function fixDirectoryName( $source, $remoteSource, $upgrader ) {
             global $wp_filesystem;
             /** @var WP_Filesystem_Base $wp_filesystem */
 
@@ -794,7 +794,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param WP_Upgrader|null $upgrader The upgrader that's performing the current update.
          * @return bool
          */
-        abstract public function isBeingUpgraded( $upgrader = null);
+        abstract public function isBeingUpgraded( $upgrader = null );
 
         /**
          * Check for incorrect update directory structure. An update must contain a single directory,
@@ -803,7 +803,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string $remoteSource Directory path.
          * @return bool
          */
-        protected function isBadDirectoryStructure( $remoteSource) {
+        protected function isBadDirectoryStructure( $remoteSource ) {
             global $wp_filesystem;
             /** @var WP_Filesystem_Base $wp_filesystem */
 
@@ -819,9 +819,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         }
 
         /* -------------------------------------------------------------------
-		 * File header parsing
-		 * -------------------------------------------------------------------
-		 */
+         * File header parsing
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Parse plugin or theme metadata from the header comment.
@@ -832,7 +832,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          * @param string|null $content File contents.
          * @return string[]
          */
-        public function getFileHeader( $content) {
+        public function getFileHeader( $content ) {
             $content = (string) $content;
 
             //WordPress only looks at the first 8 KiB of the file, so we do the same.
@@ -865,9 +865,9 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
         abstract protected function getHeaderNames();
 
         /* -------------------------------------------------------------------
-		 * DebugBar integration
-		 * -------------------------------------------------------------------
-		 */
+         * DebugBar integration
+         * -------------------------------------------------------------------
+         */
 
         /**
          * Initialize the update checker Debug Bar plugin/add-on thingy.
@@ -887,7 +887,7 @@ if ( !class_exists( 'Puc_v4p4_UpdateChecker', false ) ):
          *
          * @param Puc_v4p4_DebugBar_Panel $panel
          */
-        public function onDisplayConfiguration( $panel) {
+        public function onDisplayConfiguration( $panel ) {
             //Do nothing. Subclasses can use this to add additional info to the panel.
         }
 

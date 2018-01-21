@@ -29,7 +29,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param string $optionName Where to store book-keeping info about update checks. Defaults to 'external_updates-$slug'.
          * @param string $muPluginFile Optional. The plugin filename relative to the mu-plugins directory.
          */
-        public function __construct( $metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = ''){
+        public function __construct( $metadataUrl, $pluginFile, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = '' ){
             $this->pluginAbsolutePath = $pluginFile;
             $this->pluginFile = plugin_basename( $this->pluginAbsolutePath );
             $this->muPluginFile = $muPluginFile;
@@ -73,7 +73,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param int $checkPeriod
          * @return Puc_v4p4_Scheduler
          */
-        protected function createScheduler( $checkPeriod) {
+        protected function createScheduler( $checkPeriod ) {
             $scheduler = new Puc_v4p4_Scheduler( $this, $checkPeriod, array( 'load-plugins.php' ) );
             register_deactivation_hook( $this->pluginFile, array( $scheduler, 'removeUpdaterCron' ) );
             return $scheduler;
@@ -137,7 +137,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param array $queryArgs Additional query arguments to append to the request. Optional.
          * @return Puc_v4p4_Plugin_Info
          */
-        public function requestInfo( $queryArgs = array()) {
+        public function requestInfo( $queryArgs = array() ) {
             list($pluginInfo, $result) = $this->requestMetadata( 'Puc_v4p4_Plugin_Info', 'request_info', $queryArgs );
 
             if ( $pluginInfo !== null ) {
@@ -259,7 +259,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param array|object $args
          * @return mixed
          */
-        public function injectInfo( $result, $action = null, $args = null){
+        public function injectInfo( $result, $action = null, $args = null ){
             $relevant = ($action == 'plugin_information') && isset( $args->slug ) && (
                     ($args->slug == $this->slug) || ($args->slug == dirname( $this->pluginFile ))
                 );
@@ -287,7 +287,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param stdClass $updateToAdd
          * @return stdClass
          */
-        protected function addUpdateToList( $updates, $updateToAdd) {
+        protected function addUpdateToList( $updates, $updateToAdd ) {
             if ( $this->isMuPlugin() ) {
                 //WP does not support automatic update installation for mu-plugins, but we can
                 //still display a notice.
@@ -300,7 +300,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param stdClass|null $updates
          * @return stdClass|null
          */
-        protected function removeUpdateFromList( $updates) {
+        protected function removeUpdateFromList( $updates ) {
             $updates = parent::removeUpdateFromList( $updates );
             if ( !empty( $this->muPluginFile ) && isset( $updates, $updates->response ) ) {
                 unset( $updates->response[$this->muPluginFile] );
@@ -328,7 +328,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param WP_Upgrader|null $upgrader The upgrader that's performing the current update.
          * @return bool
          */
-        public function isPluginBeingUpgraded( $upgrader = null) {
+        public function isPluginBeingUpgraded( $upgrader = null ) {
             return $this->isBeingUpgraded( $upgrader );
         }
 
@@ -338,7 +338,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param WP_Upgrader|null $upgrader
          * @return bool
          */
-        public function isBeingUpgraded( $upgrader = null) {
+        public function isBeingUpgraded( $upgrader = null ) {
             return $this->upgraderStatus->isPluginBeingUpgraded( $this->pluginFile, $upgrader );
         }
 
@@ -374,7 +374,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param string $pluginFile
          * @return array
          */
-        public function addCheckForUpdatesLink( $pluginMeta, $pluginFile) {
+        public function addCheckForUpdatesLink( $pluginMeta, $pluginFile ) {
             $isRelevant = ($pluginFile == $this->pluginFile)
                 || ( !empty( $this->muPluginFile ) && $pluginFile == $this->muPluginFile);
 
@@ -424,7 +424,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param array $pluginData Array of plugin header data.
          * @return array
          */
-        public function addViewDetailsLink( $pluginMeta, $pluginFile, $pluginData = array()) {
+        public function addViewDetailsLink( $pluginMeta, $pluginFile, $pluginData = array() ) {
             $isRelevant = ($pluginFile == $this->pluginFile)
                 || ( !empty( $this->muPluginFile ) && $pluginFile == $this->muPluginFile);
 
@@ -573,7 +573,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param array $errors
          * @return string
          */
-        protected function formatManualCheckErrors( $errors) {
+        protected function formatManualCheckErrors( $errors ) {
             if ( empty( $errors ) ) {
                 return '';
             }
@@ -661,7 +661,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param mixed $filterArgument
          * @return mixed
          */
-        public function clearCachedVersion( $filterArgument = null) {
+        public function clearCachedVersion( $filterArgument = null ) {
             $this->cachedInstalledVersion = null;
             return $filterArgument;
         }
@@ -693,7 +693,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addQueryArgFilter( $callback){
+        public function addQueryArgFilter( $callback ){
             $this->addFilter( 'request_info_query_args', $callback );
         }
 
@@ -709,7 +709,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addHttpRequestArgFilter( $callback) {
+        public function addHttpRequestArgFilter( $callback ) {
             $this->addFilter( 'request_info_options', $callback );
         }
 
@@ -728,7 +728,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addResultFilter( $callback) {
+        public function addResultFilter( $callback ) {
             $this->addFilter( 'request_info_result', $callback, 10, 2 );
         }
 

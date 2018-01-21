@@ -8,7 +8,7 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Extension', false ) ):
         protected $updateChecker;
         protected $panelClass = 'Puc_v4p4_DebugBar_Panel';
 
-        public function __construct( $updateChecker, $panelClass = null) {
+        public function __construct( $updateChecker, $panelClass = null ) {
             $this->updateChecker = $updateChecker;
             if ( isset( $panelClass ) ) {
                 $this->panelClass = $panelClass;
@@ -26,7 +26,7 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Extension', false ) ):
          * @param array $panels
          * @return array
          */
-        public function addDebugBarPanel( $panels) {
+        public function addDebugBarPanel( $panels ) {
             if ( $this->updateChecker->userCanInstallUpdates() ) {
                 $panels[] = new $this->panelClass( $this->updateChecker );
             }
@@ -146,7 +146,7 @@ if ( !class_exists( 'Puc_v4p4_DebugBar_Extension', false ) ):
          * @param string $filePath
          * @return string
          */
-        private function getLibraryUrl( $filePath) {
+        private function getLibraryUrl( $filePath ) {
             $absolutePath = realpath( dirname( __FILE__ ) . '/../../../' . ltrim( $filePath, '/' ) );
 
             //Where is the library located inside the WordPress directory structure?

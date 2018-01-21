@@ -26,7 +26,7 @@ if ( !class_exists( 'Puc_v4p4_Autoloader', false ) ):
             spl_autoload_register( array( $this, 'autoload' ) );
         }
 
-        public function autoload( $className) {
+        public function autoload( $className ) {
             if ( isset( $this->staticMap[$className] ) && file_exists( $this->libraryDir . $this->staticMap[$className] ) ) {
                 /** @noinspection PhpIncludeInspection */
                 include( $this->libraryDir . $this->staticMap[$className] );

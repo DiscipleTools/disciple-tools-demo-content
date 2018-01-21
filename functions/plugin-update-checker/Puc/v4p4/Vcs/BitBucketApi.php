@@ -17,7 +17,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          */
         private $repository;
 
-        public function __construct( $repositoryUrl, $credentials = array()) {
+        public function __construct( $repositoryUrl, $credentials = array() ) {
             $path = @parse_url( $repositoryUrl, PHP_URL_PATH );
             if ( preg_match( '@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches ) ) {
                 $this->username = $matches['username'];
@@ -35,7 +35,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $configBranch Start looking in this branch.
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        public function chooseReference( $configBranch) {
+        public function chooseReference( $configBranch ) {
             $updateSource = null;
 
             //Check if there's a "Stable tag: 1.2.3" header that points to a valid tag.
@@ -53,7 +53,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
             return $updateSource;
         }
 
-        public function getBranch( $branchName) {
+        public function getBranch( $branchName ) {
             $branch = $this->api( '/refs/branches/' . $branchName );
             if ( is_wp_error( $branch ) || empty( $branch ) ) {
                 return null;
@@ -72,7 +72,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $tagName
          * @return Puc_v4p4_Vcs_Reference|null
          */
-        public function getTag( $tagName) {
+        public function getTag( $tagName ) {
             $tag = $this->api( '/refs/tags/' . $tagName );
             if ( is_wp_error( $tag ) || empty( $tag ) ) {
                 return null;
@@ -119,7 +119,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $branch
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        protected function getStableTag( $branch) {
+        protected function getStableTag( $branch ) {
             $remoteReadme = $this->getRemoteReadme( $branch );
             if ( !empty( $remoteReadme['stable_tag'] ) ) {
                 $tag = $remoteReadme['stable_tag'];
@@ -140,7 +140,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $ref
          * @return string
          */
-        protected function getDownloadUrl( $ref) {
+        protected function getDownloadUrl( $ref ) {
             return sprintf(
                 'https://bitbucket.org/%s/%s/get/%s.zip',
                 $this->username,
@@ -156,7 +156,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $ref
          * @return null|string Either the contents of the file, or null if the file doesn't exist or there's an error.
          */
-        public function getRemoteFile( $path, $ref = 'master') {
+        public function getRemoteFile( $path, $ref = 'master' ) {
             $response = $this->api( 'src/' . $ref . '/' . ltrim( $path ), '1.0' );
             if ( is_wp_error( $response ) || !isset( $response, $response->data ) ) {
                 return null;
@@ -170,7 +170,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $ref Reference name (e.g. branch or tag).
          * @return string|null
          */
-        public function getLatestCommitTime( $ref) {
+        public function getLatestCommitTime( $ref ) {
             $response = $this->api( 'commits/' . $ref );
             if ( isset( $response->values, $response->values[0], $response->values[0]->date ) ) {
                 return $response->values[0]->date;
@@ -185,7 +185,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
          * @param string $version
          * @return mixed|WP_Error
          */
-        public function api( $url, $version = '2.0') {
+        public function api( $url, $version = '2.0' ) {
             $url = implode('/', array(
                 'https://api.bitbucket.org',
                 $version,
@@ -229,7 +229,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
         /**
          * @param array $credentials
          */
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             parent::setAuthentication( $credentials );
 
             if ( !empty( $credentials ) && !empty( $credentials['consumer_key'] ) ) {
@@ -242,7 +242,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_BitBucketApi', false ) ):
             }
         }
 
-        public function signDownloadUrl( $url) {
+        public function signDownloadUrl( $url ) {
             //Add authentication data to download URLs. Since OAuth signatures incorporate
             //timestamps, we have to do this immediately before inserting the update. Otherwise
             //authentication could fail due to a stale timestamp.

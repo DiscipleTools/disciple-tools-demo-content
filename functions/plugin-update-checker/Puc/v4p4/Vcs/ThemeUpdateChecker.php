@@ -22,7 +22,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_ThemeUpdateChecker', false ) ):
          * @param int $checkPeriod
          * @param string $optionName
          */
-        public function __construct( $api, $stylesheet = null, $customSlug = null, $checkPeriod = 12, $optionName = '') {
+        public function __construct( $api, $stylesheet = null, $customSlug = null, $checkPeriod = 12, $optionName = '' ) {
             $this->api = $api;
             $this->api->setHttpFilterName( $this->getUniqueName( 'request_update_options' ) );
 
@@ -83,12 +83,12 @@ if ( !class_exists( 'Puc_v4p4_Vcs_ThemeUpdateChecker', false ) ):
 
         //FIXME: This is duplicated code. Both theme and plugin subclasses that use VCS share these methods.
 
-        public function setBranch( $branch) {
+        public function setBranch( $branch ) {
             $this->branch = $branch;
             return $this;
         }
 
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             $this->api->setAuthentication( $credentials );
             return $this;
         }
@@ -107,7 +107,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_ThemeUpdateChecker', false ) ):
             return $update;
         }
 
-        public function onDisplayConfiguration( $panel) {
+        public function onDisplayConfiguration( $panel ) {
             parent::onDisplayConfiguration( $panel );
             $panel->row( 'Branch', $this->branch );
             $panel->row( 'Authentication enabled', $this->api->isAuthenticationEnabled() ? 'Yes' : 'No' );

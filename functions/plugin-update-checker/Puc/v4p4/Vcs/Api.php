@@ -32,7 +32,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $repositoryUrl
          * @param array|string|null $credentials
          */
-        public function __construct( $repositoryUrl, $credentials = null) {
+        public function __construct( $repositoryUrl, $credentials = null ) {
             $this->repositoryUrl = $repositoryUrl;
             $this->setAuthentication( $credentials );
         }
@@ -50,7 +50,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $configBranch Start looking in this branch.
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        abstract public function chooseReference( $configBranch);
+        abstract public function chooseReference( $configBranch );
 
         /**
          * Get the readme.txt file from the remote repository and parse it
@@ -59,7 +59,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $ref Tag or branch name.
          * @return array Parsed readme.
          */
-        public function getRemoteReadme( $ref = 'master') {
+        public function getRemoteReadme( $ref = 'master' ) {
             $fileContents = $this->getRemoteFile( $this->getLocalReadmeName(), $ref );
             if ( empty( $fileContents ) ) {
                 return array();
@@ -107,7 +107,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $branchName
          * @return Puc_v4p4_Vcs_Reference|null
          */
-        abstract public function getBranch( $branchName);
+        abstract public function getBranch( $branchName );
 
         /**
          * Get a specific tag.
@@ -115,7 +115,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $tagName
          * @return Puc_v4p4_Vcs_Reference|null
          */
-        abstract public function getTag( $tagName);
+        abstract public function getTag( $tagName );
 
         /**
          * Get the tag that looks like the highest version number.
@@ -131,7 +131,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $name
          * @return bool
          */
-        protected function looksLikeVersion( $name) {
+        protected function looksLikeVersion( $name ) {
             //Tag names may be prefixed with "v", e.g. "v1.2.3".
             $name = ltrim( $name, 'v' );
 
@@ -150,7 +150,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param stdClass $tag
          * @return bool
          */
-        protected function isVersionTag( $tag) {
+        protected function isVersionTag( $tag ) {
             $property = $this->tagNameProperty;
             return isset( $tag->$property ) && $this->looksLikeVersion( $tag->$property );
         }
@@ -162,7 +162,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param stdClass[] $tags Array of tag objects.
          * @return stdClass[] Filtered array of tags sorted in descending order.
          */
-        protected function sortTagsByVersion( $tags) {
+        protected function sortTagsByVersion( $tags ) {
             //Keep only those tags that look like version numbers.
             $versionTags = array_filter( $tags, array( $this, 'isVersionTag' ) );
             //Sort them in descending order.
@@ -178,7 +178,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param stdClass $tag2 Another tag object.
          * @return int
          */
-        protected function compareTagNames( $tag1, $tag2) {
+        protected function compareTagNames( $tag1, $tag2 ) {
             $property = $this->tagNameProperty;
             if ( !isset( $tag1->$property ) ) {
                 return 1;
@@ -196,7 +196,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $ref
          * @return null|string Either the contents of the file, or null if the file doesn't exist or there's an error.
          */
-        abstract public function getRemoteFile( $path, $ref = 'master');
+        abstract public function getRemoteFile( $path, $ref = 'master' );
 
         /**
          * Get the timestamp of the latest commit that changed the specified branch or tag.
@@ -204,7 +204,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $ref Reference name (e.g. branch or tag).
          * @return string|null
          */
-        abstract public function getLatestCommitTime( $ref);
+        abstract public function getLatestCommitTime( $ref );
 
         /**
          * Get the contents of the changelog file from the repository.
@@ -213,7 +213,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $localDirectory Full path to the local plugin or theme directory.
          * @return null|string The HTML contents of the changelog.
          */
-        public function getRemoteChangelog( $ref, $localDirectory) {
+        public function getRemoteChangelog( $ref, $localDirectory ) {
             $filename = $this->findChangelogName( $localDirectory );
             if ( empty( $filename ) ) {
                 return null;
@@ -234,7 +234,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $directory
          * @return string|null
          */
-        protected function findChangelogName( $directory = null) {
+        protected function findChangelogName( $directory = null ) {
             if ( !isset( $directory ) ) {
                 $directory = $this->localDirectory;
             }
@@ -257,7 +257,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          *
          * @param $credentials
          */
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             $this->credentials = $credentials;
         }
 
@@ -269,21 +269,21 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
          * @param string $url
          * @return string
          */
-        public function signDownloadUrl( $url) {
+        public function signDownloadUrl( $url ) {
             return $url;
         }
 
         /**
          * @param string $filterName
          */
-        public function setHttpFilterName( $filterName) {
+        public function setHttpFilterName( $filterName ) {
             $this->httpFilterName = $filterName;
         }
 
         /**
          * @param string $directory
          */
-        public function setLocalDirectory( $directory) {
+        public function setLocalDirectory( $directory ) {
             if ( empty( $directory ) || !is_dir( $directory ) || ($directory === '.') ) {
                 $this->localDirectory = null;
             } else {
@@ -294,7 +294,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_Api' ) ):
         /**
          * @param string $slug
          */
-        public function setSlug( $slug) {
+        public function setSlug( $slug ) {
             $this->slug = $slug;
         }
     }

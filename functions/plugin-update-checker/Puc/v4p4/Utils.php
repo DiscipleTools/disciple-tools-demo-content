@@ -12,7 +12,7 @@ if ( !class_exists( 'Puc_v4p4_Utils', false ) ):
          * @param string $separator Path element separator. Only applies to string paths.
          * @return mixed
          */
-        public static function get( $collection, $path, $default = null, $separator = '.') {
+        public static function get( $collection, $path, $default = null, $separator = '.' ) {
             if ( is_string( $path ) ) {
                 $path = explode( $separator, $path );
             }
@@ -39,7 +39,7 @@ if ( !class_exists( 'Puc_v4p4_Utils', false ) ):
          * @param mixed|null $default Returns this value if there are no non-empty elements.
          * @return mixed|null
          */
-        public static function findNotEmpty( $values, $default = null) {
+        public static function findNotEmpty( $values, $default = null ) {
             if ( empty( $values ) ) {
                 return $default;
             }
@@ -60,7 +60,7 @@ if ( !class_exists( 'Puc_v4p4_Utils', false ) ):
          * @param string $prefix
          * @return bool
          */
-        public static function startsWith( $input, $prefix) {
+        public static function startsWith( $input, $prefix ) {
             $length = strlen( $prefix );
             return (substr( $input, 0, $length ) === $prefix);
         }

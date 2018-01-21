@@ -23,7 +23,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          */
         protected $accessToken;
 
-        public function __construct( $repositoryUrl, $accessToken = null) {
+        public function __construct( $repositoryUrl, $accessToken = null ) {
             //Parse the repository host to support custom hosts.
             $this->repositoryHost = @parse_url( $repositoryUrl, PHP_URL_HOST );
 
@@ -94,7 +94,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $branchName
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        public function getBranch( $branchName) {
+        public function getBranch( $branchName ) {
             $branch = $this->api( '/:user/:repo/repository/branches/' . $branchName );
             if ( is_wp_error( $branch ) || empty( $branch ) ) {
                 return null;
@@ -119,7 +119,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $ref Reference name (e.g. branch or tag).
          * @return string|null
          */
-        public function getLatestCommitTime( $ref) {
+        public function getLatestCommitTime( $ref ) {
             $commits = $this->api( '/:user/:repo/repository/commits/', array('ref_name' => $ref) );
             if ( is_wp_error( $commits ) || !is_array( $commits ) || !isset( $commits[0] ) ) {
                 return null;
@@ -135,7 +135,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param array $queryParams
          * @return mixed|WP_Error
          */
-        protected function api( $url, $queryParams = array()) {
+        protected function api( $url, $queryParams = array() ) {
             $baseUrl = $url;
             $url = $this->buildApiUrl( $url, $queryParams );
 
@@ -172,7 +172,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param array $queryParams
          * @return string
          */
-        protected function buildApiUrl( $url, $queryParams) {
+        protected function buildApiUrl( $url, $queryParams ) {
             $variables = array(
                 'user' => $this->userName,
                 'repo' => $this->repositoryName
@@ -203,7 +203,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $ref
          * @return null|string Either the contents of the file, or null if the file doesn't exist or there's an error.
          */
-        public function getRemoteFile( $path, $ref = 'master') {
+        public function getRemoteFile( $path, $ref = 'master' ) {
             $response = $this->api( '/:user/:repo/repository/files/' . $path, array('ref' => $ref) );
             if ( is_wp_error( $response ) || !isset( $response->content ) || $response->encoding !== 'base64' ) {
                 return null;
@@ -218,7 +218,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $ref
          * @return string
          */
-        public function buildArchiveDownloadUrl( $ref = 'master') {
+        public function buildArchiveDownloadUrl( $ref = 'master' ) {
             $url = sprintf(
                 'https://%1$s/%2$s/%3$s/repository/%4$s/archive.zip',
                 $this->repositoryHost,
@@ -240,7 +240,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $tagName
          * @return Puc_v4p4_Vcs_Reference|null
          */
-        public function getTag( $tagName) {
+        public function getTag( $tagName ) {
             throw new LogicException( 'The ' . __METHOD__ . ' method is not implemented and should not be used.' );
         }
 
@@ -250,7 +250,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
          * @param string $configBranch Start looking in this branch.
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        public function chooseReference( $configBranch) {
+        public function chooseReference( $configBranch ) {
             $updateSource = null;
 
             // GitLab doesn't handle releases the same as GitHub so just use the latest tag
@@ -265,7 +265,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitLabApi', false ) ):
             return $updateSource;
         }
 
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             parent::setAuthentication( $credentials );
             $this->accessToken = is_string( $credentials ) ? $credentials : null;
         }

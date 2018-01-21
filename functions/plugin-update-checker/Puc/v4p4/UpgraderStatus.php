@@ -30,7 +30,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param WP_Upgrader|null $upgrader The upgrader that's performing the current update.
          * @return bool True if the plugin identified by $pluginFile is being upgraded.
          */
-        public function isPluginBeingUpgraded( $pluginFile, $upgrader = null) {
+        public function isPluginBeingUpgraded( $pluginFile, $upgrader = null ) {
             return $this->isBeingUpgraded( 'plugin', $pluginFile, $upgrader );
         }
 
@@ -41,7 +41,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param WP_Upgrader|null $upgrader The upgrader that's performing the current update.
          * @return bool
          */
-        public function isThemeBeingUpgraded( $stylesheet, $upgrader = null) {
+        public function isThemeBeingUpgraded( $stylesheet, $upgrader = null ) {
             return $this->isBeingUpgraded( 'theme', $stylesheet, $upgrader );
         }
 
@@ -53,7 +53,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param Plugin_Upgrader|WP_Upgrader|null $upgrader
          * @return bool
          */
-        protected function isBeingUpgraded( $type, $id, $upgrader = null) {
+        protected function isBeingUpgraded( $type, $id, $upgrader = null ) {
             if ( isset( $upgrader ) ) {
                 list($currentType, $currentId) = $this->getThingBeingUpgradedBy( $upgrader );
                 if ( $currentType !== null ) {
@@ -79,7 +79,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param Plugin_Upgrader|WP_Upgrader $upgrader
          * @return array
          */
-        private function getThingBeingUpgradedBy( $upgrader) {
+        private function getThingBeingUpgradedBy( $upgrader ) {
             if ( !isset( $upgrader, $upgrader->skin ) ) {
                 return array( null, null );
             }
@@ -120,7 +120,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param array $searchHeaders The plugin file header to look for.
          * @return string|null Plugin basename ("foo/bar.php"), or NULL if we can't identify the plugin.
          */
-        private function identifyPluginByHeaders( $searchHeaders) {
+        private function identifyPluginByHeaders( $searchHeaders ) {
             if ( !function_exists( 'get_plugins' ) ){
                 /** @noinspection PhpIncludeInspection */
                 require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
@@ -152,7 +152,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param array $hookExtra
          * @return mixed Returns $input unaltered.
          */
-        public function setUpgradedThing( $input, $hookExtra) {
+        public function setUpgradedThing( $input, $hookExtra ) {
             if ( !empty( $hookExtra['plugin'] ) && is_string( $hookExtra['plugin'] ) ) {
                 $this->currentId = $hookExtra['plugin'];
                 $this->currentType = 'plugin';
@@ -172,7 +172,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param array $options
          * @return array
          */
-        public function setUpgradedPluginFromOptions( $options) {
+        public function setUpgradedPluginFromOptions( $options ) {
             if ( isset( $options['hook_extra']['plugin'] ) && is_string( $options['hook_extra']['plugin'] ) ) {
                 $this->currentType = 'plugin';
                 $this->currentId = $options['hook_extra']['plugin'];
@@ -189,7 +189,7 @@ if ( !class_exists( 'Puc_v4p4_UpgraderStatus', false ) ):
          * @param mixed $input
          * @return mixed Returns $input unaltered.
          */
-        public function clearUpgradedThing( $input = null) {
+        public function clearUpgradedThing( $input = null ) {
             $this->currentId = null;
             $this->currentType = null;
             return $input;

@@ -46,7 +46,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_Info', false ) ):
          * @param string $json Valid JSON string representing plugin info.
          * @return self|null New instance of Plugin Info, or NULL on error.
          */
-        public static function fromJson( $json){
+        public static function fromJson( $json ){
             $instance = new self();
 
             if ( !parent::createFromJson( $json, $instance ) ) {
@@ -66,7 +66,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_Info', false ) ):
          * @param StdClass $apiResponse
          * @return bool|WP_Error
          */
-        protected function validateMetadata( $apiResponse) {
+        protected function validateMetadata( $apiResponse ) {
             if (
                 !isset( $apiResponse->name, $apiResponse->version )
                 || empty( $apiResponse->name )

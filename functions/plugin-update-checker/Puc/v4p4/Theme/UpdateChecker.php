@@ -17,7 +17,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          */
         protected $theme;
 
-        public function __construct( $metadataUrl, $stylesheet = null, $customSlug = null, $checkPeriod = 12, $optionName = '') {
+        public function __construct( $metadataUrl, $stylesheet = null, $customSlug = null, $checkPeriod = 12, $optionName = '' ) {
             if ( $stylesheet === null ) {
                 $stylesheet = get_stylesheet();
             }
@@ -88,7 +88,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          * @param int $checkPeriod
          * @return Puc_v4p4_Scheduler
          */
-        protected function createScheduler( $checkPeriod) {
+        protected function createScheduler( $checkPeriod ) {
             return new Puc_v4p4_Scheduler( $this, $checkPeriod, array( 'load-themes.php' ) );
         }
 
@@ -98,7 +98,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          * @param WP_Upgrader|null $upgrader The upgrader that's performing the current update.
          * @return bool
          */
-        public function isBeingUpgraded( $upgrader = null) {
+        public function isBeingUpgraded( $upgrader = null ) {
             return $this->upgraderStatus->isThemeBeingUpgraded( $this->stylesheet, $upgrader );
         }
 
@@ -115,7 +115,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addQueryArgFilter( $callback){
+        public function addQueryArgFilter( $callback ){
             $this->addFilter( 'request_update_query_args', $callback );
         }
 
@@ -131,7 +131,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addHttpRequestArgFilter( $callback) {
+        public function addHttpRequestArgFilter( $callback ) {
             $this->addFilter( 'request_update_options', $callback );
         }
 
@@ -150,7 +150,7 @@ if ( !class_exists( 'Puc_v4p4_Theme_UpdateChecker', false ) ):
          * @param callable $callback
          * @return void
          */
-        public function addResultFilter( $callback) {
+        public function addResultFilter( $callback ) {
             $this->addFilter( 'request_update_result', $callback, 10, 2 );
         }
 

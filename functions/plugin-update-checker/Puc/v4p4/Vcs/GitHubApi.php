@@ -37,7 +37,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          */
         protected $assetApiBaseUrl = null;
 
-        public function __construct( $repositoryUrl, $accessToken = null) {
+        public function __construct( $repositoryUrl, $accessToken = null ) {
             $path = @parse_url( $repositoryUrl, PHP_URL_PATH );
             if ( preg_match( '@^/?(?P<username>[^/]+?)/(?P<repository>[^/#?&]+?)/?$@', $path, $matches ) ) {
                 $this->userName = $matches['username'];
@@ -132,7 +132,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $branchName
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        public function getBranch( $branchName) {
+        public function getBranch( $branchName ) {
             $branch = $this->api( '/repos/:user/:repo/branches/' . $branchName );
             if ( is_wp_error( $branch ) || empty( $branch ) ) {
                 return null;
@@ -158,7 +158,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $ref Reference name (e.g. branch or tag).
          * @return StdClass|null
          */
-        public function getLatestCommit( $filename, $ref = 'master') {
+        public function getLatestCommit( $filename, $ref = 'master' ) {
             $commits = $this->api(
                 '/repos/:user/:repo/commits',
                 array(
@@ -178,7 +178,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $ref Reference name (e.g. branch or tag).
          * @return string|null
          */
-        public function getLatestCommitTime( $ref) {
+        public function getLatestCommitTime( $ref ) {
             $commits = $this->api( '/repos/:user/:repo/commits', array('sha' => $ref) );
             if ( !is_wp_error( $commits ) && is_array( $commits ) && isset( $commits[0] ) ) {
                 return $commits[0]->commit->author->date;
@@ -193,7 +193,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param array $queryParams
          * @return mixed|WP_Error
          */
-        protected function api( $url, $queryParams = array()) {
+        protected function api( $url, $queryParams = array() ) {
             $baseUrl = $url;
             $url = $this->buildApiUrl( $url, $queryParams );
 
@@ -230,7 +230,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param array $queryParams
          * @return string
          */
-        protected function buildApiUrl( $url, $queryParams) {
+        protected function buildApiUrl( $url, $queryParams ) {
             $variables = array(
                 'user' => $this->userName,
                 'repo' => $this->repositoryName,
@@ -257,7 +257,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $ref
          * @return null|string Either the contents of the file, or null if the file doesn't exist or there's an error.
          */
-        public function getRemoteFile( $path, $ref = 'master') {
+        public function getRemoteFile( $path, $ref = 'master' ) {
             $apiUrl = '/repos/:user/:repo/contents/' . $path;
             $response = $this->api( $apiUrl, array('ref' => $ref) );
 
@@ -273,7 +273,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $ref
          * @return string
          */
-        public function buildArchiveDownloadUrl( $ref = 'master') {
+        public function buildArchiveDownloadUrl( $ref = 'master' ) {
             $url = sprintf(
                 'https://api.github.com/repos/%1$s/%2$s/zipball/%3$s',
                 urlencode( $this->userName ),
@@ -292,12 +292,12 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $tagName
          * @return Puc_v4p4_Vcs_Reference|null
          */
-        public function getTag( $tagName) {
+        public function getTag( $tagName ) {
             //The current GitHub update checker doesn't use getTag, so I didn't bother to implement it.
             throw new LogicException( 'The ' . __METHOD__ . ' method is not implemented and should not be used.' );
         }
 
-        public function setAuthentication( $credentials) {
+        public function setAuthentication( $credentials ) {
             parent::setAuthentication( $credentials );
             $this->accessToken = is_string( $credentials ) ? $credentials : null;
         }
@@ -308,7 +308,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $configBranch Start looking in this branch.
          * @return null|Puc_v4p4_Vcs_Reference
          */
-        public function chooseReference( $configBranch) {
+        public function chooseReference( $configBranch ) {
             $updateSource = null;
 
             if ( $configBranch === 'master' ) {
@@ -331,7 +331,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $url
          * @return string
          */
-        public function signDownloadUrl( $url) {
+        public function signDownloadUrl( $url ) {
             if ( empty( $this->credentials ) ) {
                 return $url;
             }
@@ -348,7 +348,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          *
          * @param string|null $fileNameRegex Optional. Use only those assets where the file name matches this regex.
          */
-        public function enableReleaseAssets( $fileNameRegex = null) {
+        public function enableReleaseAssets( $fileNameRegex = null ) {
             $this->releaseAssetsEnabled = true;
             $this->assetFilterRegex = $fileNameRegex;
             $this->assetApiBaseUrl = sprintf(
@@ -368,7 +368,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param stdClass $releaseAsset
          * @return bool
          */
-        protected function matchesAssetFilter( $releaseAsset) {
+        protected function matchesAssetFilter( $releaseAsset ) {
             if ( $this->assetFilterRegex === null ) {
                 //The default is to accept all assets.
                 return true;
@@ -381,7 +381,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param bool $result
          * @return bool
          */
-        public function addHttpRequestFilter( $result) {
+        public function addHttpRequestFilter( $result ) {
             static $filterAdded = false;
             if ( $this->releaseAssetsEnabled && !$filterAdded && $this->isAuthenticationEnabled() ) {
                 add_filter( 'http_request_args', array( $this, 'setReleaseDownloadHeader' ), 10, 2 );
@@ -401,7 +401,7 @@ if ( !class_exists( 'Puc_v4p4_Vcs_GitHubApi', false ) ):
          * @param string $url
          * @return array
          */
-        public function setReleaseDownloadHeader( $requestArgs, $url = '') {
+        public function setReleaseDownloadHeader( $requestArgs, $url = '' ) {
             //Is WordPress trying to download one of our assets?
             if ( strpos( $url, $this->assetApiBaseUrl ) !== false ) {
                 $requestArgs['headers']['accept'] = 'application/octet-stream';

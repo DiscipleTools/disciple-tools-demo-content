@@ -9,7 +9,7 @@ if ( !class_exists( 'Puc_v4p4_OAuthSignature', false ) ):
         private $consumerKey = '';
         private $consumerSecret = '';
 
-        public function __construct( $consumerKey, $consumerSecret) {
+        public function __construct( $consumerKey, $consumerSecret ) {
             $this->consumerKey = $consumerKey;
             $this->consumerSecret = $consumerSecret;
         }
@@ -21,7 +21,7 @@ if ( !class_exists( 'Puc_v4p4_OAuthSignature', false ) ):
          * @param string $method HTTP method such as "GET", "POST" and so on.
          * @return string The signed URL.
          */
-        public function sign( $url, $method = 'GET') {
+        public function sign( $url, $method = 'GET' ) {
             $parameters = array();
 
             //Parse query parameters.

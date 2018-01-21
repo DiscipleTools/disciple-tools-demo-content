@@ -31,7 +31,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_Update', false ) ):
          * @param string $json
          * @return Puc_v4p4_Plugin_Update|null
          */
-        public static function fromJson( $json){
+        public static function fromJson( $json ){
             //Since update-related information is simply a subset of the full plugin info,
             //we can parse the update JSON as if it was a plugin info string, then copy over
             //the parts that we care about.
@@ -50,7 +50,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_Update', false ) ):
          * @param Puc_v4p4_Plugin_Info $info
          * @return Puc_v4p4_Plugin_Update
          */
-        public static function fromPluginInfo( $info){
+        public static function fromPluginInfo( $info ){
             return self::fromObject( $info );
         }
 
@@ -60,7 +60,7 @@ if ( !class_exists( 'Puc_v4p4_Plugin_Update', false ) ):
          * @param StdClass|Puc_v4p4_Plugin_Info|Puc_v4p4_Plugin_Update $object The source object.
          * @return Puc_v4p4_Plugin_Update The new copy.
          */
-        public static function fromObject( $object) {
+        public static function fromObject( $object ) {
             $update = new self();
             $update->copyFields( $object, $update );
             return $update;

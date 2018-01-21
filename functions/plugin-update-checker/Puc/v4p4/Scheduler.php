@@ -26,7 +26,7 @@ if ( !class_exists( 'Puc_v4p4_Scheduler', false ) ):
          * @param int $checkPeriod How often to check for updates (in hours).
          * @param array $hourlyHooks
          */
-        public function __construct( $updateChecker, $checkPeriod, $hourlyHooks = array( 'load-plugins.php' )) {
+        public function __construct( $updateChecker, $checkPeriod, $hourlyHooks = array( 'load-plugins.php' ) ) {
             $this->updateChecker = $updateChecker;
             $this->checkPeriod = $checkPeriod;
 
@@ -144,7 +144,7 @@ if ( !class_exists( 'Puc_v4p4_Scheduler', false ) ):
          * @param array $schedules
          * @return array
          */
-        public function _addCustomSchedule( $schedules){
+        public function _addCustomSchedule( $schedules ){
             if ( $this->checkPeriod && ($this->checkPeriod > 0) ){
                 $scheduleName = 'every' . $this->checkPeriod . 'hours';
                 $schedules[$scheduleName] = array(

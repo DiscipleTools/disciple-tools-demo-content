@@ -34,7 +34,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $muPluginFile The plugin filename relative to the mu-plugins directory.
          * @return Puc_v4p4_Plugin_UpdateChecker|Puc_v4p4_Theme_UpdateChecker|Puc_v4p4_Vcs_BaseChecker
          */
-        public static function buildUpdateChecker( $metadataUrl, $fullPath, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = '') {
+        public static function buildUpdateChecker( $metadataUrl, $fullPath, $slug = '', $checkPeriod = 12, $optionName = '', $muPluginFile = '' ) {
             $fullPath = self::normalizePath( $fullPath );
             $id = null;
 
@@ -116,7 +116,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $path Path to normalize.
          * @return string Normalized path.
          */
-        public static function normalizePath( $path) {
+        public static function normalizePath( $path ) {
             if ( function_exists( 'wp_normalize_path' ) ) {
                 return wp_normalize_path( $path );
             }
@@ -134,7 +134,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $absolutePath Normalized path.
          * @return bool
          */
-        protected static function isPluginFile( $absolutePath) {
+        protected static function isPluginFile( $absolutePath ) {
             //Is the file inside the "plugins" or "mu-plugins" directory?
             $pluginDir = self::normalizePath( WP_PLUGIN_DIR );
             $muPluginDir = self::normalizePath( WPMU_PLUGIN_DIR );
@@ -167,7 +167,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $absolutePath Normalized path.
          * @return string|null Directory name, or NULL if the path doesn't point to a theme.
          */
-        protected static function getThemeDirectoryName( $absolutePath) {
+        protected static function getThemeDirectoryName( $absolutePath ) {
             if ( is_file( $absolutePath ) ) {
                 $absolutePath = dirname( $absolutePath );
             }
@@ -184,7 +184,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $metadataUrl
          * @return string|null
          */
-        private static function getVcsService( $metadataUrl) {
+        private static function getVcsService( $metadataUrl ) {
             $service = null;
 
             //Which hosting service does the URL point to?
@@ -213,7 +213,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $class Partial class name.
          * @return string|null Full class name.
          */
-        protected static function getCompatibleClassVersion( $class) {
+        protected static function getCompatibleClassVersion( $class ) {
             if ( isset( self::$classVersions[$class][self::$latestCompatibleVersion] ) ) {
                 return self::$classVersions[$class][self::$latestCompatibleVersion];
             }
@@ -226,7 +226,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $class
          * @return null|string
          */
-        public static function getLatestClassVersion( $class) {
+        public static function getLatestClassVersion( $class ) {
             if ( !self::$sorted ) {
                 self::sortVersions();
             }
@@ -249,7 +249,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
             self::$sorted = true;
         }
 
-        protected static function compareVersions( $a, $b) {
+        protected static function compareVersions( $a, $b ) {
             return -version_compare( $a, $b );
         }
 
@@ -262,7 +262,7 @@ if ( !class_exists( 'Puc_v4p4_Factory', false ) ):
          * @param string $versionedClass Actual class name, e.g. 'PluginUpdateChecker_1_2'.
          * @param string $version Version number, e.g. '1.2'.
          */
-        public static function addVersion( $generalClass, $versionedClass, $version) {
+        public static function addVersion( $generalClass, $versionedClass, $version ) {
             if ( empty( self::$myMajorVersion ) ) {
                 $nameParts = explode( '_', __CLASS__, 3 );
                 self::$myMajorVersion = substr( ltrim( $nameParts[1], 'v' ), 0, 1 );
