@@ -302,6 +302,16 @@ class DT_Demo {
      */
     private function setup_actions() {
 
+        // Check for plugin updates
+        if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+            require( 'vendor/plugin-update-checker/plugin-update-checker.php' );
+        }
+        Puc_v4_Factory::buildUpdateChecker(
+        'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-content-version-control.json',
+        __FILE__,
+        'disciple-tools-demo-content'
+        );
+
         // Internationalize the text strings used.
         add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
 
