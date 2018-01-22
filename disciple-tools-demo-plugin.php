@@ -4,7 +4,7 @@
  * Plugin Name: Disciple Tools - Demo
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-plugin
  * Description: Disciple Tools Demo Plugin. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
- * Version: 0.0.9
+ * Version: 0.1.0
  * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/DiscipleTools
  *
@@ -309,7 +309,7 @@ class DT_Demo {
         Puc_v4_Factory::buildUpdateChecker(
             'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-plugin-version-control.json',
             __FILE__,
-            'disciple-tools-demo-content'
+            'disciple-tools-demo-plugin'
         );
 
         // Internationalize the text strings used.
