@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
  * @return object
  */
 function dt_demo() {
-    $current_theme = get_option('current_theme');
+    $current_theme = get_option( 'current_theme' );
     if( 'Disciple Tools' == $current_theme ) {
         return DT_Demo::get_instance();
     }
