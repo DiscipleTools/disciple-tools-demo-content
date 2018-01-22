@@ -78,6 +78,7 @@ class DT_Demo_Groups
                 $address => dt_demo_full_address(),
                 "_sample"   => 'sample',
                 "group_status" => dt_demo_random_group_status(),
+                "group_type" => dt_demo_random_group_type(),
             ),
         );
 
