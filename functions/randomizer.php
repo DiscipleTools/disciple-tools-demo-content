@@ -75,21 +75,6 @@ function dt_demo_random_source () {
     return $list[rand( 0, $top - 1 )];
 }
 
-/**
- * Generates random group type
- * @return mixed
- */
-function dt_demo_random_group_type () {
-
-    $list = array(
-        'DBS', 'Church'
-    );
-
-    $top = count( $list );
-
-    return $list[rand( 0, $top - 1 )];
-}
-
 
 /**
  * Generates random address
@@ -354,8 +339,17 @@ function dt_demo_random_milestones(): array {
  */
 function dt_demo_random_group_status(): string {
     $list = array(
-        'no_value', 'active_pre_group', 'active_group', 'active_church',
-        'inactive_church', 'inactive_group', 'inactive_pre_group',
+        'active', 'inactive'
+    );
+    return $list[ array_rand( $list ) ];
+}
+/**
+ * Generates random group type
+ * @return string
+ */
+function dt_demo_random_group_type(): string {
+    $list = array(
+        'pre-group', 'group', 'church'
     );
     return $list[ array_rand( $list ) ];
 }
