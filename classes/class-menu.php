@@ -113,13 +113,13 @@ final class DT_Demo_Page {
         switch ($tab) {
 
             case "tutorials":
-                    $html .= DT_Demo()->tutorials->dt_tabs_tutorial_content();
+                    $html .= dt_demo()->tutorials->dt_tabs_tutorial_content();
                 break;
             case "report":
-                $html .= DT_Demo()->add_report->add_report_page_form();
+                $html .= dt_demo()->add_report->add_report_page_form();
                 break;
             default:
-                $html .= DT_Demo()->add_records->DT_Demo_Add_Records_content();
+                $html .= dt_demo()->add_records->dt_demo_add_records_content();
         }
 
         $html .= '</div>'; // end div class wrap

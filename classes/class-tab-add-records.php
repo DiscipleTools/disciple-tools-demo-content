@@ -57,7 +57,7 @@ class DT_Demo_Add_Records {
      * @access  public
      * @since   0.1
      */
-    public function DT_Demo_Add_Records_content () {
+    public function dt_demo_add_records_content () {
         global $wpdb;
         $html = '';
 
@@ -82,149 +82,149 @@ class DT_Demo_Add_Records {
 
                 // users
                 case 'add_users':
-                    $html .= $report_box_top . DT_Demo()->users->add_users_combined( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->users->add_users_combined( $_POST['count'] ) . $report_box_bottom;
                     break;
 
                 case 'refresh_users':
-                    $html .= $report_box_top . DT_Demo()->users->add_users_once( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->users->add_users_once( $_POST['count'] ) . $report_box_bottom;
                     break;
 
 
 
                 case 'reset_users':
-                    $html .= $report_box_top . DT_Demo()->users->reset_users() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->users->reset_users() . $report_box_bottom;
                     break;
 
 
                 // Contacts
                 case 'add_contacts':
                     if ( post_type_exists( 'contacts' ) ) {
-                        $html .= $report_box_top . DT_Demo()->contacts->add_contacts_by_count( $_POST['count'] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->contacts->add_contacts_by_count( $_POST['count'] ) . $report_box_bottom;
                     }
                     break;
 
                 // Groups
                 case 'add_groups':
                     if ( post_type_exists( 'groups' ) ) {
-                        $html .= $report_box_top . DT_Demo()->groups->add_groups_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->groups->add_groups_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
 
                 // Locations
                 case 'add_locations':
                     if ( post_type_exists( 'locations' ) ) {
-                        $html .= $report_box_top . DT_Demo()->locations->add_locations_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->locations->add_locations_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
 
                 // Assets
                 case 'add_assets':
                     if ( post_type_exists( 'assetmapping' ) ) {
-                        $html .= $report_box_top . DT_Demo()->assets->add_assets_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->assets->add_assets_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
 
                 case 'add_comments':
-                        $html .= $report_box_top . DT_Demo()->comments->add_comments( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->comments->add_comments( $_POST[ 'count' ] ) . $report_box_bottom;
                     break;
 
                 // Prayer posts
                 case 'add_prayer_posts':
                     if ( post_type_exists( 'prayer' ) ) {
-                        $html .= $report_box_top . DT_Demo()->prayer->add_prayer_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->prayer->add_prayer_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
                 case 'add_progress_posts':
                     if ( post_type_exists( 'progress' ) ) {
-                        $html .= $report_box_top . DT_Demo()->progress->add_progress_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->progress->add_progress_posts_by_count( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
 
                 // Generations
                 case 'build_baptisms':
-                    $html .= $report_box_top . DT_Demo()->connections->add_baptism_connections( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->connections->add_baptism_connections( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'build_churches':
-                    $html .= $report_box_top . DT_Demo()->connections->add_church_connections( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->connections->add_church_connections( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'build_coaching':
-                    $html .= $report_box_top . DT_Demo()->connections->add_coaching_connections( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->connections->add_coaching_connections( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'contacts_to_groups':
-                    $html .= $report_box_top . DT_Demo()->connections->add_contacts_to_groups( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->connections->add_contacts_to_groups( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'contacts_to_locations':
                     if ( post_type_exists( 'contacts' ) && post_type_exists( 'locations' ) ) {
-                        $html .= $report_box_top . DT_Demo()->connections->add_contacts_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->connections->add_contacts_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
                 case 'groups_to_locations':
                     if ( post_type_exists( 'groups' ) && post_type_exists( 'locations' ) ) {
-                        $html .= $report_box_top . DT_Demo()->connections->add_groups_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->connections->add_groups_to_locations( $_POST[ 'count' ] ) . $report_box_bottom;
                     }
                     break;
                 case 'assetmapping_to_locations':
-                    $html .= $report_box_top . DT_Demo()->connections->add_assets_to_locations( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->connections->add_assets_to_locations( $_POST['count'] ) . $report_box_bottom;
                     break;
 
                 case 'shuffle_assignments':
-                    $html .= $report_box_top . DT_Demo()->contacts->shuffle_assignments( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->contacts->shuffle_assignments( $_POST['count'] ) . $report_box_bottom;
                     break;
 
                 case 'shuffle_update_requests':
-                    $html .= $report_box_top . DT_Demo()->contacts->shuffle_update_requests( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->contacts->shuffle_update_requests( $_POST['count'] ) . $report_box_bottom;
                     break;
 
 
                 // MISC
                 case 'build_reports':
-                    $html .= $report_box_top . DT_Demo()->add_report->activity_form( $_POST ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->add_report->activity_form( $_POST ) . $report_box_bottom;
                     break;
 
 
                 // Utilities
                 case 'reset_roles':
-                    $html .= $report_box_top . DT_Demo()->roles->reset_roles() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->roles->reset_roles() . $report_box_bottom;
                     break;
                 case 'add_core_pages':
-                    $html .= $report_box_top . DT_Demo()->content->add_core_pages_once( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->content->add_core_pages_once( $_POST['count'] ) . $report_box_bottom;
                     break;
                 case 'reset_core_pages':
-                    $html .= $report_box_top . DT_Demo()->content->reset_core_pages( $_POST['count'] ) . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->content->reset_core_pages( $_POST['count'] ) . $report_box_bottom;
                     break;
 
                 // Delete
                 case 'delete_contacts':
-                    $html .= $report_box_top . DT_Demo()->contacts->delete_contacts() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->contacts->delete_contacts() . $report_box_bottom;
                     break;
                 case 'delete_groups':
-                    $html .= $report_box_top . DT_Demo()->groups->delete_groups() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->groups->delete_groups() . $report_box_bottom;
                     break;
                 case 'delete_locations':
                     if ( post_type_exists( 'locations' ) ) {
-                        $html .= $report_box_top . DT_Demo()->locations->delete_locations() . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->locations->delete_locations() . $report_box_bottom;
                     }
                     break;
                 case 'delete_assets':
                     if ( post_type_exists( 'assetmapping' ) ) {
-                        $html .= $report_box_top . DT_Demo()->assets->delete_assets() . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->assets->delete_assets() . $report_box_bottom;
                     }
                     break;
                 case 'delete_users':
-                    $html .= $report_box_top . DT_Demo()->users->delete_users() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->users->delete_users() . $report_box_bottom;
                     break;
                 case 'delete_prayers':
                     if ( post_type_exists( 'prayer' ) ) {
-                        $html .= $report_box_top . DT_Demo()->prayer->delete_prayer_posts() . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->prayer->delete_prayer_posts() . $report_box_bottom;
                     }
                     break;
                 case 'delete_progress':
                     if ( post_type_exists( 'progress' ) ) {
-                        $html .= $report_box_top . DT_Demo()->progress->delete_progress_posts() . $report_box_bottom;
+                        $html .= $report_box_top . dt_demo()->progress->delete_progress_posts() . $report_box_bottom;
                     }
                     break;
                 case 'delete_comments':
-                    $html .= $report_box_top . DT_Demo()->comments->delete_comments() . $report_box_bottom;
+                    $html .= $report_box_top . dt_demo()->comments->delete_comments() . $report_box_bottom;
                     break;
 
                 default:
