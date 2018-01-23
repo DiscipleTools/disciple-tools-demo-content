@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Plugin Name: Disciple Tools - Demo
- * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-plugin
- * Description: Disciple Tools Demo Plugin. This plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
+ * Plugin Name: Disciple Tools - Demo Content
+ * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-content
+ * Description: Disciple Tools Demo Content plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
  * Version: 0.1.0
- * Author: Chasm.Solutions & Kingdom.Training
  * Author URI: https://github.com/DiscipleTools
  *
  * @license GPL-2.0 or later
@@ -328,16 +327,37 @@ class DT_Demo {
             require( 'functions/plugin-update-checker/plugin-update-checker.php' );
         }
         Puc_v4_Factory::buildUpdateChecker(
-            'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-plugin-version-control.json',
+            'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-content-version-control.json',
             __FILE__,
-            'disciple-tools-demo-plugin'
+            'disciple-tools-demo-content'
         );
 
         // Internationalize the text strings used.
         add_action( 'plugins_loaded', array( $this, 'i18n' ), 2 );
 
         // Register activation hook.
-        register_activation_hook( __FILE__, array( $this, 'activation' ) );
+        register_activation_hook( __FILE__, [ $this, 'activation' ] );
+        register_deactivation_hook( __FILE__, [ $this, 'deactivation' ] );
+    }
+
+    /**
+     * Method that runs only when the plugin is activated.
+     *
+     * @since  0.1
+     * @access public
+     * @return void
+     */
+    public function activation() {
+    }
+
+    /**
+     * Method that runs only when the plugin is deactivated.
+     *
+     * @since  0.1
+     * @access public
+     * @return void
+     */
+    public function deactivation() {
     }
 
     /**
@@ -351,16 +371,6 @@ class DT_Demo {
         load_plugin_textdomain( 'dt_demo', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ). 'languages' );
     }
 
-    /**
-     * Method that runs only when the plugin is activated.
-     *
-     * @since  0.1
-     * @access public
-     * @return void
-     */
-    public function activation() {
-
-    }
 }
 
 /**
