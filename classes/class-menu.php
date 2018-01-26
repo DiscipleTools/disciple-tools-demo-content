@@ -46,7 +46,7 @@ final class DT_Demo_Page {
 
     /**
      * Constructor function.
-     * @access  portal
+     * @access  public
      * @since   1.0.0
      */
     public function __construct () {
