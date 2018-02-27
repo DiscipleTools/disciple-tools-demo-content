@@ -65,7 +65,7 @@ class DT_Demo_Groups
      * @return array|WP_Post
      */
     public function single_plain_group () {
-        $address = "address_111";
+        $address = "contact_address_111";
 
         $post = array(
             "post_title" => 'Group' . rand( 100, 999 ),

@@ -60,7 +60,7 @@ class DT_Demo_Contacts
      * Builds a single random contact record.
      * @return array|WP_Post
      */
-    public function single_plain_contact () {
+    public function single_plain_contact() {
         $primary_phone_key = "contact_phone_111";
 //        $primary_phone_details_key = "contact_phone_111_details";
 //        $primary_phone_details = ["type"=>"primary"];
@@ -70,7 +70,7 @@ class DT_Demo_Contacts
         $email_key = "contact_email_111";
 //        $email_details_key = "contact_email_111_details";
 //        $email_details = ["type"=>"primary"];
-        $address_key = "address_111";
+        $address_key = "contact_address_111";
 //        $address_details_key = "address_111_details";
 //        $address_details = ["type"=>"home"];
 
@@ -92,8 +92,8 @@ class DT_Demo_Contacts
                 $email_key => $name.rand( 1000, 10000 )."@email.com",
 //                $email_details_key => $email_details,
                 "overall_status" => dt_demo_random_overall_status(),
-                "sources"    =>  dt_demo_random_source(),
-                "seeker_path"   =>  dt_demo_seeker_path(),
+                "sources" => dt_demo_random_source(),
+                "seeker_path" => dt_demo_seeker_path(),
                 "_sample"   => 'sample',
             ),
         );
