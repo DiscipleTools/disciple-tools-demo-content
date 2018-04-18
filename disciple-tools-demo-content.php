@@ -41,7 +41,7 @@ else {
      */
     function dt_demo() {
         $current_theme = get_option( 'current_theme' );
-        if( 'Disciple Tools' == $current_theme ) {
+        if( 'Disciple Tools' == $current_theme || 'Disciple Tools Child theme of disciple-tools-theme' == $current_theme ) {
             return DT_Demo::get_instance();
         }
         else {
