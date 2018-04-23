@@ -41,18 +41,14 @@ else {
      */
     function dt_demo() {
         $current_theme = get_option( 'current_theme' );
-<<<<<<< HEAD
+
         if( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
-=======
-        if( 'Disciple Tools' == $current_theme || 'Disciple Tools Child theme of disciple-tools-theme' == $current_theme ) {
->>>>>>> e50c506f0a2bae5e1d7065f792735e10be411c8a
             return DT_Demo::get_instance();
         }
         else {
             add_action( 'admin_notices', 'dt_demo_no_disciple_tools_theme_found' );
             return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active.' );
         }
-
     }
     add_action( 'plugins_loaded', 'dt_demo' );
 
@@ -473,4 +469,3 @@ else {
     }
 
 } // end php 7 version check
-
