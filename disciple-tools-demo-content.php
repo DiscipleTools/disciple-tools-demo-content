@@ -26,7 +26,7 @@ if ( version_compare( phpversion(), '7.0', '<' ) ) {
      * Feel free to use PHP 7 features in other files, but not in this one.
      */
 
-    new WP_Error( 'php_version_fail', 'Requires PHP version 7.0 or greater. Your current version is: '.phpversion().' Please upgrade PHP or uninstall this theme' );
+    new WP_Error( 'php_version_fail', 'Requires PHP version 7.0 or greater. Your current version is: '.phpversion().' Please upgrade PHP or uninstall this plugin' );
     require_once( ABSPATH .'wp-admin/includes/plugin.php' );
     deactivate_plugins( 'Disciple Tools Demo Content' );
 }
@@ -41,7 +41,7 @@ else {
      */
     function dt_demo() {
         $current_theme = get_option( 'current_theme' );
-        if( 'Disciple Tools' == $current_theme ) {
+        if( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
             return DT_Demo::get_instance();
         }
         else {
@@ -447,6 +447,24 @@ else {
                     error_log( $log );
                 }
             }
+        }
+    }
+
+
+    if ( ! function_exists( 'dt_is_child_theme_of_disciple_tools' ) ) {
+        /**
+         * Returns true if this is a child theme of Disciple Tools, and false if it is not.
+         *
+         * @return bool
+         */
+        function dt_is_child_theme_of_disciple_tools() : bool {
+            if ( get_template_directory() !== get_stylesheet_directory() ) {
+                $current_theme = wp_get_theme();
+                if ( 'disciple-tools-theme' == $current_theme->get( 'Template' ) ) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
