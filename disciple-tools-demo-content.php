@@ -46,7 +46,8 @@ else {
             return DT_Demo::get_instance();
         }
         else {
-            add_action( 'admin_notices', 'dt_demo_no_disciple_tools_theme_found' );
+            add_action( 'admin_notices', 'dt_demo_hook_admin_notice' );
+            add_action( 'wp_ajax_dismissed_notice_handler', 'dt_demo_ajax_notice_handler' );
             return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active.' );
         }
     }
@@ -394,18 +395,6 @@ else {
     register_deactivation_hook( __FILE__, [ 'DT_Demo', 'deactivation' ] );
 
     /**
-     * Admin alert for when Disciple Tools Theme is not available
-     */
-    function dt_demo_no_disciple_tools_theme_found()
-    {
-        ?>
-        <div class="notice notice-error">
-            <p><?php esc_html_e( "'Disciple Tools - Demo' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Demo' plugin.", "dt_demo" ); ?></p>
-        </div>
-        <?php
-    }
-
-    /**
      * A simple function to assist with development and non-disruptive debugging.
      * -----------
      * -----------
@@ -466,6 +455,40 @@ else {
             }
             return false;
         }
+    }
+
+    function dt_demo_hook_admin_notice() {
+        // Check if it's been dismissed...
+        if ( ! get_option( 'dismissed-dt-demo', false ) ) {
+            // multiple dismissible notice states ?>
+            <div class="notice notice-error notice-dt-demo is-dismissible" data-notice="dt-demo">
+                <p><?php esc_html_e( "'Disciple Tools - Demo' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or deactivate 'Disciple Tools - Demo' plugin.", "dt_demo" ); ?></p>
+            </div>
+            <script>
+                jQuery(function($) {
+                    $( document ).on( 'click', '.notice-dt-demo .notice-dismiss', function () {
+                        let type = $( this ).closest( '.notice-dt-demo' ).data( 'notice' );
+                        $.ajax( ajaxurl,
+                            {
+                                type: 'POST',
+                                data: {
+                                    action: 'dismissed_notice_handler',
+                                    type: type,
+                                }
+                            } );
+                    } );
+                });
+            </script>
+
+        <?php }
+    }
+
+    /**
+     * AJAX handler to store the state of dismissible notices.
+     */
+    function dt_demo_ajax_notice_handler() {
+        $type = 'dt-demo';
+        update_option( 'dismissed-' . $type, true );
     }
 
 } // end php 7 version check
