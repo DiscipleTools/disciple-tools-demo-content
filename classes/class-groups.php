@@ -47,13 +47,13 @@ class DT_Demo_Groups
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_groups_by_count ( $count )
+    public function add_groups_by_count( $count )
     {
         $i = 0;
         while ($count > $i ) {
 
             $post = $this->single_plain_group();
-            wp_insert_post( $post );
+            Disciple_Tools_Groups::create_group( $post, false );
 
             $i++;
         }
@@ -64,23 +64,15 @@ class DT_Demo_Groups
      * Builds a single random contact record.
      * @return array|WP_Post
      */
-    public function single_plain_group () {
-        $address = "contact_address_111";
+    public function single_plain_group() {
 
-        $post = array(
-            "post_title" => 'Group' . rand( 100, 999 ),
-            'post_type' => 'groups',
-            "post_content" => ' ',
-            "post_status" => "publish",
-            "post_author" => get_current_user_id(),
-            "meta_input" => array(
-                "is_church" => dt_demo_random_bool(),
-                $address => dt_demo_full_address(),
-                "_sample"   => 'sample',
-                "group_status" => dt_demo_random_group_status(),
-                "group_type" => dt_demo_random_group_type(),
-            ),
-        );
+        $post = [
+            "title" => 'Group' . rand( 100, 999 ),
+            "is_church" => dt_demo_random_bool(),
+            "group_status" => dt_demo_random_group_status(),
+            "group_type" => dt_demo_random_group_type(),
+            "contact_address" => [ "values" => [ [ "value" => dt_demo_full_address() ] ] ],
+        ];
 
         return $post;
     }

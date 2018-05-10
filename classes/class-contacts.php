@@ -49,7 +49,7 @@ class DT_Demo_Contacts
         while ($count > $i ) {
 
             $post = $this->single_plain_contact();
-            wp_insert_post( $post );
+            Disciple_Tools_Contacts::create_contact( $post, false );
 
             $i++;
         }
@@ -61,43 +61,19 @@ class DT_Demo_Contacts
      * @return array|WP_Post
      */
     public function single_plain_contact() {
-        $primary_phone_key = "contact_phone_111";
-//        $primary_phone_details_key = "contact_phone_111_details";
-//        $primary_phone_details = ["type"=>"primary"];
-        $mobile_phone_key = "contact_phone_112";
-//        $mobile_phone_details_key = "contact_phone_112_details";
-//        $mobile_phone_details = ["type"=>"mobile"];
-        $email_key = "contact_email_111";
-//        $email_details_key = "contact_email_111_details";
-//        $email_details = ["type"=>"primary"];
-        $address_key = "contact_address_111";
-//        $address_details_key = "address_111_details";
-//        $address_details = ["type"=>"home"];
-
         $name = dt_demo_random_name();
 
-        $post = array(
-            "post_title" => $name . ' Contact' . rand( 100, 999 ),
-            'post_type' => 'contacts',
-            "post_content" => ' ',
-            "post_status" => "publish",
-            "post_author" => get_current_user_id(),
-            "meta_input" => array(
-                $primary_phone_key => dt_demo_random_phone_number(),
-//                $primary_phone_details_key => $primary_phone_details,
-                $mobile_phone_key => dt_demo_random_phone_number(),
-//                $mobile_phone_details_key => $mobile_phone_details,
-                $address_key => dt_demo_full_address(),
-//                $address_details_key => $address_details,
-                $email_key => $name.rand( 1000, 10000 )."@email.com",
-//                $email_details_key => $email_details,
-                "overall_status" => dt_demo_random_overall_status(),
-                "sources" => dt_demo_random_source(),
-                "seeker_path" => dt_demo_seeker_path(),
-                "_sample"   => 'sample',
-            ),
-        );
-        $post["meta_input"] = array_merge( $post["meta_input"], dt_demo_random_milestones() );
+        $post = [
+            "title" => $name . ' Contact' . rand( 100, 999 ),
+            "contact_phone" => [ "values" => [ [ "value" => dt_demo_random_phone_number()] ] ],
+            "contact_email" => [ "values" => [ [ "value" => $name.rand( 1000, 10000 )."@email.com"] ] ],
+            "contact_address" => [ "values" => [ [ "value" => dt_demo_full_address() ] ] ],
+            "sources" => [ "values" => [ ["value" => dt_demo_random_source()] ] ],
+            "seeker_path" => dt_demo_seeker_path(),
+            "overall_status" => dt_demo_random_overall_status(),
+        ];
+
+        $post = array_merge( $post, dt_demo_random_milestones() );
 
         return $post;
 
