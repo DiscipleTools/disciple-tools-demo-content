@@ -4,7 +4,7 @@
  * Plugin Name: Disciple Tools - Demo Content
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-content
  * Description: Disciple Tools Demo Content plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
- * Version: 0.1.1
+ * Version: 0.2.0
  * Author URI: https://github.com/DiscipleTools
  *
  * @license GPL-2.0 or later
@@ -42,7 +42,7 @@ else {
     function dt_demo() {
         $current_theme = get_option( 'current_theme' );
 
-        if( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
+        if ( 'Disciple Tools' == $current_theme || dt_is_child_theme_of_disciple_tools() ) {
             return DT_Demo::get_instance();
         }
         else {
@@ -258,7 +258,7 @@ else {
 
             // Admin and settings variables
             $this->token             = 'dt_demo';
-            $this->version             = '0.1.1';
+            $this->version             = '0.2.0';
         }
 
         /**
