@@ -50,8 +50,8 @@ class DT_Demo_Endpoints
         );
     }
 
-    public function quick_launch( ){
-        if ( user_can( get_current_user_id(),'manage_options') ) {
+    public function quick_launch(){
+        if ( user_can( get_current_user_id(),'manage_options' ) ) {
             return true;
         } else {
             return new WP_Error( "permission_error", "Do not have permission to install demo content", array( 'status' => 400 ) );
