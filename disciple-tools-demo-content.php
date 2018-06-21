@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Disciple Tools - Demo Content
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-content
- * Description: Disciple Tools Demo Content plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
- * Version: 0.2.0
+ * Description: The demo content plugin is for a quickstart with content to the Disciple.Tools system. It is useful for demonstration and training.
+ * Version: 0.3.0
  * Author URI: https://github.com/DiscipleTools
  *
  * @license GPL-2.0 or later
@@ -61,103 +61,20 @@ else {
      */
     class DT_Demo {
 
-        /**
-         * The token.
-         * @var     string
-         * @access  public
-         * @since   0.1
-         */
         public $token;
         public $setup_info;
         public $add_report;
-        /**
-         * The version number.
-         * @var     string
-         * @access  public
-         * @since   0.1
-         */
         public $version;
-        /**
-         * The admin object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $admin;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $settings;
-        /**
-         * The contacts object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $contacts;
-        /**
-         * The groups object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $groups;
-        /**
-         * The users object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $users;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $page;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $classes;
-        /**
-         * The generations class object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $generations;
-        /**
-         * Plugin directory path.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $dir_path = '';
-
-        /**
-         * Plugin directory URI.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $dir_uri = '';
-
-        /**
-         * Plugin image directory URI.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $img_uri = '';
 
         /**
@@ -258,7 +175,7 @@ else {
 
             // Admin and settings variables
             $this->token             = 'dt_demo';
-            $this->version             = '0.2.0';
+            $this->version             = '0.3.0';
         }
 
         /**
@@ -275,8 +192,6 @@ else {
 
                 // Admin menu
                 require_once( 'admin/admin-menu-and-tabs.php' ); // @todo new tab system
-    //            require_once( 'classes/class-menu.php' );
-    //            $this->page = DT_Demo_Page::instance();
 
 
                 // Tabs
