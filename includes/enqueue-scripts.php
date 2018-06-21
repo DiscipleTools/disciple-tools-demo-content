@@ -16,7 +16,8 @@ function dt_demo_scripts() {
             'translations' => [
                 "no-unread" => __( "You don't have any unread notifications", "disciple_tools" ),
                 "no-notifications" => __( "You don't have any notifications", "disciple_tools" )
-            ]
+            ],
+            'images_uri' => dt_demo()->includes_uri,
         )
     );
 }

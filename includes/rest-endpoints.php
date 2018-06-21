@@ -22,7 +22,6 @@ class DT_Demo_Endpoints
 
     private $version = 1;
     private $context = "dt_demo";
-
     private $namespace;
 
     private static $_instance = null;
@@ -43,16 +42,19 @@ class DT_Demo_Endpoints
     public function add_api_routes()
     {
         register_rest_route(
-            $this->namespace, '/demo/quick_launch', [
+            $this->namespace, '/quick_launch/contacts', [
                 "methods"  => "POST",
-                "callback" => [ $this, 'quick_launch' ],
+                "callback" => [ $this, 'quick_launch_contacts' ],
             ]
         );
     }
 
-    public function quick_launch(){
+    public function quick_launch_contacts(){
         if ( user_can( get_current_user_id(),'manage_options' ) ) {
-            return true;
+            require_once( 'randomizer.php' );
+            require_once( 'class-contacts.php' );
+            $contacts = DT_Demo_Contacts::instance();
+            return $contacts->add_contacts_by_count('5');
         } else {
             return new WP_Error( "permission_error", "Do not have permission to install demo content", array( 'status' => 400 ) );
         }
