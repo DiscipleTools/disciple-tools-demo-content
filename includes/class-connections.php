@@ -15,23 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 
 class DT_Demo_Connections {
 
-    /**
-     * DT_Demo_Connections The single instance of DT_Demo_Connections.
-     * @var     object
-     * @access  private
-     * @since     0.1
-     */
     private static $_instance = null;
-
-    /**
-     * Main DT_Demo_Connections Instance
-     *
-     * Ensures only one instance of DT_Demo_Connections is loaded or can be loaded.
-     *
-     * @since 0.1
-     * @static
-     * @return DT_Demo_Connections instance
-     */
     public static function instance () {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
@@ -39,12 +23,6 @@ class DT_Demo_Connections {
         return self::$_instance;
     } // End instance()
 
-    /**
-     * Constructor function.
-     * @access  public
-     * @since   0.1
-     */
-    public function __construct () {     } // End __construct()
 
     public function add_baptism_connections ( $loops ) {
 

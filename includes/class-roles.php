@@ -15,37 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 
 class DT_Demo_Roles {
 
-    /**
-     * DT_Demo_Roles The single instance of DT_Demo_Roles.
-     * @var     object
-     * @access  private
-     * @since     0.1
-     */
-    private static $_instance = null;
-
-    /**
-     * Main DT_Demo_Roles Instance
-     *
-     * Ensures only one instance of DT_Demo_Roles is loaded or can be loaded.
-     *
-     * @since 0.1
-     * @static
-     * @return DT_Demo_Roles instance
-     */
-    public static function instance () {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // End instance()
-
-    /**
-     * Constructor function.
-     * @access  public
-     * @since   0.1
-     */
-    public function __construct () {    } // End __construct()
-
     public function reset_roles() {
         if (class_exists( 'Disciple_Tools' )) {
 

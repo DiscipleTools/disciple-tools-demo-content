@@ -168,14 +168,14 @@ else {
             $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
             // Plugin directory paths.
-            $this->classes      = trailingslashit( $this->dir_path . 'classes' );
+            $this->includes_path      = trailingslashit( $this->dir_path . 'includes' );
 
             // Plugin directory URIs.
-            $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
+            $this->includes_uri      = trailingslashit( $this->dir_uri . 'includes' );
 
             // Admin and settings variables
-            $this->token             = 'dt_demo';
-            $this->version             = '0.3.0';
+            $this->token       = 'dt_demo';
+            $this->version     = '0.3.0';
         }
 
         /**
@@ -187,64 +187,41 @@ else {
          */
         private function includes() {
 
-           // Load admin files.
+                require_once( 'includes/enqueue-scripts.php' );
+                require_once( 'includes/rest-endpoints.php' );
+                DT_Demo_Endpoints::instance();
+
+                // Load admin files.
             if ( is_admin() ) {
 
                 // Admin menu
-                require_once( 'admin/admin-menu-and-tabs.php' ); // @todo new tab system
+                require_once( 'includes/menu-and-tabs.php' );
 
-
-                // Tabs
-                require_once( 'classes/class-tab-add-records.php' );
-                $this->add_records = DT_Demo_Add_Records::instance();
-
-                require_once( 'classes/class-tab-bulk-report.php' ); // tab page with various forms
-                $this->add_report = DT_Demo_Add_Report::instance();
-
-                require_once( 'classes/class-tab-tutorials.php' );
-                $this->tutorials = DT_Demo_Tutorials::instance();
-
-
-
-                // Content addition
-                require_once( 'classes/class-users.php' );
+                require_once( 'includes/class-users.php' );
                 $this->users = DT_Demo_Users::instance();
 
-                require_once( 'classes/class-contacts.php' );
+                require_once( 'includes/class-contacts.php' );
                 $this->contacts = DT_Demo_Contacts::instance();
 
-                require_once( 'classes/class-groups.php' );
+                require_once( 'includes/class-groups.php' );
                 $this->groups = DT_Demo_Groups::instance();
 
-                require_once( 'classes/class-locations.php' );
+                require_once( 'includes/class-locations.php' );
                 $this->locations = DT_Demo_Locations::instance();
 
-                require_once( 'classes/class-assets.php' );
-                $this->assets = DT_Demo_Assets::instance();
-
-                require_once( 'classes/class-comments.php' );
+                require_once( 'includes/class-comments.php' );
                 $this->comments = DT_Demo_Comments::instance();
 
-                require_once( 'classes/class-prayer-post.php' );
-                $this->prayer = DT_Demo_Prayer_Post::instance();
-
-                require_once( 'classes/class-progress-post.php' );
-                $this->progress = DT_Demo_Progress_Post::instance();
-
-                require_once( 'classes/class-connections.php' );
+                require_once( 'includes/class-connections.php' );
                 $this->connections = DT_Demo_Connections::instance();
-
-                require_once( 'classes/class-core-pages.php' );
-                $this->content = DT_Core_Pages::instance();
 
                 $theme = wp_get_theme();
                 if ( $theme->name = "Disciple_Tools" ) {
-                    require_once( 'classes/class-roles.php' );
-                    $this->roles = DT_Demo_Roles::instance();
+                    require_once( 'includes/class-roles.php' );
+                    $this->roles = new DT_Demo_Roles();
                 }
 
-                // Utilities
-                require_once( 'functions/randomizer.php' );
+                require_once( 'includes/randomizer.php' );
             }
         }
 
@@ -259,7 +236,7 @@ else {
 
             // Check for plugin updates
             if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-                require( 'functions/plugin-update-checker/plugin-update-checker.php' );
+                require( 'includes/plugin-update-checker/plugin-update-checker.php' );
             }
             Puc_v4_Factory::buildUpdateChecker(
                 'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-content-version-control.json',

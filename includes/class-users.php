@@ -113,31 +113,31 @@ class DT_Demo_Users
             $html .= '<br>Added: ' . $username ;
         } else { $html .= '<br>Marketer set' ;}
 
-        if( null == username_exists( 'Marketer Leader' ) ) {
-
-            // Create user
-            $username = 'Marketer Leader';
-            $password = 'disciple';
-            $email = 'marketer_leader@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer Leader'
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'marketer_leader' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Marketer Leader set' ;}
+//        if( null == username_exists( 'Marketer Leader' ) ) {
+//
+//            // Create user
+//            $username = 'Marketer Leader';
+//            $password = 'disciple';
+//            $email = 'marketer_leader@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Marketer Leader'
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'marketer_leader' );
+//
+//            // Report
+//            $html .= '<br>Added: ' . $username ;
+//        } else { $html .= '<br>Marketer Leader set' ;}
 
         if( null == username_exists( 'Dispatcher' ) ) {
 
@@ -191,83 +191,83 @@ class DT_Demo_Users
             $html .= '<br>Added: ' . $username ;
         } else { $html .= '<br>Multiplier set' ;}
 
-        if( null == username_exists( 'Multiplier_Leader' ) ) {
+//        if( null == username_exists( 'Multiplier_Leader' ) ) {
+//
+//            // Create user
+//            $username = 'Multiplier_Leader';
+//            $password = 'disciple';
+//            $email = 'multiplier_leader@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Multiplier Leader'
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'multiplier_leader' );
+//
+//            // Report
+//            $html .= '<br>Added: ' . $username ;
+//        } else { $html .= '<br>Multiplier Leader set' ;}
 
-            // Create user
-            $username = 'Multiplier_Leader';
-            $password = 'disciple';
-            $email = 'multiplier_leader@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+//        if( null == username_exists( 'Prayer_Supporter' ) ) {
+//
+//            // Create user
+//            $username = 'Prayer_Supporter';
+//            $password = 'disciple';
+//            $email = 'prayer_supporter@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Prayer Supporter'
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'prayer_supporter' );
+//
+//            // Report
+//            $html .= '<br>Added: ' . $username ;
+//        } else { $html .= '<br>Prayer Supporter set' ;}
 
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier Leader'
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'multiplier_leader' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Multiplier Leader set' ;}
-
-        if( null == username_exists( 'Prayer_Supporter' ) ) {
-
-            // Create user
-            $username = 'Prayer_Supporter';
-            $password = 'disciple';
-            $email = 'prayer_supporter@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Prayer Supporter'
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'prayer_supporter' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Prayer Supporter set' ;}
-
-        if( null == username_exists( 'Project_Supporter' ) ) {
-
-            // Create user
-            $username = 'Project_Supporter';
-            $password = 'disciple';
-            $email = 'project_supporter@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Project Supporter'
-                )
-            );
-            update_user_meta( $user_id, $meta_key, $meta_value );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'project_supporter' );
-
-            // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Project Supporter set' ;}
+//        if( null == username_exists( 'Project_Supporter' ) ) {
+//
+//            // Create user
+//            $username = 'Project_Supporter';
+//            $password = 'disciple';
+//            $email = 'project_supporter@disciple.tools';
+//            $user_id = wp_create_user( $username, $password, $email );
+//
+//            // Set the nickname
+//            wp_update_user(
+//                array(
+//                    'ID'          =>    $user_id,
+//                    'nickname'    =>    $username,
+//                    'first_name'  =>    'Project Supporter'
+//                )
+//            );
+//            update_user_meta( $user_id, $meta_key, $meta_value );
+//
+//            // Set the role
+//            $user = new WP_User( $user_id );
+//            $user->set_role( 'project_supporter' );
+//
+//            // Report
+//            $html .= '<br>Added: ' . $username ;
+//        } else { $html .= '<br>Project Supporter set' ;}
 
         if( null == username_exists( 'Registered' ) ) {
 
