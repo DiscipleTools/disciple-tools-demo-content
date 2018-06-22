@@ -20,7 +20,8 @@ function quick_launch() {
         .fail(function (err) {
             console.log("error")
             console.log(err)
-            jQuery("#errors").append(err.responseText)
+            spinner.empty()
+            jQuery("#prepared_data_errors").append(err.responseJSON.message)
         })
 
 }

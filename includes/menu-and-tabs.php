@@ -162,6 +162,7 @@ class DT_Demo_Tab_Quick_Launch
 
     public function quick_launch_box() {
         ?>
+        <div id="prepared_data_errors"></div>
         <button type="button" id="install-quick-launch" onclick="quick_launch()">Install</button>
         <div id="spinner"></div>
         <div id="quick-launch-report"></div>

@@ -43,7 +43,7 @@ class DT_Demo_Prepared_Data
             /* check connection */
             // @codingStandardsIgnoreLine
             if ( mysqli_connect_errno() ) {
-                return false;
+                return new WP_Error( 'something went wrong', __( '<strong>ERROR</strong>: Something went wrong and this tool was not able to run.' ), 400 );
             }
 
             if ( $mysqli->multi_query( $sql ) ){
@@ -57,7 +57,7 @@ class DT_Demo_Prepared_Data
                 } while ($mysqli->next_result() && $mysqli->more_results());
             }
         } else {
-            return false;
+            return new WP_Error( 'Too many record or records already existing', __( '<strong>ERROR</strong>: You may have too many contacts already or you already ran this tool.' ), 400 );
         }
         return true;
     }
