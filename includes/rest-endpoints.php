@@ -54,7 +54,7 @@ class DT_Demo_Endpoints
             require_once( 'randomizer.php' );
             require_once( 'class-contacts.php' );
             $contacts = DT_Demo_Contacts::instance();
-            return $contacts->add_contacts_by_count('5');
+            return $contacts->add_contacts_by_count( '5' );
         } else {
             return new WP_Error( "permission_error", "Do not have permission to install demo content", array( 'status' => 400 ) );
         }
