@@ -51,10 +51,9 @@ class DT_Demo_Endpoints
 
     public function quick_launch_contacts(){
         if ( user_can( get_current_user_id(),'manage_options' ) ) {
-            require_once( 'randomizer.php' );
-            require_once( 'class-contacts.php' );
-            $contacts = DT_Demo_Contacts::instance();
-            return $contacts->add_contacts_by_count( '5' );
+            require_once( 'class-prepared-data.php' );
+            $prepared_data = DT_Demo_Prepared_Data::instance();
+            return $prepared_data->add_prepare_demo_data();
         } else {
             return new WP_Error( "permission_error", "Do not have permission to install demo content", array( 'status' => 400 ) );
         }
