@@ -11,22 +11,7 @@ if (!defined( 'ABSPATH' )) { exit; // Exit if accessed directly
 
 class DT_Demo_Contacts
 {
-
-    /**
-     * DT_Demo_Contacts The single instance of DT_Demo_Contacts.
-     * @var    object
-     * @access  private
-     * @since    1.0.0
-     */
     private static $_instance = null;
-
-    /**
-     * Access plugin instance. You can create further instances by calling
-     * the constructor directly.
-     * @since 0.1
-     * @static
-     * @return DT_Demo_Contacts instance
-     */
     public static function instance()
     {
         if (null === self::$_instance) {
@@ -34,9 +19,6 @@ class DT_Demo_Contacts
         }
         return self::$_instance;
     }
-
-    // Constructor class
-    public function __construct() {}
 
     /**
      * Loops contact creation according to supplied $count.

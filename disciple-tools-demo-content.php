@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Disciple Tools - Demo Content
  * Plugin URI: https://github.com/DiscipleTools/disciple-tools-demo-content
- * Description: Disciple Tools Demo Content plugin provides instant contacts, groups, users, and content to assist in rapid launch for training or demonstration.
- * Version: 0.2.0
+ * Description: The demo content plugin is for a quickstart with content to the Disciple.Tools system. It is useful for demonstration and training.
+ * Version: 0.3.0
  * Author URI: https://github.com/DiscipleTools
  *
  * @license GPL-2.0 or later
@@ -61,103 +61,20 @@ else {
      */
     class DT_Demo {
 
-        /**
-         * The token.
-         * @var     string
-         * @access  public
-         * @since   0.1
-         */
         public $token;
         public $setup_info;
         public $add_report;
-        /**
-         * The version number.
-         * @var     string
-         * @access  public
-         * @since   0.1
-         */
         public $version;
-        /**
-         * The admin object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $admin;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $settings;
-        /**
-         * The contacts object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $contacts;
-        /**
-         * The groups object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $groups;
-        /**
-         * The users object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $users;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $page;
-        /**
-         * The settings object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $classes;
-        /**
-         * The generations class object.
-         * @var     object
-         * @access  public
-         * @since   0.1
-         */
         public $generations;
-        /**
-         * Plugin directory path.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $dir_path = '';
-
-        /**
-         * Plugin directory URI.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $dir_uri = '';
-
-        /**
-         * Plugin image directory URI.
-         *
-         * @since  0.1
-         * @access public
-         * @var    string
-         */
         public $img_uri = '';
 
         /**
@@ -251,14 +168,14 @@ else {
             $this->dir_uri      = trailingslashit( plugin_dir_url( __FILE__ ) );
 
             // Plugin directory paths.
-            $this->classes      = trailingslashit( $this->dir_path . 'classes' );
+            $this->includes_path      = trailingslashit( $this->dir_path . 'includes' );
 
             // Plugin directory URIs.
-            $this->img_uri      = trailingslashit( $this->dir_uri . 'img' );
+            $this->includes_uri      = trailingslashit( $this->dir_uri . 'includes' );
 
             // Admin and settings variables
-            $this->token             = 'dt_demo';
-            $this->version             = '0.2.0';
+            $this->token       = 'dt_demo';
+            $this->version     = '0.3.0';
         }
 
         /**
@@ -269,69 +186,48 @@ else {
          * @return void
          */
         private function includes() {
-
-           // Load admin files.
-            if ( is_admin() ) {
-
-                // Admin menu
-                require_once( 'admin/admin-menu-and-tabs.php' ); // @todo new tab system
-    //            require_once( 'classes/class-menu.php' );
-    //            $this->page = DT_Demo_Page::instance();
+            global $pagenow;
 
 
-                // Tabs
-                require_once( 'classes/class-tab-add-records.php' );
-                $this->add_records = DT_Demo_Add_Records::instance();
+            require_once( 'includes/enqueue-scripts.php' );
+            require_once( 'includes/rest-endpoints.php' );
+            DT_Demo_Endpoints::instance();
 
-                require_once( 'classes/class-tab-bulk-report.php' ); // tab page with various forms
-                $this->add_report = DT_Demo_Add_Report::instance();
-
-                require_once( 'classes/class-tab-tutorials.php' );
-                $this->tutorials = DT_Demo_Tutorials::instance();
+            // Load admin files.
 
 
+            // Admin menu
+            require_once( 'includes/menu-and-tabs.php' );
 
-                // Content addition
-                require_once( 'classes/class-users.php' );
-                $this->users = DT_Demo_Users::instance();
+            require_once( 'includes/class-users.php' );
+            $this->users = DT_Demo_Users::instance();
 
-                require_once( 'classes/class-contacts.php' );
-                $this->contacts = DT_Demo_Contacts::instance();
+            require_once( 'includes/class-contacts.php' );
+            $this->contacts = DT_Demo_Contacts::instance();
 
-                require_once( 'classes/class-groups.php' );
-                $this->groups = DT_Demo_Groups::instance();
+            require_once( 'includes/class-groups.php' );
+            $this->groups = DT_Demo_Groups::instance();
 
-                require_once( 'classes/class-locations.php' );
-                $this->locations = DT_Demo_Locations::instance();
+            require_once( 'includes/class-locations.php' );
+            $this->locations = DT_Demo_Locations::instance();
 
-                require_once( 'classes/class-assets.php' );
-                $this->assets = DT_Demo_Assets::instance();
+            require_once( 'includes/class-comments.php' );
+            $this->comments = DT_Demo_Comments::instance();
 
-                require_once( 'classes/class-comments.php' );
-                $this->comments = DT_Demo_Comments::instance();
+            require_once( 'includes/class-connections.php' );
+            $this->connections = DT_Demo_Connections::instance();
 
-                require_once( 'classes/class-prayer-post.php' );
-                $this->prayer = DT_Demo_Prayer_Post::instance();
-
-                require_once( 'classes/class-progress-post.php' );
-                $this->progress = DT_Demo_Progress_Post::instance();
-
-                require_once( 'classes/class-connections.php' );
-                $this->connections = DT_Demo_Connections::instance();
-
-                require_once( 'classes/class-core-pages.php' );
-                $this->content = DT_Core_Pages::instance();
-
-                $theme = wp_get_theme();
-                if ( $theme->name = "Disciple_Tools" ) {
-                    require_once( 'classes/class-roles.php' );
-                    $this->roles = DT_Demo_Roles::instance();
-                }
-
-                // Utilities
-                require_once( 'functions/randomizer.php' );
+            $theme = wp_get_theme();
+            if ( $theme->name = "Disciple_Tools" ) {
+                require_once( 'includes/class-roles.php' );
+                $this->roles = new DT_Demo_Roles();
             }
+
+            require_once( 'includes/randomizer.php' );
         }
+
+
+
 
         /**
          * Sets up main plugin actions and filters.
@@ -344,7 +240,7 @@ else {
 
             // Check for plugin updates
             if ( ! class_exists( 'Puc_v4_Factory' ) ) {
-                require( 'functions/plugin-update-checker/plugin-update-checker.php' );
+                require( 'includes/plugin-update-checker/plugin-update-checker.php' );
             }
             Puc_v4_Factory::buildUpdateChecker(
                 'https://raw.githubusercontent.com/DiscipleTools/disciple-tools-version-control/master/disciple-tools-demo-content-version-control.json',
