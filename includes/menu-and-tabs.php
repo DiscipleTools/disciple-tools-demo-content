@@ -163,9 +163,11 @@ class DT_Demo_Tab_Quick_Launch
     public function quick_launch_box() {
         ?>
         <div id="prepared_data_errors"></div>
-        <button type="button" id="install-quick-launch" onclick="quick_launch()">Install</button>
+        <button type="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button>
         <div id="spinner"></div>
         <div id="quick-launch-report"></div>
+        <button type="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
+
         <?php
     }
 }
