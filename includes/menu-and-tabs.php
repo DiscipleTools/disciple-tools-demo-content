@@ -55,7 +55,7 @@ class DT_Demo_Menu {
         if ( isset( $_GET["tab"] ) ) {
             $tab = sanitize_key( wp_unslash( $_GET["tab"] ) );
         } else {
-            $tab = 'records';
+            $tab = 'quick';
         }
 
         $link = 'admin.php?page='.$this->token.'&tab=';
@@ -142,33 +142,26 @@ class DT_Demo_Tab_Quick_Launch
 
     public function right_column() {
         ?>
-        <!-- Box -->
-        <table class="widefat striped">
-            <thead>
-            <th>Notes</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    Content
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
         <?php
     }
 
     public function quick_launch_box() {
+        if ( DT_Demo_Prepared_Data::check_if_database_clear() ) {
         ?>
-        <div id="prepared_data_errors"></div>
-        <button type="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button>
-        <div id="spinner"></div>
-        <div id="quick-launch-report"></div>
-        <button type="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
+            <div id="prepared_data_errors"></div>
+            <p><button type="button" class="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button></p>
+            <div id="spinner"></div>
+            <div id="quick-launch-report"></div>
 
+            <p>
+                <button type="button" class="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
+            </p>
         <?php
+        } else {
+            ?>
+            <p><?php esc_html_e( "Either your database is too large or you have already used quick launch. Please use the tools in 'Add Records' tab instead.", 'disciple_tools' ) ?></p>
+            <?php
+        }
     }
 }
 
