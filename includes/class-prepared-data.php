@@ -25,7 +25,6 @@ class DT_Demo_Prepared_Data
         $existing[] = $wpdb->get_var( "SELECT COUNT(`id`) FROM $wpdb->dt_share WHERE `id` >= 10001" );
         $existing[] = $wpdb->get_var( "SELECT COUNT(`p2p_id`) FROM $wpdb->p2p WHERE `p2p_id` >= 10001" );
         $existing[] = $wpdb->get_var( "SELECT COUNT(`meta_id`) FROM " . $wpdb->prefix . "p2pmeta WHERE `meta_id` >= 10001" );
-        dt_write_log( $existing );
         $database_clear = true;
         foreach ( $existing as $query ){
             if ( $query > 0 ){

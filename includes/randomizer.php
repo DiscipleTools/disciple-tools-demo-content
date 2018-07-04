@@ -52,7 +52,6 @@ function dt_demo_random_name () {
         'Moukib', 'Azzam', 'Qaseem', 'Maysun', 'Rahi',
         'Atiya', 'Rashid', 'Manal', 'Usama', 'Gadi',
         'رشيد', 'منال', 'أسامة',
-        '<script>alert("name");</script>',
     );
 
     $top = count( $list );
@@ -88,7 +87,6 @@ function dt_demo_random_address () {
         'Oujda', 'Inezgane Ait Melloul', 'Agadir-Ida Ou Tanan', 'Nador', 'Khouribga',
         'Settat', 'Temara', 'El Jadida', 'Khenifra', 'Taza',
         'بني ملال', 'مراكش',
-        '<script>alert("address")</script>',
     );
 
     $top = count( $list );
@@ -171,7 +169,6 @@ function dt_demo_random_word () {
         'Praesent', 'Pulvinar', 'Vestibulum', 'Mollis', 'Tempus',
         'Sapien', 'Duis', 'Eros', 'Tincidunt', 'Vestibulum',
         'Praesent', 'Cras', 'Tortor', 'Quam', 'Duis',
-        '<script>alert("word")</script>',
     );
 
     $top = count( $list );

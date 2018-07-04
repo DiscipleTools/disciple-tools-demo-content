@@ -194,6 +194,7 @@ else {
             DT_Demo_Endpoints::instance();
             require_once( 'includes/class-prepared-data.php' );
             DT_Demo_Prepared_Data::instance();
+            require_once( 'includes/ui-modal.php' );
 
             // Load admin files.
 

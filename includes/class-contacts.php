@@ -28,17 +28,21 @@ class DT_Demo_Contacts
     public function add_contacts_by_count ( $count )
     {
         $i = 0;
+        $successful = 0;
         while ($count > $i ) {
 
             $post = $this->single_plain_contact();
             $contact_id = Disciple_Tools_Contacts::create_contact( $post, false );
             if ( !is_wp_error( $contact_id )){
                 update_post_meta( $contact_id, "_sample", "sample" );
+                $successful++;
             }
 
             $i++;
+
         }
-        return $count . ' records created';
+//        return $count . ' records created';
+        return $i;
     }
 
     /**
