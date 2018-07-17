@@ -5,7 +5,7 @@ if ( ! get_option( 'dt_demo_sample_data' ) ) {
     function dt_demo_modal() {
         // only run check on dashboard
         global $post;
-        if ( is_archive() && $post->post_type == 'contacts' ) {
+        if ( is_archive() ) {
             // Offer Sample Data
             ?>
             <script>
@@ -25,7 +25,7 @@ if ( ! get_option( 'dt_demo_sample_data' ) ) {
                                             </p>
                             <div id="step-1">
                                 <p><h4 id="install-title-1">Install Sample Contacts, Groups, and Users</h4></p>
-                                <p id="install-action-1"><button type="button" class="button" onclick="install_core()">Install</button> <button type="button" class="button hollow" onclick="skip_core()">Skip</button> </p>
+                                <p id="install-action-1"><button type="button" class="button" onclick="quick_launch()">Install</button> <button type="button" class="button hollow" onclick="skip_core()">Skip</button> </p>
                                 <p id="install-report-1" style="font-size:1.2em; padding-left:20px;"></p>
                             </div>
 

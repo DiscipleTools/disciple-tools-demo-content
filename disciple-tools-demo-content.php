@@ -188,13 +188,16 @@ else {
         private function includes() {
             global $pagenow;
 
-
             require_once( 'includes/enqueue-scripts.php' );
             require_once( 'includes/rest-endpoints.php' );
             DT_Demo_Endpoints::instance();
+            require_once( 'includes/class-demo-data.php' );
+            require_once( 'includes/ui-modal.php' );
+
+
+
             require_once( 'includes/class-prepared-data.php' );
             DT_Demo_Prepared_Data::instance();
-            require_once( 'includes/ui-modal.php' );
 
             // Load admin files.
 
