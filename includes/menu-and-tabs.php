@@ -146,20 +146,19 @@ class DT_Demo_Tab_Quick_Launch
     }
 
     public function quick_launch_box() {
-        if ( DT_Demo_Prepared_Data::check_if_database_clear() ) {
-        ?>
+        if ( DT_Demo_Prepared_Data::check_if_database_clear() ) { ?>
             <div id="prepared_data_errors"></div>
-            <p><button type="button" class="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button></p>
-            <div id="spinner"></div>
-            <div id="quick-launch-report"></div>
+                <p><button type="button" class="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button></p>
+                <div id="spinner"></div>
+                <div id="quick-launch-report"></div>
 
-            <p>
-                <button type="button" class="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
-            </p>
+                <p>
+                    <button type="button" class="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
+                </p>
         <?php
         } else {
             ?>
-            <p><?php esc_html_e( "Either your database is too large or you have already used quick launch. Please use the tools in 'Add Records' tab instead.", 'disciple_tools' ) ?></p>
+                <p><?php esc_html_e( "Either your database is too large or you have already used quick launch. Please use the tools in 'Add Records' tab instead.", 'disciple_tools' ) ?></p>
             <?php
         }
     }
