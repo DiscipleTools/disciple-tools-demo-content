@@ -14,12 +14,7 @@ function quick_launch() {
         },
     })
     .done(function (data) {
-        // location.reload();
-
-        jQuery('#demo-install-modal').foundation('close')
-        console.log( data )
-        spinner.empty()
-
+        location.reload();
     })
     .fail(function (err) {
         console.log("error")

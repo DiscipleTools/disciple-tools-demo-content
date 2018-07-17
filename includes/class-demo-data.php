@@ -236,38 +236,40 @@ class DT_Demo_Data {
 
         // change post records
         $db_name = DB_NAME;
-        $last_post_id = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->posts'");
+        $last_post_id = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->posts'" );
         if ( ! $last_post_id ) {
-            return new WP_Error(__METHOD__, 'Failed to get most recent post_id' );
+            return new WP_Error( __METHOD__, 'Failed to get most recent post_id' );
         }
         $next_post_id = $last_post_id + 1;
         $location_id = 1429;
         while ( $location_id <= 1451 ) {
             $sql = str_replace( $location_id . ',', $next_post_id . ',', $sql );
             $sql2 = str_replace( $location_id . ',', $next_post_id . ',', $sql2 );
-            $location_id++; $next_post_id++;
+            $location_id++;
+            $next_post_id++;
         }
 
         // change postmeta records
-        $last_postmeta_id = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'");
+        $last_postmeta_id = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'" );
         if ( ! $last_postmeta_id ) {
-            return new WP_Error(__METHOD__, 'Failed to get most recent post_id' );
+            return new WP_Error( __METHOD__, 'Failed to get most recent post_id' );
         }
         $next_postmeta_id = $last_postmeta_id + 1;
         $locationmeta_id = 20661;
         while ( $locationmeta_id <= 20775 ) {
             $sql2 = str_replace( $locationmeta_id . ',', $next_postmeta_id . ',', $sql2 );
-            $locationmeta_id++; $next_postmeta_id++;
+            $locationmeta_id++;
+            $next_postmeta_id++;
         }
 
-        $wpdb->query($sql);
-        $wpdb->query($sql2);
+        $wpdb->query( $sql );
+        $wpdb->query( $sql2 );
 
         return $wpdb->rows_affected;
 
     }
 
-    public static function single_plain_contact( ) {
+    public static function single_plain_contact() {
         $name = dt_demo_random_name();
 
         $post = [
@@ -301,7 +303,7 @@ class DT_Demo_Data {
 
             $comment_id = wp_insert_comment( $data );
             if ( is_wp_error( $comment_id ) ) {
-                dt_write_log(__METHOD__ . ": " . $comment_id );
+                dt_write_log( __METHOD__ . ": " . $comment_id );
                 continue;
             }
             add_comment_meta( $comment_id,  '_sample', 'sample' );
@@ -372,16 +374,16 @@ class DT_Demo_Data {
         $demo_range['comments'] = [ 10002, 10137 ];
 
         // Get auto-increments
-        $next_id['dt_activity_log'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_activity_log'");
-        $next_id['dt_notifications'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_notifications'");
-        $next_id['dt_share'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_share'");
-        $next_id['comments'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->comments'");
-        $next_id['p2p'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2p'");
-        $next_id['p2pmeta'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2pmeta'");
-        $next_id['postmeta'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'");
-        $next_id['posts'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->posts'");
-        $next_id['usermeta'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->usermeta'");
-        $next_id['users'] = $wpdb->get_var("SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->users'");
+        $next_id['dt_activity_log'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_activity_log'" );
+        $next_id['dt_notifications'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_notifications'" );
+        $next_id['dt_share'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_share'" );
+        $next_id['comments'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->comments'" );
+        $next_id['p2p'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2p'" );
+        $next_id['p2pmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2pmeta'" );
+        $next_id['postmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'" );
+        $next_id['posts'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->posts'" );
+        $next_id['usermeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->usermeta'" );
+        $next_id['users'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->users'" );
 
         // update user ids
         $demo = $demo_range['users'][0];
@@ -394,7 +396,8 @@ class DT_Demo_Data {
                 $sql[$key] = str_replace( 'user-'.$demo, 'user-'.$next, $sql[$key] );
             }
             $sql['comments'] = str_replace( ' '.$demo.')', ' '.$next.')', $sql['comments'] );
-            $sql['postmeta'] = str_replace( "'".$demo."')", "'".$next."')", $sql['postmeta'] );
+//            $sql['postmeta'] = str_replace( "'".$demo."')", "'".$next."')", $sql['postmeta'] );
+            $sql['postmeta'] = str_replace( 'user-'.$demo, 'user-'.$next, $sql['postmeta'] );
 
             $assign_to_site[] = $next;
 
@@ -437,6 +440,7 @@ class DT_Demo_Data {
         $next = $next_id['posts'];
         for ( $i = $demo_range['posts'][0]; $i <= $demo_range['posts'][1]; $i++) {
             $sql['posts'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['posts'] );
+            $sql['postmeta'] = str_replace( $demo . ', ', $next . ', ', $sql['postmeta'] );
             $sql['p2p'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['p2p'] );
             $sql['dt_share'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_share'] );
             $sql['dt_activity_log'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_activity_log'] );
@@ -494,35 +498,36 @@ class DT_Demo_Data {
 
 
         // Insert processed queries
-        $result[] = $wpdb->query($sql['users']);
-        $result[] = $wpdb->query($sql['usermeta']);
-        $result[] = $wpdb->query($sql['posts']);
-        $result[] = $wpdb->query($sql['postmeta']);
-        $result[] = $wpdb->query($sql['p2p']);
-        $result[] = $wpdb->query($sql['p2pmeta']);
-        $result[] = $wpdb->query($sql['dt_share']);
-        $result[] = $wpdb->query($sql['dt_activity_log']);
-        $result[] = $wpdb->query($sql['dt_notifications']);
-        $result[] = $wpdb->query($sql['comments']);
+        $result[] = $wpdb->query( $sql['users'] );
+        $result[] = $wpdb->query( $sql['usermeta'] );
+        $result[] = $wpdb->query( $sql['posts'] );
+        $result[] = $wpdb->query( $sql['postmeta'] );
+        $result[] = $wpdb->query( $sql['p2p'] );
+        $result[] = $wpdb->query( $sql['p2pmeta'] );
+        $result[] = $wpdb->query( $sql['dt_share'] );
+        $result[] = $wpdb->query( $sql['dt_activity_log'] );
+        $result[] = $wpdb->query( $sql['dt_notifications'] );
+        $result[] = $wpdb->query( $sql['comments'] );
 
-        dt_write_log($sql);
+        // Add users to site if multisite
+        if ( is_multisite() ) {
+            foreach( $assign_to_site as $user_id ) {
+                $user_object = get_userdata( $user_id );
+                if ( $user_object->user_login === 'dispatcher1' || $user_object->user_login === 'dispatcher2' ) {
+                    $role = 'dispatcher';
+                } elseif ( $user_object->user_login === 'marketer1' || $user_object->user_login === 'marketer2' ) {
+                    $role = 'marketer';
+                } else {
+                    $role = 'multiplier';
+                }
 
-        // Add users to site
-        foreach( $assign_to_site as $user_id ) {
-            $user_object = get_userdata( $user_id );
-            if ( $user_object->user_login === 'dispatcher1' || $user_object->user_login === 'dispatcher2' ) {
-                $role = 'dispatcher';
-            } elseif ( $user_object->user_login === 'marketer1' || $user_object->user_login === 'marketer2' ) {
-                $role = 'marketer';
-            } else {
-                $role = 'multiplier';
+                add_user_to_blog( get_current_blog_id(), $user_id, $role );
             }
-
-            add_user_to_blog(get_current_blog_id(), $user_id, $role );
         }
 
-        // Assign 20 contacts to current user
-        $active_contacts = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' )");
+
+        // Add shared contacts
+        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' )" );
         $i = 0;
         foreach( $active_contacts as $contact_id ) {
             Disciple_Tools_Posts::add_shared( 'contacts', $contact_id, get_current_user_id(), $meta = null, true, false );
@@ -532,29 +537,16 @@ class DT_Demo_Data {
             $i++;
         }
 
-        $active_contacts = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'unassigned' )");
+        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'unassigned' )" );
         $i = 0;
         foreach( $active_contacts as $contact_id ) {
-            Disciple_Tools_Contacts::update_contact( $contact_id, ["assigned_to" => get_current_user_id() ], false );
+            $fields = [
+                "assigned_to" => get_current_user_id(),
+                "overall_status" => "active",
+            ];
+            Disciple_Tools_Contacts::update_contact( $contact_id, $fields, false );
+            update_post_meta( $contact_id, 'accepted', 'yes' );
 
-            foreach( $assign_to_site as $user_id ) {
-                $user_object = get_userdata( $user_id );
-                if( $user_object->user_login === 'dispatcher1' ) {
-                    break;
-                }
-            }
-            dt_notification_insert(
-                [
-                    'user_id'             => get_current_user_id(),
-                    'source_user_id'      => $user_id,
-                    'post_id'             => $contact_id,
-                    'secondary_item_id'   => 0,
-                    'notification_name'   => 'assigned_to',
-                    'notification_action' => 'alert',
-                    'notification_note'   => '',
-                    'is_new'              => 1,
-                ]
-            );
             if( $i === 5 ) {
                 break;
             }
@@ -563,7 +555,7 @@ class DT_Demo_Data {
 
         update_option( 'dt_demo_sample_data', true, false );
 
-        dt_write_log($result);
+        dt_write_log( $result );
 
         return $result;
 

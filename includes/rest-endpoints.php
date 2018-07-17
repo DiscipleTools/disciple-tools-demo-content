@@ -135,7 +135,7 @@ class DT_Demo_Endpoints
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
             $rows_affected = DT_Demo_Data::install_prepared_locations();
             if ($rows_affected > 0 ) {
-                $query_object = new WP_Query(['post_type' => 'locations', 'post_status' => 'publish', 'nopaging' => true ]);
+                $query_object = new WP_Query( ['post_type' => 'locations', 'post_status' => 'publish', 'nopaging' => true ] );
                 return $query_object->posts;
             } else {
                 return false;
@@ -185,7 +185,7 @@ class DT_Demo_Endpoints
 
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
 
-            if ( isset( $params['contacts'] ) && isset( $params['users']) ) {
+            if ( isset( $params['contacts'] ) && isset( $params['users'] ) ) {
                 return DT_Demo_Data::create_initial_comments( $params['contacts'], $params['users'] );
             } else {
                 return new WP_Error( __METHOD__, "Missing parameters" );
