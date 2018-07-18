@@ -18,7 +18,10 @@ function dt_demo_scripts() {
                 "no-notifications" => __( "You don't have any notifications", "disciple_tools" )
             ],
             'images_uri' => dt_demo()->includes_uri,
+            'spinner_small' => '<img src="'.dt_demo()->includes_uri.'spinner.svg" style="width:15px;" />',
         )
     );
 }
 add_action( 'admin_enqueue_scripts', 'dt_demo_scripts', 999 );
+
+add_action( 'wp_enqueue_scripts', 'dt_demo_scripts', 999 );

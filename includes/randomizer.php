@@ -52,7 +52,6 @@ function dt_demo_random_name () {
         'Moukib', 'Azzam', 'Qaseem', 'Maysun', 'Rahi',
         'Atiya', 'Rashid', 'Manal', 'Usama', 'Gadi',
         'رشيد', 'منال', 'أسامة',
-        '<script>alert("name");</script>',
     );
 
     $top = count( $list );
@@ -88,7 +87,6 @@ function dt_demo_random_address () {
         'Oujda', 'Inezgane Ait Melloul', 'Agadir-Ida Ou Tanan', 'Nador', 'Khouribga',
         'Settat', 'Temara', 'El Jadida', 'Khenifra', 'Taza',
         'بني ملال', 'مراكش',
-        '<script>alert("address")</script>',
     );
 
     $top = count( $list );
@@ -171,7 +169,6 @@ function dt_demo_random_word () {
         'Praesent', 'Pulvinar', 'Vestibulum', 'Mollis', 'Tempus',
         'Sapien', 'Duis', 'Eros', 'Tincidunt', 'Vestibulum',
         'Praesent', 'Cras', 'Tortor', 'Quam', 'Duis',
-        '<script>alert("word")</script>',
     );
 
     $top = count( $list );
@@ -351,6 +348,20 @@ function dt_demo_random_group_type(): string {
     $list = array(
         'pre-group', 'group', 'church'
     );
+    return $list[ array_rand( $list ) ];
+}
+
+function dt_demo_first_comment() {
+    $list = [
+       'Filled out the webform and clicked "I want to know more about Jesus".',
+       'This contact selected "I want to become a Christian, but there are obstacles" on the webform.',
+       'This contact selected "I feel in my heart that I\'m ready to become a Christian" on the webform.',
+       'This contact selected "I want to know more about Jesus and the Bible" on the webform.',
+       'He private messaged us on FB. He came with the usual questions/arguments, "God can\'t have a son," "what is the trinity?" "the Bible has been corrupted." However, he has been responding with great follow up questions to the articles I sent him on these topics. He is very open to expanding his knowledge base. He is asking to get a Bible of his own and wants to meet a Christian in person. ',
+       'This contact selected "No, I\'m not interested right now" on the webform.',
+
+    ];
+
     return $list[ array_rand( $list ) ];
 }
 
