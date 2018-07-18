@@ -316,20 +316,18 @@ class DT_Demo_Data {
         global $wpdb;
         $db_name = DB_NAME;
 
-
-
         // Get SQL queries
         $path = plugin_dir_path( __DIR__ );
-        $sql['dt_activity_log'] = file_get_contents( $path  . "admin/dt_activity_log.sql" );
-        $sql['dt_share'] = file_get_contents( $path  . "admin/dt_share.sql" );
-        $sql['dt_notifications'] = file_get_contents( $path  . "admin/dt_notifications.sql" );
-        $sql['comments'] = file_get_contents( $path  . "admin/comments.sql" );
-        $sql['p2p'] = file_get_contents( $path  . "admin/p2p.sql" );
-        $sql['p2pmeta'] = file_get_contents( $path  . "admin/p2pmeta.sql" );
-        $sql['posts'] = file_get_contents( $path  . "admin/posts.sql" );
-        $sql['postmeta'] = file_get_contents( $path  . "admin/postmeta.sql" );
-        $sql['usermeta'] = file_get_contents( $path  . "admin/usermeta.sql" );
-        $sql['users'] = file_get_contents( $path  . "admin/users.sql" );
+        $sql['dt_activity_log'] = file_get_contents( $path  . "sql/dt_activity_log.sql" );
+        $sql['dt_share'] = file_get_contents( $path  . "sql/dt_share.sql" );
+        $sql['dt_notifications'] = file_get_contents( $path  . "sql/dt_notifications.sql" );
+        $sql['comments'] = file_get_contents( $path  . "sql/comments.sql" );
+        $sql['p2p'] = file_get_contents( $path  . "sql/p2p.sql" );
+        $sql['p2pmeta'] = file_get_contents( $path  . "sql/p2pmeta.sql" );
+        $sql['posts'] = file_get_contents( $path  . "sql/posts.sql" );
+        $sql['postmeta'] = file_get_contents( $path  . "sql/postmeta.sql" );
+        $sql['usermeta'] = file_get_contents( $path  . "sql/usermeta.sql" );
+        $sql['users'] = file_get_contents( $path  . "sql/users.sql" );
 
         /** START PRE-PROCESSING */
 //        dt_write_log( $sql );
@@ -363,15 +361,15 @@ class DT_Demo_Data {
         // Update ID's
         // sample data start and finish ids
         $demo_range['users'] = [ 1004, 1011 ];
-        $demo_range['usermeta'] = [ 10049, 10259 ];
-        $demo_range['posts'] = [ 10004, 11338 ];
-        $demo_range['postmeta'] = [ 100004, 100837 ];
-        $demo_range['p2p'] = [ 10001, 10058 ];
-        $demo_range['p2pmeta'] = [ 10001, 10061 ];
-        $demo_range['dt_share'] = [ 10001, 10086 ];
-        $demo_range['dt_notifications'] = [ 10001, 10181 ];
-        $demo_range['dt_activity_log'] = [ 100002, 101324 ];
-        $demo_range['comments'] = [ 10002, 10137 ];
+        $demo_range['usermeta'] = [ 10049, 10324 ];
+        $demo_range['posts'] = [ 10004, 10110 ];
+        $demo_range['postmeta'] = [ 100004, 101288 ];
+        $demo_range['p2p'] = [ 10001, 10126 ];
+        $demo_range['p2pmeta'] = [ 10001, 10165 ];
+        $demo_range['dt_share'] = [ 10001, 10124 ];
+        $demo_range['dt_notifications'] = [ 10001, 10304 ];
+        $demo_range['dt_activity_log'] = [ 100002, 107338 ];
+        $demo_range['comments'] = [ 10002, 10240 ];
 
         // Get auto-increments
         $next_id['dt_activity_log'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_activity_log'" );

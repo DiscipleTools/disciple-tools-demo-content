@@ -1,0 +1,6 @@
+1. Pull nightly or sample database to sql
+2. Install sql of entire db with phpMyAdmin Import
+3. Take modification.sql script and use the SQL function in phpMyAdmin to update the tables.
+4. Export id modified tables to .sql
+5. Break insert statements into different .sql files and remove "Insert" breaks so they are one single insert statement.
+6. update demo ranges in class-demo-data.php to include new rows
