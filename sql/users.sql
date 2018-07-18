@@ -3,7 +3,7 @@ INSERT INTO `dt14330_users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `
   (1005, 'marketer1', '$P$BuHyewQg9AHJmY.DqJLVk5cA93eT4l/', 'marketer1', 'marketer1@disciple.tools', '', '2018-05-29 12:30:27', '', 0, 'Mary Smith (marketer)'),
   (1006, 'dispatcher1', '$P$B15u3fyebo/43.pP5Yc0HOSomWagGz/', 'dispatcher1', 'dispatcher1@disciple.tools', '', '2018-05-29 12:30:34', '', 0, 'Damián Abellán (Dispatcher)'),
   (1007, 'dispatcher2', '$P$BSYBTvrEMIjFuXg6M.qCI7Hjv60d92/', 'dispatcher2', 'dispatcher2@disciple.tools', '', '2018-05-29 12:30:54', '1527597054:$P$BBVFc62rhA/nCLDeUKblgPE.YHno9n.', 0, 'Rachel Black (dispatcher)'),
-  (1008, 'marketer2', '$P$BZdofoXxYVNH4NGHBIWNbWOlD/6aMH0', 'marketer2', 'marketer2@disciple.tools', '', '2018-05-29 12:31:11', '1527597071:$P$BtSXcvE3tx2ynLuowGFinDkMZedyme0', 0, 'David Smith'),
+  (1008, 'marketer2', '$P$BZdofoXxYVNH4NGHBIWNbWOlD/6aMH0', 'marketer2', 'marketer2@disciple.tools', '', '2018-05-29 12:31:11', '1527597071:$P$BtSXcvE3tx2ynLuowGFinDkMZedyme0', 0, 'David Smith (Marketer)'),
   (1009, 'multiplier1', '$P$BKnLzpRFxgPivgIbfBwh5lsMHE6sYJ0', 'multiplier1', 'multiplier1@disciple.tools', '', '2018-05-29 12:33:19', '1527597200:$P$BCBrOBxhGeMHrHc9/ZPXaXiJo4lLD5/', 0, 'Isabel Arboleda (multiplier)'),
   (1010, 'multiplier3', '$P$Bg59XUTGKsLtV6mO2Wzui7Augh8Ljk1', 'multiplier3', 'multiplier3@disciple.tools', '', '2018-05-29 14:29:39', '', 0, 'Anthony Palacio (multiplier)'),
   (1011, 'multiplier4', '$P$BaHkIWgbZLGbkPNB5er3hlApEB2JRu.', 'multiplier4', 'multiplier4@disciple.tools', '', '2018-05-29 14:34:09', '1527604450:$P$BTSHWSiPPWYJizicyFe3pIwZtCqZaI1', 0, 'Christopher Berganza (multiplier)');
