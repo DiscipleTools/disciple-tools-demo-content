@@ -40,7 +40,7 @@ class DT_Demo_Prepared_Data
             global $wpdb;
 
             $path = plugin_dir_path( __DIR__ );
-            $sql = file_get_contents( $path  . "admin/demo_data.sql" );
+            $sql = file_get_contents( $path  . "sql/source/demo_data.sql" );
 
             // replace table names
             $sql = str_replace( "dt14330_users", $wpdb->users, $sql ); // targets renaming users table
