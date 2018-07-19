@@ -186,53 +186,37 @@ else {
          * @return void
          */
         private function includes() {
-            global $pagenow;
 
+            // Main Installer
             require_once( 'includes/enqueue-scripts.php' );
             require_once( 'includes/rest-endpoints.php' );
-            DT_Demo_Endpoints::instance();
             require_once( 'includes/class-demo-data.php' );
             require_once( 'includes/ui-modal.php' );
 
 
-
-            require_once( 'includes/class-prepared-data.php' );
-            DT_Demo_Prepared_Data::instance();
-
-            // Load admin files.
-
-
-            // Admin menu
-            require_once( 'includes/menu-and-tabs.php' );
-
-            require_once( 'includes/class-users.php' );
-            $this->users = DT_Demo_Users::instance();
-
-            require_once( 'includes/class-contacts.php' );
-            $this->contacts = DT_Demo_Contacts::instance();
-
-            require_once( 'includes/class-groups.php' );
-            $this->groups = DT_Demo_Groups::instance();
-
-            require_once( 'includes/class-locations.php' );
-            $this->locations = DT_Demo_Locations::instance();
-
-            require_once( 'includes/class-comments.php' );
-            $this->comments = DT_Demo_Comments::instance();
-
-            require_once( 'includes/class-connections.php' );
-            $this->connections = DT_Demo_Connections::instance();
-
-            $theme = wp_get_theme();
-            if ( $theme->name = "Disciple_Tools" ) {
-                require_once( 'includes/class-roles.php' );
-                $this->roles = new DT_Demo_Roles();
+            // Additional item installer tab
+            if( is_admin() ) {
+                require_once( 'includes/menu-and-tabs.php' );
+                require_once( 'includes/class-users.php' );
+                $this->users = DT_Demo_Users::instance();
+                require_once( 'includes/class-contacts.php' );
+                $this->contacts = DT_Demo_Contacts::instance();
+                require_once( 'includes/class-groups.php' );
+                $this->groups = DT_Demo_Groups::instance();
+                require_once( 'includes/class-locations.php' );
+                $this->locations = DT_Demo_Locations::instance();
+                require_once( 'includes/class-comments.php' );
+                $this->comments = DT_Demo_Comments::instance();
+                require_once( 'includes/class-connections.php' );
+                $this->connections = DT_Demo_Connections::instance();
+                $theme = wp_get_theme();
+                if ( $theme->name = "Disciple_Tools" ) {
+                    require_once( 'includes/class-roles.php' );
+                    $this->roles = new DT_Demo_Roles();
+                }
+                require_once( 'includes/randomizer.php' );
             }
-
-            require_once( 'includes/randomizer.php' );
         }
-
-
 
 
         /**

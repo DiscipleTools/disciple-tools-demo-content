@@ -65,7 +65,6 @@ class DT_Demo_Menu {
             <h2><?php esc_attr_e( 'DISCIPLE TOOLS - DEMO CONTENT', 'dt_demo' ) ?></h2>
             <h2 class="nav-tab-wrapper">
                 <a href="<?php echo esc_attr( $link ) . 'quick' ?>" class="nav-tab <?php ( $tab == 'quick' || ! isset( $tab ) ) ? esc_attr_e( 'nav-tab-active', 'dt_demo' ) : print ''; ?>"><?php esc_attr_e( 'Quick Launch', 'dt_demo' ) ?></a>
-                <a href="<?php echo esc_attr( $link ) . 'records' ?>" class="nav-tab <?php ( $tab == 'records' ) ? esc_attr_e( 'nav-tab-active', 'dt_demo' ) : print ''; ?>"><?php esc_attr_e( 'Add Records', 'dt_demo' ) ?></a>
             </h2>
 
             <?php
@@ -73,10 +72,6 @@ class DT_Demo_Menu {
                 case "quick":
                     $object = new DT_Demo_Tab_Quick_Launch();
                     $object->content();
-                    break;
-                case "records":
-                    $object = new DT_Demo_Tab_Add_Records();
-                    echo $object->content();
                     break;
                 default:
                     break;
@@ -98,17 +93,18 @@ class DT_Demo_Tab_Quick_Launch
     public function content() {
         ?>
         <div class="wrap">
-            <h2>Quick Launch</h2>
+
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder columns-2">
                     <div id="post-body-content">
 
-                        <?php $this->main_column() ?>
+                        <?php $this->quick_launch_box() ?>
+                        <?php echo $this->add_records(); ?>
 
                     </div><!-- end post-body-content -->
                     <div id="postbox-container-1" class="postbox-container">
 
-                        <?php $this->right_column() ?>
+                        <?php echo $this->right_column_utilities(); ?>
 
                     </div><!-- postbox-container 1 -->
                     <div id="postbox-container-2" class="postbox-container">
@@ -119,69 +115,175 @@ class DT_Demo_Tab_Quick_Launch
         <?php
     }
 
-    public function main_column() {
-        ?>
-        <!-- Box -->
-
-        <table class="widefat striped">
-            <thead>
-            <th>Quick Launch</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <?php $this->quick_launch_box(); ?>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <!-- End Box -->
-        <?php
-    }
-
-    public function right_column() {
-        ?>
-        <?php
-    }
-
-    public function quick_launch_box() {
-        if ( DT_Demo_Prepared_Data::check_if_database_clear() ) { ?>
-            <div id="prepared_data_errors"></div>
-                <p><button type="button" class="button" id="install-quick-launch" onclick="quick_launch()"><?php esc_html_e( "Install", 'disciple_tools' ) ?></button></p>
-                <div id="spinner"></div>
-                <div id="quick-launch-report"></div>
-
-                <p>
-                    <button type="button" class="button" id="delete-quick-launch" onclick="delete_prepared_data()"><?php esc_html_e( "Delete Prepared Data", 'disciple_tools' ) ?></button>
-                </p>
-        <?php
-        } else {
-            ?>
-                <p><?php esc_html_e( "Either your database is too large or you have already used quick launch. Please use the tools in 'Add Records' tab instead.", 'disciple_tools' ) ?></p>
-            <?php
-        }
-    }
-}
-
-/**
- * Class DT_Demo_Tab_Add_Records
- */
-class DT_Demo_Tab_Add_Records
-{
-    /**
-     * Add Records Menu Tab Content
-     * @access  public
-     * @since   0.1
-     */
-    public function content() {
+    public function add_records() {
         global $wpdb;
-        $html = '';
-
         /**********************************************************************/
         /* Handle Postback */
         /**********************************************************************/
+        $html = '';
+        $html .= $this->report_box();
 
+        /**********************************************************************/
+        /* Calculate Current Status */
+        /**********************************************************************/
+
+        // Number of users
+        $user_object = count_users();
+        $users = $user_object['total_users'];
+
+        // Number of contacts
+        $contacts = wp_count_posts( 'contacts' );
+        $groups = wp_count_posts( 'groups' );
+        $locations = wp_count_posts( 'locations' );
+        $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
+
+        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_locations'" );
+        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_locations'" );
+        $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
+
+        // Number of Baptism connections
+        $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
+        $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
+        $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
+
+
+
+        $html .= '<h1>Add Additional Records</h1>';
+
+        // Progress Metabox
+        $html .= '<table class="widefat striped">
+                    <thead><th width="50%">ADD</th><th>Count</th><th>Add</th><th>Delete</th></thead>
+                    <tbody>
+                        
+                        
+                        <tr><th>Contacts</th>
+                            <td class="add_contacts_count delete_contacts_count">'.$contacts->publish.'</td>
+                            <td>
+                                <button type="button" onclick="add_contacts();"class="button" id="add_contacts">Add 20 Contacts <span id="add_contacts_spinner" style="width:15px;"></span></button>
+                                
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete All Contacts</a>
+                                <div id="delete_contacts_confirm" class="warning" style="display:none;"><span>Are you sure?</span><br>
+                                    <button type="button" onclick="delete_contacts()" value="delete_contacts" name="submit" class="button" style="background:red; color:white;" id="delete_contacts">Confirm Delete <span id="delete_contacts_spinner" style="width:15px;"></span></button></form>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr><th>Groups</th>
+                            <td class="add_groups_count delete_groups_count">'.$groups->publish.'</td>
+                            <td>
+                                <button type="button" onclick="add_groups();"class="button" id="add_groups">Add 20 groups <span id="add_groups_spinner" style="width:15px;"></span></button>
+                                
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_groups_confirm\').show();">Delete All Groups</a>
+                                <div id="delete_groups_confirm" class="warning" style="display:none;"><span>Are you sure?</span><br>
+                                    <button type="button" onclick="delete_groups()" value="delete_groups" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete <span id="delete_groups_spinner" style="width:15px;"></span></button></form>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        
+                        
+                        <tr><th>Users</th><td>'.$users.'</td>
+                        <td>
+                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a><br>
+                            <div id="delete_users_confirm" class="warning" style="display:none;">Are you sure?<br>
+                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
+                            </div>
+                        </td>
+                        </tr>
+                        
+                        ';
+
+        if ( post_type_exists( 'locations' ) ) {
+            $html .= '
+                    <tr><th>Locations</th><td>' . $locations->publish . '</td>
+                    <td>
+                         <a href="admin.php?page=dt_options&tab=locations" >Add Locations</a>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_locations_confirm\').show();">Delete Locations</a><br>
+                        <div id="delete_locations_confirm" class="warning" style="display:none;">Are you sure?<br>
+                            <form method="POST"><button type="submit" value="delete_locations" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
+                        </div>
+                    </td>
+                    </tr>
+                    ';
+        }
+
+        $html .= '<tr><th>Comments</th><td>'.$comments .'</td><td>
+                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
+                    </td>
+                    <td>
+                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete Comments</a><br>
+                    <div id="delete_comments_confirm" class="warning" style="display:none;">Are you sure?<br>
+                        <form method="POST"><button type="submit" value="delete_comments" name="submit" class="button" style="background:red; color:white;" id="delete_comments">Confirm Delete</button></form>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+             </table>
+             <br>';
+
+        $html .= '<table class="widefat striped">
+                    <thead><th width="50%">CONNECT</th><th>Count</th><th>Add</th><th></th></thead>
+                    <tbody>
+                        <tr><th>Baptism Generations</th><td>'.$baptism_gen.'</td><td>
+                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptism Generations</button></form>
+                        </td><td></td></tr>
+                        
+                        <tr><th>Group Generations</th><td>'.$group_gen.'</td><td>
+                            <form method="POST"><input type="hidden"  name="count" value="10" /> <button type="submit" value="build_churches" name="submit" class="button" id="build_churches">Add Group Generations</button></form>
+                        </td><td></td></tr>
+                        
+                        <tr><th>Coaching Generations</th><td>'.$coaching_gen.'</td><td>
+                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Add Coaching Generations</button></form>
+                        </td><td></td></tr>
+                        
+                        <tr><th>Contacts to Locations</th><td>'.$contacts_to_locations  .'</td><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Connect Contacts to Locations</button></form>
+                        </td><td></td></tr> 
+                        
+                        <tr><th>Groups to Locations</th><td>'.$groups_to_locations  .'</td><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
+                        </td><td></td></tr>
+                        ';
+        $html .= '<tr><th>Contacts to Groups</th><td>'.$contacts_to_groups  .'</td><td>
+                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Connect Contacts to Groups</button></form>
+                    </td><td></td></tr>
+                </tbody>
+             </table>
+             <br>
+             
+             <table class="widefat striped">
+                <thead><th width="50%">UTILITIES</th><th></th></thead>
+                    <tbody>
+                        
+                        <tr><th>Shuffle Assignments</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
+                        </td></tr>
+                        
+                        <tr><th>Shuffle Updates Requested</th><td>
+                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates</button></form>
+                        </td></tr>
+                        
+                     </tbody>
+            </table><br>
+             ';
+
+
+        $html .= '<style type="text/css">#spinner {display:none;}</style>';
+
+        return $html;
+    }
+
+    public function report_box() {
+        $html = '';
         if (isset( $_POST['submit'] )) {
 
             // Set top and bottom of report window
@@ -274,211 +376,49 @@ class DT_Demo_Tab_Add_Records
                 default:
                     break;
             }
+
         }
+        return $html;
+    }
 
-
-        /**********************************************************************/
-        /* Calculate Current Status */
-        /**********************************************************************/
-
-        // Number of users
-        $user_object = count_users();
-        $users = $user_object['total_users'];
-
-        // Number of contacts
-        $contacts = wp_count_posts( 'contacts' );
-        $groups = wp_count_posts( 'groups' );
-        $locations = wp_count_posts( 'locations' );
-        $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
-
-        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_locations'" );
-        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_locations'" );
-        $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
-
-        // Number of Baptism connections
-        $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
-        $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
-        $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
-
-
-        /**********************************************************************/
-        /* Panel Content */
-        /**********************************************************************/
-
-        $html .= '<div class="wrap"><h2>Add Sample Records</h2>';
-        // Opening wrappers.
-        $html .= '<div class="wrap">
-                        <div id="poststuff">
-                            <div id="post-body" class="metabox-holder columns-2">';
-
-        /*
-        * Main left column
-        *
-        */
-        $html .= '<div id="post-body-content">';
-
-        // Progress Metabox
-        $html .= '<table class="widefat striped">
-                    <thead><th>DO FIRST</th><th></th><th>Current</th></thead>
-                    <tbody>
-                        <tr><th>Users</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
-                        </td><td>'.$users.'</td></tr>
-                        
-                        <tr><th>Contacts</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_contacts" name="submit" class="button" id="add_contacts">Add Contacts</button></form>
-                        </td><td>'.$contacts->publish.'</td></tr>
-                        
-                        <tr><th>Groups</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="50" /> <button type="submit" value="add_groups" name="submit" class="button" id="add_groups">Add Groups</button></form>
-                        </td><td>'.$groups->publish.'</td></tr>
-                        
-                        ';
-
-        if ( post_type_exists( 'locations' ) ) {
-            $html .= '
-                    <tr><th>Locations</th><td>
-                             <a href="edit.php?post_type=locations&page=disciple_tools_locations" class="button">Add Locations</a>
-                    </td><td>' . $locations->publish . '</td></tr>
-                    ';
-        }
-
-        $html .= '<tr><th>Comments</th><td>
-                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
-                    </td><td>'.$comments .'</td></tr>
-                    </tbody>
-             </table>
-             <br>';
-
-        $html .= '<table class="widefat striped">
-                    <thead><th>DO SECOND</th><th></th><th>Current</th></thead>
-                    <tbody>
-                        <tr><th>Baptism Generations</th><td>
-                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptism Generations</button></form>
-                        </td><td>'.$baptism_gen.'</td></tr>
-                        
-                        <tr><th>Group Generations</th><td>
-                            <form method="POST"><input type="hidden"  name="count" value="10" /> <button type="submit" value="build_churches" name="submit" class="button" id="build_churches">Add Group Generations</button></form>
-                        </td><td>'.$group_gen.'</td></tr>
-                        
-                        <tr><th>Coaching Generations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Add Coaching Generations</button></form>
-                        </td><td>'.$coaching_gen.'</td></tr>
-                        
-                        <tr><th>Contacts to Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Connect Contacts to Locations</button></form>
-                        </td><td>'.$contacts_to_locations  .'</td></tr> 
-                        
-                        <tr><th>Groups to Locations</th><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
-                        </td><td>'.$groups_to_locations  .'</td></tr>
-                        ';
-        $html .= '<tr><th>Contacts to Groups</th><td>
-                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Connect Contacts to Groups</button></form>
-                    </td><td>'.$contacts_to_groups  .'</td></tr>
-                </tbody>
-             </table>
-             <br>
-             
-             <table class="widefat ">
-                <thead>
-                    <th>Notes</th>
-                </thead>
-                <tbody>
-                    <tr><td>ADD SAMPLE DATA<br> These forms add the core data to the system for the purpose of testing and training.<hr></td></tr>
-                    <tr><td>UTILITIES<br>Theses are utilities that allow you to reset the system.</td></tr>
-                </tbody>
-             </table>
-             ';
-
-        $html .= '</div><!-- end post-body-content -->';
-
-        $html .=   '<div id="postbox-container-1" class="postbox-container">
-
-                    <table class="widefat striped">
-                        <thead><th>UTILITIES</th><th></th></thead>
-                            <tbody>
-                                
-                                <tr><th>Reset Core Users</th><td>
-                                    <form method="POST"><button type="submit" value="refresh_users" name="submit" class="button" id="refresh_users">Reset Users</button></form>
-                                </td></tr>
-                                
-                                <tr><th>Shuffle Assignments</th><td>
-                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_assignments" name="submit" class="button" id="shuffle_assignments">Shuffle Assignments</button></form>
-                                </td></tr>
-                                
-                                <tr><th>Shuffle Updates Requested</th><td>
-                                    <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates</button></form>
-                                </td></tr>
-                                <tr><th>Refresh Roles</th><td>
-                                    <form method="POST"><button type="submit" value="reset_roles" name="submit" class="button" id="reset_roles">Refresh Roles</button></form>
-                                </td></tr>
-                                
-                             </tbody>
-                    </table><br>
-                    
-                    <table class="widefat striped">
-                         <thead><th>REMOVE</th><th></th></thead>
-                            <tbody>
-                                
-                                <tr><th>Delete Users</th><td>
-                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a>
-                                </td></tr>
-                                <tr id="delete_users_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
-                                </td></tr>
-                                <tr><th>Delete Contacts</th><td>
-                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_contacts_confirm\').show();">Delete Contacts</a>
-                                    
-                                </td></tr>
-                                <tr id="delete_contacts_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                                    <form method="POST"><button type="submit" value="delete_contacts" name="submit" class="button" style="background:red; color:white;" id="delete_contacts">Confirm Delete</button></form>
-                                </td></tr>
-                                <tr><th>Delete Groups</th><td>
-                                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_groups_confirm\').show();">Delete Groups</a>
-                                    
-                                </td></tr>
-                                <tr id="delete_groups_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                                    <form method="POST"><button type="submit" value="delete_groups" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
-                                </td></tr>
-                                ';
-
-        if ( post_type_exists( 'locations' ) ) {
-            $html .= '
-                    <tr><th>Delete Locations</th><td>
-                        <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_locations_confirm\').show();">Delete Locations</a>
-                        
-                    </td></tr>
-                    <tr id="delete_locations_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                        <form method="POST"><button type="submit" value="delete_locations" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
-                    </td></tr>
-             ';
-        }
-
-        $html .= '
-                    <tr><th>Delete Comments</th><td>
-                        <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete Comments</a>
-                    </td></tr>
-                    <tr id="delete_comments_confirm" class="warning" style="display:none;"><th>Are you sure?</th><td>
-                        <form method="POST"><button type="submit" value="delete_comments" name="submit" class="button" style="background:red; color:white;" id="delete_comments">Confirm Delete</button></form>
-                    </td></tr>
-                                
-                                    
-                        </tbody>
-                    </table><br>
-
-                    </div><!-- postbox-container 1 -->
-
-                    <div id="postbox-container-2" class="postbox-container">
-                    </div><!-- postbox-container 2 -->
-
-                </div><!-- post-body meta box container -->
-            </div><!--poststuff end -->
-        </div><!-- wrap end -->';
-
-        $html .= '<style type="text/css">#spinner {display:none;}</style>';
+    public function right_column_utilities() {
+        $html = '';
 
         return $html;
+    }
+
+    public function quick_launch_box() {
+        ?>
+        <h1>Quick Launch</h1>
+        <!-- Box -->
+        <table class="widefat striped">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <p>
+                        <?php $installed = get_option('dt_demo_sample_data');
+                        $title = $installed ? __( 'Delete Prepared Data' ): __( 'Install Prepared Data' ); ?>
+                        <button type="button" class="button" id="install-quick-launch" onclick="toggle_prepared_data(<?php echo $installed; ?>)">
+                            <?php echo esc_attr( $title ); ?>
+                        </button>
+                        <span id="quick-launch-spinner"></span>
+                        <span id="spinner"></span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" id="hide-from-ui" name="hide-from-ui" onclick="hide_on_startup()" <?php if( get_option('dt_demo_hide_popup') ) : echo 'checked'; else: echo ''; endif; ?>/>
+                    <label for="hide-from-ui">Hide popup on startup <span id="hide-on-startup"></span></label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- End Box -->
+        <?php
     }
 
 }

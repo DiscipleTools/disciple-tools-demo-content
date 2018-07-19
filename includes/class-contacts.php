@@ -39,9 +39,7 @@ class DT_Demo_Contacts
             }
 
             $i++;
-
         }
-//        return $count . ' records created';
         return $i;
     }
 
