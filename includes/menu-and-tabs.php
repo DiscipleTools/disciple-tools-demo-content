@@ -63,9 +63,9 @@ class DT_Demo_Menu {
         ?>
         <div class="wrap">
             <h2><?php esc_attr_e( 'DISCIPLE TOOLS - DEMO CONTENT', 'dt_demo' ) ?></h2>
-            <h2 class="nav-tab-wrapper">
-                <a href="<?php echo esc_attr( $link ) . 'quick' ?>" class="nav-tab <?php ( $tab == 'quick' || ! isset( $tab ) ) ? esc_attr_e( 'nav-tab-active', 'dt_demo' ) : print ''; ?>"><?php esc_attr_e( 'Quick Launch', 'dt_demo' ) ?></a>
-            </h2>
+<!--            <h2 class="nav-tab-wrapper">-->
+<!--                <a href="--><?php //echo esc_attr( $link ) . 'quick' ?><!--" class="nav-tab --><?php //( $tab == 'quick' || ! isset( $tab ) ) ? esc_attr_e( 'nav-tab-active', 'dt_demo' ) : print ''; ?><!--">--><?php //esc_attr_e( 'Quick Launch', 'dt_demo' ) ?><!--</a>-->
+<!--            </h2>-->
 
             <?php
             switch ($tab) {
@@ -184,48 +184,42 @@ class DT_Demo_Tab_Quick_Launch
                             </td>
                         </tr>
                         
-                        
+                        <tr><th>Comments</th>
+                            <td class="add_comments_count delete_comments_count">'.$comments.'</td>
+                            <td>
+                                <button type="button" onclick="add_comments();"class="button" id="add_comments">Add 30 Comments <span id="add_comments_spinner" style="width:15px;"></span></button>
+                                
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete All Comments</a>
+                                <div id="delete_comments_confirm" class="warning" style="display:none;"><span>Are you sure?</span><br>
+                                    <button type="button" onclick="delete_comments()" value="delete_comments" name="submit" class="button" style="background:red; color:white;" id="delete_comments">Confirm Delete <span id="delete_comments_spinner" style="width:15px;"></span></button></form>
+                                </div>
+                            </td>
+                        </tr>
                         
                         <tr><th>Users</th><td>'.$users.'</td>
                         <td>
-                            <form method="POST"><input type="hidden" name="count" value="1" /> <button type="submit" value="add_users" name="submit" class="button" id="add_users">Add Users</button></form>
+                            <a href="user-new.php"  target="_blank" rel="noreferrer nofollow">Add Users</a>
                         </td>
                         <td>
-                            <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_users_confirm\').show();">Delete Users</a><br>
-                            <div id="delete_users_confirm" class="warning" style="display:none;">Are you sure?<br>
-                                    <form method="POST"><button type="submit" value="delete_users" name="submit" class="button" style="background:red; color:white;" id="delete_users">Confirm Delete</button></form>
-                            </div>
+                           <a href="users.php"  target="_blank" rel="noreferrer nofollow">Delete Users</a>
                         </td>
                         </tr>
                         
+                        <tr><th>Locations</th><td>' . $locations->publish . '</td>
+                        <td>
+                             <a href="admin.php?page=dt_options&tab=locations"  target="_blank" rel="noreferrer nofollow">Add Locations</a>
+                        </td>
+                        <td>
+                            <a href="edit.php?post_type=locations" target="_blank" rel="noreferrer nofollow">Delete Locations</a>
+                        </td>
+                        </tr>
+                        
+                       
                         ';
 
-        if ( post_type_exists( 'locations' ) ) {
-            $html .= '
-                    <tr><th>Locations</th><td>' . $locations->publish . '</td>
-                    <td>
-                         <a href="admin.php?page=dt_options&tab=locations" >Add Locations</a>
-                    </td>
-                    <td>
-                        <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_locations_confirm\').show();">Delete Locations</a><br>
-                        <div id="delete_locations_confirm" class="warning" style="display:none;">Are you sure?<br>
-                            <form method="POST"><button type="submit" value="delete_locations" name="submit" class="button" style="background:red; color:white;" id="delete_groups">Confirm Delete</button></form>
-                        </div>
-                    </td>
-                    </tr>
-                    ';
-        }
-
-        $html .= '<tr><th>Comments</th><td>'.$comments .'</td><td>
-                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="add_comments" name="submit" class="button" id="add_comments">Add Comments</button></form>
-                    </td>
-                    <td>
-                    <a href="javascript:void(0);" class="button" onclick="jQuery(\'#delete_comments_confirm\').show();">Delete Comments</a><br>
-                    <div id="delete_comments_confirm" class="warning" style="display:none;">Are you sure?<br>
-                        <form method="POST"><button type="submit" value="delete_comments" name="submit" class="button" style="background:red; color:white;" id="delete_comments">Confirm Delete</button></form>
-                    </div>
-                    </td>
-                    </tr>
+        $html .= '
                     </tbody>
              </table>
              <br>';
@@ -233,29 +227,26 @@ class DT_Demo_Tab_Quick_Launch
         $html .= '<table class="widefat striped">
                     <thead><th width="50%">CONNECT</th><th>Count</th><th>Add</th><th></th></thead>
                     <tbody>
-                        <tr><th>Baptism Generations</th><td>'.$baptism_gen.'</td><td>
-                            <form method="POST"><input type="hidden"  name="count" value="25" /> <button type="submit" value="build_baptisms" name="submit" class="button" id="build_baptisms">Add Baptism Generations</button></form>
-                        </td><td></td></tr>
+                        <tr><th>Baptism Generations</th><td id="add_baptism_generations_count">'.$baptism_gen.'</td><td>
+                            <button type="button" onclick="add_connections();"class="button" id="add_connections">Add Connections</button>
+                        </td><td><span id="add_baptism_generations_spinner" style="width:15px;"></span></td></tr>
                         
-                        <tr><th>Group Generations</th><td>'.$group_gen.'</td><td>
-                            <form method="POST"><input type="hidden"  name="count" value="10" /> <button type="submit" value="build_churches" name="submit" class="button" id="build_churches">Add Group Generations</button></form>
-                        </td><td></td></tr>
+                        <tr><th>Group Generations</th><td id="add_group_generations_count">'.$group_gen.'</td><td>
+                        </td><td><span id="add_group_generations_spinner" style="width:15px;"></span></td></tr>
                         
-                        <tr><th>Coaching Generations</th><td>'.$coaching_gen.'</td><td>
-                            <form method="POST"><input type="hidden" name="count" value="25" /> <button type="submit" value="build_coaching" name="submit" class="button" id="build_coaching">Add Coaching Generations</button></form>
-                        </td><td></td></tr>
+                        <tr><th>Coaching Generations</th><td id="add_coaching_generations_count">'.$coaching_gen.'</td><td>
+                        </td><td><span id="add_coaching_generations_spinner" style="width:15px;"></span></td></tr>
                         
-                        <tr><th>Contacts to Locations</th><td>'.$contacts_to_locations  .'</td><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_locations" name="submit" class="button" id="contacts_to_locations">Connect Contacts to Locations</button></form>
-                        </td><td></td></tr> 
+                        <tr><th>Contacts to Locations</th><td id="add_contacts_locations_count">'.$contacts_to_locations  .'</td><td>
+                        </td><td><span id="add_contacts_locations_spinner" style="width:15px;"></span></td></tr> 
                         
-                        <tr><th>Groups to Locations</th><td>'.$groups_to_locations  .'</td><td>
-                            <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="groups_to_locations" name="submit" class="button" id="groups_to_locations">Connect Groups to Locations</button></form>
-                        </td><td></td></tr>
+                        <tr><th>Groups to Locations</th><td id="add_groups_locations_count">'.$groups_to_locations  .'</td><td>
+                        </td><td><span id="add_groups_locations_spinner" style="width:15px;"></span></td></tr>
+                        
+                        <tr><th>Contacts to Groups</th><td id="add_contacts_group_count">'.$contacts_to_groups  .'</td><td>
+                        </td><td><span id="add_contacts_group_spinner" style="width:15px;"></span></td></tr>
                         ';
-        $html .= '<tr><th>Contacts to Groups</th><td>'.$contacts_to_groups  .'</td><td>
-                        <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="contacts_to_groups" name="submit" class="button" id="contacts_to_groups">Connect Contacts to Groups</button></form>
-                    </td><td></td></tr>
+        $html .= '
                 </tbody>
              </table>
              <br>
@@ -398,7 +389,7 @@ class DT_Demo_Tab_Quick_Launch
             <tr>
                 <td>
                     <p>
-                        <?php $installed = get_option('dt_demo_sample_data');
+                        <?php $installed = get_option( 'dt_demo_sample_data' );
                         $title = $installed ? __( 'Delete Prepared Data' ): __( 'Install Prepared Data' ); ?>
                         <button type="button" class="button" id="install-quick-launch" onclick="toggle_prepared_data(<?php echo $installed; ?>)">
                             <?php echo esc_attr( $title ); ?>
@@ -410,7 +401,9 @@ class DT_Demo_Tab_Quick_Launch
             </tr>
             <tr>
                 <td>
-                    <input type="checkbox" id="hide-from-ui" name="hide-from-ui" onclick="hide_on_startup()" <?php if( get_option('dt_demo_hide_popup') ) : echo 'checked'; else: echo ''; endif; ?>/>
+                    <input type="checkbox" id="hide-from-ui" name="hide-from-ui" onclick="hide_on_startup()" <?php if( get_option( 'dt_demo_hide_popup' ) ) : echo 'checked';
+else: echo '';
+endif; ?>/>
                     <label for="hide-from-ui">Hide popup on startup <span id="hide-on-startup"></span></label>
                 </td>
             </tr>

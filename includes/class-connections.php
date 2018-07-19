@@ -36,10 +36,11 @@ class DT_Demo_Connections {
             'post_type'   => 'contacts'
         );
         $records = get_posts( $args );
+        dt_write_log( $records );
 
         $total = count( $records );
 
-        if ($loops > 25) { $loops = 25;} // checks if requrested more than max number
+        if ($loops > 10) { $loops = 10;} // checks if requrested more than max number
         if ($loops * 5 > $total) { $total_loops_possible = $total / 5;
             $loops = round( $total_loops_possible, 0, PHP_ROUND_HALF_DOWN ); } // checks if the loop asks to create more connection than records are available.
 
@@ -50,6 +51,16 @@ class DT_Demo_Connections {
         $i = 0;
 
         while ($loops > $i) {
+
+            if (
+            !isset( $records_chunk[$i][0] ) ||
+            !isset( $records_chunk[$i][1] ) ||
+            !isset( $records_chunk[$i][2] ) ||
+            !isset( $records_chunk[$i][3] ) ||
+            !isset( $records_chunk[$i][4] )
+            ) {
+                break;
+            }
 
             // Break in 4 generations
             $zero = $records_chunk[$i][0];
@@ -96,7 +107,8 @@ class DT_Demo_Connections {
 
             $i++;
         }
-        return $i . ' sets of 4th generation baptisms added. The month is the generation number and the day is the series.';
+        dt_write_log( $i );
+        return $i;
 
     }
 
@@ -286,7 +298,7 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_contacts_to_locations ( $loops = 100 ) {
+    public function add_contacts_to_locations ( $loops = 10 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -392,61 +404,6 @@ class DT_Demo_Connections {
         }
 
         return $i . ' groups added to locations.';
-
-    }
-
-
-    public function add_assets_to_locations ( $loops = 100 ) {
-
-        /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
-        /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
-
-
-        // Get list of records
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'assetmapping'
-        );
-        $assets = get_posts( $args );
-
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'locations'
-        );
-        $locations = get_posts( $args );
-
-        if ($loops > 100) {
-            $loops = 100;
-        }
-
-        if (count( $locations ) < $loops ) {
-            $loops = count( $locations );
-        }
-
-        if (count( $assets ) < $loops) {
-            $loops = count( $assets );
-        }
-
-        shuffle( $assets );
-        shuffle( $locations );
-
-//        array_slice ( $locations , 0 , $loops );
-
-        $i = 0;
-
-        while ($loops > $i) {
-
-            $to = $assets[$i]->ID;
-            $from = $locations[$i]->ID;
-            p2p_type( 'assetmapping_to_locations' )->connect( $from, $to, array(
-                'date' => current_time( 'mysql' ),
-                'primary' => 'true',
-            ) );
-
-            $i++;
-        }
-
-        return $i . ' assets added to locations.';
 
     }
 

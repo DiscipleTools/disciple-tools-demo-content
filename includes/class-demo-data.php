@@ -12,6 +12,7 @@ class DT_Demo_Data {
         $sql['dt_share'] = file_get_contents( $path  . "sql/dt_share.sql" );
         $sql['dt_notifications'] = file_get_contents( $path  . "sql/dt_notifications.sql" );
         $sql['comments'] = file_get_contents( $path  . "sql/comments.sql" );
+        $sql['commentmeta'] = file_get_contents( $path  . "sql/commentmeta.sql" );
         $sql['p2p'] = file_get_contents( $path  . "sql/p2p.sql" );
         $sql['p2pmeta'] = file_get_contents( $path  . "sql/p2pmeta.sql" );
         $sql['posts'] = file_get_contents( $path  . "sql/posts.sql" );
@@ -59,12 +60,14 @@ class DT_Demo_Data {
         $demo_range['dt_notifications'] = [ 10001, 10304 ];
         $demo_range['dt_activity_log'] = [ 100002, 107338 ];
         $demo_range['comments'] = [ 10002, 10240 ];
+        $demo_range['commentmeta'] = [ 200005, 200243 ];
 
         // Get auto-increments
         $next_id['dt_activity_log'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_activity_log'" );
         $next_id['dt_notifications'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_notifications'" );
         $next_id['dt_share'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_share'" );
         $next_id['comments'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->comments'" );
+        $next_id['commentmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->commentmeta'" );
         $next_id['p2p'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2p'" );
         $next_id['p2pmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2pmeta'" );
         $next_id['postmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'" );
@@ -178,6 +181,15 @@ class DT_Demo_Data {
         $next = $next_id['comments'];
         for ( $i = $demo_range['comments'][0]; $i <= $demo_range['comments'][1]; $i++) {
             $sql['comments'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['comments'] );
+            $sql['commentmeta'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['commentmeta'] );
+            $demo++;
+            $next++;
+        }
+
+        $demo = $demo_range['commentmeta'][0];
+        $next = $next_id['commentmeta'];
+        for ( $i = $demo_range['commentmeta'][0]; $i <= $demo_range['commentmeta'][1]; $i++) {
+            $sql['commentmeta'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['commentmeta'] );
             $demo++;
             $next++;
         }
@@ -194,6 +206,7 @@ class DT_Demo_Data {
         $result[] = $wpdb->query( $sql['dt_activity_log'] );
         $result[] = $wpdb->query( $sql['dt_notifications'] );
         $result[] = $wpdb->query( $sql['comments'] );
+        $result[] = $wpdb->query( $sql['commentmeta'] );
 
         // Add users to site if multisite
         if ( is_multisite() ) {
@@ -271,6 +284,9 @@ class DT_Demo_Data {
         foreach ( $posts as $post ){
             $result[] = Disciple_Tools_Posts::delete_post( $post->ID, $post->post_type );
         }
+
+        $wpdb->query( "DELETE FROM $wpdb->comments WHERE comment_ID IN (SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_sample');" );
+        $wpdb->query( "DELETE FROM $wpdb->commentmeta WHERE meta_key = '_sample'" );
 
         delete_option( 'dt_demo_sample_data' );
 

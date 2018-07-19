@@ -116,7 +116,6 @@ class DT_Demo_Comments {
 
         $args = array(
             'meta_key' => '_sample',
-            'meta_value' => 'sample',
         );
         $comments = get_comments( $args );
 

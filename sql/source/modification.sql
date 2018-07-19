@@ -1,8 +1,12 @@
 INSERT into dt14330_postmeta ( post_id, meta_key, meta_value ) SELECT ID, '_sample', 'prepared' FROM dt14330_posts;
+INSERT into dt14330_commentmeta ( comment_id, meta_key, meta_value ) SELECT comment_ID, '_sample', 'prepared' FROM dt14330_comments;
 UPDATE `dt14330_posts` SET `ID`= `ID`+10000 WHERE 1=1;
 
 UPDATE `dt14330_postmeta` SET `meta_id`= `meta_id`+100000 WHERE 1=1;
 UPDATE dt14330_postmeta SET post_id = post_id + 10000 WHERE 1 = 1;
+
+UPDATE `dt14330_commentmeta` SET `meta_id`= `meta_id`+200000 WHERE 1=1;
+UPDATE dt14330_commentmeta SET comment_id = comment_id + 10000 WHERE 1 = 1;
 
 UPDATE `dt14330_postmeta` SET meta_value = CONCAT('user-',SUBSTRING_INDEX(meta_value, '-', -1) + 1000) WHERE meta_key = 'assigned_to';
 UPDATE `dt14330_postmeta` SET meta_value = meta_value + 1000 WHERE meta_key = 'corresponds_to_user';
