@@ -73,6 +73,9 @@ function hide_on_startup( state ) {
             spinner.empty()
             if( state === 'ui' ) {
                 jQuery('#demo-install-modal').foundation('close')
+                let div = jQuery('#demo-install-modal-hide');
+                new Foundation.Reveal( div );
+                div.foundation('open');
             }
             console.log(data)
         })
@@ -81,6 +84,13 @@ function hide_on_startup( state ) {
             console.log(err);
             spinner.empty()
         })
+}
+
+function close_window() {
+    let spinner = jQuery('.spinner')
+    spinner.empty()
+    jQuery('#demo-install-modal-hide').foundation('close')
+    jQuery('#demo-install-modal').foundation('close')
 }
 
 function add_contacts() {
