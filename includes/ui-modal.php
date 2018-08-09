@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Hide welcome popup modal.
+ */
 if ( ! get_option( 'dt_demo_hide_popup' ) ) {
 
     function dt_demo_modal() {
@@ -11,6 +14,7 @@ if ( ! get_option( 'dt_demo_hide_popup' ) ) {
             <script>
                 jQuery(document).ready(function() {
                     let content = jQuery('.off-canvas-content')
+
 
                     content.append(`
                     <div id='demo-install-modal' class='reveal medium' data-reveal>
@@ -29,7 +33,7 @@ if ( ! get_option( 'dt_demo_hide_popup' ) ) {
                                     </p>
                                 </div>
                                 <div class="cell small-6">
-                                    <img src="http://via.placeholder.com/300x600">
+                                    <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'images/demo-installed-content-vertical-image.png' ) ?>" width="100%" />
                                 </div>
                             </div>
                         </div>
@@ -44,14 +48,20 @@ if ( ! get_option( 'dt_demo_hide_popup' ) ) {
                         <div class="grid-x grid-margin-x">
                             <div class="cell small-6">
                                 <p>We've disabled the welcome screen.</p>
-                                <p>You can always run the sample content from your settings menu, or from the <em>WP-Admin</em> area inside <em>Extensions->Demo Content</em>.</p>
+                                <p>You can always run the sample content from your settings menu, or from the <em>WP-Admin</em> area.</p>
                                <p class="center"><button type="button" class="button hollow" onclick="close_window()">Okay. Got it!</button>
 
                             </div>
                             <div class="cell small-6">
-                                <img src="http://via.placeholder.com/300x300"><br>
-                                <img src="http://via.placeholder.com/300x300"><br>
-                                <img src="http://via.placeholder.com/300x300"><br>
+                                <p class="center"><img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'images/demo-admin-screen-image.jpg' ) ?>" width="100%" /><br>
+                                <span style="font-size:.7em">Go to the admin area</span>
+                                </p>
+                                <p class="center"><img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'images/demo-menu-image.jpg' ) ?>" width="100%" /><br>
+                                <span style="font-size:.7em">Find "Extensions" and "Demo Content" in the menu</span>
+                                </p>
+                                <p class="center"><img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'images/demo-install-sample-content-image.jpg' ) ?>" width="100%" /><br>
+                                <span style="font-size:.7em">Select the "Install Sample Content" button</span>
+                                </p>
 
                             </div>
                         </div>
@@ -73,3 +83,16 @@ if ( ! get_option( 'dt_demo_hide_popup' ) ) {
     add_action( 'wp_head', 'dt_demo_modal' );
 }
 
+/**
+ * Add install link to settings menu, unless it is already installed.
+ */
+if ( ! get_option( "dt_demo_sample_data" ) ) {
+    function dt_demo_menu_item() {
+        if ( ! is_admin() && ( user_can( get_current_user_id(), 'manage_options' ) || user_can( get_current_user_id(), 'manage_dt' ) ) ) {
+            ?>
+            <li><a href="<?php echo esc_url( admin_url( 'admin.php?page=dt_demo' ) ); ?>"><?php esc_html_e( "Add Demo Content" ); ?></a></li>
+            <?php
+        }
+    }
+    add_action( 'dt_settings_menu_post', 'dt_demo_menu_item' );
+}

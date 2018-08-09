@@ -253,6 +253,7 @@ class DT_Demo_Data {
         }
 
         update_option( 'dt_demo_sample_data', 1, false );
+        update_option( 'dt_demo_hide_popup', 1, false );
 
         dt_write_log( __METHOD__ );
         dt_write_log( $result );

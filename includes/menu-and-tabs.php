@@ -390,7 +390,7 @@ class DT_Demo_Tab_Quick_Launch
                 <td>
                     <p>
                         <?php $installed = get_option( 'dt_demo_sample_data' );
-                        $title = $installed ? __( 'Delete Prepared Data' ): __( 'Install Prepared Data' ); ?>
+                        $title = $installed ? __( 'Delete Sample Content' ): __( 'Install Sample Content' ); ?>
                         <button type="button" class="button" id="install-quick-launch" onclick="toggle_prepared_data(<?php echo $installed; ?>)">
                             <?php echo esc_attr( $title ); ?>
                         </button>
