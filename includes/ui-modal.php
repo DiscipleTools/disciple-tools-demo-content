@@ -3,7 +3,7 @@
 /**
  * Hide welcome popup modal.
  */
-if ( ! get_option( 'dt_demo_hide_popup' ) ) {
+if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'manage_options' ) ) {
 
     function dt_demo_modal() {
         // only run check on dashboard
@@ -86,7 +86,7 @@ if ( ! get_option( 'dt_demo_hide_popup' ) ) {
 /**
  * Add install link to settings menu, unless it is already installed.
  */
-if ( ! get_option( "dt_demo_sample_data" ) ) {
+if ( ! get_option( "dt_demo_sample_data" ) && user_can( get_current_user_id(), 'manage_options' ) ) {
     function dt_demo_menu_item() {
         if ( ! is_admin() && ( user_can( get_current_user_id(), 'manage_options' ) || user_can( get_current_user_id(), 'manage_dt' ) ) ) {
             ?>
