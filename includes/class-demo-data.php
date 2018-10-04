@@ -23,7 +23,7 @@ class DT_Demo_Data {
         /** START PRE-PROCESSING */
 
         // update table names
-        foreach( $sql as $key => $query ) {
+        foreach ( $sql as $key => $query ) {
             if ( 'users' === $key || 'usermeta' === $key ) {
                 $sql[$key] = str_replace( "dt14330_", $wpdb->base_prefix, $query );
             } else {
@@ -42,8 +42,8 @@ class DT_Demo_Data {
             'multiplier3@disciple.tools',
             'multiplier4@disciple.tools',
         ];
-        foreach( $sample_addresses as $value ) {
-            foreach( $sql as $key => $query ) {
+        foreach ( $sample_addresses as $value ) {
+            foreach ( $sql as $key => $query ) {
                 $sql[$key] = str_replace( $value, $value . get_current_blog_id() . '.com', $query );
             }
         }
@@ -52,8 +52,8 @@ class DT_Demo_Data {
         // sample data start and finish ids
         $demo_range['users'] = [ 1004, 1011 ];
         $demo_range['usermeta'] = [ 10049, 10324 ];
-        $demo_range['posts'] = [ 10004, 10110 ];
-        $demo_range['postmeta'] = [ 100004, 101288 ];
+        $demo_range['posts'] = [ 10006, 10110 ];
+        $demo_range['postmeta'] = [ 100018, 101288 ];
         $demo_range['p2p'] = [ 10001, 10126 ];
         $demo_range['p2pmeta'] = [ 10001, 10165 ];
         $demo_range['dt_share'] = [ 10001, 10124 ];
@@ -81,12 +81,13 @@ class DT_Demo_Data {
         $assign_to_site = [];
         for ( $i = $demo_range['users'][0]; $i <= $demo_range['users'][1]; $i++) {
             $sql['users'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['users'] );
-            foreach( $sql as $key => $query ) {
+            foreach ( $sql as $key => $query ) {
                 $sql[$key] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql[$key] );
                 $sql[$key] = str_replace( 'user-'.$demo, 'user-'.$next, $sql[$key] );
             }
             $sql['comments'] = str_replace( ' '.$demo.')', ' '.$next.')', $sql['comments'] );
             $sql['postmeta'] = str_replace( 'user-'.$demo, 'user-'.$next, $sql['postmeta'] );
+            $sql['postmeta'] = str_replace( 'corresponds_to_user\', \''.$demo, 'corresponds_to_user\', \''.$next, $sql['postmeta'] );
 
             $assign_to_site[] = $next;
 
@@ -210,7 +211,7 @@ class DT_Demo_Data {
 
         // Add users to site if multisite
         if ( is_multisite() ) {
-            foreach( $assign_to_site as $user_id ) {
+            foreach ( $assign_to_site as $user_id ) {
                 $user_object = get_userdata( $user_id );
                 if ( $user_object->user_login === 'dispatcher1' || $user_object->user_login === 'dispatcher2' ) {
                     $role = 'dispatcher';
@@ -228,9 +229,9 @@ class DT_Demo_Data {
         // Add shared contacts
         $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' )" );
         $i = 0;
-        foreach( $active_contacts as $contact_id ) {
+        foreach ( $active_contacts as $contact_id ) {
             Disciple_Tools_Posts::add_shared( 'contacts', $contact_id, get_current_user_id(), $meta = null, true, false );
-            if( $i === 10 ) {
+            if ( $i === 10 ) {
                 break;
             }
             $i++;
@@ -238,7 +239,7 @@ class DT_Demo_Data {
 
         $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'unassigned' )" );
         $i = 0;
-        foreach( $active_contacts as $contact_id ) {
+        foreach ( $active_contacts as $contact_id ) {
             $fields = [
                 "assigned_to" => get_current_user_id(),
                 "overall_status" => "active",
@@ -246,7 +247,7 @@ class DT_Demo_Data {
             Disciple_Tools_Contacts::update_contact( $contact_id, $fields, false );
             update_post_meta( $contact_id, 'accepted', 'yes' );
 
-            if( $i === 5 ) {
+            if ( $i === 5 ) {
                 break;
             }
             $i++;
