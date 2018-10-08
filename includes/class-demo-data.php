@@ -256,6 +256,10 @@ class DT_Demo_Data {
         update_option( 'dt_demo_sample_data', 1, false );
         update_option( 'dt_demo_hide_popup', 1, false );
 
+        //revert to a migration number before the demo data was made.
+        //this way any data changes will be applied to the demo data.
+        update_option( 'dt_migration_number', 7 );
+
         dt_write_log( __METHOD__ );
         dt_write_log( $result );
 
