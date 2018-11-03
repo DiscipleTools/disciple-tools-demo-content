@@ -50,17 +50,20 @@ class DT_Demo_Contacts
     public function single_plain_contact() {
         $name = dt_demo_random_name();
 
-        $post = [
-            "title" => $name . ' Contact' . rand( 100, 999 ),
-            "contact_phone" => [ "values" => [ [ "value" => dt_demo_random_phone_number()] ] ],
-            "contact_email" => [ "values" => [ [ "value" => $name.rand( 1000, 10000 )."@email.com"] ] ],
+        $post       = [
+            "title"           => $name . ' Contact' . rand( 100, 999 ),
+            "contact_phone"   => [ "values" => [ [ "value" => dt_demo_random_phone_number() ] ] ],
+            "contact_email"   => [ "values" => [ [ "value" => $name . rand( 1000, 10000 ) . "@email.com" ] ] ],
             "contact_address" => [ "values" => [ [ "value" => dt_demo_full_address() ] ] ],
-            "sources" => [ "values" => [ ["value" => dt_demo_random_source()] ] ],
-            "seeker_path" => dt_demo_seeker_path(),
-            "overall_status" => dt_demo_random_overall_status(),
+            "sources"         => [ "values" => [ [ "value" => dt_demo_random_source() ] ] ],
+            "seeker_path"     => dt_demo_seeker_path(),
+            "overall_status"  => dt_demo_random_overall_status(),
+            "milestones"      => [ "values" => [] ],
         ];
-
-        $post = array_merge( $post, dt_demo_random_milestones() );
+        $milestones = dt_demo_random_milestones();
+        foreach ( $milestones as $milestone ) {
+            $post["milestones"]["values"][] = [ "value" => $$milestone ];
+        }
 
         return $post;
 
