@@ -71,7 +71,6 @@ class DT_Demo_Groups
 
         $post = [
             "title" => 'Group' . rand( 100, 999 ),
-            "is_church" => dt_demo_random_bool(),
             "group_status" => dt_demo_random_group_status(),
             "group_type" => dt_demo_random_group_type(),
             "contact_address" => [ "values" => [ [ "value" => dt_demo_full_address() ] ] ],
