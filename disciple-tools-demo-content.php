@@ -191,6 +191,7 @@ else {
             require_once( 'includes/enqueue-scripts.php' );
             require_once( 'includes/rest-endpoints.php' );
             require_once( 'includes/class-demo-data.php' );
+            new DT_Demo_Data();
             require_once( 'includes/ui-modal.php' );
 
 
