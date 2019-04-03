@@ -3,14 +3,7 @@
 class DT_Demo_Data {
 
     public function __construct() {
-        add_filter( "dt_sent_email_check", [ $this, "dt_sent_email_check" ], 10, 4 );
-    }
 
-    public function dt_sent_email_check( $continue, $email, $subject, $message ){
-        if ( preg_match( '/disciple.tools\d+\.com$/', $email ) ){
-            $continue = false;
-        }
-        return $continue;
     }
 
 
