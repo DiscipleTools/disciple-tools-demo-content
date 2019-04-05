@@ -325,13 +325,18 @@ if ( ! function_exists( 'dt_is_child_theme_of_disciple_tools' ) ) {
 
 function dt_demo_hook_admin_notice() {
     global $required_minimum_disciple_tools_version;
+    $wp_theme = wp_get_theme();
+    $current_version = $wp_theme->version;
     // Check if it's been dismissed...
     if ( ! get_option( 'dismissed-dt-demo', false ) ) {
         // multiple dismissible notice states ?>
         <div class="notice notice-error notice-dt-demo is-dismissible" data-notice="dt-demo">
             <p>
                 <?php esc_html_e( "'Disciple Tools - Demo' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_demo" ); ?>
-                <?php echo sprintf( esc_html__( 'Required Disciple Tools version: %s', 'disciple_tools' ), esc_html( $required_minimum_disciple_tools_version ) ) ?>
+                <?php if ( $wp_theme->get_template() === "disciple-tools-theme" ){
+                    echo sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'disciple_tools' ), esc_html( $current_version ), esc_html( $required_minimum_disciple_tools_version ) );
+                }
+                ?>
             </p>
         </div>
         <script>
