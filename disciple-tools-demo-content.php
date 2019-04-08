@@ -12,7 +12,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-$required_minimum_disciple_tools_version = '0.19.0';
+$dt_demo_required_dt_theme_version = '0.19.0';
 
 /**
  * Test for minimum required PHP version
@@ -40,16 +40,16 @@ if ( version_compare( phpversion(), '7.0', '<' ) ) {
  * @access public
  */
 function dt_demo() {
-    global $required_minimum_disciple_tools_version;
+    global $dt_demo_required_dt_theme_version;
     $wp_theme = wp_get_theme();
     $version = $wp_theme->version;
     /*
      * Check if the Disciple.Tools theme is loaded and is the latest required version
      */
-    if ( 'disciple-tools-theme' !== $wp_theme->get_template() || $version < $required_minimum_disciple_tools_version ) {
+    if ( 'disciple-tools-theme' !== $wp_theme->get_template() || $version < $dt_demo_required_dt_theme_version ) {
         add_action( 'admin_notices', 'dt_demo_hook_admin_notice' );
-        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_demo_ajax_notice_handler' );
-        return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not latest version.' );
+        add_action( 'wp_ajax_dismissed_notice_handler', 'dt_hook_ajax_notice_handler' );
+        return new WP_Error( 'current_theme_not_dt', 'Disciple Tools Theme not active or not the latest version.' );
     }
 
     /**
@@ -60,6 +60,7 @@ function dt_demo() {
     }
     /*
      * Don't load the plugin on every rest request. Only those with the correct namespace
+     * This restricts endpoints defined in this plugin this namespace
      */
     $is_rest = dt_is_rest();
     if ( !$is_rest || strpos( dt_get_url_path(), 'dt_demo' ) != false ){
@@ -307,22 +308,12 @@ register_deactivation_hook( __FILE__, [ 'DT_Demo', 'deactivation' ] );
 
 
 function dt_demo_hook_admin_notice() {
-    global $required_minimum_disciple_tools_version;
+    global $dt_demo_required_dt_theme_version;
     $wp_theme = wp_get_theme();
     $current_version = $wp_theme->version;
     $message = __( "'Disciple Tools - Demo' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_demo" );
     if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'disciple_tools' ), esc_html( $current_version ), esc_html( $required_minimum_disciple_tools_version ) );
+        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'disciple_tools' ), esc_html( $current_version ), esc_html( $dt_demo_required_dt_theme_version ) );
     }
     dt_hook_admin_notice( $message, 'dt-demo' );
-}
-
-
-
-/**
- * AJAX handler to store the state of dismissible notices.
- */
-function dt_demo_ajax_notice_handler() {
-    $type = 'dt-demo';
-    update_option( 'dismissed-' . $type, true );
 }
