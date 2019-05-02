@@ -139,6 +139,7 @@ class DT_Demo_Data {
             $sql['p2p'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['p2p'] );
             $sql['dt_share'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_share'] );
             $sql['dt_activity_log'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_activity_log'] );
+            $sql['dt_activity_log'] = str_replace( ' \''.$demo . '\',', ' \''.$next . '\',', $sql['dt_activity_log'] );
             $sql['dt_notifications'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_notifications'] );
             $sql['comments'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['comments'] );
 
