@@ -227,6 +227,7 @@ class DT_Demo_Data {
                     $role = 'multiplier';
                 }
 
+                remove_user_from_blog( $user_id, get_network()->site_id );
                 add_user_to_blog( get_current_blog_id(), $user_id, $role );
             }
         }
