@@ -25,22 +25,19 @@ class DT_Demo_Endpoints
     private $namespace;
 
     private static $_instance = null;
-    public static function instance()
-    {
+    public static function instance(){
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
     }
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->namespace = $this->context . "/v" . intval( $this->version );
         add_action( 'rest_api_init', [ $this, 'add_api_routes' ] );
     }
 
-    public function add_api_routes()
-    {
+    public function add_api_routes(){
 
         register_rest_route(
             $this->namespace, '/quick_launch/install_demo_data', [
@@ -144,7 +141,7 @@ class DT_Demo_Endpoints
     }
 
     public function delete_quick_launch(){
-        if ( user_can( get_current_user_id(),'manage_options' ) ) {
+        if ( user_can( get_current_user_id(), 'manage_options' ) ) {
             return DT_Demo_Data::delete_prepared_demo_data();
         } else {
             return new WP_Error( __METHOD__, "Do not have permission to install demo content", array( 'status' => 400 ) );
@@ -350,7 +347,7 @@ class DT_Demo_Endpoints
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
             } else {
-                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_locations'" );
+                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'geonames'" );
                 return $post_count;
             }
         } else {
@@ -370,7 +367,7 @@ class DT_Demo_Endpoints
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
             } else {
-                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_locations'" );
+                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'geonames'" );
                 return $post_count;
             }
         } else {

@@ -6,7 +6,8 @@
  * @package dmm-crm-sample-data
  * */
 
-if (!defined( 'ABSPATH' )) { exit; // Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
 }
 
 class DT_Demo_Groups
@@ -26,10 +27,9 @@ class DT_Demo_Groups
      * @static
      * @return DT_Demo_Groups instance
      */
-    public static function instance()
-    {
+    public static function instance(){
         if (null === self::$_instance) {
-            self::$_instance = new self;
+            self::$_instance = new self();
         }
         return self::$_instance;
     }
@@ -47,8 +47,7 @@ class DT_Demo_Groups
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_groups_by_count( $count )
-    {
+    public function add_groups_by_count( $count ){
         $i = 0;
         while ($count > $i ) {
 
@@ -83,7 +82,7 @@ class DT_Demo_Groups
      * Delete all groups in database
      * @return string
      */
-    public function delete_groups () {
+    public function delete_groups() {
 
         global $wpdb;
 
@@ -98,7 +97,7 @@ class DT_Demo_Groups
         foreach ($groups as $group) {
             $id = $group->ID;
 
-            $wpdb->get_results( "DELETE FROM $wpdb->p2p WHERE p2p_from = '$id' OR p2p_to = '$id'" );
+            $wpdb->get_results( $wpdb->prepare( "DELETE FROM $wpdb->p2p WHERE p2p_from = %s OR p2p_to = %s", $id, $id ) );
 
             wp_delete_post( $id, true );
         }

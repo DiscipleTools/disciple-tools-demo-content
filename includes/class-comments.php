@@ -32,7 +32,7 @@ class DT_Demo_Comments {
      * @static
      * @return DT_Demo_Comments instance
      */
-    public static function instance () {
+    public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -44,15 +44,15 @@ class DT_Demo_Comments {
      * @access  public
      * @since   0.1
      */
-    public function __construct () {  } // End __construct()
+    public function __construct() {
+    }
 
     /**
      * Loops location creation according to supplied $count.
      * @param $count    int Number of records to create.
      * @return string
      */
-    public function add_comments ( $loops = 100 )
-    {
+    public function add_comments( $loops = 100 ){
         // Get list of records
         $args = array(
             'numberposts'   => -1,
@@ -112,7 +112,7 @@ class DT_Demo_Comments {
      * Delete all comments in database
      * @return string
      */
-    public function delete_comments () {
+    public function delete_comments() {
 
         $args = array(
             'meta_key' => '_sample',

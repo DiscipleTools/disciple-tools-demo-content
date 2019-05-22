@@ -68,17 +68,17 @@ class DT_Demo_Data {
         $demo_range['commentmeta'] = [ 200005, 200243 ];
 
         // Get auto-increments
-        $next_id['dt_activity_log'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_activity_log'" );
-        $next_id['dt_notifications'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_notifications'" );
-        $next_id['dt_share'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->dt_share'" );
-        $next_id['comments'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->comments'" );
-        $next_id['commentmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->commentmeta'" );
-        $next_id['p2p'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2p'" );
-        $next_id['p2pmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->p2pmeta'" );
-        $next_id['postmeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->postmeta'" );
-        $next_id['posts'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->posts'" );
-        $next_id['usermeta'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->usermeta'" );
-        $next_id['users'] = $wpdb->get_var( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = '$db_name' AND TABLE_NAME = '$wpdb->users'" );
+        $next_id['dt_activity_log'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_activity_log'", DB_NAME ) );
+        $next_id['dt_notifications'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_notifications'", DB_NAME ) );
+        $next_id['dt_share'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_share'", DB_NAME ) );
+        $next_id['comments'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->comments'", DB_NAME ) );
+        $next_id['commentmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->commentmeta'", DB_NAME ) );
+        $next_id['p2p'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->p2p'", DB_NAME ) );
+        $next_id['p2pmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->p2pmeta'", DB_NAME ) );
+        $next_id['postmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->postmeta'", DB_NAME ) );
+        $next_id['posts'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->posts'", DB_NAME ) );
+        $next_id['usermeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->usermeta'", DB_NAME ) );
+        $next_id['users'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->users'", DB_NAME ) );
 
         // update user ids
         $demo = $demo_range['users'][0];
@@ -203,6 +203,8 @@ class DT_Demo_Data {
 
 
         // Insert processed queries
+
+        // phpcs:disable
         $result[] = $wpdb->query( $sql['users'] );
         $result[] = $wpdb->query( $sql['usermeta'] );
         $result[] = $wpdb->query( $sql['posts'] );
@@ -214,6 +216,7 @@ class DT_Demo_Data {
         $result[] = $wpdb->query( $sql['dt_notifications'] );
         $result[] = $wpdb->query( $sql['comments'] );
         $result[] = $wpdb->query( $sql['commentmeta'] );
+        // phpcs:enable
 
         // Add users to site if multisite
         if ( is_multisite() ) {

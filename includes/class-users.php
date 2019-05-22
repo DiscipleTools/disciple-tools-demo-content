@@ -6,7 +6,8 @@
  * @package dmm-crm-sample-data
  * */
 
-if (!defined( 'ABSPATH' )) { exit; // Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
 }
 
 class DT_Demo_Users
@@ -27,10 +28,9 @@ class DT_Demo_Users
      * @static
      * @return DT_Demo_Users instance
      */
-    public static function instance()
-    {
+    public static function instance(){
         if (null === self::$_instance) {
-            self::$_instance = new self;
+            self::$_instance = new self();
         }
         return self::$_instance;
     }
@@ -45,7 +45,7 @@ class DT_Demo_Users
      * @param $count
      * @return string
      */
-    public function add_users_combined ( $count ) {
+    public function add_users_combined( $count ) {
         $this->add_users_once();
         $this->add_users_by_count( $count );
 
@@ -57,7 +57,7 @@ class DT_Demo_Users
      * Sets a check so that the core users are added only one time.
      * @return string
      */
-    public function add_users_once () {
+    public function add_users_once() {
         $html = '';
 
         if (get_option( 'add_sample_users' ) !== '1') {
@@ -66,10 +66,9 @@ class DT_Demo_Users
 
             $option = 'add_sample_users';
             $value = '1';
-            $deprecated = '';
             $autoload = false;
 
-            add_option( $option, $value, $deprecated, $autoload );
+            add_option( $option, $value, "", $autoload );
 
         } else {
             $html .= '<p>Core users are already loaded. Confirm you want to ... <form method="POST"><button type="submit" value="reset_users" name="submit" class="button" id="reset_users">Reset Core Users</button></p>';
@@ -81,13 +80,12 @@ class DT_Demo_Users
      * Builds the core user profiles for different roles.
      * @return string
      */
-    protected function add_users ()
-    {
-        $html = '';
-        $meta_key = '_sample';
+    protected function add_users() {
+        $html       = '';
+        $meta_key   = '_sample';
         $meta_value = 'sample';
 
-        if( null == username_exists( 'Marketer' ) ) {
+        if ( null == username_exists( 'Marketer' ) ) {
 
             // Create user
             $username = 'Marketer';
@@ -98,9 +96,9 @@ class DT_Demo_Users
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer'
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Marketer'
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -110,10 +108,12 @@ class DT_Demo_Users
             $user->set_role( 'marketer' );
 
             // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Marketer set' ;}
+            $html .= '<br>Added: ' . $username;
+        } else {
+            $html .= '<br>Marketer set';
+        }
 
-        if( null == username_exists( 'Dispatcher' ) ) {
+        if ( null == username_exists( 'Dispatcher' ) ) {
 
             // Create user
             $username = 'Dispatcher';
@@ -124,9 +124,9 @@ class DT_Demo_Users
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Dispatcher'
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Dispatcher'
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -136,10 +136,12 @@ class DT_Demo_Users
             $user->set_role( 'dispatcher' );
 
             // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Dispatcher set' ;}
+            $html .= '<br>Added: ' . $username;
+        } else {
+            $html .= '<br>Dispatcher set';
+        }
 
-        if( null == username_exists( 'Multiplier' ) ) {
+        if ( null == username_exists( 'Multiplier' ) ) {
 
             // Create user
             $username = 'Multiplier';
@@ -150,9 +152,9 @@ class DT_Demo_Users
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier'
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Multiplier'
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -162,23 +164,25 @@ class DT_Demo_Users
             $user->set_role( 'multiplier' );
 
             // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Multiplier set' ;}
+            $html .= '<br>Added: ' . $username;
+        } else {
+            $html .= '<br>Multiplier set';
+        }
 
-        if( null == username_exists( 'Strategist' ) ) {
+        if ( null == username_exists( 'Strategist' ) ) {
 
             // Create user
             $username = 'Strategist';
             $password = 'disciple';
-            $email = 'strategist@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = 'strategist@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  => 'Strategist'
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Strategist'
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -188,8 +192,10 @@ class DT_Demo_Users
             $user->set_role( 'strategist' );
 
             // Report
-            $html .= '<br>Added: ' . $username ;
-        } else { $html .= '<br>Strategist set' ;}
+            $html .= '<br>Added: ' . $username;
+        } else {
+            $html .= '<br>Strategist set';
+        }
 
         return $html;
     }
@@ -199,29 +205,28 @@ class DT_Demo_Users
     /******************************************************************************/
     /* Section :  Bulk Addition of Users */
 
-    public function add_users_by_count ( $count = 5 )
-    {
-        $inc = 0;
-        $report = 0;
-        $i = rand( 100,999 );
-        $meta_key = '_sample';
+    public function add_users_by_count( $count = 5 ) {
+        $inc        = 0;
+        $report     = 0;
+        $i          = rand( 100, 999 );
+        $meta_key   = '_sample';
         $meta_value = 'sample';
 
         while ( $count > $inc ) {
 
             $password = 'disciple';
 
-        // Create Marketer
+            // Create Marketer
             $username = 'marketer' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Marketer ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -233,15 +238,15 @@ class DT_Demo_Users
 
             // Create Strategy
             $username = 'strategist' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Strategist ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Strategist ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -251,17 +256,17 @@ class DT_Demo_Users
             $user->set_role( 'strategist' );
 
 
-        // Create Dispatcher
+            // Create Dispatcher
             $username = 'dispatcher' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Dispatcher ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Dispatcher ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -271,17 +276,17 @@ class DT_Demo_Users
             $user->set_role( 'dispatcher' );
 
 
-        // Create Multiplier
+            // Create Multiplier
             $username = 'multiplier' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Multiplier ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -291,17 +296,17 @@ class DT_Demo_Users
             $user->set_role( 'multiplier' );
 
 
-         // Create Registered
+            // Create Registered
             $username = 'registered' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  => 'Registered ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Registered ' . $i,
                 )
             );
             update_user_meta( $user_id, $meta_key, $meta_value );
@@ -310,8 +315,8 @@ class DT_Demo_Users
             $user = new WP_User( $user_id );
             $user->set_role( 'registered' );
 
-            $inc++;
-            $report++;
+            $inc ++;
+            $report ++;
 
         }
 
@@ -323,22 +328,23 @@ class DT_Demo_Users
 
     /**
      * Add a single multiplier
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_multiplier ( $i ) {
+    public function add_multiplier( $i ) {
         $password = 'disciple';
 
         // Create Marketer
         $username = 'marketer' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Marketer ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Marketer ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -350,21 +356,22 @@ class DT_Demo_Users
 
     /**
      * Add a single marketer_leader
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_marketer_leader ( $i ) {
+    public function add_marketer_leader( $i ) {
         $password = 'disciple';
 
         $username = 'marketer_leader' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Marketer Leader ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Marketer Leader ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -373,23 +380,25 @@ class DT_Demo_Users
         $user = new WP_User( $user_id );
         $user->set_role( 'marketer_leader' );
     }
-        /**
+
+    /**
      * Add a single marketer_leader
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_marketer ( $i ) {
+    public function add_marketer( $i ) {
         $password = 'disciple';
 
         $username = 'marketer' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Marketer ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Marketer ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -398,23 +407,25 @@ class DT_Demo_Users
         $user = new WP_User( $user_id );
         $user->set_role( 'marketer' );
     }
-        /**
+
+    /**
      * Add a single marketer_leader
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_dispatcher ( $i ) {
+    public function add_dispatcher( $i ) {
         $password = 'disciple';
 
         $username = 'dispatcher' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Dispatcher ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Dispatcher ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -423,24 +434,26 @@ class DT_Demo_Users
         $user = new WP_User( $user_id );
         $user->set_role( 'dispatcher' );
     }
+
     /**
      * Add a single marketer_leader
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_strategist ( $i ) {
+    public function add_strategist( $i ) {
         $password = 'disciple';
 
         // Create Marketer Leader
         $username = 'strategist' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  =>    'Strategist ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Strategist ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -452,21 +465,22 @@ class DT_Demo_Users
 
     /**
      * Add a single marketer_leader
+     *
      * @param $i    int Unique key that will become part of the name & email of the record
      */
-    public function add_registered ( $i ) {
+    public function add_registered( $i ) {
         $password = 'disciple';
 
         $username = 'registered' . $i;
-        $email = $username.'@disciple.tools';
-        $user_id = wp_create_user( $username, $password, $email );
+        $email    = $username . '@disciple.tools';
+        $user_id  = wp_create_user( $username, $password, $email );
 
         // Set the nickname
         wp_update_user(
             array(
-                'ID'          =>    $user_id,
-                'nickname'    =>    $username,
-                'first_name'  => 'Registered ' . $i,
+                'ID'         => $user_id,
+                'nickname'   => $username,
+                'first_name' => 'Registered ' . $i,
             )
         );
         update_user_meta( $user_id, '_sample', 'sample' );
@@ -481,9 +495,10 @@ class DT_Demo_Users
      * Resets the core users option and rechecks to see if all the users are added.
      * @return string
      */
-    public function reset_users () {
+    public function reset_users() {
         delete_option( 'add_sample_users' );
         $html = $this->add_users_once();
+
         return $html;
     }
 
@@ -491,20 +506,20 @@ class DT_Demo_Users
      * Delete all sample users in database
      * @return string
      */
-    public function delete_users () {
-        if (get_user_by( 'id', '1' )) {
+    public function delete_users() {
+        if ( get_user_by( 'id', '1' ) ) {
             $reassign = '1';
         } else {
             $reassign = get_current_user_id();
         }
 
-        $args = array(
-            'meta_key'     => '_sample',
-            'meta_value'   => 'sample',
+        $args    = array(
+            'meta_key'   => '_sample',
+            'meta_value' => 'sample',
         );
         $records = get_users( $args );
 
-        foreach ($records as $record) {
+        foreach ( $records as $record ) {
             $id = $record->ID;
             wp_delete_user( $id, $reassign );
         }
@@ -516,12 +531,13 @@ class DT_Demo_Users
 
     /**
      * Deprecated
+     *
      * @param int $count
+     *
      * @return string
      */
-    public function add_multipliers_by_count ( $count = 5 )
-    {
-        if (get_option( '_sample_last_user_add' )) {
+    public function add_multipliers_by_count( $count = 5 ) {
+        if ( get_option( '_sample_last_user_add' ) ) {
 
             $previous_number = get_option( '_sample_last_user_add' );
 
@@ -533,7 +549,7 @@ class DT_Demo_Users
 
             $i = 1;
 
-            $count = $count + 1;
+            $count++;
 
         }
         $report = 0;
@@ -544,15 +560,15 @@ class DT_Demo_Users
 
             // Create Marketer
             $username = 'marketer' . $i;
-            $email = $username.'@disciple.tools';
-            $user_id = wp_create_user( $username, $password, $email );
+            $email    = $username . '@disciple.tools';
+            $user_id  = wp_create_user( $username, $password, $email );
 
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Marketer ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Marketer ' . $i,
                 )
             );
 
@@ -568,9 +584,9 @@ class DT_Demo_Users
             // Set the nickname
             wp_update_user(
                 array(
-                    'ID'          =>    $user_id,
-                    'nickname'    =>    $username,
-                    'first_name'  =>    'Multiplier ' . $i,
+                    'ID'         => $user_id,
+                    'nickname'   => $username,
+                    'first_name' => 'Multiplier ' . $i,
                 )
             );
 

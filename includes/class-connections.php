@@ -16,7 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 class DT_Demo_Connections {
 
     private static $_instance = null;
-    public static function instance () {
+
+    public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -24,7 +25,7 @@ class DT_Demo_Connections {
     } // End instance()
 
 
-    public function add_baptism_connections ( $loops ) {
+    public function add_baptism_connections( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -73,36 +74,36 @@ class DT_Demo_Connections {
             $from = $first;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
-                'month'     => '1',
-                'day'   =>  $i,
-                'year'  =>  $year,
+                'month' => '1',
+                'day'   => $i,
+                'year'  => $year,
             ) );
 
             $to = $first;
             $from = $second;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
-                'month'     => '2',
-                'day'   =>  $i,
-                'year'  =>  $year,
+                'month' => '2',
+                'day'   => $i,
+                'year'  => $year,
             ) );
 
             $to = $second;
             $from = $third;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
-                'month'     => '3',
-                'day'   =>  $i,
-                'year'  =>  $year,
+                'month' => '3',
+                'day'   => $i,
+                'year'  => $year,
             ) );
 
             $to = $third;
             $from = $fourth;
             p2p_type( 'baptizer_to_baptized' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
-                'month'     => '4',
-                'day'   =>  $i,
-                'year'  =>  $year,
+                'month' => '4',
+                'day' => $i,
+                'year' => $year,
             ) );
 
             $i++;
@@ -112,7 +113,7 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_church_connections ( $loops ) {
+    public function add_church_connections( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -175,7 +176,7 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_coaching_connections ( $loops ) {
+    public function add_coaching_connections( $loops ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -238,7 +239,7 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_contacts_to_groups ( $loops = 100 ) {
+    public function add_contacts_to_groups( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -283,7 +284,7 @@ class DT_Demo_Connections {
             $from = $groups[$i]->ID;
 
 
-            $connection_id = p2p_type( 'contacts_to_groups' )->connect( $from, $to,  array(
+            $connection_id = p2p_type( 'contacts_to_groups' )->connect( $from, $to, array(
                 'date' => current_time( 'mysql' ),
             ) );
 
@@ -298,7 +299,7 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_contacts_to_locations ( $loops = 10 ) {
+    public function add_contacts_to_locations( $loops = 10 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -311,11 +312,21 @@ class DT_Demo_Connections {
         );
         $contacts = get_posts( $args );
 
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'locations'
-        );
-        $locations = get_posts( $args );
+        $locations = [
+            3336901,
+            3117732,
+            3336900,
+            3336899,
+            2593111,
+            2593109,
+            2593112,
+            6255148,
+            6255148,
+            2542007,
+            5128638,
+            6252001
+        ];
+
 
         if ($loops > 100) {
             $loops = 100;
@@ -339,11 +350,8 @@ class DT_Demo_Connections {
         while ($loops > $i) {
 
             $to = $contacts[$i]->ID;
-            $from = $locations[$i]->ID;
-            p2p_type( 'contacts_to_locations' )->connect( $from, $to, array(
-                'date' => current_time( 'mysql' ),
-                'primary' => 'true',
-            ) );
+            $from = $locations[$i];
+            add_post_meta( $to, 'geonames', $from );
 
             $i++;
         }
@@ -353,7 +361,7 @@ class DT_Demo_Connections {
     }
 
 
-    public function add_groups_to_locations ( $loops = 100 ) {
+    public function add_groups_to_locations( $loops = 100 ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
@@ -366,11 +374,21 @@ class DT_Demo_Connections {
         );
         $groups = get_posts( $args );
 
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'locations'
-        );
-        $locations = get_posts( $args );
+
+        $locations = [
+            3336901,
+            3117732,
+            3336900,
+            3336899,
+            2593111,
+            2593109,
+            2593112,
+            6255148,
+            6255148,
+            2542007,
+            5128638,
+            6252001
+        ];
 
         if ($loops > 100) {
             $loops = 100;
@@ -394,11 +412,8 @@ class DT_Demo_Connections {
         while ($loops > $i) {
 
             $to = $groups[$i]->ID;
-            $from = $locations[$i]->ID;
-            p2p_type( 'groups_to_locations' )->connect( $from, $to, array(
-                'date' => current_time( 'mysql' ),
-                'primary' => 'true',
-            ) );
+            $from = $locations[$i];
+            add_post_meta( $to, 'geonames', $from );
 
             $i++;
         }

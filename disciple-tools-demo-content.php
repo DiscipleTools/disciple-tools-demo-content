@@ -12,7 +12,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-$dt_demo_required_dt_theme_version = '0.19.0';
+$dt_demo_required_dt_theme_version = '0.20.1';
 
 /**
  * Test for minimum required PHP version
@@ -174,6 +174,7 @@ class DT_Demo {
      * @return null
      */
     public function __call( $method = '', $args = array() ) {
+        // @codingStandardsIgnoreLine
         _doing_it_wrong( "dt_demo::{$method}", esc_html__( 'Method does not exist.', 'dt_demo' ), '0.1' );
         unset( $method, $args );
         return null;
@@ -229,8 +230,6 @@ class DT_Demo {
             $this->contacts = DT_Demo_Contacts::instance();
             require_once( 'includes/class-groups.php' );
             $this->groups = DT_Demo_Groups::instance();
-            require_once( 'includes/class-locations.php' );
-            $this->locations = DT_Demo_Locations::instance();
             require_once( 'includes/class-comments.php' );
             $this->comments = DT_Demo_Comments::instance();
             require_once( 'includes/class-connections.php' );
