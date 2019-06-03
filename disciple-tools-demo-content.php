@@ -201,7 +201,7 @@ class DT_Demo {
 
         // Admin and settings variables
         $this->token       = 'dt_demo';
-        $this->version     = '0.4.0';
+        $this->version     = '0.4.1';
     }
 
     /**
