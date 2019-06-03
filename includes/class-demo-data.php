@@ -240,7 +240,7 @@ class DT_Demo_Data {
         $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' )" );
         $i = 0;
         foreach ( $active_contacts as $contact_id ) {
-            Disciple_Tools_Posts::add_shared( 'contacts', $contact_id, get_current_user_id(), $meta = null, true, false );
+            DT_Posts::add_shared( 'contacts', $contact_id, get_current_user_id(), $meta = null, true, false );
             if ( $i === 10 ) {
                 break;
             }
