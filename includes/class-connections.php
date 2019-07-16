@@ -26,39 +26,34 @@ class DT_Demo_Connections {
 
 
     public function add_baptism_connections( $loops ) {
+        global $wpdb;
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
         $year = date( 'Y' );
         // Get list of contacts
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $records = get_posts( $args );
-        dt_write_log( $records );
+        $records = $wpdb->get_results("SELECT * 
+            FROM $wpdb->posts WHERE post_type = 'contacts' 
+            AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized')
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized')" );
 
         $total = count( $records );
 
-        if ($loops > 10) { $loops = 10;} // checks if requrested more than max number
+        if ($loops > 10) { $loops = 10;} // checks if requested more than max number
         if ($loops * 5 > $total) { $total_loops_possible = $total / 5;
             $loops = round( $total_loops_possible, 0, PHP_ROUND_HALF_DOWN ); } // checks if the loop asks to create more connection than records are available.
 
         shuffle( $records );
 
-        $records_chunk = array_chunk( $records, 5 );
+        $records_chunk = array_chunk( $records, 10 );
 
         $i = 0;
 
         while ($loops > $i) {
 
             if (
-            !isset( $records_chunk[$i][0] ) ||
-            !isset( $records_chunk[$i][1] ) ||
-            !isset( $records_chunk[$i][2] ) ||
-            !isset( $records_chunk[$i][3] ) ||
-            !isset( $records_chunk[$i][4] )
+            !isset( $records_chunk[$i][9] )
             ) {
                 break;
             }
@@ -69,6 +64,7 @@ class DT_Demo_Connections {
             $second = $records_chunk[$i][2];
             $third = $records_chunk[$i][3];
             $fourth = $records_chunk[$i][4];
+
 
             $to = $zero;
             $from = $first;
@@ -108,7 +104,6 @@ class DT_Demo_Connections {
 
             $i++;
         }
-        dt_write_log( $i );
         return $i;
 
     }
@@ -119,11 +114,11 @@ class DT_Demo_Connections {
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
         // Get list of records
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'groups'
-        );
-        $records = get_posts( $args );
+        global $wpdb;
+        $records = $wpdb->get_results("SELECT * 
+            FROM $wpdb->posts WHERE post_type = 'groups' 
+            AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups')
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups')" );
 
         $total = count( $records );
 
@@ -182,11 +177,11 @@ class DT_Demo_Connections {
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
         // Get list of records
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $records = get_posts( $args );
+        global $wpdb;
+        $records = $wpdb->get_results("SELECT * 
+            FROM $wpdb->posts WHERE post_type = 'contacts' 
+            AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts')
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts')" );
 
         $total = count( $records );
 
@@ -274,8 +269,6 @@ class DT_Demo_Connections {
         shuffle( $contacts );
         shuffle( $groups );
 
-//        array_slice ( $groups , 0 , $loops );
-
         $i = 0;
 
         while ($loops > $i) {
@@ -299,59 +292,33 @@ class DT_Demo_Connections {
 
     }
 
-    public function add_contacts_to_locations( $loops = 10 ) {
-
+    public function add_contacts_to_locations( $loops = 10, $admin0_code = 'USA' ) {
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
+        global $wpdb;
+        if ( ! isset( $wpdb->dt_location_grid ) ) {
+            $wpdb->dt_location_grid = $wpdb->prefix . 'dt_location_grid';
+        }
 
         // Get list of records
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'contacts'
-        );
-        $contacts = get_posts( $args );
+        $contacts = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'contacts' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
 
-        $locations = [
-            3336901,
-            3117732,
-            3336900,
-            3336899,
-            2593111,
-            2593109,
-            2593112,
-            6255148,
-            6255148,
-            2542007,
-            5128638,
-            6252001
-        ];
-
-
-        if ($loops > 100) {
-            $loops = 100;
-        }
-
-        if (count( $locations ) < $loops ) {
-            $loops = count( $locations );
-        }
-
-        if (count( $contacts ) < $loops) {
-            $loops = count( $contacts );
-        }
+        // get country
+        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code) );
+        $locations = $wpdb->get_col( $wpdb->prepare( "SELECT grid_id FROM $wpdb->dt_location_grid WHERE admin0_code = %s AND level = %d ORDER BY RAND() LIMIT 100;", $admin0_code, $lowest_level ) );
 
         shuffle( $contacts );
         shuffle( $locations );
 
-//        array_slice ( $locations , 0 , $loops );
-
         $i = 0;
+        $location_count = count( $locations );
 
-        while ($loops > $i) {
+        foreach ( $contacts as $contact ) {
 
-            $to = $contacts[$i]->ID;
-            $from = $locations[$i];
-            add_post_meta( $to, 'geonames', $from );
+            $to = $contact->ID;
+            $from = $locations[rand(0,$location_count-1)];
+            add_post_meta( $to, 'location_grid', $from );
 
             $i++;
         }
@@ -361,59 +328,33 @@ class DT_Demo_Connections {
     }
 
 
-    public function add_groups_to_locations( $loops = 100 ) {
+    public function add_groups_to_locations( $loops = 100, $admin0_code = 'USA' ) {
 
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
+        global $wpdb;
+        if ( ! isset( $wpdb->dt_location_grid ) ) {
+            $wpdb->dt_location_grid = $wpdb->prefix . 'dt_location_grid';
+        }
 
         // Get list of records
-        $args = array(
-            'numberposts'   => -1,
-            'post_type'   => 'groups'
-        );
-        $groups = get_posts( $args );
+
+        $groups = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'groups' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
 
 
-        $locations = [
-            3336901,
-            3117732,
-            3336900,
-            3336899,
-            2593111,
-            2593109,
-            2593112,
-            6255148,
-            6255148,
-            2542007,
-            5128638,
-            6252001
-        ];
-
-        if ($loops > 100) {
-            $loops = 100;
-        }
-
-        if (count( $locations ) < $loops ) {
-            $loops = count( $locations );
-        }
-
-        if (count( $groups ) < $loops) {
-            $loops = count( $groups );
-        }
-
-        shuffle( $groups );
-        shuffle( $locations );
-
-//        array_slice ( $locations , 0 , $loops );
+        // get country
+        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code) );
+        $locations = $wpdb->get_col( $wpdb->prepare( "SELECT grid_id FROM $wpdb->dt_location_grid WHERE admin0_code = %s AND level = %d ORDER BY RAND() LIMIT 100;", $admin0_code, $lowest_level ) );
 
         $i = 0;
+        $location_count = count( $locations );
 
-        while ($loops > $i) {
+        foreach ($groups as $group) {
 
-            $to = $groups[$i]->ID;
-            $from = $locations[$i];
-            add_post_meta( $to, 'geonames', $from );
+            $to = $group->ID;
+            $from = $locations[rand(0,$location_count-1)];
+            add_post_meta( $to, 'location_grid', $from );
 
             $i++;
         }

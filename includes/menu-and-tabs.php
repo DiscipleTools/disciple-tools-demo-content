@@ -135,8 +135,8 @@ class DT_Demo_Tab_Quick_Launch
 //        $locations = wp_count_posts( 'locations' );
         $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
 
-        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'geonames'" );
-        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'geonames'" );
+        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
+        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
         $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
 
         // Number of Baptism connections
@@ -206,13 +206,26 @@ class DT_Demo_Tab_Quick_Launch
 
             </tbody>
          </table>
-         <br>'
+         <br>
 
         <table class="widefat striped">
             <thead><th width="50%">CONNECT</th><th>Count</th><th>Add</th><th></th></thead>
             <tbody>
-                <tr><th>Baptism Generations</th><td id="add_baptism_generations_count"><?php echo esc_html( $baptism_gen ) ?></td><td>
-                    <button type="button" onclick="add_connections();"class="button" id="add_connections">Add Connections</button>
+                <tr><th colspan="3">
+                        <select id="admin0_code">
+                            <option value="USA">United States</option>
+                            <?php
+                            global $wpdb;
+                            $list = $wpdb->get_results( "SELECT admin0_code, name FROM $wpdb->dt_location_grid WHERE level = 0", ARRAY_A );
+                            foreach ( $list as $country ) {
+                                echo '<option value="'.esc_html( $country['admin0_code'] ).'">'.esc_html( $country['name'] ).'</option>';
+                            }
+                            ?>
+                        </select>
+                        <button type="button" onclick="add_connections();"class="button" id="add_connections">Add Connections</button>
+                    </th></tr>
+
+                <tr><th>Baptism Generations</th><td id="add_baptism_generations_count"><?php echo esc_html( $baptism_gen ) ?></td>
                 </td><td><span id="add_baptism_generations_spinner" style="width:15px;"></span></td></tr>
 
                 <tr><th>Group Generations</th><td id="add_group_generations_count"><?php echo esc_html( $group_gen )?></td><td>

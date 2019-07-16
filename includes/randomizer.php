@@ -100,12 +100,12 @@ function dt_demo_random_name() {
 function dt_demo_random_source() {
 
     $list = array(
-        'Facebook',
-        'Twitter',
-        'Website',
-        'Partner',
-        'Phone',
-        'Email'
+        'facebook',
+        'twitter',
+        'website',
+        'partner',
+        'phone',
+        'email'
     );
 
     $top = count( $list );

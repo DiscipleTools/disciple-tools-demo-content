@@ -259,6 +259,7 @@ function delete_comments() {
 }
 
 function add_connections() {
+    let admin0_code = jQuery('#admin0_code').val()
     let key = 'add_comments'
 
     // baptism generations
@@ -343,6 +344,7 @@ function add_connections() {
     jQuery.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
+        data: JSON.stringify( { 'admin0_code': admin0_code } ),
         dataType: "json",
         url: wpApiDemo.root + 'dt_demo/v1/contacts_locations',
         beforeSend: function(xhr) {
@@ -367,6 +369,7 @@ function add_connections() {
     jQuery.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
+        data: JSON.stringify( { 'admin0_code': admin0_code } ),
         dataType: "json",
         url: wpApiDemo.root + 'dt_demo/v1/groups_locations',
         beforeSend: function(xhr) {

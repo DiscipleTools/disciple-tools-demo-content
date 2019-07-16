@@ -341,13 +341,18 @@ class DT_Demo_Endpoints
             require_once( 'class-connections.php' );
             require_once( 'randomizer.php' );
 
+            $params = $request->get_params();
+            if ( ! isset( $params['admin0_code'] ) ) {
+                return new WP_Error( __METHOD__, "Missing parameter.", array( 'status' => 400 ) );
+            }
+
             $object = DT_Demo_Connections::instance();
-            $results = $object->add_contacts_to_locations( 5 );
+            $results = $object->add_contacts_to_locations( 10, $params['admin0_code'] );
 
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
             } else {
-                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'geonames'" );
+                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
                 return $post_count;
             }
         } else {
@@ -361,13 +366,18 @@ class DT_Demo_Endpoints
             require_once( 'class-connections.php' );
             require_once( 'randomizer.php' );
 
+            $params = $request->get_params();
+            if ( ! isset( $params['admin0_code'] ) ) {
+                return new WP_Error( __METHOD__, "Missing parameter.", array( 'status' => 400 ) );
+            }
+
             $object = DT_Demo_Connections::instance();
-            $results = $object->add_groups_to_locations( 5 );
+            $results = $object->add_groups_to_locations( 10, $params['admin0_code']  );
 
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
             } else {
-                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'geonames'" );
+                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
                 return $post_count;
             }
         } else {
