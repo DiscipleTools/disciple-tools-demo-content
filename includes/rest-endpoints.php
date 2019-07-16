@@ -378,7 +378,7 @@ class DT_Demo_Endpoints
             }
 
             $object = DT_Demo_Connections::instance();
-            $results = $object->add_groups_to_locations( 10, $params['admin0_code']  );
+            $results = $object->add_groups_to_locations( 10, $params['admin0_code'] );
 
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );

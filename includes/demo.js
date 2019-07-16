@@ -2,7 +2,7 @@
 function quick_launch( state ) {
     let spinner = jQuery('#quick-launch-spinner')
     spinner.show()
-    
+
 
     // jQuery.ajax({
     //     type: "POST",

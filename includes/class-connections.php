@@ -302,10 +302,10 @@ class DT_Demo_Connections {
         }
 
         // Get list of records
-        $contacts = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'contacts' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
+        $contacts = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'contacts' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
 
         // get country
-        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code) );
+        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code ) );
         $locations = $wpdb->get_col( $wpdb->prepare( "SELECT grid_id FROM $wpdb->dt_location_grid WHERE admin0_code = %s AND level = %d ORDER BY RAND() LIMIT 100;", $admin0_code, $lowest_level ) );
 
         shuffle( $contacts );
@@ -317,7 +317,7 @@ class DT_Demo_Connections {
         foreach ( $contacts as $contact ) {
 
             $to = $contact->ID;
-            $from = $locations[rand(0,$location_count-1)];
+            $from = $locations[rand( 0, $location_count -1 )];
             add_post_meta( $to, 'location_grid', $from );
 
             $i++;
@@ -340,11 +340,11 @@ class DT_Demo_Connections {
 
         // Get list of records
 
-        $groups = $wpdb->get_results("SELECT * FROM $wpdb->posts WHERE post_type = 'groups' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
+        $groups = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'groups' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
 
 
         // get country
-        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code) );
+        $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code ) );
         $locations = $wpdb->get_col( $wpdb->prepare( "SELECT grid_id FROM $wpdb->dt_location_grid WHERE admin0_code = %s AND level = %d ORDER BY RAND() LIMIT 100;", $admin0_code, $lowest_level ) );
 
         $i = 0;
@@ -353,7 +353,7 @@ class DT_Demo_Connections {
         foreach ($groups as $group) {
 
             $to = $group->ID;
-            $from = $locations[rand(0,$location_count-1)];
+            $from = $locations[rand( 0, $location_count -1 )];
             add_post_meta( $to, 'location_grid', $from );
 
             $i++;

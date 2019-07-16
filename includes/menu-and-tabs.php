@@ -132,19 +132,39 @@ class DT_Demo_Tab_Quick_Launch
         // Number of contacts
         $contacts = wp_count_posts( 'contacts' );
         $groups = wp_count_posts( 'groups' );
-//        $locations = wp_count_posts( 'locations' );
-        $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
 
-        $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
-        $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
-        $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
+        if ( ! $comments = wp_cache_get( 'demo_comments' ) ) {
+            $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
+            wp_cache_set( 'demo_comments', $comments );
+        }
+
+
+        if ( ! $contacts_to_locations = wp_cache_get( 'contacts_to_locations' ) ) {
+            $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
+            wp_cache_set( 'contacts_to_locations', $contacts_to_locations );
+        }
+        if ( ! $groups_to_locations = wp_cache_get( 'groups_to_locations' ) ) {
+            $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
+            wp_cache_set( 'groups_to_locations', $groups_to_locations );
+        }
+        if ( ! $contacts_to_groups = wp_cache_get( 'contacts_to_groups' ) ) {
+            $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
+            wp_cache_set( 'contacts_to_groups', $contacts_to_groups );
+        }
 
         // Number of Baptism connections
-        $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
-        $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
-        $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
-
-
+        if ( ! $baptism_gen = wp_cache_get( 'baptism_gen' ) ) {
+            $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
+            wp_cache_set( 'baptism_gen', $baptism_gen );
+        }
+        if ( ! $group_gen = wp_cache_get( 'group_gen' ) ) {
+            $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
+            wp_cache_set( 'group_gen', $group_gen );
+        }
+        if ( ! $coaching_gen = wp_cache_get( 'coaching_gen' ) ) {
+            $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
+            wp_cache_set( 'coaching_gen', $coaching_gen );
+        }
 
 
         // Progress Metabox
@@ -216,6 +236,7 @@ class DT_Demo_Tab_Quick_Launch
                             <option value="USA">United States</option>
                             <?php
                             global $wpdb;
+
                             $list = $wpdb->get_results( "SELECT admin0_code, name FROM $wpdb->dt_location_grid WHERE level = 0", ARRAY_A );
                             foreach ( $list as $country ) {
                                 echo '<option value="'.esc_html( $country['admin0_code'] ).'">'.esc_html( $country['name'] ).'</option>';

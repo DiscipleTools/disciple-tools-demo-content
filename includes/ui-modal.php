@@ -32,9 +32,9 @@ if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'm
                                         <?php
                                             global $wpdb;
                                             $list = $wpdb->get_results( "SELECT admin0_code, name FROM $wpdb->dt_location_grid WHERE level = 0", ARRAY_A );
-                                            foreach ( $list as $country ) {
-                                                echo '<option value="'.esc_html( $country['admin0_code'] ).'">'.esc_html( $country['name'] ).'</option>';
-                                            }
+                                        foreach ( $list as $country ) {
+                                            echo '<option value="'.esc_html( $country['admin0_code'] ).'">'.esc_html( $country['name'] ).'</option>';
+                                        }
                                         ?>
                                         </select><br>
                                     <button type="button" class="button" onclick="quick_launch('ui')">Install Sample Content</button>
