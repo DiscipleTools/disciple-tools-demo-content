@@ -15,7 +15,6 @@ if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'm
                 jQuery(document).ready(function() {
                     let content = jQuery('.off-canvas-content')
 
-
                     content.append(`
                     <div id='demo-install-modal' class='reveal medium' data-reveal>
 
@@ -26,7 +25,21 @@ if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'm
                                 <div class="cell small-6">
                                     <p><strong>Get a better feel.</strong> We think it will help you get a better feel for the system. We've crafted a number of contacts, groups, and messages between different team members.</p>
                                     <p><strong>Delete anytime.</strong> You can delete the sample content anytime.</p>
-                                    <p class="center"><button type="button" class="button" onclick="quick_launch('ui')">Install Sample Content</button> <span id="quick-launch-spinner"></span></p>
+                                    <p class="center">
+                                        <select id="admin0_code">
+                                        <option value="USA">United States</option>
+                                        <option disabled>------</option>
+                                        <?php
+                                            global $wpdb;
+                                            $list = $wpdb->get_results( "SELECT admin0_code, name FROM $wpdb->dt_location_grid WHERE level = 0", ARRAY_A );
+                                            foreach ( $list as $country ) {
+                                                echo '<option value="'.esc_html( $country['admin0_code'] ).'">'.esc_html( $country['name'] ).'</option>';
+                                            }
+                                        ?>
+                                        </select><br>
+                                    <button type="button" class="button" onclick="quick_launch('ui')">Install Sample Content</button>
+                                    <span id="quick-launch-spinner" style="display:none;"><img style="height:1.5em;" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) ) ?>/spinner.svg" /></span>
+                                    <br><span id="report"></span></p>
                                     <hr>
                                     <p><strong>Add it later.</strong> If you would rather explore without sample content, go for it. You can always add sample content later.</p>
                                     <p class="center"><button type="button" class="button hollow" onclick="hide_on_startup('ui')" id="hide-on-startup">Hide this screen. I'll do this later.</button> <span class="spinner"></span>
