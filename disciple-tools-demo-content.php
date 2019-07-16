@@ -12,7 +12,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; // Exit if accessed directly
 }
-$dt_demo_required_dt_theme_version = '0.21.0';
+$dt_demo_required_dt_theme_version = '0.21.3';
 
 /**
  * Test for minimum required PHP version
