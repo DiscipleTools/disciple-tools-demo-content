@@ -19,14 +19,14 @@ function quick_launch( state ) {
     .fail(function (err) {
         console.log("error")
         console.log(err)
-        spinner.empty()
+        spinner.removeClass('active')
     })
 
 }
 
 function delete_prepared_data() {
     let spinner = jQuery('#quick-launch-spinner')
-    spinner.append('<img style="height:1em;" src="'+ wpApiDemo.images_uri +'spinner.svg" />');
+    spinner.addClass('active')
     let title = jQuery('#install-quick-launch')
 
     jQuery.ajax({
@@ -44,7 +44,7 @@ function delete_prepared_data() {
     .fail(function (err) {
         console.log("error")
         console.log(err)
-        spinner.empty()
+        spinner.removeClass('active')
     })
 }
 

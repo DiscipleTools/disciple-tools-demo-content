@@ -313,8 +313,7 @@ class DT_Demo_Tab_Quick_Launch
                                 onclick="toggle_prepared_data(<?php echo esc_html( $installed ); ?>)">
                             <?php echo esc_attr( $title ); ?>
                         </button>
-                        <span id="quick-launch-spinner"></span>
-                        <span id="spinner"></span>
+                        <span id="quick-launch-spinner" class="loading-spinner"></span>
                     </p>
                 </td>
             </tr>
