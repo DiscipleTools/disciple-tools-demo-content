@@ -19,7 +19,7 @@ if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'm
                     <div id='demo-install-modal' class='reveal medium' data-reveal>
 
                         <div id="demo-sample">
-                            <h2>Do you Want to add sample content?</h2>
+                            <h2>Do you want to add sample content?</h2>
                             <hr>
                             <div class="grid-x grid-margin-x">
                                 <div class="cell small-6">
