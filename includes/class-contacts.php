@@ -51,6 +51,13 @@ class DT_Demo_Contacts
     public function single_plain_contact() {
         $name = dt_demo_random_name();
 
+        global $wpdb;
+        $random_location = $wpdb->get_var("
+            SELECT grid_id FROM $wpdb->dt_location_grid
+            ORDER BY RAND()
+            LIMIT 1
+        ");
+
         $post       = [
             "title"           => $name . ' Contact' . rand( 100, 999 ),
             "contact_phone"   => [ "values" => [ [ "value" => dt_demo_random_phone_number() ] ] ],
@@ -60,6 +67,7 @@ class DT_Demo_Contacts
             "seeker_path"     => dt_demo_seeker_path(),
             "overall_status"  => dt_demo_random_overall_status(),
             "milestones"      => [ "values" => [] ],
+            "location_grid"   => [ "values" => [ [ "value" => $random_location ] ] ]
         ];
         $milestones = dt_demo_random_milestones();
         foreach ( $milestones as $milestone ) {
