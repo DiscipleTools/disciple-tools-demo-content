@@ -471,13 +471,13 @@ function dt_demo_random_milestones(): array {
     $sharing_milestones = array( 'can_share', 'sharing', 'in_group', 'planting' );
     $rv                 = array();
 
-    $rv["milestones"] = [];
+    $rv = [];
     $count = count( $belief_milestones );
     for ( $i = 0; $i < rand( 0, $count ); $i ++ ) {
-        $rv["milestones"][] = "milestone_$belief_milestones[$i]";
+        $rv[] = "milestone_$belief_milestones[$i]";
     }
     for ( $i = 0; $i < rand( 0, $count ); $i ++ ) {
-        $rv["milestones"][] = "milestone_$sharing_milestones[$i]";
+        $rv[] = "milestone_$sharing_milestones[$i]";
     }
 
     return $rv;
