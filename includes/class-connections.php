@@ -31,7 +31,7 @@ class DT_Demo_Connections {
         /* @see https://github.com/scribu/wp-posts-to-posts/wiki/Creating-connections-programmatically */
         /* @see p2p_add_meta() https://github.com/scribu/wp-posts-to-posts/wiki/Connection-metadata#updating-connection-information */
 
-        $year = date( 'Y' );
+        $year = gmdate( 'Y' );
         // Get list of contacts
         $records = $wpdb->get_results("SELECT * 
             FROM $wpdb->posts WHERE post_type = 'contacts' 

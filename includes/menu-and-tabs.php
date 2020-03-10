@@ -133,35 +133,42 @@ class DT_Demo_Tab_Quick_Launch
         $contacts = wp_count_posts( 'contacts' );
         $groups = wp_count_posts( 'groups' );
 
-        if ( ! $comments = wp_cache_get( 'demo_comments' ) ) {
+        $comments = wp_cache_get( 'demo_comments' );
+        if ( !$comments ) {
             $comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
             wp_cache_set( 'demo_comments', $comments );
         }
 
 
-        if ( ! $contacts_to_locations = wp_cache_get( 'contacts_to_locations' ) ) {
+        $contacts_to_locations = wp_cache_get( 'contacts_to_locations' );
+        if ( !$contacts_to_locations ) {
             $contacts_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
             wp_cache_set( 'contacts_to_locations', $contacts_to_locations );
         }
-        if ( ! $groups_to_locations = wp_cache_get( 'groups_to_locations' ) ) {
+        $groups_to_locations = wp_cache_get( 'groups_to_locations' );
+        if ( !$groups_to_locations ) {
             $groups_to_locations = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
             wp_cache_set( 'groups_to_locations', $groups_to_locations );
         }
-        if ( ! $contacts_to_groups = wp_cache_get( 'contacts_to_groups' ) ) {
+        $contacts_to_groups = wp_cache_get( 'contacts_to_groups' );
+        if ( !$contacts_to_groups ) {
             $contacts_to_groups = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
             wp_cache_set( 'contacts_to_groups', $contacts_to_groups );
         }
 
         // Number of Baptism connections
-        if ( ! $baptism_gen = wp_cache_get( 'baptism_gen' ) ) {
+        $baptism_gen = wp_cache_get( 'baptism_gen' );
+        if ( !$baptism_gen ) {
             $baptism_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
             wp_cache_set( 'baptism_gen', $baptism_gen );
         }
-        if ( ! $group_gen = wp_cache_get( 'group_gen' ) ) {
+        $group_gen = wp_cache_get( 'group_gen' );
+        if ( !$group_gen ) {
             $group_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
             wp_cache_set( 'group_gen', $group_gen );
         }
-        if ( ! $coaching_gen = wp_cache_get( 'coaching_gen' ) ) {
+        $coaching_gen = wp_cache_get( 'coaching_gen' );
+        if ( !$coaching_gen ) {
             $coaching_gen = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
             wp_cache_set( 'coaching_gen', $coaching_gen );
         }

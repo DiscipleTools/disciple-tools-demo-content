@@ -239,11 +239,8 @@ class DT_Demo {
             $this->comments = DT_Demo_Comments::instance();
             require_once( 'includes/class-connections.php' );
             $this->connections = DT_Demo_Connections::instance();
-            $theme = wp_get_theme();
-            if ( $theme->name = "Disciple_Tools" ) {
-                require_once( 'includes/class-roles.php' );
-                $this->roles = new DT_Demo_Roles();
-            }
+            require_once( 'includes/class-roles.php' );
+            $this->roles = new DT_Demo_Roles();
             require_once( 'includes/randomizer.php' );
 
             // Check for plugin updates
