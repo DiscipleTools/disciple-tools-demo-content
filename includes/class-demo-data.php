@@ -68,17 +68,17 @@ class DT_Demo_Data {
         $demo_range['commentmeta'] = [ 200005, 200243 ];
 
         // Get auto-increments
-        $next_id['dt_activity_log'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_activity_log'", DB_NAME ) );
-        $next_id['dt_notifications'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_notifications'", DB_NAME ) );
-        $next_id['dt_share'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->dt_share'", DB_NAME ) );
-        $next_id['comments'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->comments'", DB_NAME ) );
-        $next_id['commentmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->commentmeta'", DB_NAME ) );
-        $next_id['p2p'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->p2p'", DB_NAME ) );
-        $next_id['p2pmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->p2pmeta'", DB_NAME ) );
-        $next_id['postmeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->postmeta'", DB_NAME ) );
-        $next_id['posts'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->posts'", DB_NAME ) );
-        $next_id['usermeta'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->usermeta'", DB_NAME ) );
-        $next_id['users'] = $wpdb->get_var( $wpdb->prepare( "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = '$wpdb->users'", DB_NAME ) );
+        $next_id['dt_activity_log'] = ( (int) $wpdb->get_var( "SELECT MAX(histid) FROM $wpdb->dt_activity_log" ) ?? 100 ) + 1;
+        $next_id['dt_notifications'] = ( (int) $wpdb->get_var( "SELECT MAX(id) FROM $wpdb->dt_notifications" ) ?? 100 ) + 1;
+        $next_id['dt_share'] = ( (int) $wpdb->get_var( "SELECT MAX(id) FROM $wpdb->dt_share" ) ?? 100 ) + 1;
+        $next_id['comments'] = ( (int) $wpdb->get_var( "SELECT MAX(comment_ID) FROM $wpdb->comments" ) ?? 100 ) + 1;
+        $next_id['commentmeta'] = ( (int) $wpdb->get_var( "SELECT MAX(meta_id) FROM $wpdb->commentmeta" ) ?? 100 ) + 1;
+        $next_id['p2p'] = ( (int) $wpdb->get_var( "SELECT MAX(p2p_id) FROM $wpdb->p2p" ) ?? 100 ) + 1;
+        $next_id['p2pmeta'] = ( (int) $wpdb->get_var( "SELECT MAX(meta_id) FROM $wpdb->p2pmeta" ) ?? 100 ) + 1;
+        $next_id['postmeta'] = ( (int) $wpdb->get_var( "SELECT MAX(meta_id) FROM $wpdb->postmeta" ) ?? 100 ) + 1;
+        $next_id['usermeta'] = ( (int) $wpdb->get_var( "SELECT MAX(umeta_id) FROM $wpdb->usermeta" ) ?? 100 ) + 1;
+        $next_id['posts'] = ( (int) $wpdb->get_var( "SELECT MAX(ID) FROM $wpdb->posts" ) ?? 100 ) + 1;
+        $next_id['users'] = ( (int) $wpdb->get_var( "SELECT MAX(ID) FROM $wpdb->users" ) ?? 100 ) + 1;
 
         // update user ids
         $demo = $demo_range['users'][0];
