@@ -288,10 +288,61 @@ class DT_Demo_Tab_Quick_Launch
                         <form method="POST"><input type="hidden" name="count" value="100" /> <button type="submit" value="shuffle_update_requests" name="submit" class="button" id="shuffle_update_requests">Shuffle Updates</button></form>
                     </td></tr>
 
+                    <tr>
+                        <td>Create test Data</td>
+                        <td>
+                            <form method="POST"><input type="hidden" name="create_test_date" value="100" /> <button type="submit" value="create_test_date" name="submit" class="button" id="create_test_date">Create Test Data</button></form>
+                        </td>
+                    </tr>
+
                  </tbody>
         </table>
         <br>
 
+
+        <?php
+        if ( isset( $_POST["create_test_date"] ) ) {
+            $post = DT_Posts::create_post( "contacts", [ "title" => "Bob" ] );
+            global $wpdb;
+            $id = $post["ID"];
+            $date = gmdate( 'Y-m-d H:i:s', time() );
+
+            //@todo <style>@keyframes x{}</style><xmp style="animation-name:x" onanimationstart="alert(7544)"></xmp>
+
+            $img_fail_alert = "&lt;img src=. onerror=alert('escaped_alert');&gt;";
+            $click_alert = "&lt;a href= . &#39;&quot;&#39; onclick=alert(9) &#39;&quot;&#39;&gt;foo&lt;/a&gt;";
+            $a = $wpdb->query(  "
+                INSERT INTO $wpdb->comments (comment_post_ID, comment_content, comment_date, comment_date_gmt, comment_type)
+                VALUES
+                ( $id, 'Just a normal comment', '$date', '$date', 'comment' ),
+                ( $id, '[Link](/contacts) <- is a link.', '$date', '$date', 'comment' ),
+                ( $id, 'https://disciple.tools <- is a link.', '$date', '$date', 'comment' ),
+                ( $id, '<strong>This Should Be Bold</strong>', '$date', '$date', 'comment' ),
+                ( $id, 'My script: i don&#039;t have &quot;42&quot;', '$date', '$date', 'comment' ),
+                ( $id, 'My script: i dont have \"42\"	', '$date', '$date', 'comment' ),
+                ( $id, '&amp;lt;img src=. onerror=alert(&#039;doubleescape2&#039;);&amp;gt;', '$date', '$date', 'comment' ),
+                ( $id, \"$img_fail_alert\", '$date', '$date', 'comment' ),
+                ( $id, \"<img src=. onerror=alert('img_alert_fail' );>	\", '$date', '$date', 'comment' ),
+                ( $id, \"$click_alert\", '$date', '$date', 'comment' )
+            " );
+
+            $update = $wpdb->query( "
+                UPDATE $wpdb->posts
+                SET post_title = \"$img_fail_alert\"
+                WHERE ID = $id
+            ");
+
+            $post_meta = $wpdb->query(  "
+                INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value)
+                VALUES 
+                ( $id, 'contact_phone_001', \"$img_fail_alert\" )
+                "
+            );
+
+
+            $more = "";
+        }
+        ?>
 
 
         <style type="text/css">#spinner {display:none;}</style>
