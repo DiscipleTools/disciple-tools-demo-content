@@ -298,7 +298,7 @@ class DT_Demo_Data {
         $posts = get_posts( $args );
 
         foreach ( $posts as $post ){
-            $result[] = Disciple_Tools_Posts::delete_post( $post->ID, $post->post_type );
+            $result[] = Disciple_Tools_Posts::delete_post( $post->post_type, (int) $post->ID );
         }
 
         $wpdb->query( "DELETE FROM $wpdb->comments WHERE comment_ID IN (SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_sample');" );
@@ -368,6 +368,6 @@ class DT_Demo_Data {
         DT_Posts::create_post( "contacts", [ "name" => "Access 17", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
         DT_Posts::create_post( "contacts", [ "name" => "Access 18", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
 
-
+        return true;
     }
 }
