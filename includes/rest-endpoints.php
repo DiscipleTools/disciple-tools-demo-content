@@ -140,7 +140,8 @@ class DT_Demo_Endpoints
 
     public function install_demo_data( WP_REST_Request $request ){
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
-            return DT_Demo_Data::install_test_data();
+            return DT_Demo_Data::install_data();
+//            return DT_Demo_Data::install_test_data();
         } else {
             return new WP_Error( __METHOD__, "Do not have permission to install demo content", array( 'status' => 400 ) );
         }
