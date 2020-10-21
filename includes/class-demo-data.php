@@ -298,7 +298,7 @@ class DT_Demo_Data {
         $posts = get_posts( $args );
 
         foreach ( $posts as $post ){
-            $result[] = Disciple_Tools_Posts::delete_post( $post->ID, $post->post_type );
+            $result[] = DT_Posts::delete_post( $post->post_type, $post->ID, false );
         }
 
         $wpdb->query( "DELETE FROM $wpdb->comments WHERE comment_ID IN (SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_sample');" );
