@@ -51,7 +51,7 @@ class DT_Demo_Groups
         while ($count > $i ) {
 
             $post = $this->single_plain_group();
-            $group_id = Disciple_Tools_Groups::create_group( $post, false );
+            $group_id = DT_Posts::create_post( "groups", $post, false );
             if ( !is_wp_error( $group_id )){
                 update_post_meta( $group_id, "_sample", "sample" );
             }
