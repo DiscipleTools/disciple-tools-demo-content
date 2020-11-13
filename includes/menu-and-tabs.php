@@ -183,7 +183,7 @@ class DT_Demo_Tab_Quick_Launch
                 <tr><th>Contacts</th>
                     <td class="add_contacts_count delete_contacts_count"><?php echo esc_html( $contacts->publish ) ?></td>
                     <td>
-                        <button type="button" onclick="add_contacts();"class="button" id="add_contacts">Add 20 Contacts <span id="add_contacts_spinner" style="width:15px;"></span></button>
+                        <button type="button" onclick="add_contacts();"class="button" id="add_contacts">Add 100 Contacts <span id="add_contacts_spinner" style="width:15px;"></span></button>
 
                     </td>
                     <td>

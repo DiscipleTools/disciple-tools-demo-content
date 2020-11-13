@@ -171,7 +171,7 @@ class DT_Demo_Endpoints
             require_once( 'randomizer.php' );
 
             $object = DT_Demo_Contacts::instance();
-            $results = $object->add_contacts_by_count( 20 );
+            $results = $object->add_contacts_by_count( 100 );
 
             if ( $results ) {
                 $post_count = wp_count_posts( 'contacts' );
