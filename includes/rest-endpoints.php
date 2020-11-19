@@ -148,7 +148,7 @@ class DT_Demo_Endpoints
     }
 
     public function delete_quick_launch(){
-        if ( user_can( get_current_user_id(), 'manage_options' ) ) {
+        if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
             return DT_Demo_Data::delete_prepared_demo_data();
         } else {
             return new WP_Error( __METHOD__, "Do not have permission to install demo content", array( 'status' => 400 ) );
