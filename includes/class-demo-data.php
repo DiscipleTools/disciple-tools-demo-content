@@ -331,42 +331,169 @@ class DT_Demo_Data {
         wp_update_user( $user );
 
         wp_set_current_user( $multiplier1 );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 1", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 2", "type" => "personal" ] );
-        $contact = DT_Posts::create_post( "contacts", [ "name" => "Personal 3", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 1", "type" => "placeholder", "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 2", "type" => "placeholder", "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 1", "type" => "access", "sources" => [ "values" => [ [ "value" => "personal" ] ] ], "seeker_path" => "ongoing"] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 2", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "active" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 2.1", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "active", "requires_update" => true ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 3", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "paused" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 4", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "assigned" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 5", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "seeker_path" => "met" ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 1",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 2",
+            "type" => "personal"
+        ] );
+        $contact = DT_Posts::create_post( "contacts", [
+            "name" => "Personal 3",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 1",
+            "type" => "placeholder",
+            "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 2",
+            "type" => "placeholder",
+            "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 1",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "personal" ] ] ],
+            "seeker_path" => "ongoing"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 2",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "active"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 2.1",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "active",
+            "requires_update" => true
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 3",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "paused"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 4",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "assigned"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 5",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "seeker_path" => "met"
+        ] );
 
 
         wp_set_current_user( $multiplier2 );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 1", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 2", "type" => "personal" ] );
-        $contact = DT_Posts::create_post( "contacts", [ "name" => "Personal 3", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 1", "type" => "placeholder", "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 2", "type" => "placeholder", "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 1",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 2",
+            "type" => "personal"
+        ] );
+        $contact = DT_Posts::create_post( "contacts", [
+            "name" => "Personal 3",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 1",
+            "type" => "placeholder",
+            "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 2",
+            "type" => "placeholder",
+            "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
 
 
         wp_set_current_user( $dispatcher1 );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 1", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Personal 2", "type" => "personal" ] );
-        $contact = DT_Posts::create_post( "contacts", [ "name" => "Personal 3", "type" => "personal" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 1", "type" => "placeholder", "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Connection 2", "type" => "placeholder", "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 10", "type" => "access", "sources" => [ "values" => [ [ "value" => "personal" ] ] ] ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 11", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "active" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 12", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "active", "requires_update" => true ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 13", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "paused" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 14", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "assigned" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 15", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 16", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 17", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
-        DT_Posts::create_post( "contacts", [ "name" => "Access 18", "type" => "access", "sources" => [ "values" => [ [ "value" => "web" ] ] ], "overall_status" => "new" ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 1",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Personal 2",
+            "type" => "personal"
+        ] );
+        $contact = DT_Posts::create_post( "contacts", [
+            "name" => "Personal 3",
+            "type" => "personal"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 1",
+            "type" => "placeholder",
+            "baptized" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Connection 2",
+            "type" => "placeholder",
+            "baptized_by" => [ "values" => [ [ "value" => $contact["ID"] ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 10",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "personal" ] ] ]
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 11",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "active"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 12",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "active",
+            "requires_update" => true
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 13",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "paused"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 14",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "assigned"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 15",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "new"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 16",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "new"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 17",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "new"
+        ] );
+        DT_Posts::create_post( "contacts", [
+            "name" => "Access 18",
+            "type" => "access",
+            "sources" => [ "values" => [ [ "value" => "web" ] ] ],
+            "overall_status" => "new"
+        ] );
 
         return true;
     }
