@@ -31,10 +31,11 @@ class DT_Demo_Contacts
         while ($count > $i ) {
 
             $post = $this->single_plain_contact();
-            $contact_id = Disciple_Tools_Contacts::create_contact( $post, false );
+            $contact = DT_Posts::create_post( "contacts", $post, false );
 
-            if ( !is_wp_error( $contact_id )){
-                add_post_meta( $contact_id, "_sample", "sample", true );
+
+            if ( !is_wp_error( $contact )){
+                add_post_meta( $contact["ID"], "_sample", "sample", true );
                 $successful++;
             }
 
