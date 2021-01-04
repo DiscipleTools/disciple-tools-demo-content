@@ -301,13 +301,15 @@ class DT_Demo_Tab_Quick_Launch
 
 
         <?php
-        if ( isset( $_POST["create_test_date"] ) ) {
+        if ( isset( $_POST["create_test_date"] ) ) { // phpcs:ignore
             $post = DT_Posts::create_post( "contacts", [ "title" => "Bob" ] );
             global $wpdb;
             $id = $post["ID"];
             $date = gmdate( 'Y-m-d H:i:s', time() );
 
             //@todo <style>@keyframes x{}</style><xmp style="animation-name:x" onanimationstart="alert(7544)"></xmp>
+
+            // phpcs:disable
 
             $img_fail_alert = "&lt;img src=. onerror=alert('escaped_alert');&gt;";
             $click_alert = "&lt;a href= . &#39;&quot;&#39; onclick=alert(9) &#39;&quot;&#39;&gt;foo&lt;/a&gt;";
@@ -338,6 +340,8 @@ class DT_Demo_Tab_Quick_Launch
                 ( $id, 'contact_phone_001', \"$img_fail_alert\" )
                 "
             );
+
+            // phpcs:enable
 
 
             $more = "";
