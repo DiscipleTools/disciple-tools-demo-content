@@ -72,7 +72,7 @@ function dt_demo() {
         return DT_Demo::get_instance();
     }
 }
-add_action( 'plugins_loaded', 'dt_demo' );
+add_action( 'after_setup_theme', 'dt_demo' );
 
 
 //keep email from being sent to demo users.
