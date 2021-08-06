@@ -43,96 +43,112 @@ class DT_Demo_Endpoints
             $this->namespace, '/quick_launch/install_demo_data', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'install_demo_data' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/quick_launch/delete_demo_data', [
                 "methods"  => "DELETE",
                 "callback" => [ $this, 'delete_quick_launch' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/quick_launch/hide_on_startup', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'hide_on_startup' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_contacts', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'add_contacts' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_contacts', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'delete_contacts' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_comments', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'add_comments' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_comments', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'delete_comments' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_groups', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'add_groups' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_groups', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'delete_groups' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/baptism_generations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'baptism_generations' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/group_generations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'group_generations' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/coaching_generations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'coaching_generations' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/contacts_locations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'contacts_locations' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/groups_locations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'groups_locations' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/contacts_group', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'contacts_group' ],
+                'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/shuffle', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'shuffle' ],
+                'permission_callback' => '__return_true',
             ]
         );
 
