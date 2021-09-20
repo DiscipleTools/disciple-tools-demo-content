@@ -1,8 +1,8 @@
 {
-  "name": "Disciple Tools - Demo Content",
+  "name": "Disciple.Tools - Demo Content",
   "version": "0.6.0",
   "last_updated": "2021-01",
-  "author": "Disciple Tools",
+  "author": "Disciple.Tools",
   "author_homepage": "https://disciple.tools",
   "git_owner": "DiscipleTools",
   "git_repo": "disciple-tools-demo-content",
@@ -23,7 +23,7 @@
   },
   "icon": "https://raw.githubusercontent.com/DiscipleTools/disciple-tools-demo-content/master/includes/images/demo-content-icon.png",
   "sections": {
-    "description": "Disciple Tools - Demo Content",
+    "description": "Disciple.Tools - Demo Content",
     "installation": "(Required) You must have Disciple.Tools Theme installed before using this plugin. Once Disciple.Tools is installed, you can use the normal Plugin system to install the plugin.",
     "changelog": ""
   }
