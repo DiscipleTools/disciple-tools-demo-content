@@ -86,12 +86,16 @@ if ( ! get_option( 'dt_demo_hide_popup' ) && user_can( get_current_user_id(), 'm
  * Add install link to settings menu, unless it is already installed.
  */
 if ( ! get_option( "dt_demo_sample_data" ) && user_can( get_current_user_id(), 'manage_options' ) ) {
-    function dt_demo_menu_item() {
+    function dt_demo_menu_item( $nav ) {
         if ( ! is_admin() && ( user_can( get_current_user_id(), 'manage_options' ) || user_can( get_current_user_id(), 'manage_dt' ) ) ) {
-            ?>
-            <li><a href="<?php echo esc_url( admin_url( 'admin.php?page=dt_demo' ) ); ?>"><?php esc_html_e( "Add Demo Content" ); ?></a></li>
-            <?php
+            $nav["admin"]["settings"]["submenu"]["demo"] = [
+                'label' => __( "Add Demo Content", 'disciple_tools' ),
+                'link' => esc_url( admin_url( 'admin.php?page=dt_demo' ) ),
+                'hidden' => false,
+                'icon' => get_template_directory_uri() . "/dt-assets/images/coach.svg",
+            ];
         }
+        return $nav;
     }
-    add_action( 'dt_settings_menu_post', 'dt_demo_menu_item' );
+    add_filter( 'dt_nav', 'dt_demo_menu_item' );
 }
