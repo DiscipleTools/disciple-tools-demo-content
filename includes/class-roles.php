@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Disciple Tools Roles Sample
+ * Disciple.Tools Roles Sample
  *
  * @class DT_Demo_Roles
  * @version    0.1

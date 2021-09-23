@@ -29,7 +29,7 @@ if ( version_compare( phpversion(), '7.0', '<' ) ) {
 
     new WP_Error( 'php_version_fail', 'Requires PHP version 7.0 or greater. Your current version is: '.phpversion().' Please upgrade PHP or uninstall this plugin' );
     require_once( ABSPATH .'wp-admin/includes/plugin.php' );
-    deactivate_plugins( 'Disciple Tools Demo Content' );
+    deactivate_plugins( 'Disciple.Tools Demo Content' );
     return;
 }
 
@@ -303,9 +303,9 @@ function dt_demo_hook_admin_notice() {
     global $dt_demo_required_dt_theme_version;
     $wp_theme = wp_get_theme();
     $current_version = $wp_theme->version;
-    $message = __( "'Disciple Tools - Demo' plugin requires 'Disciple Tools' theme to work. Please activate 'Disciple Tools' theme or make sure it is latest version.", "dt_demo" );
+    $message = __( "'Disciple.Tools - Demo' plugin requires 'Disciple.Tools' theme to work. Please activate 'Disciple.Tools' theme or make sure it is latest version.", "dt_demo" );
     if ( $wp_theme->get_template() === "disciple-tools-theme" ){
-        $message .= sprintf( esc_html__( 'Current Disciple Tools version: %1$s, required version: %2$s', 'disciple_tools' ), esc_html( $current_version ), esc_html( $dt_demo_required_dt_theme_version ) );
+        $message .= sprintf( esc_html__( 'Current Disciple.Tools version: %1$s, required version: %2$s', 'disciple_tools' ), esc_html( $current_version ), esc_html( $dt_demo_required_dt_theme_version ) );
     }
     // Check if it's been dismissed...
     if ( ! get_option( 'dismissed-dt-demo', false ) ) { ?>

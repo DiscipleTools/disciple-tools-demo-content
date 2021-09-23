@@ -37,7 +37,7 @@ class DT_Demo_Menu {
     }
 
     /**
-     * Menu stub. Replaced when Disciple Tools Theme fully loads.
+     * Menu stub. Replaced when Disciple.Tools Theme fully loads.
      */
     public function extensions_menu() {}
 
@@ -61,7 +61,7 @@ class DT_Demo_Menu {
 
         ?>
         <div class="wrap">
-            <h2><?php esc_attr_e( 'DISCIPLE TOOLS - DEMO CONTENT', 'dt_demo' ) ?></h2>
+            <h2><?php esc_attr_e( 'DISCIPLE.TOOLS - DEMO CONTENT', 'dt_demo' ) ?></h2>
 <!--            <h2 class="nav-tab-wrapper">-->
 <!--                <a href="--><?php //echo esc_attr( $link ) . 'quick' ?><!--" class="nav-tab --><?php //( $tab == 'quick' || ! isset( $tab ) ) ? esc_attr_e( 'nav-tab-active', 'dt_demo' ) : print ''; ?><!--">--><?php //esc_attr_e( 'Quick Launch', 'dt_demo' ) ?><!--</a>-->
 <!--            </h2>-->
