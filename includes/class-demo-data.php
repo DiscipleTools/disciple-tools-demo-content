@@ -269,6 +269,12 @@ class DT_Demo_Data {
         //revert to a migration number before the demo data was made.
         //this way any data changes will be applied to the demo data.
         update_option( 'dt_migration_number', 7 );
+        $at_install = get_option( 'dt_initial_install_meta', [] );
+        if ( !empty( $at_install['migration_number'] ) ) {
+            $at_install['migration_number'] = 7;
+            update_option( 'dt_initial_install_meta', $at_install );
+        }
+
 
         dt_write_log( __METHOD__ );
         dt_write_log( $result );
