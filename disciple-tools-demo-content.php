@@ -106,6 +106,11 @@ class DT_Demo {
     public $dir_path = '';
     public $dir_uri = '';
     public $img_uri = '';
+    public string $includes_path;
+    public string $includes_uri;
+    public $comments;
+    public $connections;
+    public $roles;
 
     /**
      * Returns the instance.
