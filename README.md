@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/DiscipleTools/disciple-tools-demo-content.svg?branch=master)](https://travis-ci.com/DiscipleTools/disciple-tools-demo-content)
+![Build Status](https://github.com/DiscipleTools/disciple-tools-demo-content/actions/workflows/ci.yml/badge.svg?branch=master)
 
 ![Plugin Banner](https://raw.githubusercontent.com/DiscipleTools/disciple-tools-demo-content/master/includes/images/demo-content-banner.png)
 # Disciple.Tools - Demo Content
