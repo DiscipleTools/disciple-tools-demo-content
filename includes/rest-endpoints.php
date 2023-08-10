@@ -103,6 +103,14 @@ class DT_Demo_Endpoints
             ]
         );
         register_rest_route(
+            $this->namespace, '/add_users', [
+                "methods"  => "POST",
+                "callback" => [ $this, 'add_users' ],
+                'permission_callback' => '__return_true',
+            ]
+        );
+
+        register_rest_route(
             $this->namespace, '/baptism_generations', [
                 "methods"  => "POST",
                 "callback" => [ $this, 'baptism_generations' ],
@@ -294,6 +302,21 @@ class DT_Demo_Endpoints
             }
         } else {
             return new WP_Error( __METHOD__, "Failed to delete comments.", array( 'status' => 400 ) );
+        }
+    }
+
+    public function add_users( WP_REST_Request $request ){
+        if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
+            global $wpdb;
+            require_once( 'class-users.php' );
+            require_once( 'randomizer.php' );
+
+            $dt_demo_users = DT_Demo_Users::instance();
+            $results = $dt_demo_users->add_multipliers_by_count( 500 );
+
+            return $results;
+        } else {
+            return new WP_Error( __METHOD__, "Failed to add groups.", array( 'status' => 400 ) );
         }
     }
 

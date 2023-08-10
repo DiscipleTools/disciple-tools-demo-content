@@ -224,6 +224,8 @@ class DT_Demo_Tab_Quick_Launch
                 <tr><th>Users</th><td><?php echo esc_html( $users )?></td>
                 <td>
                     <a href="user-new.php"  target="_blank" rel="noreferrer nofollow">Add Users</a>
+<!--                    <button type="button" onclick="add_users();" class="button" id="add_users">Add 50 Multipliers <span id="add_users_spinner" style="width:15px;"></span></button>-->
+
                 </td>
                 <td>
                    <a href="users.php"  target="_blank" rel="noreferrer nofollow">Delete Users</a>

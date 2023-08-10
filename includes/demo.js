@@ -205,6 +205,33 @@ function delete_groups() {
         })
 }
 
+function add_users(){
+    let key = 'add_users'
+    let spinner = jQuery('#'+key+'_spinner')
+    let counter = jQuery('.'+key+'_count')
+    spinner.append('<img style="height:1em;" src="'+ wpApiDemo.images_uri +'spinner.svg" />');
+
+    jQuery.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url: wpApiDemo.root + 'dt_demo/v1/' + key,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-WP-Nonce', wpApiDemo.nonce);
+        },
+    })
+        .done(function (data) {
+            spinner.empty()
+            counter.html(data)
+        })
+        .fail(function (err) {
+            console.log("error")
+            console.log(err)
+            spinner.empty()
+            counter.html("error")
+        })
+}
+
 function add_comments() {
     let key = 'add_comments'
     let spinner = jQuery('#'+key+'_spinner')
