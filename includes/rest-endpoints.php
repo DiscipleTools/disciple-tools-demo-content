@@ -21,7 +21,7 @@ class DT_Demo_Endpoints
 {
 
     private $version = 1;
-    private $context = "dt_demo";
+    private $context = 'dt_demo';
     private $namespace;
 
     private static $_instance = null;
@@ -33,7 +33,7 @@ class DT_Demo_Endpoints
     }
 
     public function __construct(){
-        $this->namespace = $this->context . "/v" . intval( $this->version );
+        $this->namespace = $this->context . '/v' . intval( $this->version );
         add_action( 'rest_api_init', [ $this, 'add_api_routes' ] );
     }
 
@@ -41,121 +41,121 @@ class DT_Demo_Endpoints
 
         register_rest_route(
             $this->namespace, '/quick_launch/install_demo_data', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'install_demo_data' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'install_demo_data' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/quick_launch/delete_demo_data', [
-                "methods"  => "DELETE",
-                "callback" => [ $this, 'delete_quick_launch' ],
+                'methods'  => 'DELETE',
+                'callback' => [ $this, 'delete_quick_launch' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/quick_launch/hide_on_startup', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'hide_on_startup' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'hide_on_startup' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_contacts', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'add_contacts' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'add_contacts' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_contacts', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'delete_contacts' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'delete_contacts' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_comments', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'add_comments' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'add_comments' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_comments', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'delete_comments' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'delete_comments' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_groups', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'add_groups' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'add_groups' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/delete_groups', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'delete_groups' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'delete_groups' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/add_users', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'add_users' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'add_users' ],
                 'permission_callback' => '__return_true',
             ]
         );
 
         register_rest_route(
             $this->namespace, '/baptism_generations', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'baptism_generations' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'baptism_generations' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/group_generations', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'group_generations' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'group_generations' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/coaching_generations', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'coaching_generations' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'coaching_generations' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/contacts_locations', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'contacts_locations' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'contacts_locations' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/groups_locations', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'groups_locations' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'groups_locations' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/contacts_group', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'contacts_group' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'contacts_group' ],
                 'permission_callback' => '__return_true',
             ]
         );
         register_rest_route(
             $this->namespace, '/shuffle', [
-                "methods"  => "POST",
-                "callback" => [ $this, 'shuffle' ],
+                'methods'  => 'POST',
+                'callback' => [ $this, 'shuffle' ],
                 'permission_callback' => '__return_true',
             ]
         );
@@ -167,7 +167,7 @@ class DT_Demo_Endpoints
             return DT_Demo_Data::install_data();
 //            return DT_Demo_Data::install_test_data();
         } else {
-            return new WP_Error( __METHOD__, "Do not have permission to install demo content", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Do not have permission to install demo content', array( 'status' => 400 ) );
         }
     }
 
@@ -175,7 +175,7 @@ class DT_Demo_Endpoints
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
             return DT_Demo_Data::delete_prepared_demo_data();
         } else {
-            return new WP_Error( __METHOD__, "Do not have permission to install demo content", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Do not have permission to install demo content', array( 'status' => 400 ) );
         }
     }
 
@@ -201,10 +201,10 @@ class DT_Demo_Endpoints
                 $post_count = wp_count_posts( 'contacts' );
                 return $post_count->publish;
             } else {
-                return new WP_Error( __METHOD__, "Failed to add contacts." );
+                return new WP_Error( __METHOD__, 'Failed to add contacts.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add contacts.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add contacts.', array( 'status' => 400 ) );
         }
     }
 
@@ -220,10 +220,10 @@ class DT_Demo_Endpoints
                 $post_count = wp_count_posts( 'contacts' );
                 return $post_count->publish;
             } else {
-                return new WP_Error( __METHOD__, "Failed to add contacts." );
+                return new WP_Error( __METHOD__, 'Failed to add contacts.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add contacts.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add contacts.', array( 'status' => 400 ) );
         }
     }
 
@@ -239,10 +239,10 @@ class DT_Demo_Endpoints
                 $post_count = wp_count_posts( 'groups' );
                 return $post_count->publish;
             } else {
-                return new WP_Error( __METHOD__, "Failed to add groups." );
+                return new WP_Error( __METHOD__, 'Failed to add groups.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add groups.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add groups.', array( 'status' => 400 ) );
         }
     }
 
@@ -258,10 +258,10 @@ class DT_Demo_Endpoints
                 $post_count = wp_count_posts( 'groups' );
                 return $post_count->publish;
             } else {
-                return new WP_Error( __METHOD__, "Failed to add groups." );
+                return new WP_Error( __METHOD__, 'Failed to add groups.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add groups.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add groups.', array( 'status' => 400 ) );
         }
     }
 
@@ -278,10 +278,10 @@ class DT_Demo_Endpoints
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
                 return $post_count;
             } else {
-                return new WP_Error( __METHOD__, "Failed to add groups." );
+                return new WP_Error( __METHOD__, 'Failed to add groups.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add groups.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add groups.', array( 'status' => 400 ) );
         }
     }
 
@@ -298,10 +298,10 @@ class DT_Demo_Endpoints
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments" );
                 return $post_count;
             } else {
-                return new WP_Error( __METHOD__, "Failed to delete comments." );
+                return new WP_Error( __METHOD__, 'Failed to delete comments.' );
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to delete comments.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to delete comments.', array( 'status' => 400 ) );
         }
     }
 
@@ -316,7 +316,7 @@ class DT_Demo_Endpoints
 
             return $results;
         } else {
-            return new WP_Error( __METHOD__, "Failed to add groups.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add groups.', array( 'status' => 400 ) );
         }
     }
 
@@ -331,13 +331,13 @@ class DT_Demo_Endpoints
             $results = $object->add_baptism_connections( 5 );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -351,13 +351,13 @@ class DT_Demo_Endpoints
             $results = $object->add_church_connections( 5 );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -371,13 +371,13 @@ class DT_Demo_Endpoints
             $results = $object->add_coaching_connections( 5 );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -389,20 +389,20 @@ class DT_Demo_Endpoints
 
             $params = $request->get_params();
             if ( ! isset( $params['admin0_code'] ) ) {
-                return new WP_Error( __METHOD__, "Missing parameter.", array( 'status' => 400 ) );
+                return new WP_Error( __METHOD__, 'Missing parameter.', array( 'status' => 400 ) );
             }
 
             $object = DT_Demo_Connections::instance();
             $results = $object->add_contacts_to_locations( 10, $params['admin0_code'] );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'contacts' )  WHERE meta_key = 'location_grid'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -414,20 +414,20 @@ class DT_Demo_Endpoints
 
             $params = $request->get_params();
             if ( ! isset( $params['admin0_code'] ) ) {
-                return new WP_Error( __METHOD__, "Missing parameter.", array( 'status' => 400 ) );
+                return new WP_Error( __METHOD__, 'Missing parameter.', array( 'status' => 400 ) );
             }
 
             $object = DT_Demo_Connections::instance();
             $results = $object->add_groups_to_locations( 10, $params['admin0_code'] );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta JOIN $wpdb->posts on ( ID = post_id AND post_type = 'groups' ) WHERE meta_key = 'location_grid'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -441,13 +441,13 @@ class DT_Demo_Endpoints
             $results = $object->add_contacts_to_groups( 5 );
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 
@@ -461,13 +461,13 @@ class DT_Demo_Endpoints
             $results = $object->shuffle_assignments();
 
             if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, "Failed to add connections", array( 'status' => 418 ) );
+                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
             } else {
                 $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
                 return $post_count;
             }
         } else {
-            return new WP_Error( __METHOD__, "Failed to add connections.", array( 'status' => 400 ) );
+            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
 

@@ -25,7 +25,7 @@ class DT_Demo_Menu {
     } // End instance()
 
     public function __construct() {
-        add_action( "admin_menu", array( $this, "register_menu" ) );
+        add_action( 'admin_menu', array( $this, 'register_menu' ) );
     }
 
     /**
@@ -51,8 +51,8 @@ class DT_Demo_Menu {
             wp_die( esc_attr__( 'You do not have sufficient permissions to access this page.' ) );
         }
 
-        if ( isset( $_GET["tab"] ) ) {
-            $tab = sanitize_key( wp_unslash( $_GET["tab"] ) );
+        if ( isset( $_GET['tab'] ) ) {
+            $tab = sanitize_key( wp_unslash( $_GET['tab'] ) );
         } else {
             $tab = 'quick';
         }
@@ -67,8 +67,8 @@ class DT_Demo_Menu {
 <!--            </h2>-->
 
             <?php
-            switch ($tab) {
-                case "quick":
+            switch ( $tab ) {
+                case 'quick':
                     $object = new DT_Demo_Tab_Quick_Launch();
                     $object->content();
                     break;
@@ -303,9 +303,9 @@ class DT_Demo_Tab_Quick_Launch
 
         <?php
         if ( isset( $_POST["create_test_date"] ) ) { // phpcs:ignore
-            $post = DT_Posts::create_post( "contacts", [ "title" => "Bob" ] );
+            $post = DT_Posts::create_post( 'contacts', [ 'title' => 'Bob' ] );
             global $wpdb;
-            $id = $post["ID"];
+            $id = $post['ID'];
             $date = gmdate( 'Y-m-d H:i:s', time() );
 
             //@todo <style>@keyframes x{}</style><xmp style="animation-name:x" onanimationstart="alert(7544)"></xmp>
@@ -345,7 +345,7 @@ class DT_Demo_Tab_Quick_Launch
             // phpcs:enable
 
 
-            $more = "";
+            $more = '';
         }
         ?>
 
