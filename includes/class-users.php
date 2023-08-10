@@ -28,7 +28,7 @@ class DT_Demo_Users
      * @return DT_Demo_Users instance
      */
     public static function instance(){
-        if (null === self::$_instance) {
+        if ( null === self::$_instance ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -59,7 +59,7 @@ class DT_Demo_Users
     public function add_users_once() {
         $html = '';
 
-        if (get_option( 'add_sample_users' ) !== '1') {
+        if ( get_option( 'add_sample_users' ) !== '1' ) {
 
             $html .= $this->add_users();
 
@@ -67,7 +67,7 @@ class DT_Demo_Users
             $value = '1';
             $autoload = false;
 
-            add_option( $option, $value, "", $autoload );
+            add_option( $option, $value, '', $autoload );
 
         } else {
             $html .= '<p>Core users are already loaded. Confirm you want to ... <form method="POST"><button type="submit" value="reset_users" name="submit" class="button" id="reset_users">Reset Core Users</button></p>';
@@ -88,7 +88,7 @@ class DT_Demo_Users
 
             // Create user
             $username = 'Marketer';
-            $password = 'disciple';
+            $password = wp_generate_password( 20, true, true );
             $email = 'marketer@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
@@ -116,7 +116,7 @@ class DT_Demo_Users
 
             // Create user
             $username = 'Dispatcher';
-            $password = 'disciple';
+            $password = wp_generate_password( 20, true, true );
             $email = 'dispatcher@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
@@ -144,7 +144,7 @@ class DT_Demo_Users
 
             // Create user
             $username = 'Multiplier';
-            $password = 'disciple';
+            $password = wp_generate_password( 20, true, true );
             $email = 'multiplier@disciple.tools';
             $user_id = wp_create_user( $username, $password, $email );
 
@@ -172,7 +172,7 @@ class DT_Demo_Users
 
             // Create user
             $username = 'Strategist';
-            $password = 'disciple';
+            $password = wp_generate_password( 20, true, true );
             $email    = 'strategist@disciple.tools';
             $user_id  = wp_create_user( $username, $password, $email );
 
@@ -213,7 +213,7 @@ class DT_Demo_Users
 
         while ( $count > $inc ) {
 
-            $password = 'disciple';
+            $password = wp_generate_password( 20, true, true );
 
             // Create Marketer
             $username = 'marketer' . $i;
@@ -331,7 +331,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_multiplier( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         // Create Marketer
         $username = 'marketer' . $i;
@@ -359,7 +359,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_marketer_leader( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         $username = 'marketer_leader' . $i;
         $email    = $username . '@disciple.tools';
@@ -386,7 +386,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_marketer( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         $username = 'marketer' . $i;
         $email    = $username . '@disciple.tools';
@@ -413,7 +413,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_dispatcher( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         $username = 'dispatcher' . $i;
         $email    = $username . '@disciple.tools';
@@ -440,7 +440,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_strategist( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         // Create Marketer Leader
         $username = 'strategist' . $i;
@@ -468,7 +468,7 @@ class DT_Demo_Users
      * @param $i    int Unique key that will become part of the name & email of the record
      */
     public function add_registered( $i ) {
-        $password = 'disciple';
+        $password = wp_generate_password( 20, true, true );
 
         $username = 'registered' . $i;
         $email    = $username . '@disciple.tools';
@@ -553,27 +553,9 @@ class DT_Demo_Users
         }
         $report = 0;
 
+        $password = wp_generate_password( 20, true, true );
+
         while ( $count > $i ) {
-
-            $password = 'disciple';
-
-            // Create Marketer
-            $username = 'marketer' . $i;
-            $email    = $username . '@disciple.tools';
-            $user_id  = wp_create_user( $username, $password, $email );
-
-            // Set the nickname
-            wp_update_user(
-                array(
-                    'ID'         => $user_id,
-                    'nickname'   => $username,
-                    'first_name' => 'Marketer ' . $i,
-                )
-            );
-
-            // Set the role
-            $user = new WP_User( $user_id );
-            $user->set_role( 'marketer' );
 
             // Create Multiplier
             $username = 'multiplier' . $i;
@@ -600,7 +582,7 @@ class DT_Demo_Users
 
         update_option( '_sample_last_user_add', $i );
 
-        return $report . ' sets of users created.';
+        return $report;
 
     }
 
