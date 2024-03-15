@@ -47,9 +47,11 @@ class DT_Demo_Data {
             'multiplier3@disciple.tools',
             'multiplier4@disciple.tools',
         ];
+        //replace email addresses and usernames
         foreach ( $sample_addresses as $value ) {
+            $email_start = str_replace( '@disciple.tools', '', $value );
             foreach ( $sql as $key => $query ) {
-                $sql[$key] = str_replace( $value, $value . get_current_blog_id() . '.com', $query );
+                $sql[$key] = str_replace( $email_start, $email_start . '_' . get_current_blog_id(), $query );
             }
         }
 

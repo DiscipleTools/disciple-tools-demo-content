@@ -63,6 +63,17 @@ function dt_demo() {
     if ( !defined( 'DT_FUNCTIONS_READY' ) ){
         require_once get_template_directory() . '/dt-core/global-functions.php';
     }
+    /**
+     * We want to make sure migrations are run on updates.
+     * @see https://www.sitepoint.com/wordpress-plugin-updates-right-way/
+     */
+    try {
+        require_once( plugin_dir_path( __FILE__ ) . 'includes/class-migration-engine.php' );
+        DT_Demo_Data_Migration_Engine::migrate( DT_Demo_Data_Migration_Engine::$migration_number );
+        DT_Demo_Data_Migration_Engine::display_migration_and_lock();
+    } catch ( Throwable $e ) {
+        new WP_Error( 'migration_error', 'Migration engine failed to migrate.' );
+    }
     /*
      * Don't load the plugin on every rest request. Only those with the correct namespace
      * This restricts endpoints defined in this plugin this namespace
