@@ -298,7 +298,7 @@ class DT_Demo_Connections {
 
         global $wpdb;
         if ( ! isset( $wpdb->dt_location_grid ) ) {
-            $wpdb->dt_location_grid = $wpdb->prefix . 'dt_location_grid';
+            $wpdb->dt_location_grid = apply_filters( 'dt_location_grid_table', $wpdb->prefix . 'dt_location_grid' );
         }
 
         // Get list of records
@@ -335,7 +335,7 @@ class DT_Demo_Connections {
 
         global $wpdb;
         if ( ! isset( $wpdb->dt_location_grid ) ) {
-            $wpdb->dt_location_grid = $wpdb->prefix . 'dt_location_grid';
+            $wpdb->dt_location_grid = apply_filters( 'dt_location_grid_table', $wpdb->prefix . 'dt_location_grid' );
         }
 
         // Get list of records
