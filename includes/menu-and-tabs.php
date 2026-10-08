@@ -356,7 +356,6 @@ class DT_Demo_Tab_Quick_Launch
 
 
     public function right_column_utilities() {
-
     }
 
     public function quick_launch_box() {
@@ -393,5 +392,4 @@ class DT_Demo_Tab_Quick_Launch
         <!-- End Box -->
         <?php
     }
-
 }

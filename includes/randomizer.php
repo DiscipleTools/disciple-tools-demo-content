@@ -304,7 +304,6 @@ function dt_demo_random_title() { // depricated?
     }
 
     return $string;
-
 }
 
 function dt_demo_loren_ipsum() {
@@ -333,7 +332,6 @@ function dt_demo_loren_ipsum() {
     shuffle( $text );
 
     return "<p>" . $text[0] . "</p><p>" . $text[1] . "</p><p>" . $text[2] . "</p>";
-
 }
 
 function dt_demo_comment_ipsum() {
@@ -370,7 +368,6 @@ function dt_demo_comment_ipsum() {
     shuffle( $text );
 
     return $text[0] . $text[1] . $text[2];
-
 }
 
 function dt_demo_seeker_path() {
@@ -411,7 +408,6 @@ function dt_demo_group_role() {
     shuffle( $list );
 
     return $list[0];
-
 }
 
 function dt_demo_random_requires_upate() {
@@ -424,7 +420,6 @@ function dt_demo_random_requires_upate() {
     shuffle( $list );
 
     return $list[0];
-
 }
 
 function dt_demo_random_yes_no() {
@@ -443,7 +438,6 @@ function dt_demo_random_yes_no() {
     shuffle( $list );
 
     return $list[0];
-
 }
 
 function dt_demo_random_bool() {
@@ -462,7 +456,6 @@ function dt_demo_random_bool() {
     shuffle( $list );
 
     return $list[0];
-
 }
 
 
@@ -473,10 +466,10 @@ function dt_demo_random_milestones(): array {
 
     $rv = [];
     $count = count( $belief_milestones );
-    for ( $i = 0; $i < rand( 0, $count ); $i ++ ) {
+    for ( $i = 0; $i < rand( 0, $count ); $i++ ) {
         $rv[] = "milestone_$belief_milestones[$i]";
     }
-    for ( $i = 0; $i < rand( 0, $count ); $i ++ ) {
+    for ( $i = 0; $i < rand( 0, $count ); $i++ ) {
         $rv[] = "milestone_$sharing_milestones[$i]";
     }
 
@@ -524,8 +517,3 @@ function dt_demo_first_comment() {
 
     return $list[ array_rand( $list ) ];
 }
-
-
-
-
-

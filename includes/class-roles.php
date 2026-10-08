@@ -32,5 +32,4 @@ class DT_Demo_Roles {
             return "Did not reset roles";
         }
     }
-
 }

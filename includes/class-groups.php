@@ -104,6 +104,5 @@ class DT_Demo_Groups
         $wpdb->get_results( "DELETE FROM $wpdb->p2pmeta WHERE NOT EXISTS (SELECT NULL FROM $wpdb->p2p WHERE $wpdb->p2p.p2p_id = $wpdb->p2pmeta.p2p_id)" );
 
         return 'Groups deleted';
-
     }
 }

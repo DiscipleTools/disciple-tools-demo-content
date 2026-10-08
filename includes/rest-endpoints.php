@@ -159,7 +159,6 @@ class DT_Demo_Endpoints
                 'permission_callback' => '__return_true',
             ]
         );
-
     }
 
     public function install_demo_data( WP_REST_Request $request ){
@@ -470,7 +469,5 @@ class DT_Demo_Endpoints
             return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
         }
     }
-
-
 }
 DT_Demo_Endpoints::instance();

@@ -28,5 +28,4 @@ class DT_Demo_Data_Migration_0001 extends DT_Demo_Data_Migration {
      */
     public function test() {
     }
-
 }

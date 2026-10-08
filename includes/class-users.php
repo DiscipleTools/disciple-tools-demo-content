@@ -49,7 +49,6 @@ class DT_Demo_Users
         $this->add_users_by_count( $count );
 
         return 'Users added';
-
     }
 
     /**
@@ -314,14 +313,13 @@ class DT_Demo_Users
             $user = new WP_User( $user_id );
             $user->set_role( 'registered' );
 
-            $inc ++;
-            $report ++;
+            $inc++;
+            $report++;
 
         }
 
 
         return $report . ' sets of users created.';
-
     }
 
 
@@ -525,7 +523,6 @@ class DT_Demo_Users
         delete_option( 'add_sample_users' );
 
         return 'Records deleted';
-
     }
 
     /**
@@ -583,8 +580,5 @@ class DT_Demo_Users
         update_option( '_sample_last_user_add', $i );
 
         return $report;
-
     }
-
-
 }

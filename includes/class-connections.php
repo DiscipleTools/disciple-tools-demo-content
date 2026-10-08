@@ -105,7 +105,6 @@ class DT_Demo_Connections {
             $i++;
         }
         return $i;
-
     }
 
     public function add_church_connections( $loops ) {
@@ -168,7 +167,6 @@ class DT_Demo_Connections {
             $i++;
         }
         return $i . ' sets of 4th generation churches added.';
-
     }
 
     public function add_coaching_connections( $loops ) {
@@ -231,7 +229,6 @@ class DT_Demo_Connections {
             $i++;
         }
         return $i . ' sets of 4th generation coaching contacts added.';
-
     }
 
     public function add_contacts_to_groups( $loops = 100 ) {
@@ -289,7 +286,6 @@ class DT_Demo_Connections {
 
 
         return $i . ' contacts added to groups.';
-
     }
 
     public function add_contacts_to_locations( $loops = 10, $admin0_code = 'USA' ) {
@@ -324,7 +320,6 @@ class DT_Demo_Connections {
         }
 
         return $i . ' contacts added to locations.';
-
     }
 
 
@@ -360,7 +355,5 @@ class DT_Demo_Connections {
         }
 
         return $i . ' groups added to locations.';
-
     }
-
 }
