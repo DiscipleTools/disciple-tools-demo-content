@@ -3,7 +3,6 @@
 class DT_Demo_Data {
 
     public function __construct() {
-
     }
 
 
@@ -282,7 +281,6 @@ class DT_Demo_Data {
         dt_write_log( $result );
 
         return $result;
-
     }
 
     public static function delete_prepared_demo_data(){

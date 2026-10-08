@@ -126,7 +126,5 @@ class DT_Demo_Comments {
         }
 
         return 'Comments deleted';
-
     }
-
 }

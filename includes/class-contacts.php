@@ -75,7 +75,6 @@ class DT_Demo_Contacts
         }
 
         return $post;
-
     }
 
     /**
@@ -105,7 +104,6 @@ class DT_Demo_Contacts
         $wpdb->get_results( "DELETE FROM $wpdb->p2pmeta WHERE NOT EXISTS (SELECT NULL FROM $wpdb->p2p WHERE $wpdb->p2p.p2p_id = $wpdb->p2pmeta.p2p_id)" );
 
         return 'Contacts deleted';
-
     }
 
     /**
