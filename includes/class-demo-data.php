@@ -293,20 +293,61 @@ class DT_Demo_Data {
         update_option( 'dt_demo_sample_data', 1, false );
         update_option( 'dt_demo_hide_popup', 1, false );
 
-        //revert to a migration number before the demo data was made.
-        //this way any data changes will be applied to the demo data.
-        update_option( 'dt_migration_number', 7 );
-        $at_install = get_option( 'dt_initial_install_meta', [] );
-        if ( !empty( $at_install['migration_number'] ) ) {
-            $at_install['migration_number'] = 7;
-            update_option( 'dt_initial_install_meta', $at_install );
-        }
+        self::migrate_demo_data();
 
 
         dt_write_log( __METHOD__ );
         dt_write_log( $result );
 
         return $result;
+    }
+
+    /**
+     * Converts the 2018-format demo rows by running the theme migrations that change that kind of data.
+     * Migrations meant to run once on a whole site (reports table rebuild, share and settings rewrites) are left out.
+     */
+    private static function migrate_demo_data() {
+        global $wpdb;
+        $migration_numbers = [ 8, 9, 10, 14, 15, 16, 20, 21, 23, 24, 53, 54, 55 ];
+        $migrations_dir = get_template_directory() . '/dt-core/migrations/';
+        require_once( $migrations_dir . 'abstract.php' );
+
+        // guarded migrations skip sites installed after them, so the install marker is set back while they run
+        $at_install = get_option( 'dt_initial_install_meta', [] );
+        if ( !empty( $at_install['migration_number'] ) ) {
+            update_option( 'dt_initial_install_meta', array_merge( $at_install, [ 'migration_number' => 7 ] ) );
+        }
+        try {
+            foreach ( $migration_numbers as $number ) {
+                $class = sprintf( 'Disciple_Tools_Migration_%04d', $number );
+                if ( !class_exists( $class ) ) {
+                    $files = glob( $migrations_dir . sprintf( '%04d-*.php', $number ) );
+                    if ( empty( $files ) ) {
+                        continue;
+                    }
+                    require_once( $files[0] );
+                }
+                ( new $class() )->up();
+            }
+        } finally {
+            if ( !empty( $at_install['migration_number'] ) ) {
+                update_option( 'dt_initial_install_meta', $at_install );
+            }
+        }
+
+        // the start date and member count backfills of migrations 0011 and 0017, limited to the sample groups
+        $sample_groups = $wpdb->get_col( "SELECT p.ID FROM $wpdb->posts p JOIN $wpdb->postmeta s ON ( s.post_id = p.ID AND s.meta_key = '_sample' AND s.meta_value = 'prepared' ) WHERE p.post_type = 'groups'" );
+        foreach ( $sample_groups as $group_id ) {
+            if ( '' === get_post_meta( $group_id, 'start_date', true ) ) {
+                update_post_meta( $group_id, 'start_date', strtotime( get_post_field( 'post_date', $group_id ) ) );
+            }
+            if ( 'active' === get_post_meta( $group_id, 'group_status', true ) && 'church' === get_post_meta( $group_id, 'group_type', true ) && '' === get_post_meta( $group_id, 'church_start_date', true ) ) {
+                update_post_meta( $group_id, 'church_start_date', get_post_meta( $group_id, 'start_date', true ) );
+            }
+            if ( '' === get_post_meta( $group_id, 'member_count', true ) ) {
+                update_post_meta( $group_id, 'member_count', (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups' AND p2p_to = %d", $group_id ) ) );
+            }
+        }
     }
 
     public static function delete_prepared_demo_data(){
