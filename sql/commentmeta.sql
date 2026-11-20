@@ -1,4 +1,4 @@
-INSERT INTO dt14330_commentmeta (meta_id, comment_id, meta_key, meta_value) VALUES
+INSERT INTO `dt14330_commentmeta` (`meta_id`, `comment_id`, `meta_key`, `meta_value`) VALUES
   (200005, 10002, '_sample', 'prepared'),
   (200006, 10003, '_sample', 'prepared'),
   (200007, 10004, '_sample', 'prepared'),
