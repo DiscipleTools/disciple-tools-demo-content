@@ -89,18 +89,19 @@ class DT_Demo_Data {
         $next_id['users'] = ( (int) $wpdb->get_var( "SELECT MAX(ID) FROM $wpdb->users" ) ?? 100 ) + 1;
 
         // update user ids
+        $map = [];
         $demo = $demo_range['users'][0];
         $next = $next_id['users'];
         $assign_to_site = [];
         for ( $i = $demo_range['users'][0]; $i <= $demo_range['users'][1]; $i++) {
-            $sql['users'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['users'] );
-            foreach ( $sql as $key => $query ) {
-                $sql[$key] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql[$key] );
-                $sql[$key] = str_replace( 'user-'.$demo, 'user-'.$next, $sql[$key] );
+            $map['users'][ '('.$demo . ',' ] = '('.$next . ',';
+            foreach ( array_keys( $sql ) as $key ) {
+                $map[$key][ ' '.$demo . ',' ] = ' '.$next . ',';
+                $map[$key][ 'user-'.$demo ] = 'user-'.$next;
             }
-            $sql['comments'] = str_replace( ' '.$demo.')', ' '.$next.')', $sql['comments'] );
-            $sql['postmeta'] = str_replace( 'user-'.$demo, 'user-'.$next, $sql['postmeta'] );
-            $sql['postmeta'] = str_replace( 'corresponds_to_user\', \''.$demo, 'corresponds_to_user\', \''.$next, $sql['postmeta'] );
+            $map['comments'][ ' '.$demo.')' ] = ' '.$next.')';
+            $map['postmeta'][ 'user-'.$demo ] = 'user-'.$next;
+            $map['postmeta'][ 'corresponds_to_user\', \''.$demo ] = 'corresponds_to_user\', \''.$next;
 
             $assign_to_site[] = $next;
 
@@ -112,7 +113,7 @@ class DT_Demo_Data {
         $demo = $demo_range['usermeta'][0];
         $next = $next_id['usermeta'];
         for ( $i = $demo_range['usermeta'][0]; $i <= $demo_range['usermeta'][1]; $i++) {
-            $sql['usermeta'] = str_replace( '('.$demo . ',', '('. $next . ',', $sql['usermeta'] );
+            $map['usermeta'][ '('.$demo . ',' ] = '('. $next . ',';
 
             $demo++;
             $next++;
@@ -122,7 +123,7 @@ class DT_Demo_Data {
         $demo = $demo_range['p2pmeta'][0];
         $next = $next_id['p2pmeta'] ?: 1;
         for ( $i = $demo_range['p2pmeta'][0]; $i <= $demo_range['p2pmeta'][1]; $i++) {
-            $sql['p2pmeta'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['p2pmeta'] );
+            $map['p2pmeta'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
@@ -131,8 +132,8 @@ class DT_Demo_Data {
         $demo = $demo_range['p2p'][0];
         $next = $next_id['p2p'] ?: 1;
         for ( $i = $demo_range['p2p'][0]; $i <= $demo_range['p2p'][1]; $i++) {
-            $sql['p2p'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['p2p'] );
-            $sql['p2pmeta'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['p2pmeta'] );
+            $map['p2p'][ '('.$demo . ',' ] = '('.$next . ',';
+            $map['p2pmeta'][ ' '.$demo . ',' ] = ' '.$next . ',';
             $demo++;
             $next++;
         }
@@ -142,14 +143,14 @@ class DT_Demo_Data {
         $demo = $demo_range['posts'][0];
         $next = $next_id['posts'];
         for ( $i = $demo_range['posts'][0]; $i <= $demo_range['posts'][1]; $i++) {
-            $sql['posts'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['posts'] );
-            $sql['postmeta'] = str_replace( $demo . ', ', $next . ', ', $sql['postmeta'] );
-            $sql['p2p'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['p2p'] );
-            $sql['dt_share'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_share'] );
-            $sql['dt_activity_log'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_activity_log'] );
-            $sql['dt_activity_log'] = str_replace( ' \''.$demo . '\',', ' \''.$next . '\',', $sql['dt_activity_log'] );
-            $sql['dt_notifications'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['dt_notifications'] );
-            $sql['comments'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['comments'] );
+            $map['posts'][ '('.$demo . ',' ] = '('.$next . ',';
+            $map['postmeta'][ $demo . ', ' ] = $next . ', ';
+            $map['p2p'][ ' '.$demo . ',' ] = ' '.$next . ',';
+            $map['dt_share'][ ' '.$demo . ',' ] = ' '.$next . ',';
+            $map['dt_activity_log'][ ' '.$demo . ',' ] = ' '.$next . ',';
+            $map['dt_activity_log'][ ' \''.$demo . '\',' ] = ' \''.$next . '\',';
+            $map['dt_notifications'][ ' '.$demo . ',' ] = ' '.$next . ',';
+            $map['comments'][ ' '.$demo . ',' ] = ' '.$next . ',';
 
             $demo++;
             $next++;
@@ -159,7 +160,7 @@ class DT_Demo_Data {
         $demo = $demo_range['dt_share'][0];
         $next = $next_id['dt_share'];
         for ( $i = $demo_range['dt_share'][0]; $i <= $demo_range['dt_share'][1]; $i++) {
-            $sql['dt_share'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['dt_share'] );
+            $map['dt_share'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
@@ -168,7 +169,7 @@ class DT_Demo_Data {
         $demo = $demo_range['dt_notifications'][0];
         $next = $next_id['dt_notifications'];
         for ( $i = $demo_range['dt_notifications'][0]; $i <= $demo_range['dt_notifications'][1]; $i++) {
-            $sql['dt_notifications'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['dt_notifications'] );
+            $map['dt_notifications'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
@@ -177,7 +178,7 @@ class DT_Demo_Data {
         $demo = $demo_range['dt_activity_log'][0];
         $next = $next_id['dt_activity_log'];
         for ( $i = $demo_range['dt_activity_log'][0]; $i <= $demo_range['dt_activity_log'][1]; $i++) {
-            $sql['dt_activity_log'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['dt_activity_log'] );
+            $map['dt_activity_log'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
@@ -186,7 +187,7 @@ class DT_Demo_Data {
         $demo = $demo_range['postmeta'][0];
         $next = $next_id['postmeta'];
         for ( $i = $demo_range['postmeta'][0]; $i <= $demo_range['postmeta'][1]; $i++) {
-            $sql['postmeta'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['postmeta'] );
+            $map['postmeta'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
@@ -195,8 +196,8 @@ class DT_Demo_Data {
         $demo = $demo_range['comments'][0];
         $next = $next_id['comments'];
         for ( $i = $demo_range['comments'][0]; $i <= $demo_range['comments'][1]; $i++) {
-            $sql['comments'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['comments'] );
-            $sql['commentmeta'] = str_replace( ' '.$demo . ',', ' '.$next . ',', $sql['commentmeta'] );
+            $map['comments'][ '('.$demo . ',' ] = '('.$next . ',';
+            $map['commentmeta'][ ' '.$demo . ',' ] = ' '.$next . ',';
             $demo++;
             $next++;
         }
@@ -204,15 +205,20 @@ class DT_Demo_Data {
         $demo = $demo_range['commentmeta'][0];
         $next = $next_id['commentmeta'];
         for ( $i = $demo_range['commentmeta'][0]; $i <= $demo_range['commentmeta'][1]; $i++) {
-            $sql['commentmeta'] = str_replace( '('.$demo . ',', '('.$next . ',', $sql['commentmeta'] );
+            $map['commentmeta'][ '('.$demo . ',' ] = '('.$next . ',';
             $demo++;
             $next++;
         }
 
+        // one pass per file, so an ID written by one mapping is never rewritten by another
+        foreach ( $map as $key => $pairs ) {
+            $sql[$key] = strtr( $sql[$key], $pairs );
+        }
 
         // Insert processed queries
 
         // phpcs:disable
+        $wpdb->query( 'START TRANSACTION' );
         $result[] = $wpdb->query( $sql['users'] );
         $result[] = $wpdb->query( $sql['usermeta'] );
         $result[] = $wpdb->query( $sql['posts'] );
@@ -225,6 +231,11 @@ class DT_Demo_Data {
         $result[] = $wpdb->query( $sql['comments'] );
         $result[] = $wpdb->query( $sql['commentmeta'] );
         // phpcs:enable
+        if ( in_array( false, $result, true ) ) {
+            $wpdb->query( 'ROLLBACK' );
+            return new WP_Error( __METHOD__, 'Sample content could not be installed. Nothing was added.', array( 'status' => 500 ) );
+        }
+        $wpdb->query( 'COMMIT' );
 
         // demo accounts get a password nobody knows, and a marker that delete_prepared_demo_data() finds them by
         foreach ( $assign_to_site as $user_id ) {
@@ -330,6 +341,16 @@ class DT_Demo_Data {
 
         foreach ( $posts as $post ){
             $result[] = DT_Posts::delete_post( $post->post_type, (int) $post->ID, false );
+        }
+
+        // sample posts DT_Posts cannot delete (legacy types, revisions), and meta left on IDs that have no post
+        $leftover_ids = $wpdb->get_col( "SELECT DISTINCT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample' AND meta_value = 'prepared'" );
+        foreach ( $leftover_ids as $leftover_id ){
+            if ( get_post( (int) $leftover_id ) ) {
+                wp_delete_post( (int) $leftover_id, true );
+            } else {
+                $wpdb->delete( $wpdb->postmeta, [ 'post_id' => (int) $leftover_id ] );
+            }
         }
 
         $wpdb->query( "DELETE FROM $wpdb->comments WHERE comment_ID IN (SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_sample');" );

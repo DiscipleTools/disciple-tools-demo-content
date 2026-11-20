@@ -7,7 +7,6 @@ INSERT INTO `dt14330_p2p` (`p2p_id`, `p2p_from`, `p2p_to`, `p2p_type`) VALUES
   (10006, 10039, 10035, 'contacts_to_locations'),
   (10007, 10040, 10024, 'contacts_to_locations'),
   (10008, 10041, 10024, 'contacts_to_locations'),
-  (10009, 10042, 10029, 'contacts_to_locations'),
   (10010, 10041, 10020, 'contacts_to_peoplegroups'),
   (10011, 10043, 10029, 'contacts_to_locations'),
   (10012, 10045, 10021, 'contacts_to_locations'),
@@ -48,7 +47,6 @@ INSERT INTO `dt14330_p2p` (`p2p_id`, `p2p_from`, `p2p_to`, `p2p_type`) VALUES
   (10047, 10049, 10070, 'contacts_to_groups'),
   (10048, 10071, 10070, 'contacts_to_groups'),
   (10049, 10071, 10032, 'contacts_to_locations'),
-  (10050, 10073, 10021, 'contacts_to_locations'),
   (10051, 10074, 10024, 'contacts_to_locations'),
   (10052, 10075, 10024, 'contacts_to_locations'),
   (10053, 10076, 10032, 'contacts_to_locations'),
@@ -122,6 +120,5 @@ INSERT INTO `dt14330_p2p` (`p2p_id`, `p2p_from`, `p2p_to`, `p2p_type`) VALUES
   (10121, 10102, 10087, 'contacts_to_contacts'),
   (10122, 10103, 10024, 'contacts_to_locations'),
   (10123, 10103, 10030, 'contacts_to_peoplegroups'),
-  (10124, 10104, 10024, 'contacts_to_locations'),
   (10125, 10105, 10024, 'contacts_to_locations'),
   (10126, 10105, 10030, 'contacts_to_peoplegroups');
