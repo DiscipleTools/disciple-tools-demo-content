@@ -179,6 +179,9 @@ class DT_Demo_Endpoints
     }
 
     public function hide_on_startup( WP_REST_Request $request ){
+        if ( ! user_can( get_current_user_id(), 'manage_dt' ) ) {
+            return new WP_Error( __METHOD__, 'Do not have permission to change this setting', array( 'status' => 403 ) );
+        }
         if ( get_option( 'dt_demo_hide_popup' ) ) {
             update_option( 'dt_demo_hide_popup', 0, false );
             return 'off';
