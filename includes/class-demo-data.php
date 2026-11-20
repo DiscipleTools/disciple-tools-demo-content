@@ -56,6 +56,10 @@ class DT_Demo_Data {
                 $sql[$key] = str_replace( $email_start, $email_start . '_' . get_current_blog_id(), $query );
             }
         }
+        // demo accounts get an undeliverable address
+        foreach ( $sql as $key => $query ) {
+            $sql[$key] = str_replace( '_' . get_current_blog_id() . '@disciple.tools', '_' . get_current_blog_id() . '@' . DT_DEMO_USER_EMAIL_DOMAIN, $query );
+        }
 
         // Update ID's
         // sample data start and finish ids
@@ -222,6 +226,14 @@ class DT_Demo_Data {
         $result[] = $wpdb->query( $sql['commentmeta'] );
         // phpcs:enable
 
+        // demo accounts get a password nobody knows, and a marker that delete_prepared_demo_data() finds them by
+        foreach ( $assign_to_site as $user_id ) {
+            if ( get_userdata( $user_id ) ) {
+                wp_set_password( wp_generate_password( 32, true, true ), $user_id );
+                update_user_meta( $user_id, DT_DEMO_USER_META_KEY, get_current_blog_id() );
+            }
+        }
+
         // Add users to site if multisite
         if ( is_multisite() ) {
             foreach ( $assign_to_site as $user_id ) {
@@ -292,11 +304,21 @@ class DT_Demo_Data {
         $result = [];
 
         require_once( ABSPATH.'wp-admin/includes/user.php' );
-        $users = get_users( [ 'search' => '*@disciple.tools'.get_current_blog_id() . '.com' ] );
+        if ( is_multisite() ) {
+            require_once( ABSPATH . 'wp-admin/includes/ms.php' );
+        }
+        $users = get_users( [
+            'blog_id' => 0,
+            'meta_key' => DT_DEMO_USER_META_KEY,
+            'meta_value' => get_current_blog_id(),
+        ] );
         foreach ( $users as $user ){
             $user_id = $user->ID;
-            wp_delete_user( $user_id );
-            $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->dt_activity_log WHERE object_id = %s", $user_id ) );
+            wp_delete_user( $user_id, get_current_user_id() ?: null );
+            if ( is_multisite() ) {
+                wpmu_delete_user( $user_id );
+            }
+            $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->dt_activity_log WHERE object_type = 'User' AND object_id = %d", $user_id ) );
         }
         $args = array(
             'numberposts'   => -1,

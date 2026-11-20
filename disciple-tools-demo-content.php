@@ -86,14 +86,40 @@ function dt_demo() {
 add_action( 'after_setup_theme', 'dt_demo' );
 
 
+define( 'DT_DEMO_USER_EMAIL_DOMAIN', 'demo.invalid' );
+define( 'DT_DEMO_USER_META_KEY', 'dt_demo_content_user' );
+
+function dt_demo_is_demo_email( $email ) {
+    if ( !is_string( $email ) ) {
+        return false;
+    }
+    if ( preg_match( '/<([^>]+)>/', $email, $matches ) ) {
+        $email = $matches[1];
+    }
+    return preg_match( '/@' . preg_quote( DT_DEMO_USER_EMAIL_DOMAIN, '/' ) . '$/i', trim( $email ) ) === 1;
+}
+
 //keep email from being sent to demo users.
 function dt_sent_email_check( $continue, $email, $subject, $message ){
-    if ( preg_match( '/disciple.tools\d+\.com$/', $email ) ){
+    if ( dt_demo_is_demo_email( $email ) ){
         $continue = false;
     }
     return $continue;
 }
 add_filter( "dt_sent_email_check", "dt_sent_email_check", 10, 4 );
+
+// core mail (password resets, account notices) addressed only to demo users is dropped
+add_filter( 'pre_wp_mail', function ( $return, $atts ) {
+    if ( null !== $return ) {
+        return $return;
+    }
+    $to = is_array( $atts['to'] ) ? $atts['to'] : explode( ',', (string) $atts['to'] );
+    $recipients = array_filter( array_map( 'trim', $to ) );
+    if ( !empty( $recipients ) && count( array_filter( $recipients, 'dt_demo_is_demo_email' ) ) === count( $recipients ) ) {
+        return false;
+    }
+    return $return;
+}, 10, 2 );
 /**
  * Singleton class for setting up the plugin.
  *

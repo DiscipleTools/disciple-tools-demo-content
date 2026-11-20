@@ -556,8 +556,11 @@ class DT_Demo_Users
 
             // Create Multiplier
             $username = 'multiplier' . $i;
-            $email = $username.'@disciple.tools';
+            $email = $username . '@' . DT_DEMO_USER_EMAIL_DOMAIN;
             $user_id = wp_create_user( $username, $password, $email );
+            if ( !is_wp_error( $user_id ) ) {
+                update_user_meta( $user_id, DT_DEMO_USER_META_KEY, get_current_blog_id() );
+            }
 
             // Set the nickname
             wp_update_user(
