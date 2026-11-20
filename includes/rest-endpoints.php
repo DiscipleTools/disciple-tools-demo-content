@@ -152,13 +152,6 @@ class DT_Demo_Endpoints
                 'permission_callback' => '__return_true',
             ]
         );
-        register_rest_route(
-            $this->namespace, '/shuffle', [
-                'methods'  => 'POST',
-                'callback' => [ $this, 'shuffle' ],
-                'permission_callback' => '__return_true',
-            ]
-        );
     }
 
     public function install_demo_data( WP_REST_Request $request ){
@@ -447,26 +440,6 @@ class DT_Demo_Endpoints
 
             $object = DT_Demo_Connections::instance();
             $results = $object->add_contacts_to_groups( 5 );
-
-            if ( is_wp_error( $results ) ) {
-                return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );
-            } else {
-                $post_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_groups'" );
-                return $post_count;
-            }
-        } else {
-            return new WP_Error( __METHOD__, 'Failed to add connections.', array( 'status' => 400 ) );
-        }
-    }
-
-    public function shuffle( WP_REST_Request $request ){
-        if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
-            global $wpdb;
-            require_once( 'class-contacts.php' );
-            require_once( 'randomizer.php' );
-
-            $object = DT_Demo_Contacts::instance();
-            $results = $object->shuffle_assignments();
 
             if ( is_wp_error( $results ) ) {
                 return new WP_Error( __METHOD__, 'Failed to add connections', array( 'status' => 418 ) );

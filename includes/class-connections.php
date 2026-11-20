@@ -36,7 +36,8 @@ class DT_Demo_Connections {
         $records = $wpdb->get_results("SELECT * 
             FROM $wpdb->posts WHERE post_type = 'contacts' 
             AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized')
-            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized')" );
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'baptizer_to_baptized')
+            AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample')" );
 
         $total = count( $records );
 
@@ -117,7 +118,8 @@ class DT_Demo_Connections {
         $records = $wpdb->get_results("SELECT * 
             FROM $wpdb->posts WHERE post_type = 'groups' 
             AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups')
-            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups')" );
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'groups_to_groups')
+            AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample')" );
 
         $total = count( $records );
 
@@ -179,7 +181,8 @@ class DT_Demo_Connections {
         $records = $wpdb->get_results("SELECT * 
             FROM $wpdb->posts WHERE post_type = 'contacts' 
             AND ID NOT IN (SELECT p2p_from FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts')
-            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts')" );
+            AND ID NOT IN (SELECT p2p_to FROM $wpdb->p2p WHERE p2p_type = 'contacts_to_contacts')
+            AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample')" );
 
         $total = count( $records );
 
@@ -240,13 +243,15 @@ class DT_Demo_Connections {
         // Get list of records
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'contacts'
+            'post_type'   => 'contacts',
+            'meta_key'    => '_sample',
         );
         $contacts = get_posts( $args );
 
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'groups'
+            'post_type'   => 'groups',
+            'meta_key'    => '_sample',
         );
         $groups = get_posts( $args );
 
@@ -298,7 +303,7 @@ class DT_Demo_Connections {
         }
 
         // Get list of records
-        $contacts = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'contacts' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
+        $contacts = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'contacts' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid') AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample')" );
 
         // get country
         $lowest_level = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(level) FROM $wpdb->dt_location_grid WHERE admin0_code = %s", $admin0_code ) );
@@ -335,7 +340,7 @@ class DT_Demo_Connections {
 
         // Get list of records
 
-        $groups = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'groups' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid')" );
+        $groups = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE post_type = 'groups' AND ID NOT IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'location_grid') AND ID IN (SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample')" );
 
 
         // get country

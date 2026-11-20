@@ -253,7 +253,7 @@ class DT_Demo_Data {
 
 
         // Add shared contacts
-        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' )" );
+        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'active' ) AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample' AND meta_value = 'prepared' )" );
         $i = 0;
         foreach ( $active_contacts as $contact_id ) {
             DT_Posts::add_shared( 'contacts', $contact_id, get_current_user_id(), $meta = null, true, false );
@@ -263,7 +263,7 @@ class DT_Demo_Data {
             $i++;
         }
 
-        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'unassigned' )" );
+        $active_contacts = $wpdb->get_col( "SELECT ID FROM $wpdb->posts WHERE post_type = 'contacts' AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = 'overall_status' AND meta_value = 'unassigned' ) AND ID IN ( SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_sample' AND meta_value = 'prepared' )" );
         $i = 0;
         foreach ( $active_contacts as $contact_id ) {
             $fields = [

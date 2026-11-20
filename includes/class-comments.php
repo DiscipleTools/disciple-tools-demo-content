@@ -56,15 +56,22 @@ class DT_Demo_Comments {
         // Get list of records
         $args = array(
             'numberposts'   => -1,
-            'post_type'   => 'contacts'
+            'post_type'   => 'contacts',
+            'meta_key'    => '_sample',
         );
         $contacts = get_posts( $args );
 
         $args = array(
+            'blog_id'      => 0,
+            'meta_key'     => DT_DEMO_USER_META_KEY,
+            'meta_value'   => get_current_blog_id(),
             'fields'       => 'all',
             'count_total'  => true,
         );
         $users = get_users( $args );
+        if ( empty( $users ) ) {
+            $users = [ wp_get_current_user() ];
+        }
 
 
         if ($loops > 100) {
