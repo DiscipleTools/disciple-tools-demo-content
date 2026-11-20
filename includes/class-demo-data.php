@@ -26,6 +26,9 @@ class DT_Demo_Data {
 
         /** START PRE-PROCESSING */
 
+        // role rows belong to the installing site, not the network's main site
+        $sql['usermeta'] = str_replace( [ "'dt14330_capabilities'", "'dt14330_user_level'" ], [ "'" . $wpdb->get_blog_prefix() . "capabilities'", "'" . $wpdb->get_blog_prefix() . "user_level'" ], $sql['usermeta'] );
+
         // update table names
         foreach ( $sql as $key => $query ) {
             if ( 'users' === $key || 'usermeta' === $key ) {

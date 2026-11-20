@@ -163,6 +163,9 @@ class DT_Demo_Endpoints
 
     public function install_demo_data( WP_REST_Request $request ){
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
+            if ( is_multisite() && ! user_can( get_current_user_id(), 'create_users' ) ) {
+                return new WP_Error( __METHOD__, 'Sample content creates network users, which requires permission to create users on this network', array( 'status' => 403 ) );
+            }
             return DT_Demo_Data::install_data();
 //            return DT_Demo_Data::install_test_data();
         } else {
@@ -309,6 +312,9 @@ class DT_Demo_Endpoints
 
     public function add_users( WP_REST_Request $request ){
         if ( user_can( get_current_user_id(), 'manage_dt' ) ) {
+            if ( is_multisite() && ! user_can( get_current_user_id(), 'create_users' ) ) {
+                return new WP_Error( __METHOD__, 'Sample content creates network users, which requires permission to create users on this network', array( 'status' => 403 ) );
+            }
             global $wpdb;
             require_once( 'class-users.php' );
             require_once( 'randomizer.php' );
